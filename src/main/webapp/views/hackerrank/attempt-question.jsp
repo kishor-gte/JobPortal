@@ -739,6 +739,21 @@
             border-color: rgba(0,0,0,0.1) !important;
             color: #1e293b !important;
         }
+        body.light-mode .lang-selector select option {
+            background: #ffffff !important;
+            color: #1e293b !important;
+        }
+        body.light-mode .lang-selector label {
+            color: #475569 !important;
+        }
+        body.light-mode .timer-badge {
+            background: rgba(217, 119, 6, 0.08) !important;
+            border-color: rgba(217, 119, 6, 0.2) !important;
+            color: #b45309 !important;
+        }
+        body.light-mode .timer-badge i {
+            color: #b45309 !important;
+        }
         body.light-mode .problem-panel {
             background: rgba(255,255,255,0.8) !important;
             border-right-color: rgba(0,0,0,0.08) !important;
@@ -749,6 +764,7 @@
         body.light-mode .problem-title { 
             color: var(--primary) !important;
             -webkit-text-fill-color: var(--primary) !important;
+            background-clip: text;
         }
         body.light-mode .problem-desc { color: #475569 !important; }
         body.light-mode .problem-section h3 { color: var(--primary) !important; }
@@ -777,6 +793,14 @@
             color: var(--primary-dark) !important;
         }
         body.light-mode .theme-toggle-label { color: #64748b !important; }
+        body.light-mode .toolbar-left .file-tab {
+            color: #334155 !important;
+            background: rgba(0, 0, 0, 0.04) !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        body.light-mode .sample-block-header span {
+            color: #475569 !important;
+        }
 
         /* Theme toggle */
         .theme-toggle-wrapper {
