@@ -139,8 +139,10 @@ public class HackerrankController {
         if (user != null) {
             int completedCount = performanceDAO.countSolvedCodingQuestionsByStudent(user.getId());
             model.addAttribute("completedCount", completedCount);
+            model.addAttribute("solvedQuestionIds", performanceDAO.getSolvedCodingQuestionIdsByStudent(user.getId()));
         } else {
             model.addAttribute("completedCount", 0);
+            model.addAttribute("solvedQuestionIds", new java.util.ArrayList<Long>());
         }
         
         // Add categories for filter dropdown
@@ -193,6 +195,7 @@ public class HackerrankController {
                                @RequestParam String questionType,
                                @RequestParam String answer,
                                @RequestParam int timeTaken,
+                               @RequestParam(required = false, defaultValue = "java") String language,
                                @RequestParam(required = false, defaultValue = "NORMAL") String submissionStatus,
                                HttpSession session,
                                RedirectAttributes redirectAttrs) {
@@ -226,7 +229,7 @@ public class HackerrankController {
                     if (cq != null && answer != null && !answer.trim().isEmpty()) {
                         // Execute the code and compare with expected sample output
                         try {
-                            isCorrect = executeAndValidateCode(answer, cq.getSampleOutput(), cq.getSampleInput());
+                            isCorrect = executeAndValidateCode(answer, cq.getSampleOutput(), cq.getSampleInput(), language);
                         } catch (Exception e) {
                             System.err.println("Code execution error: " + e.getMessage());
                             redirectAttrs.addFlashAttribute("error", "Code execution failed: " + e.getMessage());
@@ -997,10 +1000,11 @@ public class HackerrankController {
     }
 
     // Method to execute and validate code against expected solution
-    private boolean executeAndValidateCode(String userCode, String expectedOutput, String input) {
+    private boolean executeAndValidateCode(String userCode, String expectedOutput, String input, String language) {
         try {
             // Default to Java for validation if not specified
-            Map<String, Object> result = executeCodeWithWandbox(userCode, input, "java");
+            String lang = (language != null && !language.isEmpty()) ? language : "java";
+            Map<String, Object> result = executeCodeWithWandbox(userCode, input, lang);
             String stdout = (String) result.get("stdout");
             int exitCode = (int) result.get("exitCode");
             

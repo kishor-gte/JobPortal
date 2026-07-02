@@ -1164,6 +1164,7 @@
         <input type="hidden" name="questionType" value="CODING">
         <input type="hidden" name="timeTaken" id="timeTakenInput" value="0">
         <input type="hidden" name="answer" id="answerInput">
+        <input type="hidden" name="language" id="languageInput" value="java">
         <input type="hidden" name="submissionStatus" id="submissionStatusInput" value="NORMAL">
     </form>
     
@@ -1384,6 +1385,7 @@
         function submitCode(status = 'NORMAL') {
             document.getElementById('answerInput').value = editor.getValue();
             document.getElementById('timeTakenInput').value = timeElapsed;
+            document.getElementById('languageInput').value = document.getElementById('languageSelect').value;
             document.getElementById('submissionStatusInput').value = status;
             document.getElementById('submitForm').submit();
         }

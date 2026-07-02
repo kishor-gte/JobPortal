@@ -239,6 +239,21 @@ public class PerformanceDAO {
         }
     }
 
+    /**
+     * Returns a list of distinct coding question IDs that a student has solved.
+     */
+    public List<Long> getSolvedCodingQuestionIdsByStudent(Long studentId) {
+        try {
+            return jdbcTemplate.queryForList(
+                    "SELECT DISTINCT question_id FROM student_answers " +
+                    "WHERE student_id = ? AND question_type = 'CODING' AND is_correct = TRUE",
+                    Long.class, studentId);
+        } catch (Exception e) {
+            logger.error("Error fetching solved coding question IDs for student {}", studentId, e);
+            return java.util.Collections.emptyList();
+        }
+    }
+
     // Update or create performance score
     public void updatePerformanceScore(Long studentId, Long categoryId) {
         // calculate from student_answers

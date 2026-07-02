@@ -807,6 +807,11 @@
                      data-category="${not empty q.categoryName ? q.categoryName.toLowerCase() : ''}">
                     <div class="question-header">
                         <h3>${q.title}</h3>
+                        <c:if test="${not empty solvedQuestionIds && solvedQuestionIds.contains(q.id)}">
+                            <div class="completion-badge" title="Solved">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </c:if>
                     </div>
                     <p>${q.description}</p>
                     <div class="question-footer">
