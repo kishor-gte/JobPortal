@@ -793,6 +793,14 @@
             color: var(--primary-dark) !important;
         }
         body.light-mode .theme-toggle-label { color: #64748b !important; }
+        body.light-mode .toolbar-left .file-tab {
+            color: #334155 !important;
+            background: rgba(0, 0, 0, 0.04) !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        body.light-mode .sample-block-header span {
+            color: #475569 !important;
+        }
 
         /* Theme toggle */
         .theme-toggle-wrapper {
