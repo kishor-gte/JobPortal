@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Privacy Policy - JobU | Your Data Security Matters</title>
+    <meta name="description" content="Privacy Policy - JobU - Learn how we collect, use, and protect your personal information" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- External CSS (preserved for backend compatibility) -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/icon.css" />
+
+    <!-- ========== PREMIUM PRIVACY POLICY PAGE - WOW ANIMATIONS ========== -->
+    <style>
+        :root {
+            --primary: #19A77B;
+            --primary-dark: #148F69;
+            --primary-light: #3BC49A;
+            --primary-glow: rgba(25,167,123,0.2);
+            --accent: #3BC49A;
+            --dark-bg: #1a2c2f;
+            --gradient-primary: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
+            --gradient-dark: linear-gradient(135deg, #1e2f32 0%, #2E3E41 100%);
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --shadow-md: 0 20px 30px -12px rgba(25,167,123,0.15);
+            --shadow-lg: 0 30px 50px -15px rgba(0,0,0,0.2);
+            --transition: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #e6f4ef; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* Header Navbar - Enhanced Glassmorphism */
+        .navbar-area {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(25,167,123,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand img.logo1 { transition: transform 0.4s ease; height: 75px; width: auto; }
+        .navbar-brand:hover img.logo1 { transform: scale(1.03) rotate(2deg); }
+        .nav-item a {
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+            margin: 0 6px;
+            color: #2E3E41 !important;
+        }
+        .nav-item a::before,
+        .nav-item a::after {
+            display: none !important;
+        }
+        .nav-item a.active {
+            color: var(--primary) !important;
+        }
+        .nav-item a:hover { color: var(--primary) !important; transform: translateY(-2px); }
+
+        /* ========== BREADCRUMBS - PREMIUM HERO SECTION ========== */
+        .breadcrumbs {
+            position: relative;
+            min-height: 50vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(25,167,123,0.55) 100%), 
+                        url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2070&auto=format');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: white;
+            padding: 100px 0 80px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Funky Floating Elements */
+        .breadcrumbs .funky-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: funkyFloat 8s infinite ease-in-out;
+        }
+        .funky-orb-1 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(59,196,154,0.25) 0%, transparent 70%); top: 10%; left: -50px; animation-delay: 0s; }
+        .funky-orb-2 { width: 150px; height: 150px; background: radial-gradient(circle, rgba(25,167,123,0.2) 0%, transparent 70%); bottom: 15%; right: -30px; animation-delay: 1s; }
+        .funky-orb-3 { width: 100px; height: 100px; background: radial-gradient(circle, rgba(72,219,251,0.2) 0%, transparent 70%); top: 50%; left: 20%; animation-delay: 2s; }
+        
+        @keyframes funkyFloat {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.4; }
+            25% { transform: translate(30px, -40px) scale(1.1) rotate(90deg); opacity: 0.6; }
+            50% { transform: translate(-20px, 30px) scale(0.9) rotate(180deg); opacity: 0.5; }
+            75% { transform: translate(40px, 20px) scale(1.05) rotate(270deg); opacity: 0.7; }
+        }
+
+        /* Dancing Shapes */
+        .breadcrumbs .dancing-shape {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            animation: dance 6s infinite alternate;
+        }
+        @keyframes dance {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; }
+            100% { transform: translateY(-40px) rotate(15deg) scale(1.2); opacity: 0.6; }
+        }
+
+        .breadcrumbs-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .breadcrumbs-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #3BC49A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textShine 3s infinite, textWobble 2s infinite alternate;
+        }
+        @keyframes textShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes textWobble {
+            0% { letter-spacing: -0.02em; transform: scale(1); }
+            100% { letter-spacing: 0.02em; transform: scale(1.02); }
+        }
+        .breadcrumbs-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.95);
+            animation: fadeSlideUp 0.8s ease;
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+            animation: bounceIn 1s ease;
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            60% { opacity: 1; transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .breadcrumb-nav li a { color: #3BC49A; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .breadcrumb-nav li a:hover { color: white; text-shadow: 0 0 10px rgba(59,196,154,0.8); }
+        .breadcrumb-nav li:not(:last-child):after { content: '➜'; margin-left: 10px; color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+
+        /* ========== PRIVACY SECTION PREMIUM ========== */
+        .privacy-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .privacy-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(25,167,123,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatBg 20s infinite alternate;
+        }
+        @keyframes floatBg {
+            0% { transform: translate(0,0); opacity: 0.3; }
+            100% { transform: translate(60px, 40px); opacity: 0.6; }
+        }
+
+        /* Section Title Premium */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title span {
+            color: #ffffff !important;
+            font-weight: 800;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            display: inline-block;
+            position: relative;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { text-shadow: 0 0 0px rgba(25,167,123,0); }
+            50% { text-shadow: 0 0 10px rgba(25,167,123,0.5); }
+        }
+        .section-title span::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a2c2f, var(--primary), #ff9ff3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: 25px;
+            animation: titleShimmer 4s infinite;
+        }
+        @keyframes titleShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .section-title p {
+            color: #000000;
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 15px auto 0;
+        }
+
+        /* Privacy Cards - Premium Design with 3D Hover */
+        .privacy-card {
+            background: white;
+            border-radius: 28px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            display: block;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 30px;
+            border: 1px solid rgba(25,167,123,0.12);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            animation: cardFloatIn 0.8s ease backwards;
+        }
+        @keyframes cardFloatIn {
+            from { opacity: 0; transform: translateY(60px) rotate(-2deg); }
+            to { opacity: 1; transform: translateY(0) rotate(0deg); }
+        }
+        .privacy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59,196,154,0.1), transparent);
+            transition: left 0.7s;
+        }
+        .privacy-card:hover::before { left: 100%; }
+        .privacy-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+            transform-origin: left;
+        }
+        .privacy-card:hover::after { transform: scaleX(1); }
+        .privacy-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 40px 55px -20px rgba(25,167,123,0.35);
+            border-color: var(--primary-light);
+        }
+        .privacy-card .icon {
+            width: 75px;
+            height: 75px;
+            background: linear-gradient(135deg, #e6f4ef, #d0ebe2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+            animation: iconPulse 3s infinite;
+        }
+        @keyframes iconPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(25,167,123,0.2); }
+            50% { box-shadow: 0 0 0 15px rgba(25,167,123,0.08); }
+        }
+        .privacy-card:hover .icon {
+            background: var(--gradient-primary);
+            transform: scale(1.1) rotate(360deg);
+            transition: transform 0.6s ease;
+        }
+        .privacy-card .icon i {
+            font-size: 34px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .privacy-card:hover .icon i {
+            color: white;
+            transform: scale(1.1);
+        }
+        .privacy-card h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #1a2c2f;
+            transition: var(--transition);
+        }
+        .privacy-card:hover h3 {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .privacy-card p {
+            color: #000000;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer Premium */
+        .footer {
+            background: var(--gradient-dark) !important;
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(25,167,123,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: footerGlow 15s infinite alternate;
+        }
+        @keyframes footerGlow {
+            0% { transform: translate(0,0) scale(1); opacity: 0.3; }
+            100% { transform: translate(-50px, 30px) scale(1.2); opacity: 0.6; }
+        }
+        .footer .logo img { height: 70px; width: auto; }
+        .footer .btn {
+            background: var(--gradient-primary);
+            border: none;
+            transition: var(--transition);
+            font-weight: 600;
+            color: white;
+        }
+        .footer .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 20px rgba(25,167,123,0.5); }
+        .footer-social a {
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            transform: translateY(-5px) rotate(8deg);
+            background-color: var(--primary) !important;
+        }
+
+        /* Animations */
+        .wow { visibility: hidden; }
+
+        @media (max-width: 768px) {
+            .breadcrumbs { min-height: 40vh; background-attachment: scroll; }
+            .breadcrumbs-content h1 { font-size: 2.2rem; }
+            .section-title h2 { font-size: 1.9rem; }
+            .privacy-card { padding: 25px 20px; }
+            .navbar-brand img.logo1 { height: 55px; }
+            .funky-orb-1, .funky-orb-2, .funky-orb-3 { display: none; }
+            .dancing-shape { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Start Header Area - BACKEND STRUCTURE UNCHANGED -->
+    <header class="header other-page">
+        <div class="navbar-area">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand logo" href="index.html">
+                        <img class="logo1" src="assets/images/logo/logo.png" alt="Logo" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                        <ul id="nav" class="navbar-nav ml-auto">
+                            <li class="nav-item"><a href="home.html">Home</a></li>
+                            <li class="nav-item"><a href="services.html">Services</a></li>
+                            <li class="nav-item"><a href="faq.html">FAQ</a></li>
+                            <li class="nav-item"><a href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a href="terms-conditions.html">Terms & Conditions</a></li>
+                            <li class="nav-item"><a class="active" href="policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs - PREMIUM HERO SECTION -->
+    <div class="breadcrumbs">
+        <div class="funky-orb funky-orb-1"></div>
+        <div class="funky-orb funky-orb-2"></div>
+        <div class="funky-orb funky-orb-3"></div>
+        <div class="dancing-shape" style="top: 15%; left: 5%;">🔒</div>
+        <div class="dancing-shape" style="bottom: 20%; right: 8%; animation-duration: 5s;">🛡️</div>
+        <div class="dancing-shape" style="top: 40%; right: 12%; animation-duration: 7s;">🔐</div>
+        <div class="dancing-shape" style="bottom: 35%; left: 10%; animation-duration: 6s;">📋</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-content wow fadeInUp" data-wow-delay=".2s">
+                        <h1 class="page-title">Privacy Policy</h1>
+                        <p>How we collect, use, and protect your information on JobU.</p>
+                    </div>
+                    <ul class="breadcrumb-nav wow fadeInUp" data-wow-delay=".3s">
+                        <li><a href="index.html">Home</a></li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Privacy Section - PREMIUM CARDS -->
+    <section class="privacy-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <span class="wow fadeInDown" data-wow-delay=".2s">Policy Overview</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Privacy Policy</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Your privacy matters. Learn how we handle your data responsibly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- 1. Data Collection -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".1s">
+                        <div class="icon"><i class="fas fa-database"></i></div>
+                        <h3>Data Collected</h3>
+                        <p>We collect personal and usage data for better services.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Usage -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".2s">
+                        <div class="icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Data Usage</h3>
+                        <p>Data is used to match job seekers and improve experiences.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Sharing -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".3s">
+                        <div class="icon"><i class="fas fa-share-alt"></i></div>
+                        <h3>Data Sharing</h3>
+                        <p>We don't sell your info. Shared only with trusted partners.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Security -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".4s">
+                        <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Data Security</h3>
+                        <p>Your info is encrypted and stored securely.</p>
+                    </div>
+                </div>
+
+                <!-- 5. User Rights -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".5s">
+                        <div class="icon"><i class="fas fa-user-shield"></i></div>
+                        <h3>Your Rights</h3>
+                        <p>You can access, update, or delete your personal data.</p>
+                    </div>
+                </div>
+
+                <!-- 6. Cookies -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".6s">
+                        <div class="icon"><i class="fas fa-cookie-bite"></i></div>
+                        <h3>Cookies</h3>
+                        <p>Cookies help personalize your experience on the platform.</p>
+                    </div>
+                </div>
+
+                <!-- 7. Updates -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".7s">
+                        <div class="icon"><i class="fas fa-sync-alt"></i></div>
+                        <h3>Policy Changes</h3>
+                        <p>We may update this policy. Please review it periodically.</p>
+                    </div>
+                </div>
+
+                <!-- 8. Third Parties -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="privacy-card wow fadeInUp" data-wow-delay=".8s">
+                        <div class="icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Third-Party Tools</h3>
+                        <p>Some features use third-party services with their own policies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Privacy Section -->
+
+    <!-- Start Footer - PREMIUM -->
+    <footer class="footer" style="font-family: 'Inter', sans-serif;">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-6 col-md-6 col-12 mb-4">
+                    <div class="single-footer">
+                        <div class="logo mb-3">
+                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+                        </div>
+                        <p style="color: #cbd5e1;">Turn your ambitions into achievements — explore jobs that fit your future.</p>
+                        <ul class="contact-address mt-3" style="list-style: none; padding-left: 0; color: #cbd5e1;">
+                            <li><strong>Email:</strong> fightthefireapp123@gmail.com</li>
+                        </ul>
+                        <div class="footer-social mt-3">
+                            <ul style="padding-left: 0; list-style: none; display: flex; gap: 15px;">
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-facebook-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-twitter-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-linkedin-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-pinterest" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="single-footer newsletter">
+                        <h3 style="color: #ffffff;">Join Our Newsletter</h3>
+                        <p style="color: #cbd5e1;">Subscribe to get the latest jobs, alerts, and updates directly in your inbox.</p>
+                        <form action="/subscribe" method="post" class="newsletter-inner mt-3" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <input name="email" type="email" required placeholder="Your email address"
+                                class="common-input"
+                                style="padding: 12px; flex: 1; border: 1px solid #475569; border-radius: 50px; background-color: rgba(255,255,255,0.1); color: #ffffff;">
+                            <button class="btn" style="background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 50px; font-weight: 600;">Subscribe Now!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom pt-4 pb-3 border-top" style="border-color: rgba(255,255,255,0.2);">
+                <div class="row">
+                    <div class="col-md-6 col-12 text-start">
+                        <p style="margin: 0;">&copy; JobU. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 col-12 text-end">
+                        <ul style="list-style: none; display: flex; gap: 20px; justify-content: end; padding-left: 0; margin: 0;">
+                            <li><a href="terms-conditions.html" style="color: #cbd5e1;">Terms</a></li>
+                            <li><a href="policy.html" style="color: #cbd5e1;">Privacy</a></li>
+                            <li><a href="faq.html" style="color: #cbd5e1;">FAQ</a></li>
+                            <li><a href="contact.html" style="color: #cbd5e1;">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- ========================= JS ========================= -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Initialize WOW.js for scroll animations
+        new WOW().init();
+    </script>
+</body>
+
+</html>

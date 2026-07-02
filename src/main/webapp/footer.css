@@ -1,0 +1,24 @@
+.footer .btn:hover {
+  background-color: #081828;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.footer-social i:hover {
+  color: #ffffff; /* White on hover for icons */
+  transition: 0.3s ease;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+input::placeholder {
+    color:#ffffff; /* slightly darker than white */
+    opacity: 1;
+}

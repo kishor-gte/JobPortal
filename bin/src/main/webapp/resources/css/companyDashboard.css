@@ -1,0 +1,280 @@
+ :root {
+    --primary-color: #2042e3;
+    --primary-hover: #081828;
+    --background-light: #f6f9fc;
+    --white: #ffffff;
+    --box-shadow: rgba(35, 38, 45, 0.15);
+    --icon-bg-tint: #2042e31c;
+    --text-primary: #081828;
+    --text-secondary: #7E8890;
+    --border-light: #eee;
+    --font-main: "Inter", sans-serif;
+}
+/*
+body {
+    margin: 0;
+    font-family: var(--font-main);
+    background-color: var(--background-light);
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 20px 40px;
+    font-size: 26px;
+    font-weight: bold;
+    position: relative;
+}
+
+.logout-btn {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    padding: 8px 16px;
+    background-color: var(--white);
+    color: var(--primary-color);
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #e6e6e6;
+}
+
+Hero Section Styling
+.hero-section {
+    background-image: url('/resources/images/hero/company2.jpg'); Make sure this path exists
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+    text-align: center;
+    color: var(--white);
+    position: relative;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(32, 66, 227, 0.6); Bluenova theme overlay
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+ */
+/* .cta-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px var(--box-shadow);
+}
+
+
+
+.cta-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.cta-btn:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px var(--box-shadow);
+      transform: scale(1.05);
+} */
+/* .single-company-card .fa-building {
+  background-color: #2042e31c;
+  color: #2042e3;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+} */
+
+
+
+/* Existing Styles */
+/* .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+} */
+
+.company-control {
+  background-color: var(--background-light);
+  padding: 60px 0;
+   position: relative;
+   z-index: 10;
+   display: block;
+}
+.company-control .section-title {
+    margin-bottom: 40px; /* Adjust as needed */
+}
+
+.company-control .section-title span {
+  font-size: 14px;
+  color: var(--primary-color);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.company-control .section-title h2 {
+  font-size: 28px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.company-control .section-title p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.single-company-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  text-align: center;
+  padding: 30px 20px;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1rem 3rem var(--box-shadow);
+  display: block;
+  text-decoration: none;
+}
+
+.single-company-card:hover {
+  transform: translateY(-6px);
+  background-color: var(--white);
+}
+
+.single-company-card .icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--icon-bg-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.single-company-card .icon i {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+
+.single-company-card h3 {
+  font-size: 16px;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+}
+.breadcrumbs.overlay {
+  background: url(var(--context-path) +'/resources/images/hero/company2.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  padding: 80px 0;
+  position: relative;
+  z-index: 1;
+}
+.breadcrumbs.overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ /* background-color: rgba(8, 24, 40, 0.6); /* Optional dark overlay */
+  z-index: -1;
+}
+
+
+footer {
+    background-color: #2042e3;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.notif-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #f2f4ff;
+    color: #2042e3;
+    font-size: 18px;
+    position: relative;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.notif-btn:hover {
+    background: #e0e6ff;
+    color: #081828;
+}
+
+.notif-count {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #e63946;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+

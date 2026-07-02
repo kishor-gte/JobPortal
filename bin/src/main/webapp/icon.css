@@ -1,0 +1,66 @@
+@charset "UTF-8";
+.bi {
+    font-family: "Bootstrap Icons" !important;
+    font-style: normal;
+    font-weight: normal;
+    speak: never;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    white-space: nowrap;
+    direction: ltr;
+}
+/* Service Section Style */
+.job-category .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.job-category .single-cat {
+    background-color: #e6f0ff;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.job-category .single-cat:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.job-category .single-cat .icon {
+    background-color: #0052cc;
+    color: white;
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.job-category .single-cat .icon i {
+    font-size: 30px; /* Increase icon size */
+}
+
+.job-category h3 {
+    font-size: 20px;
+    color: #081828;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.job-category p {
+    font-size: 14px;
+    color: #7E8890;
+    line-height: 1.6;
+}
+
+/* Add Hover Effect on Service Items */
+.job-category .single-cat:hover .icon {
+    background-color: #081828; /* Change icon background color on hover */
+}
+
+.job-category .wow {
+    animation-duration: 1.5s;
+}

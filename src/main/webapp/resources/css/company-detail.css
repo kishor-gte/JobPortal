@@ -1,0 +1,181 @@
+:root {
+  --primary-color: #2042e3;
+  --primary-hover: #081828;
+  --background-light: #f6f9fc;
+  --white: #ffffff;
+  --box-shadow: rgba(35, 38, 45, 0.15);
+  --icon-bg-tint: #2042e31c;
+  --text-primary: #081828;
+  --text-secondary: #7E8890;
+  --border-light: #eee;
+  --font-main: "Inter", sans-serif;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--background-light);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 30px;
+}
+
+.company-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--box-shadow);
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.company-logo {
+    height: 100px;
+    width: 100px;
+    border-radius: 12px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    background-color: var(--white);
+    padding: 8px;
+}
+
+.company-title h2 {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.company-website a {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.company-website a:hover {
+    color: var(--primary-hover);
+}
+
+.average-rating {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.rating-stars {
+    color: #ffc107;
+}
+
+.dropdown-btn, .review-toggle-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 10px;
+    border: none;
+    text-align: left;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.dropdown-btn:hover, .review-toggle-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding-left: 15px;
+    margin-top: 10px;
+}
+
+.dropdown-content.show {
+    max-height: 1000px;
+}
+
+.job-card, .review-card {
+    background: var(--white);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+}
+
+.job-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.job-card a:hover {
+    color: var(--primary-hover);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--border-light);
+}
+
+.culture-video-link {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+.culture-video-link i {
+    margin-right: 8px; /* Adjust the space as needed */
+}
+
+.culture-video-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.review-meta {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+/* Job Opportunities Dropdown Content */
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding-left: 15px;
+    margin-top: 10px;
+}
+
+/* Job title styling inside dropdown */
+.job-card {
+    background-color: var(--white);
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 16px; /* Clear and readable font size */
+    color: var(--text-primary);
+    font-weight: 600; /* Slightly bolder to make it stand out */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+/* Job title links styling */
+.job-card a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600; /* Bold text to make job titles stand out */
+}
+
+/* Ensure good separation between the job titles */
+.job-card + .job-card {
+    margin-top: 10px;
+}

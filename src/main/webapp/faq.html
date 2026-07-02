@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>FAQ - JobU | Frequently Asked Questions</title>
+    <meta name="description" content="Find answers to common questions about job searching, recruitment, and using JobU platform." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- External CSS (preserved for backend compatibility) -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <!-- ========== PREMIUM FAQ PAGE STYLING - WOW EFFECT ========== -->
+    <style>
+        :root {
+            --primary: #19A77B;
+            --primary-dark: #148F69;
+            --primary-light: #3BC49A;
+            --primary-glow: rgba(25,167,123,0.2);
+            --accent: #3BC49A;
+            --dark-bg: #1a2c2f;
+            --gradient-primary: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
+            --gradient-dark: linear-gradient(135deg, #1e2f32 0%, #2E3E41 100%);
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --shadow-md: 0 20px 30px -12px rgba(25,167,123,0.15);
+            --shadow-lg: 0 30px 50px -15px rgba(0,0,0,0.2);
+            --transition: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #e6f4ef; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* Header Navbar - Enhanced Glassmorphism */
+        .navbar-area {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(25,167,123,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand img.logo1 { transition: transform 0.4s ease; height: 75px; width: auto; }
+        .navbar-brand:hover img.logo1 { transform: scale(1.03) rotate(2deg); }
+        .nav-item a {
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+            margin: 0 6px;
+            color: #2E3E41 !important;
+        }
+        .nav-item a::before,
+        .nav-item a::after {
+            display: none !important;
+        }
+        .nav-item a.active {
+            color: var(--primary) !important;
+        }
+        .nav-item a:hover { color: var(--primary) !important; transform: translateY(-2px); }
+
+        /* ========== BREADCRUMBS - PREMIUM HERO SECTION ========== */
+        .breadcrumbs {
+            position: relative;
+            min-height: 55vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(25,167,123,0.55) 100%), 
+                        url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2069&auto=format');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: white;
+            padding: 100px 0 80px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Funky Floating Elements */
+        .breadcrumbs .funky-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: funkyFloat 8s infinite ease-in-out;
+        }
+        .funky-orb-1 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(59,196,154,0.25) 0%, transparent 70%); top: 10%; left: -50px; animation-delay: 0s; }
+        .funky-orb-2 { width: 150px; height: 150px; background: radial-gradient(circle, rgba(25,167,123,0.2) 0%, transparent 70%); bottom: 15%; right: -30px; animation-delay: 1s; }
+        .funky-orb-3 { width: 100px; height: 100px; background: radial-gradient(circle, rgba(72,219,251,0.2) 0%, transparent 70%); top: 50%; left: 20%; animation-delay: 2s; }
+        
+        @keyframes funkyFloat {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.4; }
+            25% { transform: translate(30px, -40px) scale(1.1) rotate(90deg); opacity: 0.6; }
+            50% { transform: translate(-20px, 30px) scale(0.9) rotate(180deg); opacity: 0.5; }
+            75% { transform: translate(40px, 20px) scale(1.05) rotate(270deg); opacity: 0.7; }
+        }
+
+        .breadcrumbs-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .breadcrumbs-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #3BC49A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textShine 3s infinite;
+        }
+        @keyframes textShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .breadcrumbs-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.95);
+            animation: fadeSlideUp 0.8s ease;
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .breadcrumb-nav li a { color: #3BC49A; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .breadcrumb-nav li a:hover { color: white; text-shadow: 0 0 10px rgba(59,196,154,0.8); }
+        .breadcrumb-nav li:not(:last-child):after { content: '➜'; margin-left: 10px; color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+
+        /* ========== FAQ SECTION PREMIUM ========== */
+        .faq {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .faq::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(25,167,123,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Section Title Premium */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title span {
+            color: #ffffff !important;
+            font-weight: 800;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            display: inline-block;
+            position: relative;
+        }
+        .section-title span::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a2c2f, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: 25px;
+        }
+        .section-title p {
+            color: #000000;
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 15px auto 0;
+        }
+
+        /* Accordion Cards - Premium Design */
+        .faq-accordion {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .faq-card {
+            background: white;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(25,167,123,0.12);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .faq-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(25,167,123,0.25);
+        }
+        .faq-header {
+            background: white;
+            padding: 0;
+        }
+        .faq-button {
+            width: 100%;
+            text-align: left;
+            padding: 22px 28px;
+            background: none;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a2c2f;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-button:hover {
+            color: var(--primary);
+        }
+        .faq-button i:first-child {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-right: 15px;
+        }
+        .faq-button .chevron-icon {
+            color: var(--primary);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        .faq-button[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg);
+        }
+        .faq-body {
+            padding: 0 28px 28px 68px;
+            color: #000000;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .faq-body p {
+            margin: 0;
+        }
+
+        /* Footer Premium */
+        .footer {
+            background: var(--gradient-dark) !important;
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(25,167,123,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: footerGlow 15s infinite alternate;
+        }
+        @keyframes footerGlow {
+            0% { transform: translate(0,0) scale(1); opacity: 0.3; }
+            100% { transform: translate(-50px, 30px) scale(1.2); opacity: 0.6; }
+        }
+        .footer .logo img { height: 70px; width: auto; }
+        .footer .btn {
+            background: var(--gradient-primary);
+            border: none;
+            transition: var(--transition);
+            font-weight: 600;
+            color: white;
+        }
+        .footer .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 20px rgba(25,167,123,0.5); }
+        .footer-social a {
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            transform: translateY(-5px) rotate(8deg);
+            background-color: var(--primary) !important;
+        }
+
+        /* Animations */
+        .wow { visibility: hidden; }
+
+        @media (max-width: 768px) {
+            .breadcrumbs { min-height: 45vh; background-attachment: scroll; }
+            .breadcrumbs-content h1 { font-size: 2.2rem; }
+            .section-title h2 { font-size: 1.9rem; }
+            .faq-button { padding: 18px 20px; font-size: 0.95rem; }
+            .faq-body { padding: 0 20px 20px 55px; }
+            .navbar-brand img.logo1 { height: 55px; }
+            .funky-orb-1, .funky-orb-2, .funky-orb-3 { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Start Header Area - BACKEND STRUCTURE UNCHANGED -->
+    <header class="header other-page">
+        <div class="navbar-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand logo" href="index.html">
+                                <img class="logo1" src="assets/images/logo/logo.png" alt="Logo" />
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ml-auto">
+                                    <li class="nav-item"><a href="home.html">Home</a></li>
+                                    <li class="nav-item"><a href="services.html">Services</a></li>
+                                    <li class="nav-item"><a class="active" href="faq.html">FAQ</a></li>
+                                    <li class="nav-item"><a href="contact.html">Contact</a></li>
+                                    <li class="nav-item"><a href="terms-conditions.html">Terms & Conditions</a></li>
+                                    <li class="nav-item"><a href="policy.html">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                            <div class="button">
+                                <!-- Login/Signup buttons removed as per original backend -->
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs - PREMIUM HERO SECTION -->
+    <div class="breadcrumbs">
+        <div class="funky-orb funky-orb-1"></div>
+        <div class="funky-orb funky-orb-2"></div>
+        <div class="funky-orb funky-orb-3"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-content wow fadeInUp" data-wow-delay=".2s">
+                        <h1 class="page-title">Frequently Asked Questions</h1>
+                        <p>Your questions answered about job searching, recruitment, and more.</p>
+                    </div>
+                    <ul class="breadcrumb-nav wow fadeInUp" data-wow-delay=".3s">
+                        <li><a href="index.html">Home</a></li>
+                        <li>FAQ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start FAQ Section - PREMIUM ACCORDION -->
+    <section class="faq">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <span class="wow fadeInDown" data-wow-delay=".2s">Need Help?</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Frequently Asked Questions</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Here are some common queries we've answered for your clarity and ease.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-accordion">
+                <!-- Q1 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".1s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-file-earmark-check-fill"></i> How do I apply for a job?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Just sign in to your JobU account, browse jobs, and click "Apply". Make sure your profile is updated!</p>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".2s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-bookmark-star-fill"></i> Can I save jobs to apply later?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Yes! Click the bookmark icon on any job listing to save it for later.</p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".3s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-bullseye"></i> How does JobU match me with the right job?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>JobU recommends jobs based on your skills, experience, and recent activity on the platform.</p>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".4s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-shield-lock-fill"></i> Are job postings on JobU verified?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Yes. Our team verifies employers and manually checks job posts to ensure authenticity and safety.</p>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".5s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-graph-up-arrow"></i> How do I track my job applications?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>You can check statuses like "Viewed", "Shortlisted", or "Interview Requested" in your dashboard.</p>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".6s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-building-check"></i> How does JobU verify companies?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>We review company documents, registration details, and past hiring activity before approval.</p>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".7s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-pencil-square"></i> Can I update my profile after applying?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Yes, you can update your profile anytime.</p>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".8s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-exclamation-triangle-fill"></i> What should I do if I find a suspicious job?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Click "Report Job". Our safety team reviews flagged listings within 24–48 hours.</p>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay=".9s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-rocket-takeoff-fill"></i> How can I improve my chances of getting hired?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Complete your profile, upload a polished resume, add skills, and apply early to new postings.</p>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="faq-card wow fadeInUp" data-wow-delay="1.0s">
+                    <div class="faq-header">
+                        <button class="faq-button" onclick="toggleFAQ(this)">
+                            <span><i class="bi bi-bell-fill"></i> Does JobU offer job alerts?</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="faq-body">
+                        <p>Yes! Subscribe to our newsletter to receive personalized job alerts based on your profile.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End FAQ Section -->
+
+    <!-- Start Footer - PREMIUM -->
+    <footer class="footer" style="font-family: 'Inter', sans-serif;">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-6 col-md-6 col-12 mb-4">
+                    <div class="single-footer">
+                        <div class="logo mb-3">
+                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+                        </div>
+                        <p style="color: #cbd5e1;">Turn your ambitions into achievements — explore jobs that fit your future.</p>
+                        <ul class="contact-address mt-3" style="list-style: none; padding-left: 0; color: #cbd5e1;">
+                            <li><strong>Email:</strong> fightthefireapp123@gmail.com</li>
+                        </ul>
+                        <div class="footer-social mt-3">
+                            <ul style="padding-left: 0; list-style: none; display: flex; gap: 15px;">
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-facebook-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-twitter-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-linkedin-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-pinterest" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="single-footer newsletter">
+                        <h3 style="color: #ffffff;">Join Our Newsletter</h3>
+                        <p style="color: #cbd5e1;">Subscribe to get the latest jobs, alerts, and updates directly in your inbox.</p>
+                        <form action="/subscribe" method="post" class="newsletter-inner mt-3" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <input name="email" type="email" required placeholder="Your email address"
+                                class="common-input"
+                                style="padding: 12px; flex: 1; border: 1px solid #475569; border-radius: 50px; background-color: rgba(255,255,255,0.1); color: #ffffff;">
+                            <button class="btn" style="background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 50px; font-weight: 600;">Subscribe Now!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom pt-4 pb-3 border-top" style="border-color: rgba(255,255,255,0.2);">
+                <div class="row">
+                    <div class="col-md-6 col-12 text-start">
+                        <p style="margin: 0;">&copy; JobU. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 col-12 text-end">
+                        <ul style="list-style: none; display: flex; gap: 20px; justify-content: end; padding-left: 0; margin: 0;">
+                            <li><a href="terms-conditions.html" style="color: #cbd5e1;">Terms</a></li>
+                            <li><a href="policy.html" style="color: #cbd5e1;">Privacy</a></li>
+                            <li><a href="faq.html" style="color: #cbd5e1;">FAQ</a></li>
+                            <li><a href="contact.html" style="color: #cbd5e1;">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- ========================= JS ========================= -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/animate.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Initialize WOW.js for scroll animations
+        new WOW().init();
+
+        // FAQ Toggle Functionality
+        function toggleFAQ(button) {
+            const faqCard = button.closest('.faq-card');
+            const body = faqCard.querySelector('.faq-body');
+            const isOpen = body.style.display === 'block';
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-card .faq-body').forEach(item => {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.faq-button .chevron-icon').forEach(icon => {
+                icon.style.transform = 'rotate(0deg';
+            });
+            
+            // Toggle current
+            if (!isOpen) {
+                body.style.display = 'block';
+                button.querySelector('.chevron-icon').style.transform = 'rotate(180deg)';
+            } else {
+                body.style.display = 'none';
+                button.querySelector('.chevron-icon').style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Initialize first FAQ as open
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstBody = document.querySelector('.faq-card .faq-body');
+            if (firstBody) {
+                firstBody.style.display = 'block';
+                const firstButton = document.querySelector('.faq-button');
+                if (firstButton) {
+                    firstButton.querySelector('.chevron-icon').style.transform = 'rotate(180deg)';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>JobU | Dashboard - Premium Career Hub</title>
+    <meta name="description" content="JobSeeker Dashboard with stunning modern UI/UX" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #34d399;
+            --primary-soft: rgba(16, 185, 129, 0.08);
+            --accent: #fbbf24;
+            --slate-900: #0f172a;
+            --slate-800: #000000;
+            --slate-700: #000000;
+            --slate-600: #000000;
+            --slate-50: #f8fafc;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --gradient-primary: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--slate-50);
+            color: var(--slate-700);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--slate-900);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--slate-50);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .header {
+            background: #ffffff !important;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-area {
+            background: #ffffff !important;
+        }
+
+        .navbar-area {
+            padding: 10px 0;
+        }
+
+        .navbar-brand .logo-img {
+            height: 46px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .navbar-nav .nav-item>a {
+            color: var(--slate-700) !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 10px 18px !important;
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-nav .nav-item>a:hover,
+        .navbar-nav .nav-item>a.active {
+            background: var(--primary-soft);
+            color: var(--primary) !important;
+        }
+
+        .header.sticky {
+            box-shadow: var(--shadow-xl);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .sub-menu {
+            position: absolute;
+            top: 100%;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 12px;
+            min-width: 240px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--slate-50);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .navbar-nav .nav-item:hover .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .sub-menu li a {
+            padding: 10px 14px !important;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .sub-menu li a:hover {
+            background: var(--primary-soft);
+            color: var(--primary) !important;
+        }
+
+        .button .btn {
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-weight: 700;
+            border: none;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .button .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px var(--primary);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-area {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://media.licdn.com/dms/image/v2/D5612AQHmWpsKqCEUgQ/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1692110377639?e=2147483647&v=beta&t=8o8pbq1bZtrQjOZxyCis8GkK8FtHx38WqMoea3qjPB0') no-repeat center center;
+            background-size: cover;
+            padding: 80px 0;
+            border-bottom: 1px solid var(--slate-50);
+            color: white;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+            color: white;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .job-search-wrap-two {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-premium);
+            border: 1px solid var(--slate-50);
+        }
+
+        .single-field-item label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--slate-600);
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .single-field-item input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--slate-100);
+            font-weight: 500;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .single-field-item input:focus {
+            border-color: var(--primary);
+        }
+
+        .submit-btn .btn {
+            background: var(--gradient-primary);
+            padding: 14px;
+            border-radius: 14px;
+            width: 100%;
+            margin-top: 28px;
+        }
+
+        .trending-keywords a {
+            background: var(--slate-50);
+            color: var(--slate-600);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .trending-keywords a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-video-head img {
+            border-radius: 32px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ===== ACTION CARDS ===== */
+        .apply-process {
+            padding: 100px 0;
+            background: var(--slate-50);
+        }
+
+        .wow-card {
+            background: var(--white);
+            padding: 0;
+            border-radius: 32px;
+            transition: var(--transition);
+            border: 1px solid var(--slate-50);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .wow-card:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .wow-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .card-btn {
+            display: inline-block;
+            margin-top: auto;
+            padding: 10px 28px;
+            border-radius: 12px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .wow-card:hover .card-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .wow-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-premium);
+        }
+
+        /* ===== JOB CATEGORY ===== */
+        .job-category .single-cat {
+            background: var(--white);
+            background: var(--white);
+            border: 1px solid var(--slate-100);
+            border-radius: 20px;
+            padding: 0;
+            transition: var(--transition);
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .job-category .icon {
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+        }
+
+        .job-category .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+
+        .job-category .single-cat:hover .icon img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .job-category h3 {
+            padding: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--slate-800);
+            transition: var(--transition);
+        }
+
+        .job-category .single-cat:hover h3 {
+            color: var(--primary);
+        }
+
+        .job-category .single-cat:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ========== FOOTER - SLEEK DARK ========== */
+        .footer {
+            background: var(--slate-900) !important;
+            padding: 80px 0 0;
+            color: var(--white);
+        }
+
+        .footer h3 {
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .footer .quick-links li a {
+            color: var(--white);
+            opacity: 0.7;
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .footer .quick-links li a:hover {
+            opacity: 1;
+            color: var(--primary);
+            transform: translateX(8px);
+        }
+
+        .btn-legal {
+            background: #10b981 !important;
+            color: #10b981 !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex !important;
+            text-decoration: none !important;
+        }
+
+        .btn-legal::before {
+            content: 'LEGAL INFO';
+            background: #64b5f6;
+            padding: 4px 12px;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .btn-legal:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .newsletter-form input {
+            padding: 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .newsletter-form button {
+            background: var(--primary);
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 25px 0;
+            margin-top: 40px;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .whatsapp-float {
+            background: #22c55e;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .scroll-top {
+            background: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 991px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-area {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="loading-area" style="
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #fff; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.4s ease;">
+        <div style="
+    width: 48px; height: 48px;
+    border: 4px solid rgba(16,185,129,0.15);
+    border-top-color: #10b981;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;">
+        </div>
+    </div>
+    <style>
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- Header Area - Perfect Navbar with Logo -->
+    <header class="header">
+        <div class="navbar-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="/userdashboard.html">
+                                <img class="logo-img" src="assets/images/logo/logo.png"
+                                    alt="JobU - Career Portal">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="active" href="/userdashboard.html">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/hackerrank/student/dashboard">Skill Test</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">Career Tools <i class="fas fa-chevron-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/jobSeekers/profile">Create/Update Profile</a></li>
+                                            <li><a href="/company/Alllist">Companies</a></li>
+                                            <li><a href="/applications/track">Track applications</a></li>
+                                            <li><a href="/jobseeker/videos">Upload Video Resume</a></li>
+                                            <li><a href="/assessment/available-badges">Achieve Your Badges</a></li>
+                                            <li><a href="/qna">Ask Your Questions</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#">Jobs <i class="fas fa-chevron-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/jobs/all">Browse Jobs</a></li>
+                                            <li><a href="/seeker/saved-jobs">Saved Jobs</a></li>
+                                            <li><a href="/seeker/reported-jobs">Reported Jobs</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/notifications">Notifications</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/assessment/my-invites">Assessments</a>
+                                    </li>
+                                </ul>
+                                <div class="button">
+                                    <a href="/logout" class="btn">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Area -->
+    <section class="hero-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-12">
+                    <div class="hero-text">
+                        <h1 class="wow fadeInUp" data-wow-delay=".2s">Welcome Back, <br>Let's Boost Your Career</h1>
+                        <p class="wow fadeInUp" data-wow-delay=".4s">
+                            Your intelligent dashboard helps you track applications, discover trending roles,
+                            and connect with top recruiters — seamlessly.
+                        </p>
+                    </div>
+                    <div class="job-search-wrap-two mt-40 wow fadeInUp" data-wow-delay=".6s">
+                        <form action="/jobs/search" method="get">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="single-field-item">
+                                        <label><i class="fas fa-briefcase"></i> Search Jobs</label>
+                                        <input name="keyword" type="text" placeholder="Job title or skill">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="single-field-item">
+                                        <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                                        <input name="location" type="text" placeholder="City or remote">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="submit-btn">
+                                        <button class="btn" type="submit"><i class="fas fa-search"></i> Find</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="trending-keywords mt-30">
+                            <span class="title fw-bold me-2"><i class="fas fa-fire"></i> Top Searches:</span>
+                            <div class="d-inline-flex flex-wrap gap-2">
+                                <a href="/jobs/search?keyword=Frontend Developer">Frontend</a>
+                                <a href="/jobs/search?keyword=Data Analyst">Data Analyst</a>
+                                <a href="/jobs/search?keyword=Project Manager">Project Manager</a>
+                                <a href="/jobs/search?keyword=Full Stack">Full Stack</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="hero-video-head wow fadeInRight" data-wow-delay=".5s">
+                        <img src="assets/images/hero/hero-side.png" alt="User Dashboard"
+                            style="border-radius: 24px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Cards -->
+    <section class="apply-process">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="wow-card wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="card-img-wrapper"><img src="assets/images/categories/create_profile.png"
+                                alt="Create Profile"></div>
+                        <div class="card-content">
+                            <h3>Create Profile</h3>
+                            <p>Build an outstanding profile and get matched with dream jobs instantly.</p>
+                            <a href="/jobSeekers/update" class="card-btn">Get Started →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="wow-card wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="card-img-wrapper"><img src="assets/images/categories/video_resume.png"
+                                alt="Video Resume"></div>
+                        <div class="card-content">
+                            <h3>Video Resume</h3>
+                            <p>Upload your video introduction and shine among recruiters.</p>
+                            <a href="/jobseeker/videos" class="card-btn">Upload Now →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="wow-card wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="card-img-wrapper"><img src="assets/images/categories/smart_apply.png"
+                                alt="Find Jobs"></div>
+                        <div class="card-content">
+                            <h3>Find Jobs</h3>
+                            <p>Explore thousands of opportunities and apply in minutes.</p>
+                            <a href="/jobs/all" class="card-btn">Explore →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Categories -->
+    <section class="job-category">
+        <div class="container">
+            <div class="section-title">
+                <span class="wow fadeInDown">📂 Browse Categories</span>
+                <h2 class="wow fadeInUp">Choose Your Desired Category</h2>
+                <p class="wow fadeInUp">Handpicked fields to elevate your professional journey</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/TECHNICAL_SUPPORT"
+                        class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/technical_support.png"
+                                alt="Technical Support"></div>
+                        <h3>Technical Support</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/HEALTHCARE" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/healthcare.png" alt="Healthcare"></div>
+                        <h3>Healthcare</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/FINANCE" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/finance.png" alt="Finance"></div>
+                        <h3>Finance & Banking</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/EDUCATION" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/education.png" alt="Education"></div>
+                        <h3>Education</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/MARKETING" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/marketing.png" alt="Marketing"></div>
+                        <h3>Marketing</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/IT_SOFTWARE" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/it_software.png" alt="IT"></div>
+                        <h3>IT & Networking</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/LOCAL_JOBS" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/local_jobs.png" alt="Local"></div>
+                        <h3>Local Jobs</h3>
+                    </a></div>
+                <div class="col-lg-3 col-md-6"><a href="/jobs/category/LEGAL" class="single-cat wow fadeInUp">
+                        <div class="icon"><img src="assets/images/categories/legal.png" alt="Legal"></div>
+                        <h3>Legal & Defence</h3>
+                    </a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Premium Design (Consistent with Home) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                    <div class="single-footer pe-lg-5">
+                        <a href="index.html" style="text-decoration: none;"><span
+                                style="font-size: 1.8rem; font-weight: 800; color: #fff; display: block;"
+                                class="mb-4">JobU</span></a>
+                        <p class="mb-4" style="opacity: 0.7; line-height: 1.8;">JobU is the world's leading job search
+                            platform, dedicated to connecting ambitious talent with the most innovative companies on the
+                            planet.</p>
+                        <div class="social-icons d-flex gap-3">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                    <div class="single-footer">
+                        <h3>Platform</h3>
+                        <ul class="quick-links" style="list-style: none; padding-left: 0;">
+                            <li><a href="/jobs/all">Browse Jobs</a></li>
+                            <li><a href="/company/Alllist">Companies</a></li>
+                            <li><a href="/jobSeekers/profile">Candidates</a></li>
+                            <li><a href="#">Pricing</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                    <div class="single-footer">
+                        <h3>Support</h3>
+                        <ul class="quick-links" style="list-style: none; padding-left: 0;">
+                            <li><a href="/about-us.html">About Us</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
+                            <li><a href="/terms-conditions.html" class="btn-legal"></a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-footer">
+                        <h3>Stay Updated</h3>
+                        <p class="mb-4" style="opacity: 0.7;">Subscribe to our newsletter for the latest career tips and
+                            job alerts.</p>
+                        <form action="/subscribe" method="post" class="newsletter-form">
+                            <input name="email" type="email" required placeholder="Email address" style="width: 100%;">
+                            <button class="btn" type="submit" style="width: 100%; margin-top: 10px;">Subscribe Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom mt-5 pt-4 border-top" style="border-color: rgba(255,255,255,0.05);">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0">&copy; 2026 JobU. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                        <p class="mb-0" style="font-size: 0.85rem; color: #475569; font-weight: 600;">OWNED BY UI PLATFORM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <a href="https://api.whatsapp.com/send?phone=918978300448&text=Hi%20there!" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- Modal Forms (unchanged backend) -->
+    <div class="modal fade form-modal" id="login" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog max-width-px-840 position-relative">
+            <button type="button"
+                class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper"
+                data-dismiss="modal"><i class="lni lni-close"></i></button>
+            <div class="login-modal-main">
+                <div class="row no-gutters">
+                    <div class="col-12">
+                        <div class="heading">
+                            <h3>JobSeeker Login</h3>
+                            <p>Access your JobSeeker account to find and apply for your dream jobs.</p>
+                        </div>
+                        <form action="/jobSeekers/authenticate" method="post">
+                            <div class="form-group"><label for="email">E-mail</label><input type="email"
+                                    class="form-control" name="email" placeholder="example@gmail.com" id="email"></div>
+                            <div class="form-group"><label for="password">Password</label><input type="password"
+                                    class="form-control" name="password" id="password" placeholder="Enter password">
+                            </div>
+                            <div class="form-group mb-8 button"><button class="btn">Log in</button></div>
+                            <p class="text-center">Don't have an account? <a href="javascript:void(0)"
+                                    data-toggle="modal" data-target="#signup" data-dismiss="modal">Create a free
+                                    account</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade form-modal" id="signup" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog max-width-px-840 position-relative">
+            <button type="button"
+                class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper"
+                data-dismiss="modal"><i class="lni lni-close"></i></button>
+            <div class="login-modal-main">
+                <div class="row no-gutters">
+                    <div class="col-12">
+                        <div class="heading">
+                            <h3>Create Your JobSeeker Account</h3>
+                            <p>Sign up to start your job search, apply for roles, and grow your career.</p>
+                        </div>
+                        <form action="/jobSeekers/signup" method="post">
+                            <div class="form-group"><label>E-mail</label><input type="email" class="form-control"
+                                    name="email" placeholder="example@gmail.com"></div>
+                            <div class="form-group"><label>Password</label><input type="password" class="form-control"
+                                    name="password" placeholder="Enter password"></div>
+                            <div class="form-group"><label>Confirm Password</label><input type="password"
+                                    class="form-control" name="confirmPassword" placeholder="Confirm password"></div>
+                            <div class="form-group mb-8 button"><button class="btn">Sign Up</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        new WOW().init();
+
+        // Smooth scroll to top
+        document.querySelectorAll('.scroll-top').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Mobile dropdown toggle
+        if (window.innerWidth < 992) {
+            document.querySelectorAll('.navbar-nav .nav-item > a[href="#"]').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('show');
+                });
+            });
+        }
+    </script>
+
+    <!-- Context path fix for Tomcat deployment (No backend change) -->
+    <script>
+        (function () {
+            var path = window.location.pathname;
+            var contextPath = '';
+            if (path.includes('/jobportal/')) {
+                contextPath = '/jobportal';
+            }
+            function fixUrl(url) {
+                if (url && url.startsWith('/') && !url.startsWith('//')) {
+                    return contextPath + url;
+                }
+                return url;
+            }
+            window.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('a[href^="/"]').forEach(function (link) {
+                    link.href = fixUrl(link.getAttribute('href'));
+                });
+                document.querySelectorAll('form[action^="/"]').forEach(function (form) {
+                    form.action = fixUrl(form.getAttribute('action'));
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

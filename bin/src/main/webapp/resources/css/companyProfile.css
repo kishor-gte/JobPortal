@@ -1,0 +1,188 @@
+@charset "UTF-8";
+ :root {
+            --primary-color: #2042e3;
+            --primary-hover: #081828;
+            --background-light: #f6f9fc;
+            --white: #ffffff;
+            --box-shadow: rgba(35, 38, 45, 0.15);
+            --icon-bg-tint: #2042e31c;
+            --text-primary: #081828;
+            --text-secondary: #7E8890;
+            --border-light: #eee;
+            --font-main: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--background-light);
+            margin: 0;
+            padding: 0;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px var(--box-shadow);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 38px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 25px;
+        }
+
+        .company-header img {
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin-right: 25px;
+            transition: transform 0.3s ease;
+            background: var(--background-light);
+            padding: 10px;
+        }
+
+        .company-header img:hover {
+            transform: scale(1.05);
+        }
+
+        .company-info p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin: 8px 0;
+        }
+
+        .company-info a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .company-info a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .about-section {
+            background-color: var(--background-light);
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px var(--box-shadow);
+        }
+
+        .about-section h3 {
+            font-size: 22px;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: block;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .read-more:hover {
+            color: var(--primary-hover);
+        }
+
+        .full-text {
+            display: none;
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .company-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .company-header img {
+                margin-bottom: 15px;
+                width: 100px;
+                height: 100px;
+            }
+
+            .company-info p, .about-section p {
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+         .job-listings {
+            margin-top: 40px;
+        }
+
+        .job-listings h3 {
+            font-size: 22px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .job-listings p {
+            font-size: 16px;
+            margin: 10px 0;
+            color: var(--text-secondary);
+        }
+
+        .job-listings a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .job-listings a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
