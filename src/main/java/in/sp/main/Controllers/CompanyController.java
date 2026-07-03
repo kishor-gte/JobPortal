@@ -44,13 +44,17 @@ import in.sp.main.Services.SportsServiceService;
 import in.sp.main.Services.AssessmentService;
 import in.sp.main.Services.ExcelHelper;
 import in.sp.main.Services.JobApplicationService;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
-
-
+import in.sp.main.Configuration.JwtUtil;
 
 @Controller
 @RequestMapping("/company")
 public class CompanyController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private CompanyServices companyService;
@@ -314,6 +318,7 @@ public class CompanyController {
     public String loginCompany(@RequestParam String email,
                                @RequestParam String password,
                                HttpSession session,
+                               HttpServletResponse response,
                                Model model) {
 
         String result = companyService.authenticateCompany(email, password);
@@ -321,6 +326,11 @@ public class CompanyController {
         switch (result) {
             case "SUCCESS":
                 Company company = companyRepository.findByEmail(email).get();
+                
+                String token = jwtUtil.generateToken(String.valueOf(company.getId()), "COMPANY");
+                Cookie cookie = jwtUtil.createJwtCookie(token);
+                response.addCookie(cookie);
+                
                 session.setAttribute("loggedInCompany", company);
                 session.setAttribute("userType", "COMPANY");
                 model.addAttribute("success", "Login successful! Redirecting to your dashboard...");
@@ -340,8 +350,10 @@ public class CompanyController {
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletResponse response) {
         session.invalidate();
+        Cookie cookie = jwtUtil.createClearJwtCookie();
+        response.addCookie(cookie);
         return "redirect:/company/login";
     }
     

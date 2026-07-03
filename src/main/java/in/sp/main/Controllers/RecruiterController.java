@@ -39,11 +39,17 @@ import in.sp.main.Services.NotificationService;
 import in.sp.main.Services.RecruiterServices;
 import in.sp.main.Services.VideoResumeService;
 import in.sp.main.dto.JobApplicationWithResult;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
+import in.sp.main.Configuration.JwtUtil;
 
 @Controller
 @RequestMapping("/recruiter")
 public class RecruiterController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private RecruiterServices recruiterService;
@@ -209,11 +215,16 @@ public class RecruiterController {
     public String loginRecruiter(@RequestParam String email,
             @RequestParam String password,
             Model model,
+            HttpServletResponse response,
             HttpSession session) {
 
         Recruiter recruiter = recruiterService.authenticateRecruiter(email, password);
 
         if (recruiter != null) {
+            String token = jwtUtil.generateToken(String.valueOf(recruiter.getId()), "RECRUITER");
+            Cookie cookie = jwtUtil.createJwtCookie(token);
+            response.addCookie(cookie);
+
             session.setAttribute("loggedInRecruiter", recruiter); // Store in session
             session.setAttribute("userType", "RECRUITER");
             session.setAttribute("recruiterId", recruiter.getId());
@@ -240,8 +251,10 @@ public class RecruiterController {
 
     // logout recruiter
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logoutRecruiter(HttpSession session) {
+    public String logoutRecruiter(HttpSession session, HttpServletResponse response) {
         session.invalidate(); // Clear session
+        Cookie cookie = jwtUtil.createClearJwtCookie();
+        response.addCookie(cookie);
         return "redirect:/recruiter/login";
     }
 

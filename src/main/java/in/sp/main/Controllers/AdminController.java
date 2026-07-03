@@ -41,9 +41,15 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import in.sp.main.Configuration.JwtUtil;
 
 @Controller
 public class AdminController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
 	
     @Autowired
@@ -349,10 +355,15 @@ public class AdminController {
                              @RequestParam String password, 
                              HttpSession session, 
                              Model model, 
-                             HttpServletRequest request) {
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
         try {
             Admin admin = adminService.loginAdmin(email, password);
             if (admin != null) {
+                String token = jwtUtil.generateToken(String.valueOf(admin.getId()), "ADMIN");
+                Cookie cookie = jwtUtil.createJwtCookie(token);
+                response.addCookie(cookie);
+
                 session.setAttribute("loggedInAdmin", admin);
                 session.setAttribute("adminId", admin.getId());
                 session.setAttribute("userType", "ADMIN");
@@ -428,9 +439,11 @@ public class AdminController {
         return "admin/jobseeker-reviews";
     }
     @RequestMapping(value = "/adminLogout", method = {RequestMethod.GET, RequestMethod.POST})
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletResponse response) {
         try {
             session.invalidate(); // removes all session attributes
+            Cookie cookie = jwtUtil.createClearJwtCookie();
+            response.addCookie(cookie);
             return "redirect:/loginAdmin"; // change if your login URL is different
         } catch (Exception e) {
             System.err.println("Error during logout: " + e.getMessage());

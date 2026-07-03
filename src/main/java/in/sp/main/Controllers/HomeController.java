@@ -41,14 +41,14 @@ public class HomeController {
 		return "redirect:/contact.html?message=Your%20message%20has%20been%20sent%20successfully!";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/home.html", "/home"}, method = RequestMethod.GET)
 	public String home1() {
-		return "redirect:/home.html";  // Serves static file from resources/static/index.html
+		return "home";  // Serves dynamic JSP from views/home.jsp
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String home() {
-		return "redirect:/home.html";  // Serves static file from resources/static/index.html
+		return "home";  // Serves dynamic JSP from views/home.jsp
 	}
 
 	@RequestMapping(value = "/userdashboard", method = RequestMethod.GET)

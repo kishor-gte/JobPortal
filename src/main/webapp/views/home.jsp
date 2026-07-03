@@ -6,20 +6,20 @@
 <title>JobU - Premium Job Portal | Find Your Dream Career</title>
 <meta name="description" content="Revolutionary job portal connecting talent with opportunity." />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg" />
 
 <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <!-- External CSS (preserved for backend compatibility) -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-<link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
-<link rel="stylesheet" href="assets/css/animate.css" />
-<link rel="stylesheet" href="assets/css/tiny-slider.css" />
-<link rel="stylesheet" href="assets/css/glightbox.min.css" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<link rel="stylesheet" href="assets/css/footer.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LineIcons.2.0.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/tiny-slider.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/glightbox.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
 
 <!-- ========== PREMIUM FRONTEND - MODERN CRYSTAL DESIGN ========== -->
 <style>
@@ -826,42 +826,42 @@
       <div class="row align-items-center">
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand logo" href="/"> 
-              <img class="logo1" src="assets/images/logo/logo-premium.png" alt="Logo" />
+            <a class="navbar-brand logo" href="${pageContext.request.contextPath}/"> 
+              <img class="logo1" src="${pageContext.request.contextPath}/assets/images/logo/logo-premium.png" alt="Logo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="toggler-icon"></span> <span class="toggler-icon"></span> <span class="toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul id="nav" class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-home"></i> Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.html"><i class="fas fa-briefcase"></i> Services</a></li>
+                <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/services.html"><i class="fas fa-briefcase"></i> Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> JobSeekers</a>
                   <ul class="sub-menu">
-                    <li><a href="/jobSeekers/profile">Create/Update Profile</a></li>
-                    <li><a href="/company/Alllist">Companies</a></li>
-                    <li><a href="/applications/track">Track applications</a></li>
-                    <li><a href="/jobseeker/videos">Upload Video Resume</a></li>
-                    <li><a href="/assessment/available-badges">Your Badges</a></li>
-                    <li><a href="/qna">Ask or View Questions</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jobSeekers/profile">Create/Update Profile</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/Alllist">Companies</a></li>
+                    <li><a href="${pageContext.request.contextPath}/applications/track">Track applications</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jobseeker/videos">Upload Video Resume</a></li>
+                    <li><a href="${pageContext.request.contextPath}/assessment/available-badges">Your Badges</a></li>
+                    <li><a href="${pageContext.request.contextPath}/qna">Ask or View Questions</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building"></i> Employers</a>
                   <ul class="sub-menu">
-                    <li><a href="/company/register">Register Company</a></li>
-                    <li><a href="/company/login">Company Login</a></li>
-                    <li><a href="/recruiter/login">Recruiters Login</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/register">Register Company</a></li>
+                    <li><a href="${pageContext.request.contextPath}/company/login">Company Login</a></li>
+                    <li><a href="${pageContext.request.contextPath}/recruiter/login">Recruiters Login</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search"></i> Jobs</a>
                   <ul class="sub-menu">
-                    <li><a href="/jobs/all">Browse Jobs</a></li>
-                    <li><a href="/seeker/saved-jobs">Saved Jobs</a></li>
-                    <li><a href="/seeker/reported-jobs">Reported Jobs</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jobs/all">Browse Jobs</a></li>
+                    <li><a href="${pageContext.request.contextPath}/seeker/saved-jobs">Saved Jobs</a></li>
+                    <li><a href="${pageContext.request.contextPath}/seeker/reported-jobs">Reported Jobs</a></li>
                   </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
-                <li class="nav-item"><a class="nav-link" href="/assessment/my-invites"><i class="fas fa-trophy"></i> Assessments</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/assessment/my-invites"><i class="fas fa-trophy"></i> Assessments</a></li>
               </ul>
             </div>
             <div class="button-group d-flex align-items-center ml-auto">
@@ -929,7 +929,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="feature-card">
-          <div class="feature-img-wrapper"><img src="assets/images/categories/create_profile.png" alt="Create Profile"></div>
+          <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/create_profile.png" alt="Create Profile"></div>
           <div class="feature-card-content">
             <h3>Create Profile</h3>
             <p>Build an outstanding professional profile and get matched with dream jobs instantly.</p>
@@ -940,7 +940,7 @@
 
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="feature-card">
-          <div class="feature-img-wrapper"><img src="assets/images/categories/video_resume.png" alt="Video Resume"></div>
+          <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/video_resume.png" alt="Video Resume"></div>
           <div class="feature-card-content">
             <h3>Video Resume</h3>
             <p>Upload a video introduction and stand out to top recruiters with your personality.</p>
@@ -951,7 +951,7 @@
 
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="feature-card">
-          <div class="feature-img-wrapper"><img src="assets/images/categories/smart_apply.png" alt="Smart Apply"></div>
+          <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/smart_apply.png" alt="Smart Apply"></div>
           <div class="feature-card-content">
             <h3>Smart Apply</h3>
             <p>Explore thousands of curated opportunities and apply with a single click.</p>
@@ -975,14 +975,14 @@
       </div>
     </div>
     <div class="row g-4">
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/TECHNICAL_SUPPORT" class="single-cat"><div class="icon"><img src="assets/images/categories/technical_support.png" alt="Technical Support"></div><h3>Technical Support</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/HEALTHCARE" class="single-cat"><div class="icon"><img src="assets/images/categories/healthcare.png" alt="Healthcare"></div><h3>Healthcare Services</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/FINANCE" class="single-cat"><div class="icon"><img src="assets/images/categories/finance.png" alt="Finance"></div><h3>Finance & Banking</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/EDUCATION" class="single-cat"><div class="icon"><img src="assets/images/categories/education.png" alt="Education"></div><h3>Education Services</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/MARKETING" class="single-cat"><div class="icon"><img src="assets/images/categories/marketing.png" alt="Marketing"></div><h3>Marketing Services</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/IT_SOFTWARE" class="single-cat"><div class="icon"><img src="assets/images/categories/it_software.png" alt="IT Software"></div><h3>IT & Software</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/LOCAL_JOBS" class="single-cat"><div class="icon"><img src="assets/images/categories/local_jobs.png" alt="Local Jobs"></div><h3>Local Jobs</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="jobs/category/LEGAL" class="single-cat"><div class="icon"><img src="assets/images/categories/legal.png" alt="Legal"></div><h3>Legal & Defense</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/TECHNICAL_SUPPORT" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/technical_support.png" alt="Technical Support"></div><h3>Technical Support</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/HEALTHCARE" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/healthcare.png" alt="Healthcare"></div><h3>Healthcare Services</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/FINANCE" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/finance.png" alt="Finance"></div><h3>Finance & Banking</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/EDUCATION" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/education.png" alt="Education"></div><h3>Education Services</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/MARKETING" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/marketing.png" alt="Marketing"></div><h3>Marketing Services</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/IT_SOFTWARE" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/it_software.png" alt="IT Software"></div><h3>IT & Software</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/LOCAL_JOBS" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/local_jobs.png" alt="Local Jobs"></div><h3>Local Jobs</h3></a></div>
+      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/LEGAL" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/legal.png" alt="Legal"></div><h3>Legal & Defense</h3></a></div>
     </div>
   </div>
 </section>
@@ -996,7 +996,7 @@
       <form action="jobSeekers/authenticate" method="post">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" id="email"></div>
         <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" id="password" placeholder="Enter password"></div></div>
-        <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Remember password</label></div><a href="jobSeekers/forgot-password" class="font-size-3 text-dodger line-height-reset">Forget Password</a></div>
+        <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Remember password</label></div><a href="${pageContext.request.contextPath}/jobSeekers/forgot-password" class="font-size-3 text-dodger line-height-reset">Forget Password</a></div>
         <div class="form-group mb-8 button"><button class="btn">Log in</button></div>
         <p class="text-center create-new-account">Don't have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#signup" data-dismiss="modal">Create a free account</a></p>
       </form>
@@ -1015,7 +1015,7 @@
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" required></div>
         <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" placeholder="Enter password" id="signupPassword" required></div></div>
         <div class="form-group"><label for="confirmPassword" class="label">Confirm Password</label><div class="position-relative"><input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" id="signupConfirmPassword" required></div></div>
-        <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="termsCheckbox" required><label class="form-check-label" for="termsCheckbox">Agree to the <a href="/terms-conditions.html">Terms & Conditions</a></label></div></div>
+        <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="termsCheckbox" required><label class="form-check-label" for="termsCheckbox">Agree to the <a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></label></div></div>
         <div class="form-group mb-8 button"><button class="btn" type="submit">Sign Up</button></div>
       </form>
       </div></div></div>
@@ -1029,7 +1029,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
         <div class="single-footer pe-lg-5">
-          <a href="index.html" style="text-decoration: none;"><span style="font-size: 1.8rem; font-weight: 800; color: #fff; display: block;" class="mb-4">JobU</span></a>
+          <a href="${pageContext.request.contextPath}/index.html" style="text-decoration: none;"><span style="font-size: 1.8rem; font-weight: 800; color: #fff; display: block;" class="mb-4">JobU</span></a>
           <p class="mb-4" style="opacity: 0.7; line-height: 1.8;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>
           <div class="footer-social">
             <ul style="padding-left: 0; list-style: none; display: flex; gap: 16px;">
@@ -1056,9 +1056,9 @@
         <div class="single-footer">
           <h3>Support</h3>
           <ul class="quick-links" style="list-style: none; padding-left: 0;">
-            <li class="mb-3"><a href="/about-us.html">About Us</a></li>
+            <li class="mb-3"><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
             <li class="mb-3"><a href="#">Help Center</a></li>
-            <li class="mb-3"><a href="/terms-conditions.html">Terms & Conditions</a></li>
+            <li class="mb-3"><a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></li>
             <li class="mb-3"><a href="#">Privacy Policy</a></li>
             <li class="mb-3"><a href="#">Contact Us</a></li>
           </ul>
@@ -1102,9 +1102,9 @@
   <button class="chat-button" id="chatButton" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></button>
 </div>
 
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/wow.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script>
   new WOW().init();
   window.addEventListener('scroll', function() {

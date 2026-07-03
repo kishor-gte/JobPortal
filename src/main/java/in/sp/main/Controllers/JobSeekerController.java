@@ -30,11 +30,17 @@ import in.sp.main.Services.JobSeekerService;
 import in.sp.main.Services.LoginAttemptService;
 import in.sp.main.Services.PasswordResetService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
+import in.sp.main.Configuration.JwtUtil;
 
 @Controller
 @RequestMapping("/jobSeekers")
 public class JobSeekerController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private JobSeekerService jobSeekerService;
@@ -59,6 +65,7 @@ public class JobSeekerController {
     public String handleLogin(@RequestParam("email") String email,
                               @RequestParam("password") String password,
                               HttpSession session,
+                              HttpServletResponse response,
                               Model model,
                               HttpServletRequest request) {
 
@@ -94,6 +101,10 @@ public class JobSeekerController {
             // Invalidate old session to prevent session fixation
             session.invalidate();
             session = request.getSession(true);
+            
+            String token = jwtUtil.generateToken(String.valueOf(jobSeeker.getId()), "JOBSEEKER");
+            Cookie cookie = jwtUtil.createJwtCookie(token);
+            response.addCookie(cookie);
             
             session.setAttribute(SessionConstants.ATTR_JOB_SEEKER, jobSeeker);
             session.setAttribute(SessionConstants.ATTR_USER_TYPE, SessionConstants.TYPE_JOBSEEKER);
@@ -465,6 +476,7 @@ public class JobSeekerController {
     public String loginFromIndex(@RequestParam("email") String email,
                                  @RequestParam("password") String password,
                                  HttpSession session,
+                                 HttpServletResponse response,
                                  RedirectAttributes redirectAttributes) {
 
         JobSeeker jobSeeker = jobSeekerService.findByEmail(email);
@@ -486,6 +498,10 @@ public class JobSeekerController {
         }
 
         if (matches) {
+            String token = jwtUtil.generateToken(String.valueOf(jobSeeker.getId()), "JOBSEEKER");
+            Cookie cookie = jwtUtil.createJwtCookie(token);
+            response.addCookie(cookie);
+
             session.setAttribute("jobSeeker", jobSeeker);
             session.setAttribute("jobSeekerId", jobSeeker.getId());
             return "redirect:dashboard";
@@ -496,8 +512,10 @@ public class JobSeekerController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletResponse response) {
         session.invalidate();
+        Cookie cookie = jwtUtil.createClearJwtCookie();
+        response.addCookie(cookie);
         return "redirect:login";
     }
     
