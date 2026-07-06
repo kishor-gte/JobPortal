@@ -30,10 +30,12 @@ public class SecurityConfig {
                 .requestMatchers("/loginAdmin", "/admin/login", "/PostloginAdmin", "/admin/adminRegister", "/admin/registerAdmin").permitAll()
                 .requestMatchers("/company/login", "/company/login1", "/company/company_register", "/company/register", "/company/verify-otp").permitAll()
                 .requestMatchers("/jobSeekers/login", "/jobSeekers/login1", "/jobSeekers/job_seeker_register", "/jobSeekers/register", "/jobSeekers/register1", "/jobSeekers/signup", "/jobSeekers/authenticate", "/jobSeekers/verify-otp").permitAll()
-                .requestMatchers("/recruiter/login", "/recruiter/login1", "/recruiter/register", "/recruiter/verify-otp").permitAll()
+                .requestMatchers("/recruiter/login", "/recruiter/login1", "/recruiter/register","tech/add-category", "/recruiter/verify-otp").permitAll()
+                .requestMatchers("/tech/login", "/tech/login1").permitAll()
                 .requestMatchers("/forgot-password", "/reset-password", "/api/password/**").permitAll()
                 
-
+                // Secure Tech Person Routes
+                .requestMatchers("/tech/**").hasRole("TECHPERSON")
                 
                 // Let existing controller logic handle authorization for any other request
                 .anyRequest().permitAll()
