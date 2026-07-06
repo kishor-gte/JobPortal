@@ -41,6 +41,12 @@ import java.io.*;
 import java.util.concurrent.TimeUnit;
 import java.util.List;
 import java.util.ArrayList;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import in.sp.main.Repositories.UserActivityRepository;
+import in.sp.main.Entities.UserActivity;
 import java.util.stream.Collectors;
 
 @Controller
@@ -70,6 +76,13 @@ public class HackerrankController {
 
     @Autowired
     private in.sp.main.Services.NotificationService notificationService;
+
+    @Autowired
+    private UserActivityRepository userActivityRepository;
+
+
+    @Autowired
+    private in.sp.main.Repositories.SavedJobRepository savedJobRepository;
 
     // Map frontend language names to Wandbox compiler names
     private static final Map<String, String> WANDBOX_COMPILERS = new HashMap<>() {{
@@ -1015,5 +1028,256 @@ public class HackerrankController {
         } catch (Exception e) {
             return false;
         }
+    }
+    @RequestMapping(value = "/interviewer/candidates", method = RequestMethod.GET)
+    public String interviewerCandidates(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Integer experience,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String sort,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model, HttpSession session) {
+
+        in.sp.main.Entities.Company company = (in.sp.main.Entities.Company) session.getAttribute("loggedInCompany");
+        if (company == null) company = (in.sp.main.Entities.Company) session.getAttribute("company");
+        if (company == null) return "redirect:/company/login";
+
+        model.addAttribute("company", company);
+
+        Sort.Direction direction = Sort.Direction.DESC;
+        String sortBy = "id";
+
+        if ("oldest".equalsIgnoreCase(sort)) {
+            direction = Sort.Direction.ASC;
+        } else if ("name".equalsIgnoreCase(sort)) {
+            direction = Sort.Direction.ASC;
+            sortBy = "name";
+        } else if ("experienced".equalsIgnoreCase(sort)) {
+            direction = Sort.Direction.DESC;
+            sortBy = "experience";
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+        Page<JobSeeker> candidatesPage = jobSeekerRepository.findCandidatesWithFilters(
+                (search != null && !search.trim().isEmpty()) ? search.trim() : null,
+                (search != null && !search.trim().isEmpty()) ? search.trim() : null,
+                experience, location, pageable);
+
+        model.addAttribute("candidatesPage", candidatesPage);
+        model.addAttribute("search", search);
+        model.addAttribute("experience", experience);
+        model.addAttribute("location", location);
+        model.addAttribute("sort", sort);
+
+        // Stats
+        model.addAttribute("totalCandidates", jobSeekerRepository.countTotalCandidates());
+        model.addAttribute("candidatesWithResume", jobSeekerRepository.countCandidatesWithResume());
+        model.addAttribute("candidatesApplied", jobSeekerRepository.countCandidatesApplied());
+        model.addAttribute("candidatesInterviewScheduled", jobSeekerRepository.countCandidatesInterviewScheduled());
+        model.addAttribute("candidatesHired", jobSeekerRepository.countCandidatesHired());
+
+        return "hackerrank/interviewer-candidates";
+    }
+
+    @RequestMapping(value = "/interviewer/api/candidate-profile/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getCandidateProfile(@PathVariable Long id, HttpSession session) {
+        in.sp.main.Entities.Company company = (in.sp.main.Entities.Company) session.getAttribute("loggedInCompany");
+        if (company == null) company = (in.sp.main.Entities.Company) session.getAttribute("company");
+        if (company == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        JobSeeker candidate = jobSeekerRepository.findById(id).orElse(null);
+        if (candidate == null) return ResponseEntity.notFound().build();
+
+        // Build summary JSON
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", candidate.getId());
+        data.put("name", candidate.getName());
+        data.put("email", candidate.getEmail());
+        data.put("phone", candidate.getPhone());
+        data.put("location", candidate.getLocation() != null ? candidate.getLocation().name() : null);
+        data.put("dateOfBirth", candidate.getDateOfBirth());
+        data.put("gender", candidate.getGender() != null ? candidate.getGender().name() : null);
+        data.put("experience", candidate.getExperience());
+        data.put("education", candidate.getEducation() != null ? candidate.getEducation().name() : null);
+        data.put("skills", candidate.getSkills());
+        data.put("profilePicture", candidate.getProfilePicture());
+        data.put("resumeUploaded", candidate.getResumeUploaded());
+        
+        // Education details
+        data.put("ugDegree", candidate.getUgDegree());
+        data.put("ugUniversity", candidate.getUgUniversity());
+        data.put("pgDegree", candidate.getPgDegree());
+        data.put("pgUniversity", candidate.getPgUniversity());
+
+        return ResponseEntity.ok(data);
+    }
+
+    @RequestMapping(value = "/interviewer/api/candidate-activities/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getCandidateActivities(@PathVariable Long id, HttpSession session) {
+        in.sp.main.Entities.Company company = (in.sp.main.Entities.Company) session.getAttribute("loggedInCompany");
+        if (company == null) company = (in.sp.main.Entities.Company) session.getAttribute("company");
+        if (company == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        JobSeeker candidate = jobSeekerRepository.findById(id).orElse(null);
+        if (candidate == null) return ResponseEntity.notFound().build();
+
+        Map<String, Object> response = new HashMap<>();
+
+        // 1. Login History (from UserActivity)
+        List<UserActivity> logins = userActivityRepository.findByUserIdAndActivityTypeInOrderByCreatedAtDesc(
+            id, java.util.Arrays.asList(in.sp.main.Enums.ActivityType.LOGIN, in.sp.main.Enums.ActivityType.LOGOUT)
+        );
+        Map<String, Object> loginHistory = new HashMap<>();
+        long loginCount = logins.stream().filter(a -> a.getActivityType() == in.sp.main.Enums.ActivityType.LOGIN).count();
+        long logoutCount = logins.stream().filter(a -> a.getActivityType() == in.sp.main.Enums.ActivityType.LOGOUT).count();
+        UserActivity lastLoginAct = logins.stream().filter(a -> a.getActivityType() == in.sp.main.Enums.ActivityType.LOGIN).findFirst().orElse(null);
+        UserActivity firstLoginAct = logins.stream().filter(a -> a.getActivityType() == in.sp.main.Enums.ActivityType.LOGIN).reduce((first, second) -> second).orElse(null);
+        UserActivity lastActivity = logins.isEmpty() ? null : logins.get(0);
+        String status = "Offline";
+        if (lastActivity != null && lastActivity.getActivityType() == in.sp.main.Enums.ActivityType.LOGIN) {
+            status = "Online";
+        }
+        loginHistory.put("totalLogins", loginCount);
+        loginHistory.put("totalLogouts", logoutCount);
+        loginHistory.put("lastLogin", lastLoginAct != null ? lastLoginAct.getCreatedAt() : null);
+        loginHistory.put("firstLogin", firstLoginAct != null ? firstLoginAct.getCreatedAt() : null);
+        loginHistory.put("status", status);
+        loginHistory.put("browser", lastLoginAct != null ? lastLoginAct.getBrowser() : "Unknown");
+        loginHistory.put("deviceType", lastLoginAct != null ? lastLoginAct.getDeviceType() : "Unknown");
+        loginHistory.put("os", lastLoginAct != null ? lastLoginAct.getOperatingSystem() : "Unknown");
+        loginHistory.put("ipAddress", lastLoginAct != null ? lastLoginAct.getIpAddress() : "Unknown");
+        response.put("loginHistory", loginHistory);
+
+        // 2 & 3. Coding Performance & Question History
+        List<in.sp.main.Entities.StudentAnswer> answers = performanceDAO.findAnswersByStudentId(id);
+        Map<String, Object> codingStats = new HashMap<>();
+        int totalAttempted = performanceDAO.countAnswersByStudent(id);
+        int totalCorrect = performanceDAO.countCorrectAnswersByStudent(id);
+        int totalSolved = performanceDAO.countSolvedCodingQuestionsByStudent(id);
+        codingStats.put("attempted", totalAttempted);
+        codingStats.put("correct", totalCorrect);
+        codingStats.put("solved", totalSolved);
+        codingStats.put("unsolved", totalAttempted - totalSolved);
+        double accuracy = totalAttempted > 0 ? (double) totalCorrect / totalAttempted * 100 : 0;
+        codingStats.put("accuracy", Math.round(accuracy * 100.0) / 100.0);
+        
+        long totalTime = 0;
+        for (in.sp.main.Entities.StudentAnswer a : answers) totalTime += a.getTimeTaken();
+        codingStats.put("totalTime", totalTime);
+        codingStats.put("avgTime", answers.isEmpty() ? 0 : totalTime / answers.size());
+        response.put("codingPerformance", codingStats);
+
+        List<Map<String, Object>> qHistory = new ArrayList<>();
+        List<in.sp.main.Entities.StudentAnswer> allAnswersWithQuestions = performanceDAO.findAllStudentAnswers().stream()
+                .filter(a -> a.getStudentId().equals(id)).collect(Collectors.toList());
+        for (in.sp.main.Entities.StudentAnswer a : allAnswersWithQuestions) {
+            Map<String, Object> am = new HashMap<>();
+            am.put("questionName", a.getQuestionText() != null ? a.getQuestionText() : "Question #" + a.getQuestionId());
+            am.put("type", a.getQuestionType());
+            am.put("status", a.getIsCorrect() ? "Solved" : "Attempted");
+            am.put("executionTime", a.getTimeTaken() + " ms");
+            am.put("score", a.getScore());
+            am.put("submittedAt", a.getSubmittedAt());
+            am.put("verdict", a.getIsCorrect() ? "Accepted" : "Wrong Answer");
+            qHistory.add(am);
+        }
+        response.put("questionHistory", qHistory);
+
+        // 4. Platform Activity (Full Timeline)
+        Pageable allActs = PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, "createdAt"));
+        List<UserActivity> platformActivity = userActivityRepository.findByUserIdOrderByCreatedAtDesc(id, allActs).getContent();
+        List<Map<String, Object>> timeline = platformActivity.stream().map(act -> {
+            Map<String, Object> m = new HashMap<>();
+            m.put("activityType", act.getActivityType().name());
+            m.put("description", act.getDescription());
+            m.put("createdAt", act.getCreatedAt());
+            return m;
+        }).collect(Collectors.toList());
+        response.put("timeline", timeline);
+
+        // 5. Interview History
+        List<in.sp.main.Entities.MockInterview> interviews = interviewDAO.findByStudentId(id);
+        List<Map<String, Object>> iHistory = new ArrayList<>();
+        for (in.sp.main.Entities.MockInterview mi : interviews) {
+            Map<String, Object> m = new HashMap<>();
+            m.put("name", "Interview #" + mi.getId());
+            m.put("interviewer", mi.getInterviewerName());
+            m.put("scheduledAt", mi.getScheduledAt());
+            m.put("status", mi.getStatus());
+            m.put("duration", mi.getDurationMinutes());
+            m.put("overallScore", mi.getScore());
+            m.put("techScore", mi.getTechnicalScore());
+            m.put("commScore", mi.getCommunicationScore());
+            iHistory.add(m);
+        }
+        response.put("interviewHistory", iHistory);
+
+        // 6. Resume History
+        List<in.sp.main.Entities.Resume> resumes = resumeDAO.findByStudentId(id);
+        List<Map<String, Object>> rHistory = new ArrayList<>();
+        for (in.sp.main.Entities.Resume r : resumes) {
+            Map<String, Object> m = new HashMap<>();
+            m.put("fileName", r.getFileName());
+            m.put("uploadedAt", r.getUploadedAt());
+            m.put("status", "Uploaded");
+            m.put("score", r.getAiScore());
+            rHistory.add(m);
+        }
+        response.put("resumeHistory", rHistory);
+
+        // 7. Job History
+        List<in.sp.main.Entities.JobApplication> apps = jobApplicationRepository.findByJobSeekerWithJobAndCompany(candidate);
+        List<Map<String, Object>> jHistory = new ArrayList<>();
+        int appliedCount = 0, shortlisted = 0, selected = 0, rejected = 0;
+        for (in.sp.main.Entities.JobApplication app : apps) {
+            Map<String, Object> m = new HashMap<>();
+            m.put("jobTitle", app.getJob().getTitle());
+            m.put("company", app.getJob().getCompany().getName());
+            m.put("status", app.getStatus().name());
+            m.put("appliedAt", app.getAppliedDate());
+            jHistory.add(m);
+            appliedCount++;
+            if (app.getStatus().name().equals("SHORTLISTED")) shortlisted++;
+            if (app.getStatus().name().equals("SELECTED")) selected++;
+            if (app.getStatus().name().equals("REJECTED")) rejected++;
+        }
+        List<in.sp.main.Entities.SavedJob> saved = savedJobRepository.findByJobSeekerWithCompany(candidate);
+        
+        Map<String, Object> jobStats = new HashMap<>();
+        jobStats.put("applied", appliedCount);
+        jobStats.put("saved", saved.size());
+        jobStats.put("shortlisted", shortlisted);
+        jobStats.put("selected", selected);
+        jobStats.put("rejected", rejected);
+        jobStats.put("history", jHistory);
+        response.put("jobHistory", jobStats);
+
+        // 8. Profile Activity & Overview
+        Map<String, Object> profile = new HashMap<>();
+        int completion = 20; // Base
+        if (candidate.getSkills() != null && !candidate.getSkills().isEmpty()) completion += 20;
+        if (candidate.getEducation() != null) completion += 20;
+        if (candidate.getExperience() != null) completion += 20;
+        if (candidate.getResumeUploaded() != null) completion += 20;
+        profile.put("completion", completion);
+        profile.put("skills", candidate.getSkills());
+        profile.put("education", candidate.getEducation());
+        profile.put("experience", candidate.getExperience());
+        response.put("profileActivity", profile);
+
+        // 9. Performance Summary
+        Map<String, Object> summary = new HashMap<>();
+        summary.put("totalLogins", loginCount);
+        summary.put("questionsSolved", totalSolved);
+        summary.put("applications", appliedCount);
+        summary.put("interviews", interviews.size());
+        summary.put("codingAccuracy", codingStats.get("accuracy"));
+        response.put("performanceSummary", summary);
+
+        return ResponseEntity.ok(response);
     }
 }

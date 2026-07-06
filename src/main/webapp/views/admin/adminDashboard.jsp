@@ -916,6 +916,7 @@ html { scroll-behavior: smooth; }
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/alerts" class="action-card reports"><div class="action-icon"><i class="fas fa-flag"></i></div><div class="action-title">Reported Companies</div><p class="action-desc">Review, respond & remove company alerts</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/assessments/uploadpage" class="action-card assessments"><div class="action-icon"><i class="fas fa-file-alt"></i></div><div class="action-title">Assessment Questions</div><p class="action-desc">Add and manage assessment questions</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/had" class="action-card assessments"><div class="action-icon"><i class="fas fa-chart-line"></i></div><div class="action-title">HackerRank Dashboard</div><p class="action-desc">Advanced analytics & coding assessments</p></a></div>
+      <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/activity-logs" class="action-card qa"><div class="action-icon"><i class="fas fa-history"></i></div><div class="action-title">User Activity Logs</div><p class="action-desc">Track and monitor all user actions across the portal</p></a></div>
     </div>
   </div>
 </div>

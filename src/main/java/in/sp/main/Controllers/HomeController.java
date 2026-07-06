@@ -9,6 +9,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import in.sp.main.Services.EmailService;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 
 @Controller
 public class HomeController {
@@ -19,11 +21,15 @@ public class HomeController {
 	@Value("${admin.email}")
 	private String adminEmail;
 
+	@Autowired
+	private ActivityLogger activityLogger;
+
 	@RequestMapping(value = "/submit-contact", method = RequestMethod.POST)
 	public String submitContact(@RequestParam("name") String name,
 								@RequestParam("email") String email,
 								@RequestParam("message") String message,
-								RedirectAttributes redirectAttributes) {
+								RedirectAttributes redirectAttributes,
+								jakarta.servlet.http.HttpSession session) {
 		try {
 			// Email to the site administrator
 			String adminSubject = "New Contact Form Submission from " + name;
@@ -34,6 +40,22 @@ public class HomeController {
 			String userSubject = "Thank you for contacting us, " + name + "!";
 			String userText = "Hi " + name + ",\n\nWe have received your message and will get back to you shortly.\n\nYour Message:\n" + message + "\n\nBest regards,\nSupport Team";
 			emailService.sendEmail(email, userSubject, userText);
+			
+			Long userId = null;
+			String userRole = "GUEST";
+			if (session != null) {
+			    if (session.getAttribute("jobSeeker") != null) {
+			        userId = ((in.sp.main.Entities.JobSeeker) session.getAttribute("jobSeeker")).getId();
+			        userRole = "JOBSEEKER";
+			    } else if (session.getAttribute("loggedInCompany") != null) {
+			        userId = ((in.sp.main.Entities.Company) session.getAttribute("loggedInCompany")).getId();
+			        userRole = "COMPANY";
+			    } else if (session.getAttribute("loggedInRecruiter") != null) {
+			        userId = ((in.sp.main.Entities.Recruiter) session.getAttribute("loggedInRecruiter")).getId();
+			        userRole = "RECRUITER";
+			    }
+			}
+			activityLogger.log(userId, name, email, userRole, ActivityType.CONTACT_SUPPORT, "Contact support message sent");
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Log to allow debugging if not receiving mail

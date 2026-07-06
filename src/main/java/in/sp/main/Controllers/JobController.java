@@ -32,6 +32,8 @@ import in.sp.main.Services.MatchingService;
 import in.sp.main.Services.SavedJobService;
 import in.sp.main.Services.SubscriberServices;
 import in.sp.main.Services.TagService;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -55,6 +57,9 @@ public class JobController {
     private SubscriberServices subscriberServices;
     @Autowired
     private MatchingService matchingService;
+    
+    @Autowired
+    private ActivityLogger activityLogger;
     
  // Show job posting form
     @RequestMapping(value = "/post/{companyId}", method = RequestMethod.GET)
@@ -308,6 +313,7 @@ public class JobController {
         }
 
         savedJobService.saveJob(job, seeker);
+        activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.SAVED_JOB, "Saved job: " + job.getTitle());
         redirectAttributes.addFlashAttribute("message", "Job saved for later.");
         return "redirect:/jobs/all";
     }
@@ -332,6 +338,9 @@ public class JobController {
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
+            if (seeker != null) {
+                activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
+            }
             return "job/jobDetails"; // JSP page name
         } catch (Exception e) {
             System.err.println("Error showing job details for job ID " + jobId + ": " + e.getMessage());

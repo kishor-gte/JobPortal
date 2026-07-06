@@ -482,6 +482,16 @@
             </a>
         </div>
 
+        <div class="col-md-4">
+            <a href="${pageContext.request.contextPath}/recruiter/candidate-activities" class="text-decoration-none">
+                <div class="dashboard-card">
+                    <div class="dashboard-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h5>Candidate Activity</h5>
+                    <p>Monitor candidate interactions and engagement</p>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>
 

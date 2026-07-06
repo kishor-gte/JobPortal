@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Cookie;
 import in.sp.main.Configuration.JwtUtil;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 
 @Controller
 public class AdminController {
@@ -89,6 +91,9 @@ public class AdminController {
 
     @Autowired
     private CategoryDAO categoryDAO;
+
+    @Autowired
+    private ActivityLogger activityLogger;
    
 	/*
 	 * @Autowired private JobSeekerService userService;
@@ -368,10 +373,12 @@ public class AdminController {
                 session.setAttribute("adminId", admin.getId());
                 session.setAttribute("userType", "ADMIN");
                 session.setAttribute("userRole", "ADMIN");
+                activityLogger.log(admin.getId(), admin.getName(), admin.getEmail(), "ADMIN", ActivityType.LOGIN, "Admin logged in successfully");
 
                 // Redirect to dashboard with context path (WAR name)
                 return "redirect:/dashboard";
             } else {
+                activityLogger.log(null, "Unknown", email, "ADMIN", ActivityType.FAILED_LOGIN_ATTEMPT, "Failed admin login attempt");
                 model.addAttribute("error", "Invalid credentials!");
                 return "admin/adminLogin";
             }
@@ -441,6 +448,10 @@ public class AdminController {
     @RequestMapping(value = "/adminLogout", method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(HttpSession session, HttpServletResponse response) {
         try {
+            Admin admin = (Admin) session.getAttribute("loggedInAdmin");
+            if (admin != null) {
+                activityLogger.log(admin.getId(), admin.getName(), admin.getEmail(), "ADMIN", ActivityType.LOGOUT, "Admin logged out");
+            }
             session.invalidate(); // removes all session attributes
             Cookie cookie = jwtUtil.createClearJwtCookie();
             response.addCookie(cookie);
