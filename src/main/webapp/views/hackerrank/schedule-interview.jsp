@@ -738,6 +738,9 @@
             <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link">
                 <i class="fas fa-robot"></i> AI Evaluations
             </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/candidates" class="nav-link">
+                <i class="fas fa-users"></i> Candidates
+            </a>
         </div>
         <div class="nav-section">
             <h4>Account</h4>

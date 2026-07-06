@@ -24,6 +24,8 @@ import in.sp.main.Enums.Education;
 import in.sp.main.Enums.Gender;
 import in.sp.main.Enums.Location;
 import in.sp.main.Enums.WorkAvailability;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import in.sp.main.Services.AuditLogService;
 import in.sp.main.Services.FileUploadServices;
 import in.sp.main.Services.JobSeekerService;
@@ -56,6 +58,9 @@ public class JobSeekerController {
     
     @Autowired
     private LoginAttemptService loginAttemptService;
+
+    @Autowired
+    private ActivityLogger activityLogger;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
@@ -112,6 +117,7 @@ public class JobSeekerController {
      
             // Log successful login
             auditLogService.logLogin(email, SessionConstants.TYPE_JOBSEEKER, request.getRemoteAddr(), true);
+            activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.LOGIN, "JobSeeker logged in successfully");
             
             return "redirect:dashboard"; // redirect to dashboard
         } else {
@@ -126,6 +132,9 @@ public class JobSeekerController {
             
             // Log failed login
             auditLogService.logLogin(email, SessionConstants.TYPE_JOBSEEKER, request.getRemoteAddr(), false);
+            Long failedId = jobSeeker != null ? jobSeeker.getId() : null;
+            String failedName = jobSeeker != null ? jobSeeker.getName() : "Unknown";
+            activityLogger.log(failedId, failedName, email, "JOBSEEKER", ActivityType.FAILED_LOGIN_ATTEMPT, "Failed login attempt");
             
             return "jobSeekers/login"; // show login form again with error
         }
@@ -180,6 +189,7 @@ public class JobSeekerController {
 
             // Save the job seeker to the database
             jobSeekerService.createJobSeeker(jobSeeker);
+            activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.USER_REGISTRATION, "JobSeeker registered successfully");
 
             // Redirect to login page after successful registration
             return "redirect:login";
@@ -392,6 +402,7 @@ public class JobSeekerController {
 
         // Update the Job Seeker in the database
         jobSeekerService.updateJobSeeker(id, existingJobSeeker);
+        activityLogger.log(existingJobSeeker.getId(), existingJobSeeker.getName(), existingJobSeeker.getEmail(), "JOBSEEKER", ActivityType.PROFILE_UPDATED, "JobSeeker updated profile");
 
         // Redirect to the Job Seeker profile page after updating
         return "redirect:/jobSeekers/profile";
@@ -452,12 +463,71 @@ public class JobSeekerController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signupFromIndex(@RequestParam("email") String email,
                                    @RequestParam("password") String password,
+                                   @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
                                    HttpSession session,
                                    RedirectAttributes redirectAttributes) {
+                                   
+        // Validation - Required fields
+        if (email == null || email.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Email is required.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (password == null || password.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Password is required.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (confirmPassword == null || confirmPassword.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Confirm Password is required.");
+            return "redirect:/jobSeekers/register";
+        }
+
+        // Trim spaces
+        email = email.trim().toLowerCase();
+        password = password.trim();
+        confirmPassword = confirmPassword.trim();
+        
+        // Email format validation
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        if (!email.matches(emailRegex)) {
+            redirectAttributes.addFlashAttribute("error", "Please enter a valid email address.");
+            return "redirect:/jobSeekers/register";
+        }
+        
+        // Password validation
+        if (password.length() < 8 || password.length() > 32) {
+            redirectAttributes.addFlashAttribute("error", "Password must be between 8 and 32 characters.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one uppercase letter.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[a-z].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one lowercase letter.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[0-9].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one number.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{}|;:',.<>?/].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one special character.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (password.contains(" ")) {
+            redirectAttributes.addFlashAttribute("error", "Password must not contain spaces.");
+            return "redirect:/jobSeekers/register";
+        }
+        
+        // Confirm Password validation
+        if (!password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+            return "redirect:/jobSeekers/register";
+        }
 
         if (jobSeekerService.findByEmail(email) != null) {
-            redirectAttributes.addFlashAttribute("signupError", "Email already registered.");
-            return "redirect:/home.html?error=email_exists";
+            redirectAttributes.addFlashAttribute("error", "This email is already registered.");
+            return "redirect:/jobSeekers/register";
         }
 
         JobSeeker jobSeeker = new JobSeeker();
@@ -466,8 +536,9 @@ public class JobSeekerController {
         jobSeeker.setAccountStatus(AccountStatus.ACTIVE);
 
         jobSeekerService.createJobSeeker(jobSeeker);
+        activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.USER_REGISTRATION, "JobSeeker registered from index page");
 
-        redirectAttributes.addFlashAttribute("signupSuccess", "Account created successfully! Please log in.");
+        redirectAttributes.addFlashAttribute("message", "Account created successfully! Please log in.");
         return "redirect:/jobSeekers/login";
     }
 
@@ -504,6 +575,7 @@ public class JobSeekerController {
 
             session.setAttribute("jobSeeker", jobSeeker);
             session.setAttribute("jobSeekerId", jobSeeker.getId());
+            activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.LOGIN, "JobSeeker logged in from index page");
             return "redirect:dashboard";
         } else {
             redirectAttributes.addFlashAttribute("loginError", "Invalid email or password.");
@@ -513,6 +585,11 @@ public class JobSeekerController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session, HttpServletResponse response) {
+        JobSeeker js = (JobSeeker) session.getAttribute("jobSeeker");
+        if(js == null) js = (JobSeeker) session.getAttribute(SessionConstants.ATTR_JOB_SEEKER);
+        if (js != null) {
+            activityLogger.log(js.getId(), js.getName(), js.getEmail(), "JOBSEEKER", ActivityType.LOGOUT, "JobSeeker logged out");
+        }
         session.invalidate();
         Cookie cookie = jwtUtil.createClearJwtCookie();
         response.addCookie(cookie);
@@ -529,7 +606,11 @@ public class JobSeekerController {
     @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam String email, @RequestParam(required = false) String role, Model model) {
         String response = passwordResetService.createPasswordResetToken(email);
-        model.addAttribute("message", response);
+        if (response.startsWith("Failed") || response.equals("Email not found")) {
+            model.addAttribute("error", response);
+        } else {
+            model.addAttribute("message", response);
+        }
         model.addAttribute("role", role);
         return "password/forgotPassword";
     }

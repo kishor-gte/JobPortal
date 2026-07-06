@@ -66,7 +66,7 @@ public class CompanyServices
 	    companyRepository.deleteById(id);
 	}
 	public String authenticateCompany(String email, String password) {
-	    Optional<Company> companyOpt = companyRepository.findByEmail(email);
+	    Optional<Company> companyOpt = companyRepository.findFirstByEmail(email);
 
 	    if (companyOpt.isEmpty()) {
 	        return "NOT_FOUND";

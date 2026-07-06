@@ -15,7 +15,7 @@
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
+            if (savedTheme !== 'dark') {
                 document.documentElement.classList.add('light-mode');
             }
         })();
@@ -160,7 +160,7 @@
         .nav-link.active {
             background: linear-gradient(135deg, rgba(25,167,123,0.2), rgba(59,196,154,0.1));
             color: var(--accent);
-            border-right: 3px solid var(--accent);
+            border-left: 3px solid var(--primary);
         }
 
         .nav-link i {
@@ -445,6 +445,7 @@
         html.light-mode .nav-link.active {
             background: linear-gradient(135deg, rgba(25,167,123,0.12), rgba(59,196,154,0.08));
             color: var(--primary);
+            border-left: 3px solid var(--primary);
         }
 
         html.light-mode .stat-card, html.light-mode .card {

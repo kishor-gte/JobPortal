@@ -39,7 +39,7 @@ public class PasswordResetService {
 
     public String createPasswordResetToken(String email) {
         Optional<Admin> admin = adminRepo.findByEmail(email);
-        Optional<Company> company = companyRepo.findByEmail(email);
+        Optional<Company> company = companyRepo.findFirstByEmail(email);
         Optional<Recruiter> recruiter = recruiterRepo.findByEmail(email);
         Optional<JobSeeker> jobSeeker = jobSeekerRepo.findByEmail(email);
 
@@ -56,11 +56,12 @@ public class PasswordResetService {
 
         try {
             sendResetEmail(email, token, userType);
-            return "Reset email sent successfully.";
         } catch (Exception e) {
+            e.printStackTrace();
             tokenRepo.delete(resetToken);
-            return "Failed to send reset email. Please try again later or contact support.";
+            return "Failed to send reset email due to a server error. Please try again later.";
         }
+        return "Reset email sent successfully.";
     }
 
     private void sendResetEmail(String email, String token, UserType userType) {
@@ -97,7 +98,7 @@ public class PasswordResetService {
                 }
                 break;
             case COMPANY:
-                Optional<Company> company = companyRepo.findByEmail(email);
+                Optional<Company> company = companyRepo.findFirstByEmail(email);
                 if (company.isPresent()) {
                     company.get().setPassword(encodedPassword);
                     companyRepo.save(company.get());

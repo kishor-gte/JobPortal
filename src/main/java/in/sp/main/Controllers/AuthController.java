@@ -24,7 +24,11 @@ public class AuthController {
     @RequestMapping(value = "/forgot-password1", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam String email, @RequestParam(required = false) String role, Model model) {
         String response = passwordResetService.createPasswordResetToken(email);
-        model.addAttribute("message", response);
+        if (response.startsWith("Failed") || response.equals("Email not found")) {
+            model.addAttribute("error", response);
+        } else {
+            model.addAttribute("message", response);
+        }
         model.addAttribute("role", role);
         return "password/forgotPassword";
     }

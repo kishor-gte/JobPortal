@@ -25,6 +25,8 @@ import in.sp.main.Entities.JobSeeker;
 import in.sp.main.Repositories.JobApplicationRepository;
 import in.sp.main.Services.JobApplicationService;
 import in.sp.main.Services.JobServices;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -44,6 +46,9 @@ public class JobApplicationController {
     @Autowired
     private in.sp.main.dao.PerformanceDAO performanceDAO;
 
+    @Autowired
+    private ActivityLogger activityLogger;
+
     // Apply to a job
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
     public String applyToJob(@RequestParam Long jobId, HttpSession session, RedirectAttributes redirectAttributes) {
@@ -58,6 +63,7 @@ public class JobApplicationController {
 
         try {
             applicationService.apply(job, seeker);
+            activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.APPLIED_TO_JOB, "Applied for job: " + job.getTitle());
             redirectAttributes.addFlashAttribute("message", "Successfully applied for the job.");
         } catch (IllegalStateException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
