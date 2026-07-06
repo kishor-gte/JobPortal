@@ -54,8 +54,13 @@ public class PasswordResetService {
         PasswordResetToken resetToken = new PasswordResetToken(email, token, userType, EXPIRATION_MINUTES);
         tokenRepo.save(resetToken);
 
-        sendResetEmail(email, token, userType);
-        return "Reset email sent successfully.";
+        try {
+            sendResetEmail(email, token, userType);
+            return "Reset email sent successfully.";
+        } catch (Exception e) {
+            tokenRepo.delete(resetToken);
+            return "Failed to send reset email. Please try again later or contact support.";
+        }
     }
 
     private void sendResetEmail(String email, String token, UserType userType) {
