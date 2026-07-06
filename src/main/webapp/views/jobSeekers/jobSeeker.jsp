@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,8 @@
     <title>Job Seeker Registration | SmartInterview</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <style>
     :root {
         --primary: #19A77B;
@@ -573,6 +573,7 @@
                             <span class="input-icon email-icon"></span>
                             <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com" required>
                         </div>
+                        <div id="emailError" class="password-match mismatch" style="display: none;"></div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
@@ -580,6 +581,7 @@
                             <span class="input-icon password-icon"></span>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
                         </div>
+                        <div id="passwordError" class="password-match mismatch" style="display: none;"></div>
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
@@ -616,38 +618,102 @@
     <script>
         // Password match validation
         document.addEventListener('DOMContentLoaded', function() {
+            const email = document.getElementById('email');
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirmPassword');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
             const passwordMatch = document.getElementById('passwordMatch');
             const form = document.getElementById('registrationForm');
+
+            function validateEmail() {
+                let val = email.value;
+                if (!val) {
+                    emailError.style.display = 'none';
+                    email.style.borderColor = '';
+                    return false;
+                }
+                const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
+                if (!regex.test(val)) {
+                    emailError.style.display = 'flex';
+                    emailError.innerHTML = '<i class="fas fa-times-circle"></i> Please enter a valid email address';
+                    email.style.borderColor = 'var(--danger)';
+                    return false;
+                } else {
+                    emailError.style.display = 'none';
+                    email.style.borderColor = 'var(--success)';
+                    return true;
+                }
+            }
+
+            function validatePassword() {
+                let val = password.value;
+                if (!val) {
+                    passwordError.style.display = 'none';
+                    password.style.borderColor = '';
+                    return false;
+                }
+                let errorMsg = '';
+                if (val.length < 8 || val.length > 32) errorMsg = 'Password must be between 8 and 32 characters.';
+                else if (!/[A-Z]/.test(val)) errorMsg = 'Password must contain at least one uppercase letter.';
+                else if (!/[a-z]/.test(val)) errorMsg = 'Password must contain at least one lowercase letter.';
+                else if (!/[0-9]/.test(val)) errorMsg = 'Password must contain at least one number.';
+                else if (!/[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(val)) errorMsg = 'Password must contain at least one special character.';
+                else if (/\s/.test(val)) errorMsg = 'Password must not contain spaces.';
+
+                if (errorMsg) {
+                    passwordError.style.display = 'flex';
+                    passwordError.innerHTML = '<i class="fas fa-times-circle"></i> ' + errorMsg;
+                    password.style.borderColor = 'var(--danger)';
+                    return false;
+                } else {
+                    passwordError.style.display = 'none';
+                    password.style.borderColor = 'var(--success)';
+                    return true;
+                }
+            }
 
             function checkPasswordMatch() {
                 if (confirmPassword.value === '') {
                     passwordMatch.style.display = 'none';
-                    return;
+                    confirmPassword.style.borderColor = '';
+                    return false;
                 }
                 
                 passwordMatch.style.display = 'flex';
                 if (password.value === confirmPassword.value) {
                     passwordMatch.innerHTML = '<i class="fas fa-check-circle"></i> Passwords match';
                     passwordMatch.className = 'password-match match';
+                    confirmPassword.style.borderColor = 'var(--success)';
+                    return true;
                 } else {
                     passwordMatch.innerHTML = '<i class="fas fa-times-circle"></i> Passwords do not match';
                     passwordMatch.className = 'password-match mismatch';
+                    confirmPassword.style.borderColor = 'var(--danger)';
+                    return false;
                 }
             }
 
-            password.addEventListener('input', checkPasswordMatch);
+            email.addEventListener('input', validateEmail);
+            email.addEventListener('blur', function() { email.value = email.value.trim().toLowerCase(); validateEmail(); });
+            
+            password.addEventListener('input', function() { validatePassword(); checkPasswordMatch(); });
+            password.addEventListener('blur', function() { password.value = password.value.trim(); validatePassword(); checkPasswordMatch(); });
+
             confirmPassword.addEventListener('input', checkPasswordMatch);
+            confirmPassword.addEventListener('blur', function() { confirmPassword.value = confirmPassword.value.trim(); checkPasswordMatch(); });
 
             // Form validation before submit
             form.addEventListener('submit', function(e) {
-                if (password.value !== confirmPassword.value) {
+                let isEmailValid = validateEmail();
+                let isPasswordValid = validatePassword();
+                let isMatch = checkPasswordMatch();
+                
+                if (!isEmailValid || !isPasswordValid || !isMatch) {
                     e.preventDefault();
-                    passwordMatch.style.display = 'flex';
-                    passwordMatch.innerHTML = '<i class="fas fa-times-circle"></i> Passwords do not match';
-                    passwordMatch.className = 'password-match mismatch';
-                    confirmPassword.focus();
+                    if (!isMatch) confirmPassword.focus();
+                    else if (!isPasswordValid) password.focus();
+                    else if (!isEmailValid) email.focus();
                     return false;
                 }
             });

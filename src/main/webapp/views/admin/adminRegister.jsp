@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobU Admin Registration | Premium Access</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -766,7 +766,7 @@
             </form>
 
             <div class="login-link">
-                <p><i class="fas fa-sign-in-alt" style="margin-right: 8px; color: var(--primary);"></i> Already have an account? <a href="${pageContext.request.contextPath}/loginAdmin">Sign In →</a></p>
+                <p><i class="fas fa-sign-in-alt" style="margin-right: 8px; color: var(--primary);"></i> Already have an account? <a href="${pageContext.request.contextPath}/loginAdmin">Sign In ?</a></p>
             </div>
         </div>
     </div>
