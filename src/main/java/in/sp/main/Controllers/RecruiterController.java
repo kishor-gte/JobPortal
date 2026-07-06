@@ -29,6 +29,8 @@ import in.sp.main.Entities.SportsBooking;
 import in.sp.main.Entities.VideoResume;
 import in.sp.main.Enums.ApplicationStatus;
 import in.sp.main.Enums.Location;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import in.sp.main.Repositories.AssessmentInvitationRepository;
 import in.sp.main.Repositories.AssessmentQuestionRepository;
 import in.sp.main.Repositories.AssessmentResultRepository;
@@ -75,6 +77,9 @@ public class RecruiterController {
     private in.sp.main.Services.SportsServiceService sportsServiceService;
     @Autowired
     private in.sp.main.Services.SportsBookingService sportsBookingService;
+
+    @Autowired
+    private ActivityLogger activityLogger;
 
     // Explore Services
     @RequestMapping(value = "/explore", method = RequestMethod.GET)
@@ -194,6 +199,7 @@ public class RecruiterController {
 
         recruiter.setCompany(company);
         recruiterService.createRecruiter(recruiter);
+        activityLogger.log(recruiter.getId(), recruiter.getName(), recruiter.getEmail(), "RECRUITER", ActivityType.USER_REGISTRATION, "Recruiter registered successfully");
 
         redirectAttributes.addFlashAttribute("message", "Recruiter registered successfully!");
         return "redirect:/company/recruiters/" + companyId;
@@ -228,8 +234,10 @@ public class RecruiterController {
             session.setAttribute("loggedInRecruiter", recruiter); // Store in session
             session.setAttribute("userType", "RECRUITER");
             session.setAttribute("recruiterId", recruiter.getId());
+            activityLogger.log(recruiter.getId(), recruiter.getName(), recruiter.getEmail(), "RECRUITER", ActivityType.LOGIN, "Recruiter logged in successfully");
             return "redirect:/recruiter/dashboard";
         } else {
+            activityLogger.log(null, "Unknown", email, "RECRUITER", ActivityType.FAILED_LOGIN_ATTEMPT, "Failed recruiter login attempt");
             model.addAttribute("error", "Invalid credentials");
             return "recruiter/loginRecruiter";
         }
@@ -252,6 +260,10 @@ public class RecruiterController {
     // logout recruiter
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutRecruiter(HttpSession session, HttpServletResponse response) {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        if (recruiter != null) {
+            activityLogger.log(recruiter.getId(), recruiter.getName(), recruiter.getEmail(), "RECRUITER", ActivityType.LOGOUT, "Recruiter logged out");
+        }
         session.invalidate(); // Clear session
         Cookie cookie = jwtUtil.createClearJwtCookie();
         response.addCookie(cookie);
@@ -479,6 +491,7 @@ public class RecruiterController {
         }
 
         recruiterService.updateRecruiter(existing); // Save changes
+        activityLogger.log(existing.getId(), existing.getName(), existing.getEmail(), "RECRUITER", ActivityType.PROFILE_UPDATED, "Recruiter updated profile");
         redirectAttributes.addFlashAttribute("message", "Profile updated successfully!");
 
         return "redirect:/recruiter/profile";

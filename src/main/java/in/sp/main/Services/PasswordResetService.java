@@ -39,7 +39,7 @@ public class PasswordResetService {
 
     public String createPasswordResetToken(String email) {
         Optional<Admin> admin = adminRepo.findByEmail(email);
-        Optional<Company> company = companyRepo.findByEmail(email);
+        Optional<Company> company = companyRepo.findFirstByEmail(email);
         Optional<Recruiter> recruiter = recruiterRepo.findByEmail(email);
         Optional<JobSeeker> jobSeeker = jobSeekerRepo.findByEmail(email);
 
@@ -92,7 +92,7 @@ public class PasswordResetService {
                 }
                 break;
             case COMPANY:
-                Optional<Company> company = companyRepo.findByEmail(email);
+                Optional<Company> company = companyRepo.findFirstByEmail(email);
                 if (company.isPresent()) {
                     company.get().setPassword(encodedPassword);
                     companyRepo.save(company.get());

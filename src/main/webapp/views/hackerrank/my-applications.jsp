@@ -615,7 +615,8 @@
             <c:when test="${not empty applications}">
                 <div class="applications-list">
                     <c:forEach var="app" items="${applications}" varStatus="status">
-                        <c:set var="statusClass" value="${app.status == 'INTERVIEW_SCHEDULED' or app.status == 'SCHEDULED_INTERVIEW' ? 'interview' : app.status == 'SELECTED' ? 'hired' : app.status == 'VIEWED_BY_RECRUITER' ? 'viewed' : app.status.toLowerCase()}" />
+                        <c:set var="safeStatus" value="${empty app.status ? 'APPLIED' : app.status.toString()}" />
+                        <c:set var="statusClass" value="${safeStatus == 'INTERVIEW_SCHEDULED' or safeStatus == 'SCHEDULED_INTERVIEW' ? 'interview' : safeStatus == 'SELECTED' ? 'hired' : safeStatus == 'VIEWED_BY_RECRUITER' ? 'viewed' : safeStatus.toLowerCase()}" />
                         <div class="app-card status-${statusClass}" style="animation-delay: ${status.index * 0.05}s;">
                             <div class="app-card-header">
                                 <div>
@@ -630,14 +631,15 @@
                                             <svg width="72" height="72" viewBox="0 0 72 72">
                                                 <circle class="score-ring-bg" cx="36" cy="36" r="30"></circle>
                                                 <c:set var="circumference" value="188.5" />
-                                                <c:set var="offset" value="${circumference - (app.resumeScore / 100.0 * circumference)}" />
-                                                <circle class="score-ring-fill ${app.resumeScore >= 75 ? 'high' : app.resumeScore >= 50 ? 'medium' : 'low'}"
+                                                <c:set var="score" value="${not empty app.resumeScore ? app.resumeScore : 0}" />
+                                                <c:set var="offset" value="${circumference - (score / 100.0 * circumference)}" />
+                                                <circle class="score-ring-fill ${score >= 75 ? 'high' : score >= 50 ? 'medium' : 'low'}"
                                                     cx="36" cy="36" r="30"
                                                     stroke-dasharray="${circumference}"
                                                     stroke-dashoffset="${offset}">
                                                 </circle>
                                             </svg>
-                                            <span class="score-ring-text">${app.resumeScore}%</span>
+                                            <span class="score-ring-text">${score}%</span>
                                         </div>
                                         <div class="score-ring-label">Resume Match</div>
                                     </div>

@@ -1,0 +1,48 @@
+package in.sp.main.Enums;
+
+public enum ActivityType {
+    // Authentication
+    USER_REGISTRATION,
+    LOGIN,
+    LOGOUT,
+    FAILED_LOGIN_ATTEMPT,
+    
+    // Profile
+    PROFILE_UPDATED,
+    RESUME_UPLOADED,
+    RESUME_UPDATED,
+    RESUME_DELETED,
+    PROFILE_PICTURE_UPDATED,
+    SKILLS_UPDATED,
+    EDUCATION_UPDATED,
+    EXPERIENCE_UPDATED,
+    
+    // Job Actions
+    VIEWED_JOB,
+    APPLIED_TO_JOB,
+    SAVED_JOB,
+    REMOVED_SAVED_JOB,
+    WITHDRAWN_APPLICATION,
+    
+    // Search Activity
+    JOB_SEARCH,
+    FILTER_APPLIED,
+    CATEGORY_SELECTED,
+    LOCATION_SEARCH,
+    COMPANY_SEARCH,
+    
+    // Company Interaction
+    COMPANY_PROFILE_VIEWED,
+    RECRUITER_PROFILE_VIEWED,
+    FOLLOWED_COMPANY,
+    
+    // Notifications
+    NOTIFICATION_OPENED,
+    NOTIFICATION_READ,
+    
+    // Other
+    PASSWORD_CHANGED,
+    ACCOUNT_DELETED,
+    CONTACT_SUPPORT,
+    OTHER
+}

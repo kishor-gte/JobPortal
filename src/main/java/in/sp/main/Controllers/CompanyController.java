@@ -29,6 +29,8 @@ import in.sp.main.Entities.AssessmentQuestion;
 import in.sp.main.Entities.AssessmentInvitation;
 import in.sp.main.Enums.JobStatus;
 import in.sp.main.Enums.Location;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import in.sp.main.Repositories.CompanyRepository;
 import in.sp.main.Repositories.JobSeekerRepository;
 import in.sp.main.Repositories.ReviewRepository;
@@ -96,6 +98,9 @@ public class CompanyController {
     @Autowired
     private JobApplicationService jobApplicationService;
     
+    @Autowired
+    private ActivityLogger activityLogger;
+    
     @Value("${razorpay.key.id}")
     private String razorpayKeyId;
 
@@ -122,6 +127,7 @@ public class CompanyController {
             }
             Company savedCompany = companyService.registerCompany(company);
             System.out.println("DEBUG: Company saved - ID: " + savedCompany.getId() + ", Verified: " + savedCompany.isVerified());
+            activityLogger.log(savedCompany.getId(), savedCompany.getName(), savedCompany.getEmail(), "COMPANY", ActivityType.USER_REGISTRATION, "Company registered successfully");
             model.addAttribute("message", "Registration successful. Your account is under verification. You will receive an email notification once the process is complete.");
             return "company/success";
         } catch (Exception e) {
@@ -233,6 +239,7 @@ public class CompanyController {
             company.setVerified(existing.isVerified());
 
             companyService.updateCompany(company);
+            activityLogger.log(company.getId(), company.getName(), company.getEmail(), "COMPANY", ActivityType.PROFILE_UPDATED, "Company updated profile");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -325,7 +332,7 @@ public class CompanyController {
 
         switch (result) {
             case "SUCCESS":
-                Company company = companyRepository.findByEmail(email).get();
+                Company company = companyRepository.findFirstByEmail(email).get();
                 
                 String token = jwtUtil.generateToken(String.valueOf(company.getId()), "COMPANY");
                 Cookie cookie = jwtUtil.createJwtCookie(token);
@@ -333,14 +340,15 @@ public class CompanyController {
                 
                 session.setAttribute("loggedInCompany", company);
                 session.setAttribute("userType", "COMPANY");
-                model.addAttribute("success", "Login successful! Redirecting to your dashboard...");
-                return "company/company_login"; // show success first, JS will redirect
+                activityLogger.log(company.getId(), company.getName(), company.getEmail(), "COMPANY", ActivityType.LOGIN, "Company logged in successfully");
+                return "redirect:/company/dashboard";
 
             case "NOT_VERIFIED":
                 model.addAttribute("warning", "Your account is awaiting admin approval. You’ll be able to log in once verified.");
                 break;
 
             case "NOT_FOUND":
+                activityLogger.log(null, "Unknown", email, "COMPANY", ActivityType.FAILED_LOGIN_ATTEMPT, "Failed company login attempt");
                 model.addAttribute("error", "Invalid email or password. Please try again.");
                 break;
         }
@@ -351,6 +359,10 @@ public class CompanyController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session, HttpServletResponse response) {
+        Company company = (Company) session.getAttribute("loggedInCompany");
+        if (company != null) {
+            activityLogger.log(company.getId(), company.getName(), company.getEmail(), "COMPANY", ActivityType.LOGOUT, "Company logged out");
+        }
         session.invalidate();
         Cookie cookie = jwtUtil.createClearJwtCookie();
         response.addCookie(cookie);
