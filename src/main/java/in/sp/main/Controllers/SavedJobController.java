@@ -14,6 +14,8 @@ import in.sp.main.Entities.Job;
 import in.sp.main.Entities.JobSeeker;
 import in.sp.main.Services.JobServices;
 import in.sp.main.Services.SavedJobService;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -25,6 +27,9 @@ public class SavedJobController {
 
     @Autowired
     private JobServices jobService;
+
+    @Autowired
+    private ActivityLogger activityLogger;
 
     @RequestMapping(value = "/saved-jobs", method = RequestMethod.GET)
     public String viewSavedJobs(HttpSession session, Model model) {
@@ -50,6 +55,7 @@ public class SavedJobController {
         }
 
         savedJobService.removeSavedJob(job, seeker);
+        activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.REMOVED_SAVED_JOB, "Removed saved job: " + job.getTitle());
         redirectAttributes.addFlashAttribute("message", "Job removed from saved list.");
         return "redirect:/seeker/saved-jobs";
     }

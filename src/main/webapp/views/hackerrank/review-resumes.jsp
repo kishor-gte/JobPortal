@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -723,6 +723,9 @@
             </a>
             <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link">
                 <i class="fas fa-robot"></i> AI Evaluations
+            </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/candidates" class="nav-link">
+                <i class="fas fa-users"></i> Candidates
             </a>
         </div>
         <div class="nav-section">

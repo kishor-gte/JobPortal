@@ -4,10 +4,12 @@ import in.sp.main.Entities.Admin;
 import in.sp.main.Entities.Company;
 import in.sp.main.Entities.JobSeeker;
 import in.sp.main.Entities.Recruiter;
+import in.sp.main.Entities.TechPerson;
 import in.sp.main.Repositories.AdminRepository;
 import in.sp.main.Repositories.CompanyRepository;
 import in.sp.main.Repositories.JobSeekerRepository;
 import in.sp.main.Repositories.RecruiterRepository;
+import in.sp.main.Repositories.TechPersonRepository;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 
@@ -28,11 +30,13 @@ public class JwtSession implements HttpSession {
     private final CompanyRepository companyRepo;
     private final JobSeekerRepository jobSeekerRepo;
     private final RecruiterRepository recruiterRepo;
+    private final TechPersonRepository techPersonRepo;
     private final ServletContext servletContext;
 
     public JwtSession(String userId, String role, ServletContext servletContext,
                       AdminRepository adminRepo, CompanyRepository companyRepo,
-                      JobSeekerRepository jobSeekerRepo, RecruiterRepository recruiterRepo) {
+                      JobSeekerRepository jobSeekerRepo, RecruiterRepository recruiterRepo,
+                      TechPersonRepository techPersonRepo) {
         this.userId = userId;
         this.role = role;
         this.servletContext = servletContext;
@@ -40,6 +44,7 @@ public class JwtSession implements HttpSession {
         this.companyRepo = companyRepo;
         this.jobSeekerRepo = jobSeekerRepo;
         this.recruiterRepo = recruiterRepo;
+        this.techPersonRepo = techPersonRepo;
         
         prepopulateAttributes();
     }
@@ -71,6 +76,13 @@ public class JwtSession implements HttpSession {
                 if (recruiter != null) {
                     attributes.put("loggedInRecruiter", recruiter);
                     attributes.put("recruiter", recruiter);
+                }
+            } else if ("TECHPERSON".equals(role)) {
+                attributes.put("techPersonId", id);
+                TechPerson techPerson = techPersonRepo.findById(id).orElse(null);
+                if (techPerson != null) {
+                    attributes.put("loggedInTechPerson", techPerson);
+                    attributes.put("techPerson", techPerson);
                 }
             }
         } catch (NumberFormatException ignored) {}

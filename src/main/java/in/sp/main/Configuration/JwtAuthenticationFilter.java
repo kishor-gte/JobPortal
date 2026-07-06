@@ -4,6 +4,7 @@ import in.sp.main.Repositories.AdminRepository;
 import in.sp.main.Repositories.CompanyRepository;
 import in.sp.main.Repositories.JobSeekerRepository;
 import in.sp.main.Repositories.RecruiterRepository;
+import in.sp.main.Repositories.TechPersonRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -38,6 +39,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private RecruiterRepository recruiterRepo;
 
+    @Autowired
+    private TechPersonRepository techPersonRepo;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -66,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // Wrap the request to provide the custom JwtSession
             JwtSession jwtSession = new JwtSession(userId, role, request.getServletContext(),
-                    adminRepo, companyRepo, jobSeekerRepo, recruiterRepo);
+                    adminRepo, companyRepo, jobSeekerRepo, recruiterRepo, techPersonRepo);
             JwtRequestWrapper wrappedRequest = new JwtRequestWrapper(request, jwtSession);
             
             filterChain.doFilter(wrappedRequest, response);

@@ -24,6 +24,8 @@ import in.sp.main.Enums.Education;
 import in.sp.main.Enums.Gender;
 import in.sp.main.Enums.Location;
 import in.sp.main.Enums.WorkAvailability;
+import in.sp.main.utils.ActivityLogger;
+import in.sp.main.Enums.ActivityType;
 import in.sp.main.Services.AuditLogService;
 import in.sp.main.Services.FileUploadServices;
 import in.sp.main.Services.JobSeekerService;
@@ -56,6 +58,9 @@ public class JobSeekerController {
     
     @Autowired
     private LoginAttemptService loginAttemptService;
+
+    @Autowired
+    private ActivityLogger activityLogger;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
@@ -112,6 +117,7 @@ public class JobSeekerController {
      
             // Log successful login
             auditLogService.logLogin(email, SessionConstants.TYPE_JOBSEEKER, request.getRemoteAddr(), true);
+            activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.LOGIN, "JobSeeker logged in successfully");
             
             return "redirect:dashboard"; // redirect to dashboard
         } else {
@@ -126,6 +132,9 @@ public class JobSeekerController {
             
             // Log failed login
             auditLogService.logLogin(email, SessionConstants.TYPE_JOBSEEKER, request.getRemoteAddr(), false);
+            Long failedId = jobSeeker != null ? jobSeeker.getId() : null;
+            String failedName = jobSeeker != null ? jobSeeker.getName() : "Unknown";
+            activityLogger.log(failedId, failedName, email, "JOBSEEKER", ActivityType.FAILED_LOGIN_ATTEMPT, "Failed login attempt");
             
             return "jobSeekers/login"; // show login form again with error
         }
@@ -180,6 +189,7 @@ public class JobSeekerController {
 
             // Save the job seeker to the database
             jobSeekerService.createJobSeeker(jobSeeker);
+            activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.USER_REGISTRATION, "JobSeeker registered successfully");
 
             // Redirect to login page after successful registration
             return "redirect:login";
@@ -392,6 +402,7 @@ public class JobSeekerController {
 
         // Update the Job Seeker in the database
         jobSeekerService.updateJobSeeker(id, existingJobSeeker);
+        activityLogger.log(existingJobSeeker.getId(), existingJobSeeker.getName(), existingJobSeeker.getEmail(), "JOBSEEKER", ActivityType.PROFILE_UPDATED, "JobSeeker updated profile");
 
         // Redirect to the Job Seeker profile page after updating
         return "redirect:/jobSeekers/profile";
@@ -525,6 +536,7 @@ public class JobSeekerController {
         jobSeeker.setAccountStatus(AccountStatus.ACTIVE);
 
         jobSeekerService.createJobSeeker(jobSeeker);
+        activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.USER_REGISTRATION, "JobSeeker registered from index page");
 
         redirectAttributes.addFlashAttribute("message", "Account created successfully! Please log in.");
         return "redirect:/jobSeekers/login";
@@ -563,6 +575,7 @@ public class JobSeekerController {
 
             session.setAttribute("jobSeeker", jobSeeker);
             session.setAttribute("jobSeekerId", jobSeeker.getId());
+            activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.LOGIN, "JobSeeker logged in from index page");
             return "redirect:dashboard";
         } else {
             redirectAttributes.addFlashAttribute("loginError", "Invalid email or password.");
@@ -572,6 +585,11 @@ public class JobSeekerController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session, HttpServletResponse response) {
+        JobSeeker js = (JobSeeker) session.getAttribute("jobSeeker");
+        if(js == null) js = (JobSeeker) session.getAttribute(SessionConstants.ATTR_JOB_SEEKER);
+        if (js != null) {
+            activityLogger.log(js.getId(), js.getName(), js.getEmail(), "JOBSEEKER", ActivityType.LOGOUT, "JobSeeker logged out");
+        }
         session.invalidate();
         Cookie cookie = jwtUtil.createClearJwtCookie();
         response.addCookie(cookie);

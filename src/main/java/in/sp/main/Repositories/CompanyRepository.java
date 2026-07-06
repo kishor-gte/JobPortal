@@ -17,7 +17,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long>{
 	List<Company> findByNameContainingIgnoreCase(String keyword);
 
 	Optional<Company> findByEmailAndPassword(String email, String password);
-	Optional<Company> findByEmail(String email);
+	Optional<Company> findFirstByEmail(String email);
 
 
 }

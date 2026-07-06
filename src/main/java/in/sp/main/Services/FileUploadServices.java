@@ -153,6 +153,7 @@ public class FileUploadServices {
         switch (extension) {
             case "jpg":
             case "jpeg":
+            case "jfif":
                 return allowedTypes.contains("image/jpeg");
             case "png":
                 return allowedTypes.contains("image/png");
