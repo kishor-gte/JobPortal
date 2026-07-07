@@ -933,7 +933,7 @@
           <div class="feature-card-content">
             <h3>Create Profile</h3>
             <p>Build an outstanding professional profile and get matched with dream jobs instantly.</p>
-            <a href="#" class="btn-feature">Build Profile <i class="fas fa-chevron-right"></i></a>
+            <a href="/jobSeekers/profile" class="btn-feature">Build Profile <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>
@@ -953,7 +953,7 @@
         <div class="feature-card">
           <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/smart_apply.png" alt="Smart Apply"></div>
           <div class="feature-card-content">
-            <h3>Smart Apply</h3>
+            <h3> Apply Jobs</h3>
             <p>Explore thousands of curated opportunities and apply with a single click.</p>
             <a href="#" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
           </div>

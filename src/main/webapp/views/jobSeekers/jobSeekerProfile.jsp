@@ -502,13 +502,40 @@
 <!-- Main Content -->
 <div class="main-content-wrapper">
 <div class="container mt-4 mb-5">
+    <!-- Messages -->
+    <c:if test="${not empty message}">
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i> ${message}
+        </div>
+    </c:if>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle"></i> ${error}
+        </div>
+    </c:if>
  <div class="card-container">
      <!-- Profile Header -->
      <div class="profile-header text-center">
-         <img src="${pageContext.request.contextPath}${jobSeeker.profilePicture}"
-              onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/default-profile.png';"
-              alt="Profile Picture"
-              class="profile-img mb-3">
+         <div style="position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 2;">
+             <a href="${pageContext.request.contextPath}/jobSeekers/dashboard" class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; backdrop-filter: blur(4px);">
+                 <i class="fas fa-arrow-left mr-1"></i> Dashboard
+             </a>
+             <a href="${pageContext.request.contextPath}/jobSeekers/update" class="btn btn-sm bg-white" style="color: var(--primary); font-weight: 600; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                 <i class="fas fa-edit mr-1"></i> Edit Profile
+             </a>
+         </div>
+         <form id="profilePicForm" action="${pageContext.request.contextPath}/jobSeekers/updateProfilePicture/${jobSeeker.id}" method="post" enctype="multipart/form-data">
+             <div style="position: relative; display: inline-block; cursor: pointer;" onclick="document.getElementById('profilePicInput').click();" title="Change Profile Picture">
+                 <img src="${pageContext.request.contextPath}${jobSeeker.profilePicture}"
+                      onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/default-profile.png';"
+                      alt="Profile Picture"
+                      class="profile-img mb-3" style="cursor: pointer;">
+                 <div style="position: absolute; bottom: 25px; right: 10px; background: var(--primary); color: white; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                     <i class="fas fa-camera"></i>
+                 </div>
+             </div>
+             <input type="file" id="profilePicInput" name="image" style="display: none;" accept="image/*" onchange="document.getElementById('profilePicForm').submit();">
+         </form>
          <h1 class="profile-name">${jobSeeker.name}</h1>
          <p class="profile-email">${jobSeeker.email}</p>
      </div>
@@ -542,6 +569,7 @@
              <div class="col-md-6 info-block"><span class="info-label">University:</span> <div>${jobSeeker.ugUniversity}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Graduation Year:</span> <div>${jobSeeker.ugGraduationYear}</div></div>
            
+             <c:if test="${not empty jobSeeker.pgDegree}">
              <div class="col-12">
                  <div class="education-level">Postgraduate</div>
              </div>
@@ -549,7 +577,9 @@
              <div class="col-md-6 info-block"><span class="info-label">Specialization:</span> <div>${jobSeeker.pgSpecialization}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">University:</span> <div>${jobSeeker.pgUniversity}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Graduation Year:</span> <div>${jobSeeker.pgGraduationYear}</div></div>
+             </c:if>
            
+             <c:if test="${not empty jobSeeker.doctorateDegree}">
              <div class="col-12">
                  <div class="education-level">Doctorate</div>
              </div>
@@ -557,6 +587,7 @@
              <div class="col-md-6 info-block"><span class="info-label">Specialization:</span> <div>${jobSeeker.doctorateSpecialization}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">University:</span> <div>${jobSeeker.doctorateUniversity}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Graduation Year:</span> <div>${jobSeeker.doctorateGraduationYear}</div></div>
+             </c:if>
          </div>
        
          <!-- Professional Info -->
@@ -659,15 +690,6 @@
              </div>
          </div>
        
-         <!-- Actions -->
-         <div class="action-buttons">
-             <a href="${pageContext.request.contextPath}/jobSeekers/dashboard" class="btn btn-outline-secondary">
-                 <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
-             </a>
-             <a href="${pageContext.request.contextPath}/jobSeekers/update" class="btn btn-primary">
-                 <i class="fas fa-edit mr-2"></i>Edit Profile
-             </a>
-         </div>
      </div>
  </div>
 </div>

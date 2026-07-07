@@ -649,19 +649,10 @@
 
             <div class="register-link">
                 <p>
-                    <i class="fas fa-arrow-left me-1"></i> Remember your password? 
-                    <c:choose>
-                        <c:when test="${role == 'company'}">
-                            <a href="${pageContext.request.contextPath}/company/login">
-                                Back to Login <i class="fas fa-arrow-right fa-xs"></i>
-                            </a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="${pageContext.request.contextPath}/jobSeekers/login">
-                                Back to Login <i class="fas fa-arrow-right fa-xs"></i>
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
+                    <i class="fas fa-arrow-left me-1"></i> Remember your password?
+                    <a href="${pageContext.request.contextPath}/jobSeekers/login">
+                        Back to Login <i class="fas fa-arrow-right fa-xs"></i>
+                    </a>
                 </p>
             </div>
         </div>

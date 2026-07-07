@@ -337,8 +337,10 @@
         }
 
         /* ===== JOB CATEGORY ===== */
+        .job-category {
+            padding: 100px 0;
+        }
         .job-category .single-cat {
-            background: var(--white);
             background: var(--white);
             border: 1px solid var(--slate-100);
             border-radius: 20px;
@@ -620,18 +622,20 @@
                         </p>
                     </div>
                     <div class="job-search-wrap-two mt-40 wow fadeInUp" data-wow-delay=".6s">
-                        <form action="/jobs/search" method="get">
+                        <form id="jobSearchForm" action="/jobs/search" method="get">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="single-field-item">
                                         <label><i class="fas fa-briefcase"></i> Search Jobs</label>
-                                        <input name="keyword" type="text" placeholder="Job title or skill">
+
+                                        <input id="searchKeyword" name="keyword" type="text" placeholder="Job title or skill">
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="single-field-item">
                                         <label><i class="fas fa-map-marker-alt"></i> Location</label>
-                                        <input name="location" type="text" placeholder="City or remote">
+
+                                        <input id="searchLocation" name="location" type="text" placeholder="City or remote">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -706,12 +710,12 @@
     <!-- Job Categories -->
     <section class="job-category">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title text-center mb-5">
                 <span class="wow fadeInDown">📂 Browse Categories</span>
                 <h2 class="wow fadeInUp">Choose Your Desired Category</h2>
                 <p class="wow fadeInUp">Handpicked fields to elevate your professional journey</p>
             </div>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-lg-3 col-md-6"><a href="/jobs/category/TECHNICAL_SUPPORT"
                         class="single-cat wow fadeInUp">
                         <div class="icon"><img src="assets/images/categories/technical_support.png"
@@ -788,7 +792,7 @@
                             <li><a href="/about-us.html">About Us</a></li>
                             <li><a href="#">Help Center</a></li>
                             <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="/terms-conditions.html" class="btn-legal"></a></li>
+                            <li><a href="/legal-info.html" class="btn-legal"></a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
@@ -909,7 +913,39 @@
                 });
             });
         }
+
+        // Job search validation - prevent empty submissions
+        var searchForm = document.getElementById('jobSearchForm');
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                var keyword = document.getElementById('searchKeyword').value.trim();
+                var location = document.getElementById('searchLocation').value.trim();
+                if (!keyword && !location) {
+                    e.preventDefault();
+                    var inputs = this.querySelectorAll('input[type="text"]');
+                    inputs.forEach(function(input) {
+                        input.style.borderColor = '#ef4444';
+                        input.setAttribute('placeholder', 'Please enter a value');
+                    });
+                    this.style.animation = 'shake 0.4s ease';
+                    setTimeout(function() {
+                        inputs.forEach(function(input) { input.style.borderColor = ''; });
+                    }, 2000);
+                    setTimeout(function() {
+                        e.target.style.animation = '';
+                    }, 400);
+                    return false;
+                }
+            });
+        }
     </script>
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+    </style>
 
     <!-- Context path fix for Tomcat deployment (No backend change) -->
     <script>

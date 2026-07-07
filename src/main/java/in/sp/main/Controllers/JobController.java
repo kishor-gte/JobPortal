@@ -326,6 +326,7 @@ public class JobController {
                 return "redirect:/jobs/all";
             }
             int matchScore = 0;
+            boolean hasApplied = false;
             JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");
             if (seeker != null) {
                 try {
@@ -335,12 +336,22 @@ public class JobController {
                     e.printStackTrace();
                     matchScore = 0;
                 }
+                
+                try {
+                    List<Long> appliedJobIds = applicationService.getAppliedJobIdsBySeeker(seeker);
+                    if (appliedJobIds != null && appliedJobIds.contains(jobId)) {
+                        hasApplied = true;
+                    }
+                } catch(Exception e) {
+                    System.err.println("Error checking applied status: " + e.getMessage());
+                }
+                
+                activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
-            if (seeker != null) {
-                activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
-            }
+            model.addAttribute("hasApplied", hasApplied);
+            
             return "job/jobDetails"; // JSP page name
         } catch (Exception e) {
             System.err.println("Error showing job details for job ID " + jobId + ": " + e.getMessage());
@@ -361,6 +372,10 @@ public class JobController {
         @RequestParam(required = false) String keyword, 
         @RequestParam(required = false) String location, 
         Model model,HttpSession session) {
+
+        if ((keyword == null || keyword.trim().isEmpty()) && (location == null || location.trim().isEmpty())) {
+            return "redirect:/userdashboard.html";
+        }
 
         List<Job> jobs = jobService.searchJobs(keyword, location);
         JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");

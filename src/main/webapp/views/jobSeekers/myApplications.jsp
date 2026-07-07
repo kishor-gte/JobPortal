@@ -544,12 +544,42 @@ body::before {
    box-shadow: var(--shadow-sm);
 }
 
-.alert-info i {
+.alert-info > i {
    font-size: 48px;
    color: var(--primary);
    opacity: 0.3;
    margin-bottom: 16px;
    display: block;
+}
+
+.btn-primary-custom {
+   display: inline-flex;
+   align-items: center;
+   gap: 10px;
+   font-size: 15px;
+   font-weight: 600;
+   padding: 12px 30px;
+   color: #ffffff !important;
+   background: var(--gradient-primary);
+   border: none;
+   border-radius: 30px;
+   transition: all 0.3s ease;
+   text-decoration: none;
+   box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
+}
+
+.btn-primary-custom:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 6px 20px rgba(25, 167, 123, 0.35);
+   color: #ffffff !important;
+}
+
+.btn-primary-custom i {
+   font-size: 14px;
+   color: #ffffff !important;
+   opacity: 1 !important;
+   display: inline-block !important;
+   margin-bottom: 0 !important;
 }
 
 /* Responsive Design */
@@ -645,7 +675,7 @@ body::before {
               <strong style="color: var(--heading-text);">You haven't applied for any jobs yet.</strong><br>
               <span style="font-size: 14px;">Browse available jobs and start applying today!</span>
               <br><br>
-              <a href="${pageContext.request.contextPath}/jobs/all" class="report-btn" style="background: var(--gradient-primary); color: white; border: none; padding: 10px 24px;">
+              <a href="${pageContext.request.contextPath}/jobs/all" class="btn-primary-custom">
                 <i class="fas fa-search"></i> Browse Jobs
               </a>
           </div>

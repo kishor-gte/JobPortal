@@ -407,7 +407,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .empty-state i {
+        .empty-state > i {
             font-size: 4rem;
             color: var(--primary);
             opacity: 0.3;
@@ -434,13 +434,17 @@
         .empty-state .btn {
             background: var(--gradient-primary);
             color: white;
-            padding: 0.75rem 2rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
+            width: auto;
         }
 
         .empty-state .btn:hover {
