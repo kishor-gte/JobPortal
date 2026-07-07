@@ -933,7 +933,7 @@
           <div class="feature-card-content">
             <h3>Create Profile</h3>
             <p>Build an outstanding professional profile and get matched with dream jobs instantly.</p>
-            <a href="/jobSeekers/profile" class="btn-feature">Build Profile <i class="fas fa-chevron-right"></i></a>
+            <a href="${pageContext.request.contextPath}/jobSeekers/profile" class="btn-feature">Build Profile <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>
@@ -944,7 +944,7 @@
           <div class="feature-card-content">
             <h3>Video Resume</h3>
             <p>Upload a video introduction and stand out to top recruiters with your personality.</p>
-            <a href="#" class="btn-feature">Upload Now <i class="fas fa-chevron-right"></i></a>
+            <a href="${pageContext.request.contextPath}/jobseeker/videos" class="btn-feature">Upload Now <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>
@@ -955,7 +955,7 @@
           <div class="feature-card-content">
             <h3> Apply Jobs</h3>
             <p>Explore thousands of curated opportunities and apply with a single click.</p>
-            <a href="#" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
+            <a href="${pageContext.request.contextPath}/jobs/all" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>

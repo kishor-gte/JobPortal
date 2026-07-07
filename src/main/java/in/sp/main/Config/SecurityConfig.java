@@ -23,7 +23,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Disable CSRF since we are using JWT in cookies (though ideally we should keep it for cookies, but for this migration we disable to prevent form submission issues)
             .authorizeHttpRequests(authz -> authz
                 // Static resources and public pages
-                .requestMatchers("/", "/home.html", "/userdashboard.html", "/index.html", "/about-us.html", "/contact.html", "/services.html", "/policy.html", "/faq.html").permitAll()
+                .requestMatchers("/", "/home.html", "/userdashboard.html", "/index.html", "/about-us.html", "/contact.html", "/services.html", "/policy.html", "/faq.html", "/legal-info.html").permitAll()
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/views/**", "/static/**").permitAll()
                 
                 // Login, Register, Forgot Password

@@ -647,7 +647,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="ugGraduationYear">Graduation Year</label>
                                     <input type="number" class="form-control" id="ugGraduationYear"
-                                        name="ugGraduationYear" value="${jobSeeker.ugGraduationYear}">
+                                        name="ugGraduationYear" value="${jobSeeker.ugGraduationYear}"
+                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
 
@@ -672,7 +673,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="pgGraduationYear">Graduation Year</label>
                                     <input type="number" class="form-control" id="pgGraduationYear"
-                                        name="pgGraduationYear" value="${jobSeeker.pgGraduationYear}">
+                                        name="pgGraduationYear" value="${jobSeeker.pgGraduationYear}"
+                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
 
@@ -697,7 +699,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="doctorateGraduationYear">Graduation Year</label>
                                     <input type="number" class="form-control" id="doctorateGraduationYear"
-                                        name="doctorateGraduationYear" value="${jobSeeker.doctorateGraduationYear}">
+                                        name="doctorateGraduationYear" value="${jobSeeker.doctorateGraduationYear}"
+                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
                         </div>
@@ -710,7 +713,8 @@
                                     <label for="experience"><i class="fas fa-chart-line"></i> Experience (Years) <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="experience" name="experience"
                                         value="${jobSeeker.experience}" min="0" max="99"
-                                        title="Experience must be between 0 and 99 years" required>
+                                        title="Experience must be between 0 and 99 years" required
+                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
 
                                 <!-- SKILLS FIX APPLIED HERE -->
@@ -744,7 +748,8 @@
                                     <label for="annualSalary"><i class="fas fa-money-bill-wave"></i> Annual
                                         Salary</label>
                                     <input type="number" step="0.01" class="form-control" id="annualSalary"
-                                        name="annualSalary" value="${jobSeeker.annualSalary}">
+                                        name="annualSalary" value="${jobSeeker.annualSalary}"
+                                        min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="noticePeriod"><i class="fas fa-calendar-alt"></i> Notice Period</label>
@@ -779,17 +784,28 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label><i class="fas fa-info-circle"></i> Current Status</label>
-                                    <div>
+                                    <div id="statusBadgeContainer">
                                         <c:choose>
                                             <c:when
-                                                test="${not empty jobSeeker.accountStatus && jobSeeker.accountStatus == 'ACTIVE'}">
+                                                test="${not empty jobSeeker.accountStatus && (jobSeeker.accountStatus == 'ACTIVE' || jobSeeker.accountStatus == 'OPEN_TO_WORK' || jobSeeker.accountStatus == 'ACTIVELY_APPLYING' || jobSeeker.accountStatus == 'EMPLOYED_OPEN_TO_OPPORTUNITY')}">
                                                 <span class="status-badge status-active">
-                                                    <i class="fas fa-check-circle"></i> Active
+                                                    <i class="fas fa-check-circle"></i> 
+                                                    <c:choose>
+                                                        <c:when test="${jobSeeker.accountStatus == 'ACTIVE'}">Active</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'OPEN_TO_WORK'}">Open to Work</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'ACTIVELY_APPLYING'}">Actively Applying</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'EMPLOYED_OPEN_TO_OPPORTUNITY'}">Employed but Open</c:when>
+                                                    </c:choose>
                                                 </span>
                                             </c:when>
                                             <c:otherwise>
                                                 <span class="status-badge status-inactive">
-                                                    <i class="fas fa-times-circle"></i> Inactive
+                                                    <i class="fas fa-times-circle"></i> 
+                                                    <c:choose>
+                                                        <c:when test="${jobSeeker.accountStatus == 'DEACTIVATED'}">Deactivated</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'NOT_OPEN_TO_WORK'}">Not Looking</c:when>
+                                                        <c:otherwise>Inactive</c:otherwise>
+                                                    </c:choose>
                                                 </span>
                                             </c:otherwise>
                                         </c:choose>
@@ -885,6 +901,21 @@
                                 $('#age').val(age);
                             } else {
                                 $('#age').val('');
+                            }
+                        });
+
+                        function formatStatusText(status) {
+                            if (!status) return 'Inactive';
+                            return status.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+                        }
+
+                        $('#accountStatus').on('change', function() {
+                            const status = $(this).val();
+                            const formatted = formatStatusText(status);
+                            if (status === 'ACTIVE' || status === 'OPEN_TO_WORK' || status === 'ACTIVELY_APPLYING' || status === 'EMPLOYED_OPEN_TO_OPPORTUNITY') {
+                                $('#statusBadgeContainer').html(`<span class="status-badge status-active"><i class="fas fa-check-circle"></i> ${formatted}</span>`);
+                            } else {
+                                $('#statusBadgeContainer').html(`<span class="status-badge status-inactive"><i class="fas fa-times-circle"></i> ${formatted}</span>`);
                             }
                         });
                     });

@@ -64,7 +64,11 @@ public class SubscriptionController {
                     "You'll now receive notifications for the latest job postings that match your interests.\n\n" +
                     "Happy job hunting!\nThe Team";
 
-            emailService.sendEmail(email, subject, content);
+            try {
+                emailService.sendEmail(email, subject, content);
+            } catch (Exception e) {
+                logger.error("Failed to send subscription confirmation email to: {}", email, e);
+            }
             
             // 2. Send notification email to admin (if configured)
             if (adminEmail != null && !adminEmail.isEmpty()) {
@@ -73,7 +77,11 @@ public class SubscriptionController {
                         "Subscriber Email: " + email + "\n\n" +
                         "Total Subscribers: " + subscriberRepository.count() + "\n\n" +
                         "Regards,\nJob Portal System";
-                emailService.sendEmail(adminEmail, adminSubject, adminContent);
+                try {
+                    emailService.sendEmail(adminEmail, adminSubject, adminContent);
+                } catch (Exception e) {
+                    logger.error("Failed to send subscription admin notification email to: {}", adminEmail, e);
+                }
             }
             
             // 3. Send notification email to all recruiters

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Legal Information - JobU | Terms & Privacy Center</title>
+    <meta name="description" content="Legal Information Center - JobU - Read our terms, conditions, privacy policy, and user guidelines." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/icon.css" />
+
+    <style>
+        :root {
+            --primary: #19A77B;
+            --primary-dark: #148F69;
+            --primary-light: #3BC49A;
+            --primary-glow: rgba(25,167,123,0.2);
+            --accent: #3BC49A;
+            --dark-bg: #1a2c2f;
+            --gradient-primary: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
+            --gradient-dark: linear-gradient(135deg, #1e2f32 0%, #2E3E41 100%);
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --shadow-md: 0 20px 30px -12px rgba(25,167,123,0.15);
+            --shadow-lg: 0 30px 50px -15px rgba(0,0,0,0.2);
+            --transition: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #e6f4ef; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* Header Navbar - Glassmorphism */
+        .navbar-area {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(25,167,123,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand img.logo-img { transition: transform 0.4s ease; height: 46px; width: auto; object-fit: contain; }
+        .navbar-brand:hover img.logo-img { transform: scale(1.03) rotate(2deg); }
+        .nav-item a {
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+            margin: 0 6px;
+            color: #2E3E41 !important;
+        }
+        .nav-item a:hover { color: var(--primary) !important; transform: translateY(-2px); }
+
+        /* Breadcrumbs - Hero Section */
+        .breadcrumbs {
+            position: relative;
+            min-height: 50vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(25,167,123,0.55) 100%), 
+                        url('https://images.unsplash.com/photo-1450133064473-71024230f91b?q=80&w=2070&auto=format');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: white;
+            padding: 100px 0 80px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Floating Shapes */
+        .breadcrumbs .funky-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: funkyFloat 8s infinite ease-in-out;
+        }
+        .funky-orb-1 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(59,196,154,0.25) 0%, transparent 70%); top: 10%; left: -50px; }
+        .funky-orb-2 { width: 150px; height: 150px; background: radial-gradient(circle, rgba(25,167,123,0.2) 0%, transparent 70%); bottom: 15%; right: -30px; animation-delay: 1s; }
+        
+        @keyframes funkyFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            50% { transform: translate(30px, -30px) scale(1.1); opacity: 0.7; }
+        }
+
+        .breadcrumbs-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .breadcrumbs-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #3BC49A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .breadcrumbs-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .breadcrumb-nav li a { color: #3BC49A; text-decoration: none; font-weight: 500; }
+        .breadcrumb-nav li a:hover { color: white; }
+        .breadcrumb-nav li:not(:last-child):after { content: '➜'; margin-left: 10px; color: rgba(255,255,255,0.7); }
+
+        /* Legal Center Section */
+        .legal-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a2c2f, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .legal-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(25,167,123,0.12);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .legal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+        .legal-card .icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(25,167,123,0.1);
+            color: var(--primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+        .legal-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1a2c2f;
+        }
+        .legal-card p {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .legal-card .btn-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0;
+            transition: var(--transition);
+        }
+        .legal-card .btn-link:hover {
+            color: var(--primary-dark);
+            gap: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-dark) !important;
+            color: #e2e8f0;
+            padding: 60px 0 0;
+        }
+        .footer .logo img { height: 70px; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+        .footer a { color: #cbd5e1; text-decoration: none; }
+        .footer a:hover { color: var(--primary); }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Area -->
+    <header class="header other-page">
+        <div class="navbar-area">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand logo" href="/">
+                        <img class="logo-img" src="assets/images/logo/logo.png" alt="Logo" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                        <ul id="nav" class="navbar-nav ml-auto">
+                            <li class="nav-item"><a href="home.html">Home</a></li>
+                            <li class="nav-item"><a href="services.html">Services</a></li>
+                            <li class="nav-item"><a href="faq.html">FAQ</a></li>
+                            <li class="nav-item"><a href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a href="terms-conditions.html">Terms & Conditions</a></li>
+                            <li class="nav-item"><a href="policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="breadcrumbs">
+        <div class="funky-orb funky-orb-1"></div>
+        <div class="funky-orb funky-orb-2"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Legal Information</h1>
+                        <p>Welcome to JobU's Terms, Policies, and Guidelines portal.</p>
+                    </div>
+                    <ul class="breadcrumb-nav">
+                        <li><a href="home.html">Home</a></li>
+                        <li>Legal Info</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Legal Center Content -->
+    <section class="legal-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>Portal Directory</h2>
+                        <p>Access our key agreements, rules, and privacy controls below.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Card 1: Terms & Conditions -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="legal-card">
+                        <div class="icon"><i class="fas fa-file-signature"></i></div>
+                        <h3>Terms & Conditions</h3>
+                        <p>Read about your responsibilities, account management guidelines, list permissions, and platform-wide rules of conduct.</p>
+                        <a href="terms-conditions.html" class="btn-link">Read Terms <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Privacy Policy -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="legal-card">
+                        <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Privacy Policy</h3>
+                        <p>Learn how we collect your data, protect user details, and utilize cookie policies to build a secure career network.</p>
+                        <a href="policy.html" class="btn-link">Read Privacy <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Frequently Asked Questions -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="legal-card">
+                        <div class="icon"><i class="fas fa-question-circle"></i></div>
+                        <h3>FAQ & Support</h3>
+                        <p>Have questions about billing, job listings, resumes, or badges? Get quick answers through our Support Center.</p>
+                        <a href="faq.html" class="btn-link">View FAQ <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-6 col-12 mb-4">
+                    <div class="logo mb-3">
+                        <a href="/"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+                    </div>
+                    <p style="color: #cbd5e1;">Empowering talent, fostering connection, and ensuring absolute legal compliance.</p>
+                </div>
+                <div class="col-lg-6 col-12 text-lg-end">
+                    <p>&copy; 2026 JobU Platform. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <ul class="list-inline mb-0" style="display: flex; gap: 20px; justify-content: center; list-style: none;">
+                            <li><a href="terms-conditions.html">Terms</a></li>
+                            <li><a href="policy.html">Privacy</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>

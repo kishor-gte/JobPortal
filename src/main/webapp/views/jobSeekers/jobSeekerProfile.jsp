@@ -637,16 +637,16 @@
              <div class="col-md-6 info-block">
                  <span class="info-label">Identity Document:</span>
                  <div>
-                     <c:choose>
-                         <c:when test="${empty jobSeeker.identityDocument}">
-                             <span class="text-muted">Not Uploaded</span>
-                         </c:when>
-                         <c:otherwise>
-                             <a href="${jobSeeker.identityDocument}" target="_blank">
-                                 <i class="fas fa-file-pdf mr-2"></i>View Document
-                             </a>
-                         </c:otherwise>
-                     </c:choose>
+                      <c:choose>
+                          <c:when test="${empty jobSeeker.identityDocument}">
+                              <span class="text-muted">Not Uploaded</span>
+                          </c:when>
+                          <c:otherwise>
+                              <a href="${pageContext.request.contextPath}${jobSeeker.identityDocument}" target="_blank">
+                                  <i class="fas fa-file-pdf mr-2"></i>View Document
+                              </a>
+                          </c:otherwise>
+                      </c:choose>
                  </div>
              </div>
              <div class="col-md-6 info-block">
@@ -668,18 +668,29 @@
        
          <!-- Video Resume -->
          <div class="section-title mt-5"><i class="fas fa-video"></i> Video Resume</div>
-         <div class="info-block">
-             <c:choose>
-                 <c:when test="${empty jobSeeker.videoResumeUrl}">
-                     <span class="text-muted">Not Provided</span>
-                 </c:when>
-                 <c:otherwise>
-                     <a href="${pageContext.request.contextPath}${jobSeeker.videoResumeUrl}" target="_blank">
-                         <i class="fas fa-play-circle mr-2"></i>Watch Video Resume
-                     </a>
-                 </c:otherwise>
-             </c:choose>
-         </div>
+          <div class="info-block" style="padding: 0; overflow: hidden; border-radius: 12px;">
+              <c:choose>
+                  <c:when test="${empty jobSeeker.videoResumeUrl}">
+                      <div class="p-3 text-muted">Not Provided</div>
+                  </c:when>
+                  <c:otherwise>
+                      <c:set var="videoType" value="video/mp4" />
+                      <c:if test="${fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.webm')}">
+                          <c:set var="videoType" value="video/webm" />
+                      </c:if>
+                      <c:if test="${fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.ogg')}">
+                          <c:set var="videoType" value="video/ogg" />
+                      </c:if>
+                      <c:if test="${fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.mov') or fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.qt')}">
+                          <c:set var="videoType" value="video/quicktime" />
+                      </c:if>
+                      <video controls preload="auto" playsinline style="width: 100%; max-height: 360px; background: #000; display: block;">
+                          <source src="${pageContext.request.contextPath}${jobSeeker.videoResumeUrl}" type="${videoType}">
+                          Your browser does not support HTML5 video.
+                      </video>
+                  </c:otherwise>
+              </c:choose>
+          </div>
        
          <!-- Profile Completion -->
          <div class="section-title mt-5"><i class="fas fa-percent"></i> Profile Completion</div>
