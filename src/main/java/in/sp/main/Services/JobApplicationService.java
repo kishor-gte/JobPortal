@@ -42,7 +42,10 @@ public class JobApplicationService {
 	    applicationRepository.save(application);
 	}
 	  @Autowired
-	    private JobApplicationRepository repo;
+	  private JobApplicationRepository repo;
+	  
+	  @Autowired
+	  private MatchingService matchingService;
 	  
 	  public void apply(Job job, JobSeeker seeker) {
 		    boolean alreadyApplied = hasApplied(job, seeker);
@@ -55,6 +58,7 @@ public class JobApplicationService {
 		    application.setJobSeeker(seeker);
 		    application.setAppliedDate(LocalDate.now());
 		    application.setStatus(ApplicationStatus.APPLIED);
+		    application.setResumeScore(matchingService.calculateMatch(job, seeker));
 		    applicationRepository.save(application);
 		}
 

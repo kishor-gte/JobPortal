@@ -200,7 +200,72 @@ public class SubscriptionController {
     public String subscribe(@RequestParam("email") String email, jakarta.servlet.http.HttpServletRequest request) {
         String referer = request.getHeader("Referer");
         if (referer == null) referer = "/home.html";
-        String separator = referer.contains("?") ? "&" : "?";
-        return "redirect:" + referer + separator + "message=" + URLEncoder.encode("Subscription successful via direct endpoint.", StandardCharsets.UTF_8);
+
+        // Check rate limit first
+        if (!rateLimitingService.isEmailAllowed(email)) {
+            int remaining = rateLimitingService.getRemainingRequests(email);
+            long waitMinutes = rateLimitingService.getTimeUntilReset(email) / 60000;
+            String message = "Too many subscription attempts. Please try again in " + waitMinutes + " minutes.";
+            String separator = referer.contains("?") ? "&" : "?";
+            return "redirect:" + referer + separator + "message=" + URLEncoder.encode(message, StandardCharsets.UTF_8);
+        }
+        
+        if (!subscriberRepository.existsByEmail(email)) {
+            Subscriber subscriber = new Subscriber();
+            subscriber.setEmail(email);
+            subscriberRepository.save(subscriber);
+
+            // 1. Send confirmation email to subscriber (rate limited)
+            String subject = "Thank you for subscribing!";
+            String content = "Hi there,\n\nThank you for subscribing to our job portal. " +
+                    "You'll now receive notifications for the latest job postings that match your interests.\n\n" +
+                    "Happy job hunting!\nThe Team";
+
+            try {
+                emailService.sendEmail(email, subject, content);
+            } catch (Exception e) {
+                logger.error("Failed to send subscription confirmation email to: {}", email, e);
+            }
+            
+            // 2. Send notification email to admin (if configured)
+            if (adminEmail != null && !adminEmail.isEmpty()) {
+                String adminSubject = "New Newsletter Subscription";
+                String adminContent = "Hello Admin,\n\nA new user has subscribed to the newsletter.\n\n" +
+                        "Subscriber Email: " + email + "\n\n" +
+                        "Total Subscribers: " + subscriberRepository.count() + "\n\n" +
+                        "Regards,\nJob Portal System";
+                try {
+                    emailService.sendEmail(adminEmail, adminSubject, adminContent);
+                } catch (Exception e) {
+                    logger.error("Failed to send subscription admin notification email to: {}", adminEmail, e);
+                }
+            }
+            
+            // 3. Send notification email to all recruiters
+            List<Recruiter> recruiters = recruiterRepository.findAll();
+            String recruiterSubject = "New Job Seeker Subscription";
+            String recruiterContent = "Hello,\n\nA new job seeker has subscribed to our job portal newsletter.\n\n" +
+                    "Subscriber Email: " + email + "\n\n" +
+                    "This user will receive job alerts and updates about new opportunities.\n\n" +
+                    "Regards,\nJob Portal Team";
+            
+            for (Recruiter recruiter : recruiters) {
+                if (recruiter.getEmail() != null && !recruiter.getEmail().isEmpty()) {
+                    try {
+                        emailService.sendEmail(recruiter.getEmail(), recruiterSubject, recruiterContent);
+                    } catch (Exception e) {
+                        logger.error("Failed to send email to recruiter: {}", recruiter.getEmail(), e);
+                    }
+                }
+            }
+
+            String message = "Subscribed successfully! Check your email for confirmation.";
+            String separator = referer.contains("?") ? "&" : "?";
+            return "redirect:" + referer + separator + "message=" + URLEncoder.encode(message, StandardCharsets.UTF_8);
+        } else {
+            String message = "You're already subscribed.";
+            String separator = referer.contains("?") ? "&" : "?";
+            return "redirect:" + referer + separator + "message=" + URLEncoder.encode(message, StandardCharsets.UTF_8);
+        }
     }
 }

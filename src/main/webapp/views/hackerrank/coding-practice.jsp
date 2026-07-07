@@ -776,6 +776,7 @@
             </a>
             <c:forEach var="cat" items="${categories}">
                 <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?categoryId=${cat.id}<c:if test='${not empty selectedDifficulty}'>&difficulty=${selectedDifficulty}</c:if>"
+
                     class="filter-btn ${selectedCategory == cat.id ? 'active' : ''}">
                     <i class="fas fa-folder"></i> ${cat.name}
                 </a>

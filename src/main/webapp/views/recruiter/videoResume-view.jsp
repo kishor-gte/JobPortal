@@ -1,5 +1,6 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -267,8 +268,18 @@
 
     <c:if test="${not empty video}">
         <div class="video-wrapper">
-            <video controls controlsList="nodownload">
-                <source src="${pageContext.request.contextPath}${video.filePath}" type="video/mp4">
+            <video controls controlsList="nodownload" preload="auto" playsinline>
+                <c:set var="videoType" value="video/mp4" />
+                <c:if test="${fn:endsWith(fn:toLowerCase(video.filePath), '.webm')}">
+                    <c:set var="videoType" value="video/webm" />
+                </c:if>
+                <c:if test="${fn:endsWith(fn:toLowerCase(video.filePath), '.ogg')}">
+                    <c:set var="videoType" value="video/ogg" />
+                </c:if>
+                <c:if test="${fn:endsWith(fn:toLowerCase(video.filePath), '.mov') or fn:endsWith(fn:toLowerCase(video.filePath), '.qt')}">
+                    <c:set var="videoType" value="video/quicktime" />
+                </c:if>
+                <source src="${pageContext.request.contextPath}${video.filePath}" type="${videoType}">
                 Your browser does not support the video tag.
             </video>
         </div>

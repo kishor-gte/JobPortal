@@ -889,7 +889,7 @@
           
           <div class="job-search-wrap-two mt-40 wow fadeInUp" data-wow-delay=".5s">
             <div class="job-search-form">
-              <form action="jobs/search" method="get" style="display: flex; flex-wrap: wrap; width: 100%; align-items: center;">
+              <form action="${pageContext.request.contextPath}/jobs/search" method="get" style="display: flex; flex-wrap: wrap; width: 100%; align-items: center;">
                 <div class="single-field-item keyword">
                   <label for="keyword">Role or Keyword</label> 
                   <input id="keyword" name="keyword" type="text" placeholder="e.g. Software Engineer">
@@ -934,7 +934,7 @@
           <div class="feature-card-content">
             <h3>Create Profile</h3>
             <p>Build an outstanding professional profile and get matched with dream jobs instantly.</p>
-            <a href="/jobSeekers/profile" class="btn-feature">Build Profile <i class="fas fa-chevron-right"></i></a>
+            <a href="${pageContext.request.contextPath}/jobSeekers/profile" class="btn-feature">Build Profile <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>
@@ -945,7 +945,7 @@
           <div class="feature-card-content">
             <h3>Video Resume</h3>
             <p>Upload a video introduction and stand out to top recruiters with your personality.</p>
-            <a href="#" class="btn-feature">Upload Now <i class="fas fa-chevron-right"></i></a>
+            <a href="${pageContext.request.contextPath}/jobseeker/videos" class="btn-feature">Upload Now <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>
@@ -956,7 +956,7 @@
           <div class="feature-card-content">
             <h3> Apply Jobs</h3>
             <p>Explore thousands of curated opportunities and apply with a single click.</p>
-            <a href="#" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
+            <a href="${pageContext.request.contextPath}/jobs/all" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
           </div>
         </div>
       </div>
@@ -994,7 +994,7 @@
     <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal"><i class="lni lni-close"></i></button>
     <div class="login-modal-main">
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>JobSeeker Login</h3><p>Access your JobSeeker account<br> to find and apply for your dream jobs.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"><span>Or</span></div>
-      <form action="jobSeekers/authenticate" method="post">
+      <form action="${pageContext.request.contextPath}/jobSeekers/authenticate" method="post">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" id="email"></div>
         <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" id="password" placeholder="Enter password"></div></div>
         <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Remember password</label></div><a href="${pageContext.request.contextPath}/jobSeekers/forgot-password" class="font-size-3 text-dodger line-height-reset">Forget Password</a></div>
@@ -1012,7 +1012,7 @@
     <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal"><i class="lni lni-close"></i></button>
     <div class="login-modal-main">
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>Create Your JobSeeker Account<br> Today</h3><p>Sign up to start your job search,<br> apply for roles, and grow your career.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"></div>
-      <form action="/jobSeekers/signup" method="post" id="jobSeekerSignupForm">
+      <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="jobSeekerSignupForm">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" required></div>
         <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" placeholder="Enter password" id="signupPassword" required></div></div>
         <div class="form-group"><label for="confirmPassword" class="label">Confirm Password</label><div class="position-relative"><input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" id="signupConfirmPassword" required></div></div>
@@ -1069,7 +1069,7 @@
         <div class="single-footer">
           <h3>Stay Updated</h3>
           <p class="mb-4" style="opacity: 0.7;">Subscribe to our newsletter for the latest career tips and job alerts.</p>
-          <form action="subscribe" method="post" class="newsletter-inner">
+          <form action="${pageContext.request.contextPath}/subscribe" method="post" class="newsletter-inner">
             <input name="email" type="email" required placeholder="Email address" class="common-input">
             <button class="btn" type="submit">Subscribe Now</button>
           </form>

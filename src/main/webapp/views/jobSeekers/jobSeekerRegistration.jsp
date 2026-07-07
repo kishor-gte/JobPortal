@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -347,7 +347,7 @@
                     </div>
                 </c:if>
 
-                <form action="${pageContext.request.contextPath}/jobSeekers/register" method="post" id="registrationForm">
+                <form action="${pageContext.request.contextPath}/jobSeekers/register1" method="post" id="registrationForm" enctype="multipart/form-data">
                     
                     <!-- Full Name -->
                     <div class="mb-4">

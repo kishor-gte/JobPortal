@@ -748,6 +748,11 @@
                                 Uploaded: ${resume.uploadedAt}
                             </p>
                         </div>
+                        <div style="margin-left: auto;">
+                            <a href="${pageContext.request.contextPath}/hackerrank/student/delete-resume/${resume.id}" style="color: var(--danger); text-decoration: none; font-size: 1.2rem; padding: 8px; border-radius: 50%; transition: background 0.3s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'" onmouseout="this.style.background='transparent'" onclick="return confirm('Are you sure you want to delete this resume?');" title="Delete Resume">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
                     </div>
                     <c:if test="${not empty resume.aiFeedback}">
                         <div class="ai-feedback">

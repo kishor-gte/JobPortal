@@ -502,13 +502,40 @@
 <!-- Main Content -->
 <div class="main-content-wrapper">
 <div class="container mt-4 mb-5">
+    <!-- Messages -->
+    <c:if test="${not empty message}">
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i> ${message}
+        </div>
+    </c:if>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle"></i> ${error}
+        </div>
+    </c:if>
  <div class="card-container">
      <!-- Profile Header -->
      <div class="profile-header text-center">
-         <img src="${pageContext.request.contextPath}${jobSeeker.profilePicture}"
-              onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/default-profile.png';"
-              alt="Profile Picture"
-              class="profile-img mb-3">
+         <div style="position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 2;">
+             <a href="${pageContext.request.contextPath}/jobSeekers/dashboard" class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; backdrop-filter: blur(4px);">
+                 <i class="fas fa-arrow-left mr-1"></i> Dashboard
+             </a>
+             <a href="${pageContext.request.contextPath}/jobSeekers/update" class="btn btn-sm bg-white" style="color: var(--primary); font-weight: 600; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                 <i class="fas fa-edit mr-1"></i> Edit Profile
+             </a>
+         </div>
+         <form id="profilePicForm" action="${pageContext.request.contextPath}/jobSeekers/updateProfilePicture/${jobSeeker.id}" method="post" enctype="multipart/form-data">
+             <div style="position: relative; display: inline-block; cursor: pointer;" onclick="document.getElementById('profilePicInput').click();" title="Change Profile Picture">
+                 <img src="${pageContext.request.contextPath}${jobSeeker.profilePicture}"
+                      onerror="this.onerror=null;this.src='${pageContext.request.contextPath}/images/default-profile.png';"
+                      alt="Profile Picture"
+                      class="profile-img mb-3" style="cursor: pointer;">
+                 <div style="position: absolute; bottom: 25px; right: 10px; background: var(--primary); color: white; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                     <i class="fas fa-camera"></i>
+                 </div>
+             </div>
+             <input type="file" id="profilePicInput" name="image" style="display: none;" accept="image/*" onchange="document.getElementById('profilePicForm').submit();">
+         </form>
          <h1 class="profile-name">${jobSeeker.name}</h1>
          <p class="profile-email">${jobSeeker.email}</p>
      </div>
@@ -542,6 +569,7 @@
              <div class="col-md-6 info-block"><span class="info-label">University:</span> <div>${jobSeeker.ugUniversity}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Graduation Year:</span> <div>${jobSeeker.ugGraduationYear}</div></div>
            
+             <c:if test="${not empty jobSeeker.pgDegree}">
              <div class="col-12">
                  <div class="education-level">Postgraduate</div>
              </div>
@@ -549,7 +577,9 @@
              <div class="col-md-6 info-block"><span class="info-label">Specialization:</span> <div>${jobSeeker.pgSpecialization}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">University:</span> <div>${jobSeeker.pgUniversity}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Graduation Year:</span> <div>${jobSeeker.pgGraduationYear}</div></div>
+             </c:if>
            
+             <c:if test="${not empty jobSeeker.doctorateDegree}">
              <div class="col-12">
                  <div class="education-level">Doctorate</div>
              </div>
@@ -557,6 +587,7 @@
              <div class="col-md-6 info-block"><span class="info-label">Specialization:</span> <div>${jobSeeker.doctorateSpecialization}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">University:</span> <div>${jobSeeker.doctorateUniversity}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Graduation Year:</span> <div>${jobSeeker.doctorateGraduationYear}</div></div>
+             </c:if>
          </div>
        
          <!-- Professional Info -->
@@ -606,16 +637,16 @@
              <div class="col-md-6 info-block">
                  <span class="info-label">Identity Document:</span>
                  <div>
-                     <c:choose>
-                         <c:when test="${empty jobSeeker.identityDocument}">
-                             <span class="text-muted">Not Uploaded</span>
-                         </c:when>
-                         <c:otherwise>
-                             <a href="${jobSeeker.identityDocument}" target="_blank">
-                                 <i class="fas fa-file-pdf mr-2"></i>View Document
-                             </a>
-                         </c:otherwise>
-                     </c:choose>
+                      <c:choose>
+                          <c:when test="${empty jobSeeker.identityDocument}">
+                              <span class="text-muted">Not Uploaded</span>
+                          </c:when>
+                          <c:otherwise>
+                              <a href="${pageContext.request.contextPath}${jobSeeker.identityDocument}" target="_blank">
+                                  <i class="fas fa-file-pdf mr-2"></i>View Document
+                              </a>
+                          </c:otherwise>
+                      </c:choose>
                  </div>
              </div>
              <div class="col-md-6 info-block">
@@ -637,18 +668,29 @@
        
          <!-- Video Resume -->
          <div class="section-title mt-5"><i class="fas fa-video"></i> Video Resume</div>
-         <div class="info-block">
-             <c:choose>
-                 <c:when test="${empty jobSeeker.videoResumeUrl}">
-                     <span class="text-muted">Not Provided</span>
-                 </c:when>
-                 <c:otherwise>
-                     <a href="${pageContext.request.contextPath}${jobSeeker.videoResumeUrl}" target="_blank">
-                         <i class="fas fa-play-circle mr-2"></i>Watch Video Resume
-                     </a>
-                 </c:otherwise>
-             </c:choose>
-         </div>
+          <div class="info-block" style="padding: 0; overflow: hidden; border-radius: 12px;">
+              <c:choose>
+                  <c:when test="${empty jobSeeker.videoResumeUrl}">
+                      <div class="p-3 text-muted">Not Provided</div>
+                  </c:when>
+                  <c:otherwise>
+                      <c:set var="videoType" value="video/mp4" />
+                      <c:if test="${fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.webm')}">
+                          <c:set var="videoType" value="video/webm" />
+                      </c:if>
+                      <c:if test="${fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.ogg')}">
+                          <c:set var="videoType" value="video/ogg" />
+                      </c:if>
+                      <c:if test="${fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.mov') or fn:endsWith(fn:toLowerCase(jobSeeker.videoResumeUrl), '.qt')}">
+                          <c:set var="videoType" value="video/quicktime" />
+                      </c:if>
+                      <video controls preload="auto" playsinline style="width: 100%; max-height: 360px; background: #000; display: block;">
+                          <source src="${pageContext.request.contextPath}${jobSeeker.videoResumeUrl}" type="${videoType}">
+                          Your browser does not support HTML5 video.
+                      </video>
+                  </c:otherwise>
+              </c:choose>
+          </div>
        
          <!-- Profile Completion -->
          <div class="section-title mt-5"><i class="fas fa-percent"></i> Profile Completion</div>
@@ -659,15 +701,6 @@
              </div>
          </div>
        
-         <!-- Actions -->
-         <div class="action-buttons">
-             <a href="${pageContext.request.contextPath}/jobSeekers/dashboard" class="btn btn-outline-secondary">
-                 <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
-             </a>
-             <a href="${pageContext.request.contextPath}/jobSeekers/update" class="btn btn-primary">
-                 <i class="fas fa-edit mr-2"></i>Edit Profile
-             </a>
-         </div>
      </div>
  </div>
 </div>

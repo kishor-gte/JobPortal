@@ -579,8 +579,18 @@
 
     <c:if test="${video != null}">
         <div class="video-box">
-            <video controls>
-                <source src="${pageContext.request.contextPath}${video.filePath}" type="video/mp4">
+            <video controls preload="auto" playsinline>
+                <c:set var="videoType" value="video/mp4" />
+                <c:if test="${fn:endsWith(fn:toLowerCase(video.filePath), '.webm')}">
+                    <c:set var="videoType" value="video/webm" />
+                </c:if>
+                <c:if test="${fn:endsWith(fn:toLowerCase(video.filePath), '.ogg')}">
+                    <c:set var="videoType" value="video/ogg" />
+                </c:if>
+                <c:if test="${fn:endsWith(fn:toLowerCase(video.filePath), '.mov') or fn:endsWith(fn:toLowerCase(video.filePath), '.qt')}">
+                    <c:set var="videoType" value="video/quicktime" />
+                </c:if>
+                <source src="${pageContext.request.contextPath}${video.filePath}" type="${videoType}">
                 Your browser does not support HTML5 video.
             </video>
         </div>

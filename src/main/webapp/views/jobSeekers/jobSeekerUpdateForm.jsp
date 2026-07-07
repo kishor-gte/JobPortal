@@ -502,15 +502,15 @@
                             <!-- Row 1: Name and Phone -->
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                                    <label for="name"><i class="fas fa-user"></i> Full Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         value="${jobSeeker.name}" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                                    <label for="phone"><i class="fas fa-phone"></i> Phone Number <span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control" id="phone" name="phone"
-                                        value="${jobSeeker.phone}" pattern="[0-9]{10}" maxlength="10"
-                                        title="Please enter a 10-digit phone number" required
+                                        value="${jobSeeker.phone}" pattern="[0-9]{10}" minlength="10" maxlength="10"
+                                        title="Please enter exactly a 10-digit phone number" required
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                                 </div>
                             </div>
@@ -518,12 +518,12 @@
                             <!-- Row 2: Email and Location -->
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                                    <label for="email"><i class="fas fa-envelope"></i> Email <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" id="email" name="email"
                                         value="${jobSeeker.email}" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="location"><i class="fas fa-map-pin"></i> Location</label>
+                                    <label for="location"><i class="fas fa-map-pin"></i> Location <span class="text-danger">*</span></label>
                                     <select name="location" id="location" class="form-control searchable-dropdown"
                                         data-placeholder="-- Select Location --" required>
                                         <option value="">-- Select Location --</option>
@@ -538,30 +538,30 @@
                             <!-- Row 3: Pin Code, DOB, Age -->
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="pinCode"><i class="fas fa-map-marker-alt"></i> Pin Code</label>
+                                    <label for="pinCode"><i class="fas fa-map-marker-alt"></i> Pin Code <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="pinCode" name="pinCode"
                                         value="${jobSeeker.pinCode}" pattern="[0-9]{6}" maxlength="6"
                                         title="Please enter a 6-digit pin code" required
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6)">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="dateOfBirth"><i class="fas fa-calendar"></i> Date of Birth</label>
+                                    <label for="dateOfBirth"><i class="fas fa-calendar"></i> Date of Birth <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth"
                                         value="${jobSeeker.dateOfBirth}" max="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" required>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+                                    <label for="age"><i class="fas fa-birthday-cake"></i> Age <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="age" name="age"
                                         value="${jobSeeker.age}" min="18" max="100"
-                                        title="Age must be between 18 and 100" required>
+                                        title="Age must be between 18 and 100" required readonly style="background-color: #f8fafc; cursor: not-allowed;">
                                 </div>
                             </div>
 
                             <!-- Row 4: Gender, Languages, Marital Status -->
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
-                                    <select class="form-control" id="gender" name="gender">
+                                    <label for="gender"><i class="fas fa-venus-mars"></i> Gender <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="gender" name="gender" required>
                                         <option value="" disabled>Select gender</option>
                                         <option value="MALE" ${jobSeeker.gender=='MALE' ?'selected':''}>Male</option>
                                         <option value="FEMALE" ${jobSeeker.gender=='FEMALE' ?'selected':''}>Female
@@ -588,8 +588,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="maritalStatus"><i class="fas fa-ring"></i> Marital Status</label>
-                                    <select class="form-control" id="maritalStatus" name="maritalStatus">
+                                    <label for="maritalStatus"><i class="fas fa-ring"></i> Marital Status <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="maritalStatus" name="maritalStatus" required>
                                         <option value="Single" ${jobSeeker.maritalStatus=='Single' ?'selected':''}>
                                             Single</option>
                                         <option value="Married" ${jobSeeker.maritalStatus=='Married' ?'selected':''}>
@@ -604,9 +604,9 @@
 
                             <!-- Row 5: Permanent Address -->
                             <div class="form-group">
-                                <label for="permanentAddress"><i class="fas fa-home"></i> Permanent Address</label>
+                                <label for="permanentAddress"><i class="fas fa-home"></i> Permanent Address <span class="text-danger">*</span></label>
                                 <textarea class="form-control" id="permanentAddress" name="permanentAddress"
-                                    rows="2">${jobSeeker.permanentAddress}</textarea>
+                                    rows="2" required>${jobSeeker.permanentAddress}</textarea>
                             </div>
                         </div>
 
@@ -615,8 +615,8 @@
                             <h4 class="section-title"><i class="fas fa-graduation-cap mr-2"></i>Education</h4>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="education"><i class="fas fa-certificate"></i> Highest Education</label>
-                                    <select name="education" id="education" class="form-control">
+                                    <label for="education"><i class="fas fa-certificate"></i> Highest Education <span class="text-danger">*</span></label>
+                                    <select name="education" id="education" class="form-control" required>
                                         <option value="" disabled>Select Education</option>
                                         <c:forEach var="edu" items="${education}">
                                             <option value="${edu}" <c:if test="${edu == jobSeeker.education}">selected
@@ -647,7 +647,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="ugGraduationYear">Graduation Year</label>
                                     <input type="number" class="form-control" id="ugGraduationYear"
-                                        name="ugGraduationYear" value="${jobSeeker.ugGraduationYear}">
+                                        name="ugGraduationYear" value="${jobSeeker.ugGraduationYear}"
+                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
 
@@ -672,7 +673,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="pgGraduationYear">Graduation Year</label>
                                     <input type="number" class="form-control" id="pgGraduationYear"
-                                        name="pgGraduationYear" value="${jobSeeker.pgGraduationYear}">
+                                        name="pgGraduationYear" value="${jobSeeker.pgGraduationYear}"
+                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
 
@@ -697,7 +699,8 @@
                                 <div class="form-group col-md-3">
                                     <label for="doctorateGraduationYear">Graduation Year</label>
                                     <input type="number" class="form-control" id="doctorateGraduationYear"
-                                        name="doctorateGraduationYear" value="${jobSeeker.doctorateGraduationYear}">
+                                        name="doctorateGraduationYear" value="${jobSeeker.doctorateGraduationYear}"
+                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
                             </div>
                         </div>
@@ -707,10 +710,11 @@
                             <h4 class="section-title"><i class="fas fa-briefcase mr-2"></i>Experience</h4>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="experience"><i class="fas fa-chart-line"></i> Experience (Years)</label>
+                                    <label for="experience"><i class="fas fa-chart-line"></i> Experience (Years) <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="experience" name="experience"
                                         value="${jobSeeker.experience}" min="0" max="99"
-                                        title="Experience must be between 0 and 99 years">
+                                        title="Experience must be between 0 and 99 years" required
+                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                 </div>
 
                                 <!-- SKILLS FIX APPLIED HERE -->
@@ -744,7 +748,8 @@
                                     <label for="annualSalary"><i class="fas fa-money-bill-wave"></i> Annual
                                         Salary</label>
                                     <input type="number" step="0.01" class="form-control" id="annualSalary"
-                                        name="annualSalary" value="${jobSeeker.annualSalary}">
+                                        name="annualSalary" value="${jobSeeker.annualSalary}"
+                                        min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="noticePeriod"><i class="fas fa-calendar-alt"></i> Notice Period</label>
@@ -779,17 +784,28 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label><i class="fas fa-info-circle"></i> Current Status</label>
-                                    <div>
+                                    <div id="statusBadgeContainer">
                                         <c:choose>
                                             <c:when
-                                                test="${not empty jobSeeker.accountStatus && jobSeeker.accountStatus == 'ACTIVE'}">
+                                                test="${not empty jobSeeker.accountStatus && (jobSeeker.accountStatus == 'ACTIVE' || jobSeeker.accountStatus == 'OPEN_TO_WORK' || jobSeeker.accountStatus == 'ACTIVELY_APPLYING' || jobSeeker.accountStatus == 'EMPLOYED_OPEN_TO_OPPORTUNITY')}">
                                                 <span class="status-badge status-active">
-                                                    <i class="fas fa-check-circle"></i> Active
+                                                    <i class="fas fa-check-circle"></i> 
+                                                    <c:choose>
+                                                        <c:when test="${jobSeeker.accountStatus == 'ACTIVE'}">Active</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'OPEN_TO_WORK'}">Open to Work</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'ACTIVELY_APPLYING'}">Actively Applying</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'EMPLOYED_OPEN_TO_OPPORTUNITY'}">Employed but Open</c:when>
+                                                    </c:choose>
                                                 </span>
                                             </c:when>
                                             <c:otherwise>
                                                 <span class="status-badge status-inactive">
-                                                    <i class="fas fa-times-circle"></i> Inactive
+                                                    <i class="fas fa-times-circle"></i> 
+                                                    <c:choose>
+                                                        <c:when test="${jobSeeker.accountStatus == 'DEACTIVATED'}">Deactivated</c:when>
+                                                        <c:when test="${jobSeeker.accountStatus == 'NOT_OPEN_TO_WORK'}">Not Looking</c:when>
+                                                        <c:otherwise>Inactive</c:otherwise>
+                                                    </c:choose>
                                                 </span>
                                             </c:otherwise>
                                         </c:choose>
@@ -802,20 +818,31 @@
                         <div class="section">
                             <h4 class="section-title"><i class="fas fa-file-upload mr-2"></i>Documents</h4>
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="image"><i class="fas fa-camera"></i> Profile Photo</label>
                                     <input type="file" class="form-control-file" id="image" name="image"
                                         accept="image/*">
+                                    <small class="form-text text-muted mt-2">Supported: JPG, PNG, GIF</small>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="identityDoc"><i class="fas fa-id-card"></i> Identity Document</label>
                                     <input type="file" class="form-control-file" id="identityDoc" name="identityDoc"
                                         accept=".pdf,.jpg,.jpeg,.png">
+                                    <small class="form-text text-muted mt-2">Supported: PDF, JPG, PNG</small>
                                 </div>
-                                <div class="form-group col-md-4">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label for="resume"><i class="fas fa-file-pdf"></i> Resume</label>
                                     <input type="file" class="form-control-file" id="resume" name="resume"
                                         accept=".pdf,.doc,.docx">
+                                    <small class="form-text text-muted mt-2">Supported: PDF, DOC, DOCX</small>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="videoResume"><i class="fas fa-video"></i> Video Resume</label>
+                                    <input type="file" class="form-control-file" id="videoResume" name="videoResume"
+                                        accept="video/mp4,video/webm">
+                                    <small class="form-text text-muted mt-2">Supported: MP4, WEBM</small>
                                 </div>
                             </div>
                         </div>
@@ -858,6 +885,37 @@
                             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                                 e.preventDefault();
                                 $form.submit();
+                            }
+                        });
+
+                        // Auto-calculate age from Date of Birth
+                        $('#dateOfBirth').on('change', function() {
+                            if(this.value) {
+                                const dob = new Date(this.value);
+                                const today = new Date();
+                                let age = today.getFullYear() - dob.getFullYear();
+                                const m = today.getMonth() - dob.getMonth();
+                                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                                    age--;
+                                }
+                                $('#age').val(age);
+                            } else {
+                                $('#age').val('');
+                            }
+                        });
+
+                        function formatStatusText(status) {
+                            if (!status) return 'Inactive';
+                            return status.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+                        }
+
+                        $('#accountStatus').on('change', function() {
+                            const status = $(this).val();
+                            const formatted = formatStatusText(status);
+                            if (status === 'ACTIVE' || status === 'OPEN_TO_WORK' || status === 'ACTIVELY_APPLYING' || status === 'EMPLOYED_OPEN_TO_OPPORTUNITY') {
+                                $('#statusBadgeContainer').html(`<span class="status-badge status-active"><i class="fas fa-check-circle"></i> ${formatted}</span>`);
+                            } else {
+                                $('#statusBadgeContainer').html(`<span class="status-badge status-inactive"><i class="fas fa-times-circle"></i> ${formatted}</span>`);
                             }
                         });
                     });

@@ -864,6 +864,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            if ("Notification" in window && Notification.permission !== "denied" && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
             const chatArea = document.getElementById('chatArea');
             if (chatArea) {
                 chatArea.scrollTop = chatArea.scrollHeight;
@@ -947,10 +950,12 @@
                         const typingIndicator = document.getElementById('typingIndicator');
                         const newMessages = data.slice(messageCount);
                         
+                        let hasNewIncoming = false;
                         newMessages.forEach(msg => {
                             if (!msg.content || msg.content.trim() === '') return;
                             
                             const isOutgoing = (String(msg.senderId) === String(currentId) && String(msg.senderType) === String(currentType));
+                            if (!isOutgoing) hasNewIncoming = true;
                             const msgDiv = document.createElement('div');
                             msgDiv.className = `message ${isOutgoing ? 'message-outgoing' : 'message-incoming'}`;
                             
@@ -981,6 +986,12 @@
                         
                         if (typingIndicator) {
                             typingIndicator.style.display = 'none';
+                        }
+                        
+                        if (hasNewIncoming && document.hidden) {
+                            if ("Notification" in window && Notification.permission === "granted") {
+                                new Notification("New Message", { body: "You have a new message from ${partner.fullName}" });
+                            }
                         }
                     }
                 })

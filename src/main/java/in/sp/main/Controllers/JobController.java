@@ -341,6 +341,7 @@ public class JobController {
                 } catch (Exception e) {
                     hasApplied = false;
                 }
+
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
@@ -348,6 +349,7 @@ public class JobController {
             if (seeker != null) {
                 activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
             }
+
             return "job/jobDetails"; // JSP page name
         } catch (Exception e) {
             System.err.println("Error showing job details for job ID " + jobId + ": " + e.getMessage());
