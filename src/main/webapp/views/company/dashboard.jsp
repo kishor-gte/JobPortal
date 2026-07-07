@@ -468,6 +468,19 @@
                 </a>
             </div>
 
+            <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
+                <a href="${pageContext.request.contextPath}/techperson/register/${company.id}" class="single-company-card">
+                    <div class="icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Add Tech Person</h3>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="550">
+                <a href="${pageContext.request.contextPath}/techperson/list" class="single-company-card">
+                    <div class="icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>Manage Tech Person</h3>
+                </a>
+            </div>
+
         </div>
     </div>
 </section>

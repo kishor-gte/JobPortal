@@ -362,6 +362,10 @@ public class JobController {
         @RequestParam(required = false) String location, 
         Model model,HttpSession session) {
 
+        if ((keyword == null || keyword.trim().isEmpty()) && (location == null || location.trim().isEmpty())) {
+            return "redirect:/userdashboard.html";
+        }
+
         List<Job> jobs = jobService.searchJobs(keyword, location);
         JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");
         if(seeker==null)
