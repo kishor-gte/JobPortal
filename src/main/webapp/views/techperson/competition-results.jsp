@@ -813,100 +813,222 @@
             </div>
         </div>
 
-        <!-- Stats Row 1 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fas fa-users"></i></div>
-                <div class="stat-value">${totalUsers}</div>
-                <div class="stat-label">Total Users</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
-                <div class="stat-value">${totalStudents}</div>
-                <div class="stat-label">Students</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div>
-                <div class="stat-value">${totalInterviewers}</div>
-                <div class="stat-label">Interviewers</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-code"></i></div>
-                <div class="stat-value">${totalCodingQuestions}</div>
-                <div class="stat-label">Coding Questions</div>
-            </div>
-        </div>
+                <style>
+            .form-card {
+                background: rgba(255, 255, 255, 0.95);
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-lg);
+                padding: 24px;
+                backdrop-filter: blur(20px);
+                margin-bottom: 24px;
+                animation: slideUp 0.5s ease-out;
+            }
+            .form-card-title {
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: var(--primary);
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                padding-bottom: 12px;
+            }
+            body.light-mode .form-card-title {
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .form-group {
+                margin-bottom: 16px;
+            }
+            .form-label {
+                font-size: 14px;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 8px;
+                display: block;
+            }
+            body.light-mode .form-label {
+                color: #1e293b;
+            }
+            .form-control, .form-select {
+                width: 100%;
+                padding: 12px 16px;
+                background: rgba(0,0,0,0.2);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: var(--radius-md);
+                color: #fff;
+                font-family: inherit;
+                transition: var(--transition);
+            }
+            body.light-mode .form-control, body.light-mode .form-select {
+                background: #fff;
+                border: 1px solid #cbd5e1;
+                color: #1e293b;
+            }
+            .form-control:focus, .form-select:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(25, 167, 123, 0.2);
+            }
+            .checkbox-group {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            .checkbox-group input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                accent-color: var(--primary);
+            }
+            .checkbox-group label {
+                font-size: 14px;
+                font-weight: 500;
+                color: #fff;
+            }
+            body.light-mode .checkbox-group label {
+                color: #1e293b;
+            }
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .btn-primary {
+                background: var(--gradient-primary);
+                color: white;
+                border: none;
+                padding: 14px 28px;
+                border-radius: var(--radius-md);
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: var(--transition);
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
+            .btn-secondary {
+                background: rgba(255,255,255,0.1);
+                color: white;
+                border: 1px solid rgba(255,255,255,0.2);
+                padding: 10px 20px;
+                border-radius: var(--radius-md);
+                font-size: 14px;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+            body.light-mode .btn-secondary {
+                background: #f1f5f9;
+                color: #1e293b;
+                border-color: #cbd5e1;
+            }
+            .btn-secondary:hover {
+                background: rgba(255,255,255,0.2);
+            }
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .toast-container {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+            }
+            .toast {
+                background: #10b981;
+                color: white;
+                padding: 16px 24px;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-weight: 600;
+                transform: translateX(120%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .toast.show {
+                transform: translateX(0);
+            }
+            .toast.error {
+                background: #ef4444;
+            }
+            
+            .question-builder {
+                display: none;
+                margin-top: 20px;
+                padding: 20px;
+                border: 1px dashed rgba(255,255,255,0.3);
+                border-radius: var(--radius-md);
+                background: rgba(0,0,0,0.1);
+            }
+            body.light-mode .question-builder {
+                border-color: #cbd5e1;
+                background: #f8fafc;
+            }
+            .question-builder.active {
+                display: block;
+            }
+            
+            .new-question-item {
+                background: rgba(255,255,255,0.05);
+                border-radius: var(--radius-md);
+                padding: 16px;
+                margin-bottom: 16px;
+                position: relative;
+            }
+            body.light-mode .new-question-item {
+                background: #fff;
+                border: 1px solid #e2e8f0;
+            }
+        </style>
 
-        <!-- Stats Row 2 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon cyan"><i class="fas fa-comments"></i></div>
-                <div class="stat-value">${totalInterviewQuestions}</div>
-                <div class="stat-label">Interview Questions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon pink"><i class="fas fa-tags"></i></div>
-                <div class="stat-value">${totalCategories}</div>
-                <div class="stat-label">Categories</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon yellow"><i class="fas fa-video"></i></div>
-                <div class="stat-value">${totalInterviews}</div>
-                <div class="stat-label">Total Interviews</div>
-            </div>
-			<div class="stat-card">
-			               <div class="stat-icon blue"><i class="fas fa-briefcase"></i></div>
-			               <div class="stat-value">${totalJobs}</div>
-			               <div class="stat-label">Total Jobs</div>
-			           </div>
-        </div>
-
-        <!-- Stats Row 3 -->
-        <div class="stats-grid">
-           
-           
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-file-alt"></i></div>
-                <div class="stat-value">${totalApplications}</div>
-                <div class="stat-label">Job Applications</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-handshake"></i></div>
-                <div class="stat-value">${activeJobs.size()}</div>
-                <div class="stat-label">Active Jobs</div>
-            </div>
-        </div>
-
-        <!-- Recent Users -->
-        <div class="content-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-user-clock" style="color: var(--accent);"></i> Recent Users</h3>
-                    <a href="${pageContext.request.contextPath}/tech/manage-users">Manage All <i class="fas fa-arrow-right"></i></a>
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h1>Competition Results</h1>
+                    <p>View leaderboards and detailed results of past competitions.</p>
                 </div>
-                <c:forEach var="u" items="${recentUsers}" end="7">
-                    <div class="user-item">
-                        <div class="info">
-                            <div class="user-avatar ${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">
-                                ${u.name.substring(0,1)}
-                            </div>
-                            <span class="user-name">${u.name}</span>
-                        </div>
-                        <span class="user-role role-${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">${u.role}</span>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty recentUsers}">
-                    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 30px;">No recent users</p>
-                </c:if>
             </div>
-        </div>
+            
+            <div class="form-card" style="margin-top: 24px;">
+                <div class="form-group">
+                    <label class="form-label">Select Competition</label>
+                    <select class="form-select" onchange="if(this.value) window.location.href='${pageContext.request.contextPath}/tech/competition-results/' + this.value;">
+                        <option value="">-- Choose a competition --</option>
+                        <c:forEach var="comp" items="${competitions}">
+                            <option value="${comp.id}">${comp.title} (${comp.examStartTime})</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                
+                <div style="text-align:center; padding: 40px; color: var(--text-secondary);">
+                    <i class="fas fa-trophy" style="font-size: 48px; color: #cbd5e1; margin-bottom: 16px; display:block;"></i>
+                    <p>Select a competition above to view its leaderboard and statistics.</p>
+                </div>
+            </div>
 
-        <!-- Job Portal Overview -->
-       
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast-container">
+        <div class="toast" id="toastMessage">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastText">Competition created successfully.</span>
+        </div>
+    </div>
+
+
     <script>
-        // Sidebar Toggle for Mobile
+        // Sidebar Toggle for Mobilee
         function toggleSidebar() {
             document.getElementById('mainSidebar').classList.toggle('active');
         }

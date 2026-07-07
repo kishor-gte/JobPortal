@@ -377,6 +377,7 @@
                                     <li class="nav-item"><a href="#">Manage Candidates</a>
                                         <ul class="sub-menu">
                                             <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/applicants">Applicants</a></li>
+                                            <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/competition-results">Competition Results</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">

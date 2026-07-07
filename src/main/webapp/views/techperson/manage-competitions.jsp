@@ -813,100 +813,315 @@
             </div>
         </div>
 
-        <!-- Stats Row 1 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fas fa-users"></i></div>
-                <div class="stat-value">${totalUsers}</div>
-                <div class="stat-label">Total Users</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
-                <div class="stat-value">${totalStudents}</div>
-                <div class="stat-label">Students</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div>
-                <div class="stat-value">${totalInterviewers}</div>
-                <div class="stat-label">Interviewers</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-code"></i></div>
-                <div class="stat-value">${totalCodingQuestions}</div>
-                <div class="stat-label">Coding Questions</div>
-            </div>
-        </div>
+                <style>
+            .form-card {
+                background: rgba(255, 255, 255, 0.95);
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-lg);
+                padding: 24px;
+                backdrop-filter: blur(20px);
+                margin-bottom: 24px;
+                animation: slideUp 0.5s ease-out;
+            }
+            .form-card-title {
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: var(--primary);
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                padding-bottom: 12px;
+            }
+            body.light-mode .form-card-title {
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .form-group {
+                margin-bottom: 16px;
+            }
+            .form-label {
+                font-size: 14px;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 8px;
+                display: block;
+            }
+            body.light-mode .form-label {
+                color: #1e293b;
+            }
+            .form-control, .form-select {
+                width: 100%;
+                padding: 12px 16px;
+                background: rgba(0,0,0,0.2);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: var(--radius-md);
+                color: #fff;
+                font-family: inherit;
+                transition: var(--transition);
+            }
+            body.light-mode .form-control, body.light-mode .form-select {
+                background: #fff;
+                border: 1px solid #cbd5e1;
+                color: #1e293b;
+            }
+            .form-control:focus, .form-select:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(25, 167, 123, 0.2);
+            }
+            .checkbox-group {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            .checkbox-group input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                accent-color: var(--primary);
+            }
+            .checkbox-group label {
+                font-size: 14px;
+                font-weight: 500;
+                color: #fff;
+            }
+            body.light-mode .checkbox-group label {
+                color: #1e293b;
+            }
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .btn-primary {
+                background: var(--gradient-primary);
+                color: white;
+                border: none;
+                padding: 14px 28px;
+                border-radius: var(--radius-md);
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: var(--transition);
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
+            .btn-secondary {
+                background: rgba(255,255,255,0.1);
+                color: white;
+                border: 1px solid rgba(255,255,255,0.2);
+                padding: 10px 20px;
+                border-radius: var(--radius-md);
+                font-size: 14px;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+            body.light-mode .btn-secondary {
+                background: #f1f5f9;
+                color: #1e293b;
+                border-color: #cbd5e1;
+            }
+            .btn-secondary:hover {
+                background: rgba(255,255,255,0.2);
+            }
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .toast-container {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+            }
+            .toast {
+                background: #10b981;
+                color: white;
+                padding: 16px 24px;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-weight: 600;
+                transform: translateX(120%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .toast.show {
+                transform: translateX(0);
+            }
+            .toast.error {
+                background: #ef4444;
+            }
+            
+            .question-builder {
+                display: none;
+                margin-top: 20px;
+                padding: 20px;
+                border: 1px dashed rgba(255,255,255,0.3);
+                border-radius: var(--radius-md);
+                background: rgba(0,0,0,0.1);
+            }
+            body.light-mode .question-builder {
+                border-color: #cbd5e1;
+                background: #f8fafc;
+            }
+            .question-builder.active {
+                display: block;
+            }
+            
+            .new-question-item {
+                background: rgba(255,255,255,0.05);
+                border-radius: var(--radius-md);
+                padding: 16px;
+                margin-bottom: 16px;
+                position: relative;
+            }
+            body.light-mode .new-question-item {
+                background: #fff;
+                border: 1px solid #e2e8f0;
+            }
+        </style>
 
-        <!-- Stats Row 2 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon cyan"><i class="fas fa-comments"></i></div>
-                <div class="stat-value">${totalInterviewQuestions}</div>
-                <div class="stat-label">Interview Questions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon pink"><i class="fas fa-tags"></i></div>
-                <div class="stat-value">${totalCategories}</div>
-                <div class="stat-label">Categories</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon yellow"><i class="fas fa-video"></i></div>
-                <div class="stat-value">${totalInterviews}</div>
-                <div class="stat-label">Total Interviews</div>
-            </div>
-			<div class="stat-card">
-			               <div class="stat-icon blue"><i class="fas fa-briefcase"></i></div>
-			               <div class="stat-value">${totalJobs}</div>
-			               <div class="stat-label">Total Jobs</div>
-			           </div>
-        </div>
-
-        <!-- Stats Row 3 -->
-        <div class="stats-grid">
-           
-           
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-file-alt"></i></div>
-                <div class="stat-value">${totalApplications}</div>
-                <div class="stat-label">Job Applications</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-handshake"></i></div>
-                <div class="stat-value">${activeJobs.size()}</div>
-                <div class="stat-label">Active Jobs</div>
-            </div>
-        </div>
-
-        <!-- Recent Users -->
-        <div class="content-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-user-clock" style="color: var(--accent);"></i> Recent Users</h3>
-                    <a href="${pageContext.request.contextPath}/tech/manage-users">Manage All <i class="fas fa-arrow-right"></i></a>
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h1>Manage Competitions</h1>
+                    <p>View, edit, and publish your coding competitions.</p>
                 </div>
-                <c:forEach var="u" items="${recentUsers}" end="7">
-                    <div class="user-item">
-                        <div class="info">
-                            <div class="user-avatar ${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">
-                                ${u.name.substring(0,1)}
-                            </div>
-                            <span class="user-name">${u.name}</span>
-                        </div>
-                        <span class="user-role role-${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">${u.role}</span>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty recentUsers}">
-                    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 30px;">No recent users</p>
-                </c:if>
             </div>
-        </div>
+            
+            <style>
+                .comp-card {
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    padding: 24px;
+                    border-radius: 12px;
+                    animation: slideUp 0.5s ease-out forwards;
+                    transition: all 0.3s ease;
+                }
+                .comp-card:hover {
+                    transform: translateY(-5px);
+                    border-color: var(--primary);
+                }
+                body.light-mode .comp-card {
+                    background: #fff;
+                    border: 1px solid #e2e8f0;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                }
+                .comp-title {
+                    font-size: 18px;
+                    margin: 0;
+                    color: #fff;
+                    font-weight: 600;
+                }
+                body.light-mode .comp-title {
+                    color: #1e293b;
+                }
+                .comp-text {
+                    color: #94a3b8;
+                    font-size: 13px;
+                    margin-bottom: 16px;
+                }
+                body.light-mode .comp-text {
+                    color: #64748b;
+                }
+                .comp-badge {
+                    padding: 6px 12px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+                .badge-published {
+                    background: rgba(16, 185, 129, 0.2);
+                    color: #10b981;
+                    border: 1px solid rgba(16, 185, 129, 0.3);
+                }
+                .badge-draft {
+                    background: rgba(245, 158, 11, 0.2);
+                    color: #f59e0b;
+                    border: 1px solid rgba(245, 158, 11, 0.3);
+                }
+            </style>
+            
+            <div class="competitions-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 24px;">
+                <c:choose>
+                    <c:when test="${not empty competitions}">
+                        <c:forEach var="comp" items="${competitions}">
+                            <div class="comp-card">
+                                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px;">
+                                    <h3 class="comp-title">${comp.title}</h3>
+                                    <span class="comp-badge ${comp.status eq 'PUBLISHED' ? 'badge-published' : 'badge-draft'}">${comp.status}</span>
+                                </div>
+                                <p class="comp-text">
+                                    Difficulty: <strong>${comp.difficulty}</strong> | Questions: <strong>${comp.numberOfQuestions}</strong>
+                                </p>
+                                <div class="comp-text" style="margin-bottom: 8px;">
+                                    <i class="fas fa-calendar-alt" style="width: 20px;"></i> ${comp.examStartTime}
+                                </div>
+                                <div class="comp-text" style="margin-bottom: 24px;">
+                                    <i class="fas fa-users" style="width: 20px;"></i> ${regCounts[comp.id]} / ${comp.maxParticipants} Registered
+                                </div>
+                                <div style="display:flex; gap: 12px; margin-bottom: 12px;">
+                                    <a href="${pageContext.request.contextPath}/tech/manage-competitions/${comp.id}/registrations" class="btn-primary" style="text-decoration:none; padding: 10px 16px; font-size: 14px; flex: 1; border-radius: 8px; text-align: center;"><i class="fas fa-eye"></i> View Registrations</a>
+                                </div>
+                                <div style="display:flex; gap: 12px;">
+                                    <a href="${pageContext.request.contextPath}/tech/edit-competition/${comp.id}" class="btn-primary" style="text-decoration:none; padding: 10px 16px; font-size: 14px; flex: 1; border-radius: 8px;"><i class="fas fa-edit"></i> Edit</a>
+                                    <button type="button" class="btn-secondary" style="padding: 10px 16px; font-size: 14px; flex: 1; border-color: #ef4444; color: #ef4444; border-radius: 8px;" onclick="deleteCompetition(${comp.id})"><i class="fas fa-trash-alt"></i> Delete</button>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="alert alert-info" style="grid-column: 1 / -1; background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 20px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2);">
+                            <i class="fas fa-info-circle"></i> You haven't created any competitions yet. <a href="conduct-competition" style="color: #2563eb; font-weight: 600;">Create one now</a>.
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            
+            <script>
+            async function deleteCompetition(id) {
+                if(confirm('Are you sure you want to delete this competition? This action cannot be undone.')) {
+                    try {
+                        const response = await fetch(`${pageContext.request.contextPath}/tech/api/competitions/` + id, {
+                            method: 'DELETE'
+                        });
+                        const result = await response.json();
+                        if (response.ok && result.success) {
+                            alert('Competition deleted successfully.');
+                            window.location.reload();
+                        } else {
+                            alert(result.message || 'Error deleting competition.');
+                        }
+                    } catch (err) {
+                        alert('Network error occurred.');
+                    }
+                }
+            }
+            </script>
 
-        <!-- Job Portal Overview -->
-       
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast-container">
+        <div class="toast" id="toastMessage">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastText">Competition created successfully.</span>
+        </div>
+    </div>
+
+
     <script>
-        // Sidebar Toggle for Mobile
+        // Sidebar Toggle for Mobilee
         function toggleSidebar() {
             document.getElementById('mainSidebar').classList.toggle('active');
         }

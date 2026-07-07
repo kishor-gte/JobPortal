@@ -851,6 +851,7 @@
                     <li><a href="${pageContext.request.contextPath}/company/register">Register Company</a></li>
                     <li><a href="${pageContext.request.contextPath}/company/login">Company Login</a></li>
                     <li><a href="${pageContext.request.contextPath}/recruiter/login">Recruiters Login</a></li>
+					<li><a href="${pageContext.request.contextPath}/tech/login">Tech Persons Login</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search"></i> Jobs</a>

@@ -940,7 +940,7 @@ public class HackerrankController {
         return result;
     }
 
-    private Map<String, Object> executeCodeWithWandbox(String code, String stdin, String language) throws Exception {
+    public Map<String, Object> executeCodeWithWandbox(String code, String stdin, String language) throws Exception {
         Map<String, Object> result = new HashMap<>();
         String compiler = WANDBOX_COMPILERS.getOrDefault(language.toLowerCase(), "openjdk-jdk-22+36");
 
@@ -1013,7 +1013,7 @@ public class HackerrankController {
     }
 
     // Method to execute and validate code against expected solution
-    private boolean executeAndValidateCode(String userCode, String expectedOutput, String input, String language) {
+    public boolean executeAndValidateCode(String userCode, String expectedOutput, String input, String language) {
         try {
             // Default to Java for validation if not specified
             String lang = (language != null && !language.isEmpty()) ? language : "java";

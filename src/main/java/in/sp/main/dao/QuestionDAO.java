@@ -154,10 +154,28 @@ public class QuestionDAO {
 
     public int saveCodingQuestion(CodingQuestion q) {
         try {
-            return jdbcTemplate.update(
+            org.springframework.jdbc.support.KeyHolder keyHolder = new org.springframework.jdbc.support.GeneratedKeyHolder();
+            
+            int result = jdbcTemplate.update(connection -> {
+                java.sql.PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO coding_questions (title, description, difficulty, category_id, sample_input, sample_output, solution, constraints_info, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    q.getTitle(), q.getDescription(), q.getDifficulty(), q.getCategoryId(),
-                    q.getSampleInput(), q.getSampleOutput(), q.getSolution(), q.getConstraintsInfo(), q.getCreatedBy());
+                    new String[] { "id" });
+                ps.setString(1, q.getTitle());
+                ps.setString(2, q.getDescription());
+                ps.setString(3, q.getDifficulty());
+                ps.setObject(4, q.getCategoryId());
+                ps.setString(5, q.getSampleInput());
+                ps.setString(6, q.getSampleOutput());
+                ps.setString(7, q.getSolution());
+                ps.setString(8, q.getConstraintsInfo());
+                ps.setObject(9, q.getCreatedBy());
+                return ps;
+            }, keyHolder);
+            
+            if (keyHolder.getKey() != null) {
+                q.setId(keyHolder.getKey().longValue());
+            }
+            return result;
         } catch (Exception e) {
             logger.error("Error saving coding question: {}", e.getMessage(), e);
             return 0;
