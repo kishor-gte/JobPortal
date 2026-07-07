@@ -268,10 +268,13 @@ public class JobSeekerController {
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String showUpdateForm(HttpSession session, Model model) {
     	
-    	 JobSeeker jobSeeker = (JobSeeker) session.getAttribute("jobSeeker");
-       // JobSeeker jobSeeker = jobSeekerService.getJobSeekerById(id);
-        if (jobSeeker == null) {
+    	 JobSeeker sessionUser = (JobSeeker) session.getAttribute("jobSeeker");
+        if (sessionUser == null) {
             return "redirect:login"; // Job Seeker not found
+        }
+        JobSeeker jobSeeker = jobSeekerService.getJobSeekerById(sessionUser.getId());
+        if (jobSeeker == null) {
+            return "redirect:login"; 
         }
         // Convert Hibernate PersistentBag to ArrayList for JSP compatibility
         if (jobSeeker.getSkills() != null) {
@@ -299,6 +302,7 @@ public class JobSeekerController {
                                   @RequestParam(value = "resume", required = false) MultipartFile resume,
                                   @RequestParam(value = "image", required = false) MultipartFile image,
                                   @RequestParam(value = "identityDoc", required = false) MultipartFile identityDoc,
+                                  @RequestParam(value = "videoResume", required = false) MultipartFile videoResume,
                                   @RequestParam(value = "education", required = false) Education education,
                                   @RequestParam(value = "ugDegree", required = false) String ugDegree,
                                   @RequestParam(value = "ugSpecialization", required = false) String ugSpecialization,
@@ -400,6 +404,12 @@ public class JobSeekerController {
             existingJobSeeker.setIdentityDocument(identityPath);
         }
 
+        // Update video resume if a new file is provided
+        if (videoResume != null && !videoResume.isEmpty()) {
+            String videoPath = fileUploadService.saveVideo(videoResume);
+            existingJobSeeker.setVideoResumeUrl(videoPath);
+        }
+
         // Update the Job Seeker in the database
         jobSeekerService.updateJobSeeker(id, existingJobSeeker);
         activityLogger.log(existingJobSeeker.getId(), existingJobSeeker.getName(), existingJobSeeker.getEmail(), "JOBSEEKER", ActivityType.PROFILE_UPDATED, "JobSeeker updated profile");
@@ -413,6 +423,24 @@ public class JobSeekerController {
             model.addAttribute("education", Education.values());
             return "jobSeekers/jobSeekerUpdateForm";
         }
+    }
+
+    // Update Job Seeker Profile Picture
+    @RequestMapping(value = "/updateProfilePicture/{id}", method = RequestMethod.POST)
+    public String updateProfilePicture(@PathVariable Long id, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+        try {
+            JobSeeker existingJobSeeker = jobSeekerService.getJobSeekerById(id);
+            if (existingJobSeeker != null && image != null && !image.isEmpty()) {
+                String profilePictureUrl = fileUploadService.saveImage(image);
+                existingJobSeeker.setProfilePicture(profilePictureUrl);
+                jobSeekerService.updateJobSeeker(id, existingJobSeeker);
+                activityLogger.log(existingJobSeeker.getId(), existingJobSeeker.getName(), existingJobSeeker.getEmail(), "JOBSEEKER", ActivityType.PROFILE_UPDATED, "JobSeeker updated profile picture");
+                redirectAttributes.addFlashAttribute("message", "Profile picture updated successfully.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error updating profile picture: " + e.getMessage());
+        }
+        return "redirect:/jobSeekers/profile";
     }
 
     // Delete Job Seeker

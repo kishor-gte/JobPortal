@@ -337,8 +337,10 @@
         }
 
         /* ===== JOB CATEGORY ===== */
+        .job-category {
+            padding: 100px 0;
+        }
         .job-category .single-cat {
-            background: var(--white);
             background: var(--white);
             border: 1px solid var(--slate-100);
             border-radius: 20px;
@@ -625,13 +627,13 @@
                                 <div class="col-md-5">
                                     <div class="single-field-item">
                                         <label><i class="fas fa-briefcase"></i> Search Jobs</label>
-                                        <input name="keyword" type="text" placeholder="Job title or skill">
+                                        <input name="keyword" type="text" placeholder="Job title or skill" required>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="single-field-item">
                                         <label><i class="fas fa-map-marker-alt"></i> Location</label>
-                                        <input name="location" type="text" placeholder="City or remote">
+                                        <input name="location" type="text" placeholder="City or remote" required>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -706,12 +708,12 @@
     <!-- Job Categories -->
     <section class="job-category">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title text-center mb-5">
                 <span class="wow fadeInDown">📂 Browse Categories</span>
                 <h2 class="wow fadeInUp">Choose Your Desired Category</h2>
                 <p class="wow fadeInUp">Handpicked fields to elevate your professional journey</p>
             </div>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-lg-3 col-md-6"><a href="/jobs/category/TECHNICAL_SUPPORT"
                         class="single-cat wow fadeInUp">
                         <div class="icon"><img src="assets/images/categories/technical_support.png"
@@ -788,7 +790,7 @@
                             <li><a href="/about-us.html">About Us</a></li>
                             <li><a href="#">Help Center</a></li>
                             <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="/terms-conditions.html" class="btn-legal"></a></li>
+                            <li><a href="/legal-info.html" class="btn-legal"></a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
