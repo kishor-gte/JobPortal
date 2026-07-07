@@ -57,6 +57,9 @@ public class HackerrankController {
     private QuestionDAO questionDAO;
 
     @Autowired
+    private in.sp.main.Services.JobServices jobServices;
+
+    @Autowired
     private JobSeekerRepository jobSeekerRepository;
 
     @Autowired
@@ -84,8 +87,7 @@ public class HackerrankController {
     @Autowired
     private in.sp.main.Repositories.SavedJobRepository savedJobRepository;
 
-    @Autowired
-    private in.sp.main.Services.JobServices jobServices;
+
 
     @Autowired
     private in.sp.main.Services.MatchingService matchingService;
@@ -315,23 +317,63 @@ public class HackerrankController {
             model.addAttribute("totalCorrect", totalCorrect);
             model.addAttribute("isQualified", true);
         }
-        model.addAttribute("user", user);
-        model.addAttribute("jobSeeker", user);
+        
+        java.util.List<in.sp.main.Entities.Job> allJobs = jobServices.getAllActiveJobs();
+        
+        // Apply filters
+        java.util.List<in.sp.main.Entities.Job> filteredJobs = allJobs.stream().filter(job -> {
+            boolean matches = true;
+            
+            // Keyword filter (title or company)
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String k = keyword.toLowerCase();
+                boolean titleMatch = job.getTitle() != null && job.getTitle().toLowerCase().contains(k);
+                boolean companyMatch = job.getCompanyName() != null && job.getCompanyName().toLowerCase().contains(k);
+                if (!titleMatch && !companyMatch) matches = false;
+            }
+            
+            // Location filter
+            if (matches && location != null && !location.trim().isEmpty()) {
+                if (job.getLocation() == null || !job.getLocation().toLowerCase().contains(location.toLowerCase())) {
+                    matches = false;
+                }
+            }
+            
+            // Experience level filter
+            if (matches && experienceLevel != null && !experienceLevel.trim().isEmpty()) {
+                String jobExp = job.getExperienceLevel();
+                if (jobExp == null || !jobExp.equalsIgnoreCase(experienceLevel)) {
+                    // Try to fallback on experienceRequired
+                    Integer req = job.getExperienceRequired();
+                    boolean fallbackMatch = false;
+                    if (req != null) {
+                        if ("FRESHER".equalsIgnoreCase(experienceLevel) && req == 0) fallbackMatch = true;
+                        else if ("JUNIOR".equalsIgnoreCase(experienceLevel) && req >= 1 && req <= 3) fallbackMatch = true;
+                        else if ("MID".equalsIgnoreCase(experienceLevel) && req >= 4 && req <= 7) fallbackMatch = true;
+                        else if ("SENIOR".equalsIgnoreCase(experienceLevel) && req >= 8) fallbackMatch = true;
+                        else if ("LEAD".equalsIgnoreCase(experienceLevel) && req >= 10) fallbackMatch = true;
+                    }
+                    if (!fallbackMatch) matches = false;
+                }
+            }
+            
+            // Skills filter
+            if (matches && skills != null && !skills.trim().isEmpty()) {
+                if (job.getSkillRequirement() == null || !job.getSkillRequirement().toLowerCase().contains(skills.toLowerCase())) {
+                    matches = false;
+                }
+            }
+            
+            return matches;
+        }).collect(java.util.stream.Collectors.toList());
 
-        java.util.List<in.sp.main.Entities.Job> allJobs = jobServices.searchJobs(keyword, location);
-        
-        if (experienceLevel != null && !experienceLevel.isEmpty()) {
-            allJobs = allJobs.stream().filter(j -> j.getExperienceLevel() != null && j.getExperienceLevel().equalsIgnoreCase(experienceLevel)).collect(java.util.stream.Collectors.toList());
-        }
-        if (skills != null && !skills.isEmpty()) {
-            allJobs = allJobs.stream().filter(j -> j.getSkills() != null && j.getSkills().toLowerCase().contains(skills.toLowerCase())).collect(java.util.stream.Collectors.toList());
-        }
-        
-        model.addAttribute("jobs", allJobs);
+        model.addAttribute("jobs", filteredJobs);
         model.addAttribute("keyword", keyword);
         model.addAttribute("location", location);
         model.addAttribute("experienceLevel", experienceLevel);
         model.addAttribute("skills", skills);
+        model.addAttribute("user", user);
+        model.addAttribute("jobSeeker", user);
         
         return "hackerrank/job-listings";
     }
@@ -365,6 +407,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Student #" + js.getId());
                     contact.put("role", "STUDENT");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "STUDENT"));
                     contacts.add(contact);
                 });
         } else {
@@ -376,6 +419,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Interviewer #" + js.getId());
                     contact.put("role", "INTERVIEWER");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "INTERVIEWER"));
                     contacts.add(contact);
                 });
             
@@ -385,6 +429,7 @@ public class HackerrankController {
                 contact.put("id", c.getId());
                 contact.put("fullName", c.getName() != null ? c.getName() : "Company #" + c.getId());
                 contact.put("role", "COMPANY");
+                contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, c.getId(), "COMPANY"));
                 contacts.add(contact);
             });
         }
@@ -412,7 +457,7 @@ public class HackerrankController {
         
         // Populate contacts
         java.util.List<java.util.Map<String, Object>> contacts = new java.util.ArrayList<>();
-        if ("COMPANY".equals(currentUserType)) {
+        if ("COMPANY".equals(currentUserType) || "INTERVIEWER".equals(currentUserType)) {
             jobSeekerRepository.findAll().stream()
                 .filter(js -> "STUDENT".equalsIgnoreCase(js.getRole()) || js.getRole() == null || js.getRole().isEmpty())
                 .forEach(js -> {
@@ -420,6 +465,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Student #" + js.getId());
                     contact.put("role", "STUDENT");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "STUDENT"));
                     contacts.add(contact);
                 });
         } else {
@@ -430,6 +476,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Interviewer #" + js.getId());
                     contact.put("role", "INTERVIEWER");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "INTERVIEWER"));
                     contacts.add(contact);
                 });
             companyRepository.findAll().forEach(c -> {
@@ -437,6 +484,7 @@ public class HackerrankController {
                 contact.put("id", c.getId());
                 contact.put("fullName", c.getName() != null ? c.getName() : "Company #" + c.getId());
                 contact.put("role", "COMPANY");
+                contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, c.getId(), "COMPANY"));
                 contacts.add(contact);
             });
         }
@@ -478,6 +526,9 @@ public class HackerrankController {
         String pType = (type != null) ? type : "COMPANY";
         model.addAttribute("messages", chatMessageDAO.getConversation(currentUserId, currentUserType, partnerId, pType));
         model.addAttribute("partnerType", pType);
+        
+        // Mark messages as read
+        chatMessageDAO.markAsRead(partnerId, pType, currentUserId, currentUserType);
         
         if ("COMPANY".equals(currentUserType) || "INTERVIEWER".equals(currentUserType)) {
             return "hackerrank/interviewer-chat";
@@ -994,7 +1045,7 @@ public class HackerrankController {
         return result;
     }
 
-    private Map<String, Object> executeCodeWithWandbox(String code, String stdin, String language) throws Exception {
+    public Map<String, Object> executeCodeWithWandbox(String code, String stdin, String language) throws Exception {
         Map<String, Object> result = new HashMap<>();
         String compiler = WANDBOX_COMPILERS.getOrDefault(language.toLowerCase(), "openjdk-jdk-22+36");
 
@@ -1067,7 +1118,7 @@ public class HackerrankController {
     }
 
     // Method to execute and validate code against expected solution
-    private boolean executeAndValidateCode(String userCode, String expectedOutput, String input, String language) {
+    public boolean executeAndValidateCode(String userCode, String expectedOutput, String input, String language) {
         try {
             // Default to Java for validation if not specified
             String lang = (language != null && !language.isEmpty()) ? language : "java";

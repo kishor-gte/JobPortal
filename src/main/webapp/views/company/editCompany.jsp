@@ -389,7 +389,7 @@
                         <label for="password" class="form-label"><i class="fas fa-lock"></i> Account Password</label>
                         <div class="input-icon-wrapper">
                             <i class="fas fa-lock"></i>
-                            <input type="password" id="password" name="password" class="form-control" value="${company.password}" required />
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Leave blank to keep current password" />
                         </div>
                     </div>
                 </div>

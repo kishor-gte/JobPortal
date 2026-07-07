@@ -1,4 +1,4 @@
-﻿<%@ page session="false" %>
+<%@ page session="false" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -433,8 +433,13 @@
 
                     <c:choose>
                         <c:when test="${not empty service.coverImageUrl}">
-                            <img src="${pageContext.request.contextPath}${service.coverImageUrl}"
-                                 class="service-img" alt="${service.serviceTitle}">
+                            <c:set var="imgUrl" value="${service.coverImageUrl}" />
+                            <c:if test="${not imgUrl.startsWith('/')}">
+                                <c:set var="imgUrl" value="/${imgUrl}" />
+                            </c:if>
+                            <img src="${pageContext.request.contextPath}${imgUrl}"
+                                 class="service-img" alt="${service.serviceTitle}"
+                                 onerror="this.src='https://placehold.co/600x400/e2e8f0/5a6e66?text=Sports+Event'">
                         </c:when>
                         <c:otherwise>
                             <div class="service-img-placeholder">

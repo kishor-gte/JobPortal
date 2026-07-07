@@ -12,10 +12,7 @@ import java.util.UUID;
 @Service
 public class UploadService {
 
-    // Define upload directory. Using src/main/webapp/uploads for simplicity in this
-    // project structure
-    // In a real prod app, use an external directory or object storage (S3)
-    private final String UPLOAD_DIR = "src/main/webapp/uploads/";
+    private final String UPLOAD_DIR = System.getProperty("user.home") + "/jobportal-uploads/images/";
 
     public String uploadFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
@@ -38,6 +35,6 @@ public class UploadService {
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         // Return relative path for DB
-        return "/uploads/" + newFilename;
+        return "/uploads/images/" + newFilename;
     }
 }

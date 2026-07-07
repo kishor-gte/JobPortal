@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <style>
         :root {
@@ -165,7 +166,7 @@
         }
 
         .call-action .alt-btn {
-            background: transparent;
+            background: transparent !important;
             border: 2px solid rgba(255, 255, 255, 0.8) !important;
             color: #fff !important;
         }
@@ -293,7 +294,6 @@
             right: 20px;
             z-index: 999;
             font-size: 36px;
-            color: #25D366;
             text-decoration: none;
             transition: transform 0.3s ease;
         }
@@ -315,6 +315,7 @@
         /* Section Title Enhancement */
         .section-title span {
             color: var(--primary) !important;
+            background: transparent !important;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -377,6 +378,7 @@
                                     <li class="nav-item"><a href="#">Manage Candidates</a>
                                         <ul class="sub-menu">
                                             <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/applicants">Applicants</a></li>
+                                            <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/competition-results">Competition Results</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -580,7 +582,7 @@
             </div>
         </div>
         <a href="https://api.whatsapp.com/send?phone=918978300448&text=Hi%20there!" target="_blank" class="whatsapp-float">
-            <i class="fab fa-whatsapp"></i>
+            <i class="fa-brands fa-whatsapp"></i>
         </a>
     </footer>
 
@@ -619,6 +621,106 @@
             'width': 900,
             'autoplayVideos': true,
         });
+
+        // Subscription Razorpay Integration
+        var newsletterForm = document.querySelector('.newsletter-inner');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var btn = this.querySelector('button[type="submit"]');
+                var originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+                btn.disabled = true;
+
+                var email = this.querySelector('input[name="email"]').value;
+
+                fetch("${pageContext.request.contextPath}/api/subscription/createOrder", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: "amount=99&email=" + encodeURIComponent(email) // Subscription amount
+                })
+                .then(response => {
+                    if (response.status === 409) throw new Error("You already have an active subscription.");
+                    if (!response.ok) throw new Error("Order creation failed");
+                    return response.json();
+                })
+                .then(order => {
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                    
+                    if (order.id && order.id.startsWith("order_mock_")) {
+                        // Mock flow bypass: submit dummy details to backend
+                        fetch("${pageContext.request.contextPath}/api/subscription/verify", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: "razorpay_payment_id=mock_payment_id" +
+                                  "&razorpay_order_id=" + encodeURIComponent(order.id) +
+                                  "&razorpay_signature=mock_signature" +
+                                  "&email=" + encodeURIComponent(email)
+                        })
+                        .then(res => {
+                            if(res.ok) {
+                                alert("You have claimed the subscription.");
+                                window.location.reload();
+                            } else {
+                                alert("Payment verification failed.");
+                            }
+                        });
+                        return;
+                    }
+                    
+                    var options = {
+                        "key": "rzp_test_YourKeyID", 
+                        "amount": order.amount,
+                        "currency": "INR",
+                        "name": "JobU Subscription",
+                        "description": "Premium Job Alerts",
+                        "order_id": order.id,
+                        "handler": function (response) {
+                            // Payment successful, submit to backend for verification
+                            fetch("${pageContext.request.contextPath}/api/subscription/verify", {
+                                method: "POST",
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: "razorpay_payment_id=" + encodeURIComponent(response.razorpay_payment_id) +
+                                      "&razorpay_order_id=" + encodeURIComponent(response.razorpay_order_id) +
+                                      "&razorpay_signature=" + encodeURIComponent(response.razorpay_signature) +
+                                      "&email=" + encodeURIComponent(email)
+                            })
+                            .then(res => {
+                                if(res.ok) {
+                                    alert("You have claimed the subscription.");
+                                    window.location.reload();
+                                } else {
+                                    alert("Payment verification failed.");
+                                }
+                            }).catch(err => {
+                                alert("Error verifying payment.");
+                            });
+                        },
+                        "prefill": {
+                            "email": email
+                        },
+                        "theme": {
+                            "color": "#19A77B"
+                        },
+                        "modal": {
+                            "ondismiss": function() {
+                                btn.innerHTML = originalHtml;
+                                btn.disabled = false;
+                            }
+                        }
+                    };
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                    alert(error.message || "Something went wrong with the payment system.");
+                });
+            });
+        }
     </script>
 </body>
 </html>

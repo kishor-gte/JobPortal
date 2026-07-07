@@ -336,22 +336,20 @@ public class JobController {
                     e.printStackTrace();
                     matchScore = 0;
                 }
-                
                 try {
-                    List<Long> appliedJobIds = applicationService.getAppliedJobIdsBySeeker(seeker);
-                    if (appliedJobIds != null && appliedJobIds.contains(jobId)) {
-                        hasApplied = true;
-                    }
-                } catch(Exception e) {
-                    System.err.println("Error checking applied status: " + e.getMessage());
+                    hasApplied = applicationService.hasApplied(job, seeker);
+                } catch (Exception e) {
+                    hasApplied = false;
                 }
-                
-                activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
+
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
             model.addAttribute("hasApplied", hasApplied);
-            
+            if (seeker != null) {
+                activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
+            }
+
             return "job/jobDetails"; // JSP page name
         } catch (Exception e) {
             System.err.println("Error showing job details for job ID " + jobId + ": " + e.getMessage());

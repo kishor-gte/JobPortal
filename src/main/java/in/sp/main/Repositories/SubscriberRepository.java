@@ -6,5 +6,7 @@ import in.sp.main.Entities.Subscriber;
 
 public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
     boolean existsByEmail(String email);
+    Subscriber findByEmail(String email);
+    boolean existsByEmailAndStatus(String email, String status);
 }
 

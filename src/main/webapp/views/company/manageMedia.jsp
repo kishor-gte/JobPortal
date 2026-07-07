@@ -297,7 +297,7 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid rgba(25,167,123,0.1);
         }
-        .empty-state i {
+        .empty-state > i {
             font-size: 4rem;
             color: var(--primary-light);
             margin-bottom: 20px;

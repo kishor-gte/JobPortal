@@ -424,7 +424,8 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
 
         <c:choose>
             <c:when test="${hasApplied}">
-                <button type="button" class="sidebar-btn" style="background: #e2e8f0; color: #64748b; cursor: not-allowed; border: none; font-weight: 600;" disabled>
+                <button type="button" class="sidebar-btn apply-btn" disabled style="background-color: #6c757d; cursor: not-allowed; opacity: 0.8;">
+
                     <i class="fas fa-check-circle"></i>
                     Applied
                 </button>

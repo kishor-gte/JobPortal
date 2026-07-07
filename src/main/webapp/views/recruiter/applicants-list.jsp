@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -404,7 +404,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand logo" href="${pageContext.request.contextPath}/index">
+                        <a class="navbar-brand logo d-flex align-items-center" href="${pageContext.request.contextPath}/index">
                             <img class="logo1" src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="Logo" />
                             <span style="font-weight: 700; color: var(--primary); margin-left: 8px;">SmartInterview</span>
                         </a>
@@ -440,7 +440,8 @@
 
                                 <li class="nav-item"><a href="#">Manage Candidates</a>
                                     <ul class="sub-menu">
-                                      <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/applicants">Applicants</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/applicants">Applicants</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/competition-results">Competition Results</a></li>
                                     </ul>
                                 </li>
 
@@ -467,16 +468,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2 col-12">
-                <div class="inner">
+                <div class="inner text-center">
                     <div class="section-title">
                        <p>Accelerate Your Hiring Process</p>
                         <h2>Connect with Top Talent Effortlessly</h2>
                         <p>Simplify your recruitment journey by accessing a pool of qualified candidates, managing applications seamlessly, and making informed hiring decisions.</p>
-                        <div class="button mt-4">
-                            <a href="${pageContext.request.contextPath}/applications/recruiter/download-applicants/${jobId}" class="btn btn-primary me-2">
+                        <div class="button mt-4 d-flex justify-content-center align-items-center flex-wrap gap-3">
+                            <a href="${pageContext.request.contextPath}/applications/recruiter/download-applicants/${jobId}" class="btn btn-primary d-flex align-items-center gap-2 m-0">
                                 <i class="bi bi-download"></i> Download Excel
                             </a>
-                            <a href="${pageContext.request.contextPath}/recruiter/dashboard" class="btn btn-outline-light">
+                            <a href="${pageContext.request.contextPath}/recruiter/dashboard" class="btn btn-outline-light d-flex align-items-center gap-2 m-0">
                                 <i class="bi bi-house-door"></i> Back to Dashboard
                             </a>
                         </div>

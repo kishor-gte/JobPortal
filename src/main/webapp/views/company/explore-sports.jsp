@@ -346,7 +346,11 @@
                             <div class="card-img-wrapper">
                                 <c:choose>
                                     <c:when test="${not empty service.coverImageUrl}">
-                                        <img src="${pageContext.request.contextPath}${service.coverImageUrl}"
+                                        <c:set var="imgUrl" value="${service.coverImageUrl}" />
+                                        <c:if test="${not imgUrl.startsWith('/')}">
+                                            <c:set var="imgUrl" value="/${imgUrl}" />
+                                        </c:if>
+                                        <img src="${pageContext.request.contextPath}${imgUrl}"
                                              class="card-img" alt="${service.serviceTitle}"
                                              onerror="this.src='https://placehold.co/600x400/e2e8f0/5a6e66?text=Sports+Event'">
                                     </c:when>

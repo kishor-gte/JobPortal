@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     
     <style>
         /* ============================================
@@ -316,9 +317,9 @@
             <textarea id="description" name="description" rows="5" required>${job.description}</textarea>
 
             <label class="form-label" for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
-            <select id="location" name="location" required>
+            <select id="location" name="location" class="form-select" multiple="multiple" required>
                 <c:forEach var="loc" items="${location}">
-                    <option value="${loc}" ${loc == job.location ? 'selected' : ''}>${loc}</option>
+                    <option value="${loc}">${loc}</option>
                 </c:forEach>
             </select>
 
@@ -337,9 +338,9 @@
             </select>
 
             <label class="form-label" for="jobCategory"><i class="fas fa-tags"></i> Category</label>
-            <select id="jobCategory" name="jobCategory" required>
+            <select id="jobCategory" name="jobCategory" class="form-select" multiple="multiple" required>
                 <c:forEach var="cat" items="${jobCategories}">
-                    <option value="${cat}" ${cat == job.jobCategory ? 'selected' : ''}>${cat}</option>
+                    <option value="${cat}">${cat}</option>
                 </c:forEach>
             </select>
 
@@ -372,7 +373,7 @@
             </div>
 
             <label class="form-label" for="skillRequirement"><i class="fas fa-tools"></i> Skills / Language Requirement</label>
-            <input type="text" id="skillRequirement" name="skillRequirement" value="${job.skillRequirement}" />
+            <select id="skillRequirement" name="skillRequirement" class="form-control" multiple="multiple"></select>
 
             <label class="form-label" for="status"><i class="fas fa-chart-line"></i> Job Status</label>
             <select id="status" name="status">
@@ -396,7 +397,38 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $('#skillRequirement').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+        $('#location').select2();
+        $('#jobCategory').select2();
+
+        var locStr = '${job.location}';
+        if (locStr) {
+            $('#location').val(locStr.split(',')).trigger('change');
+        }
+        var catStr = '${job.jobCategory}';
+        if (catStr) {
+            $('#jobCategory').val(catStr.split(',')).trigger('change');
+        }
+        var skillStr = '${job.skillRequirement}';
+        if (skillStr) {
+            var skills = skillStr.split(',');
+            skills.forEach(function(skill) {
+                skill = skill.trim();
+                if(skill && $('#skillRequirement').find("option[value='" + skill + "']").length === 0) {
+                    $('#skillRequirement').append(new Option(skill, skill, true, true));
+                }
+            });
+            $('#skillRequirement').val(skills.map(s => s.trim())).trigger('change');
+        }
+    });
+
 document.addEventListener('DOMContentLoaded', function() {
     if (!document.getElementById('mobile-responsive-style')) {
         const style = document.createElement('style');

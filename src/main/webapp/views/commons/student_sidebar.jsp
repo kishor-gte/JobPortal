@@ -206,6 +206,12 @@
     
     <div class="nav-section">
         <h4>Tools</h4>
+        <a href="${pageContext.request.contextPath}/student/coding-competitions" class="nav-link-custom">
+            <i class="fas fa-trophy"></i> Coding Competitions
+        </a>
+        <a href="${pageContext.request.contextPath}/student/coding-competitions/history" class="nav-link-custom">
+            <i class="fas fa-history"></i> My Competition History
+        </a>
         <a href="${pageContext.request.contextPath}/assessment/available-badges" class="nav-link-custom">
             <i class="fas fa-trophy"></i> Achievements
         </a>
@@ -250,7 +256,13 @@
         let matched = false;
         
         // 1. Check custom path-based matches
-        if (path.includes('/student/dashboard')) {
+        if (path.includes('/student/coding-competitions/history') || path.includes('/result')) {
+            const histLink = document.querySelector('.career-sidebar a[href*="/student/coding-competitions/history"]');
+            if (histLink) { histLink.classList.add('active'); matched = true; }
+        } else if (path.includes('/student/coding-competitions')) {
+            const compLink = document.querySelector('.career-sidebar a[href*="/student/coding-competitions"]');
+            if (compLink && !path.includes('history')) { compLink.classList.add('active'); matched = true; }
+        } else if (path.includes('/student/dashboard')) {
             const compLink = document.querySelector('.career-sidebar a[href*="/student/dashboard"]');
             if (compLink) { compLink.classList.add('active'); matched = true; }
         } else if (path.includes('/jobSeekers/profile') || path.includes('/jobSeekers/update')) {

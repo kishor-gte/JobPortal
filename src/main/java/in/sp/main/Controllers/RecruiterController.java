@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.sp.main.Entities.AssessmentInvitation;
@@ -40,6 +41,17 @@ import in.sp.main.Services.JobServices;
 import in.sp.main.Services.NotificationService;
 import in.sp.main.Services.RecruiterServices;
 import in.sp.main.Services.VideoResumeService;
+import in.sp.main.Repositories.CompetitionRepository;
+import in.sp.main.Repositories.CompetitionResultRepository;
+import in.sp.main.Repositories.TechPersonRepository;
+import in.sp.main.Repositories.JobSeekerRepository;
+import in.sp.main.Entities.Competition;
+import in.sp.main.Entities.CompetitionResult;
+import in.sp.main.Entities.TechPerson;
+import in.sp.main.Entities.JobSeeker;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
 import in.sp.main.dto.JobApplicationWithResult;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Cookie;
@@ -74,6 +86,14 @@ public class RecruiterController {
     @Autowired
     private AssessmentInvitationRepository invitationRepo;
     @Autowired
+    private CompetitionRepository competitionRepo;
+    @Autowired
+    private CompetitionResultRepository competitionResultRepo;
+    @Autowired
+    private TechPersonRepository techPersonRepo;
+    @Autowired
+    private JobSeekerRepository jobSeekerRepo;
+    @Autowired
     private in.sp.main.Services.SportsServiceService sportsServiceService;
     @Autowired
     private in.sp.main.Services.SportsBookingService sportsBookingService;
@@ -102,6 +122,9 @@ public class RecruiterController {
             return "redirect:/recruiter/login";
 
         in.sp.main.Entities.SportsService service = sportsServiceService.getById(id);
+        if (service == null) {
+            return "redirect:/recruiter/sports/explore";
+        }
         model.addAttribute("service", service);
         return "recruiter/service-details";
     }
@@ -306,8 +329,8 @@ public class RecruiterController {
         List<JobApplicationWithResult> wrapperList = new ArrayList<>();
 
         for (JobApplication app : applications) {
-            AssessmentResult result = resultRepo.findTopByJobSeekerIdAndJobIdAndRecruiterIdOrderBySubmittedAtDesc(
-                    app.getJobSeeker().getId(), jobId, recruiterId);
+            AssessmentResult result = resultRepo.findTopByJobSeekerIdAndJobIdOrderBySubmittedAtDesc(
+                    app.getJobSeeker().getId(), jobId);
 
             // If score or badge filter applied but no result, skip
             if ((badge != null || minScore != null || maxScore != null) && result == null) {
@@ -448,6 +471,86 @@ public class RecruiterController {
         }
 
         notificationService.createNotification(jobApplication.getJobSeeker(), message);
+    }
+
+    @GetMapping("/competition-results")
+    public String competitionResultsPage(HttpSession session, Model model) {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        if (recruiter == null) {
+            return "redirect:/recruiter/login";
+        }
+        
+        // Find all tech persons in the recruiter's company
+        List<TechPerson> techPersons = techPersonRepo.findByCompanyId(recruiter.getCompany().getId());
+        List<Long> techPersonIds = techPersons.stream().map(TechPerson::getId).collect(Collectors.toList());
+        
+        List<Competition> competitions = new ArrayList<>();
+        if (!techPersonIds.isEmpty()) {
+            competitions = competitionRepo.findByCreatedByInOrderByCreatedAtDesc(techPersonIds);
+        }
+        
+        model.addAttribute("recruiter", recruiter);
+        model.addAttribute("competitions", competitions);
+        return "recruiter/competition-results";
+    }
+
+    @GetMapping("/competition-results/{id}")
+    public String viewCompetitionLeaderboard(@PathVariable Long id, HttpSession session, Model model) {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        if (recruiter == null) {
+            return "redirect:/recruiter/login";
+        }
+        
+        Competition competition = competitionRepo.findById(id).orElse(null);
+        if (competition == null) {
+            return "redirect:/recruiter/competition-results";
+        }
+
+        // Ensure this competition was created by a tech person in the recruiter's company
+        List<TechPerson> techPersons = techPersonRepo.findByCompanyId(recruiter.getCompany().getId());
+        List<Long> techPersonIds = techPersons.stream().map(TechPerson::getId).collect(Collectors.toList());
+        
+        if (!techPersonIds.contains(competition.getCreatedBy())) {
+            return "redirect:/recruiter/competition-results";
+        }
+
+        List<CompetitionResult> results = competitionResultRepo.findByCompetitionId(id);
+        
+        // Sort: 1. questionsSolved DESC, 2. submittedAt ASC
+        results.sort((r1, r2) -> {
+            int qComp = Integer.compare(r2.getQuestionsSolved() != null ? r2.getQuestionsSolved() : 0, 
+                                        r1.getQuestionsSolved() != null ? r1.getQuestionsSolved() : 0);
+            if (qComp != 0) return qComp;
+            if (r1.getSubmittedAt() == null && r2.getSubmittedAt() == null) return 0;
+            if (r1.getSubmittedAt() == null) return 1;
+            if (r2.getSubmittedAt() == null) return -1;
+            return r1.getSubmittedAt().compareTo(r2.getSubmittedAt());
+        });
+        
+        List<Map<String, Object>> leaderboard = new ArrayList<>();
+        int rank = 1;
+        for (CompetitionResult res : results) {
+            // Filter out students who haven't solved any questions
+            if (res.getQuestionsSolved() == null || res.getQuestionsSolved() == 0) {
+                continue;
+            }
+            JobSeeker student = jobSeekerRepo.findById(res.getStudentId()).orElse(null);
+            if (student != null) {
+                Map<String, Object> entry = new HashMap<>();
+                entry.put("rank", rank++);
+                entry.put("name", student.getName());
+                entry.put("email", student.getEmail());
+                entry.put("questionsSolved", res.getQuestionsSolved());
+                entry.put("submittedAt", res.getSubmittedAt());
+                leaderboard.add(entry);
+            }
+        }
+
+        model.addAttribute("recruiter", recruiter);
+        model.addAttribute("competition", competition);
+        model.addAttribute("leaderboard", leaderboard);
+        
+        return "recruiter/competition-leaderboard";
     }
 
     // View Recruiter Profile

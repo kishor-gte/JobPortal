@@ -92,9 +92,9 @@ public class JobServices {
         List<Job> jobs = jobRepository.findByStatus(JobStatus.OPEN);
 
         return jobs.stream()
-                .filter(job -> category == null || category.isEmpty() || (job.getJobCategory() != null && java.util.Arrays.asList(category.split(",")).contains(job.getJobCategory().name())))
+                .filter(job -> category == null || category.isEmpty() || (job.getJobCategory() != null && job.getJobCategory().toLowerCase().contains(category.toLowerCase())))
                 .filter(job -> employmentType == null || employmentType.isEmpty() || (job.getEmploymentType() != null && job.getEmploymentType().name().equalsIgnoreCase(employmentType)))
-                .filter(job -> location == null || location.isEmpty() || (job.getLocation() != null && job.getLocation().name().equalsIgnoreCase(location)))
+                .filter(job -> location == null || location.isEmpty() || (job.getLocation() != null && job.getLocation().toLowerCase().contains(location.toLowerCase())))
                 .filter(job -> workMode == null || workMode.isEmpty() || (job.getWorkMode() != null && job.getWorkMode().name().equalsIgnoreCase(workMode)))
                 .filter(job -> jobSector == null || jobSector.isEmpty() || (job.getJobSector() != null && job.getJobSector().name().equalsIgnoreCase(jobSector)))
                 .filter(job -> education == null || education.isEmpty() || (job.getEducation() != null && job.getEducation().name().equalsIgnoreCase(education)))
@@ -109,7 +109,7 @@ public class JobServices {
                 // Add the searchQuery filter
                 .filter(job -> searchQuery == null || searchQuery.isEmpty() || 
                 (job.getTitle() != null && job.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) || 
-                (job.getLocation() != null && job.getLocation().name().toLowerCase().contains(searchQuery.toLowerCase())) || 
+                (job.getLocation() != null && job.getLocation().toLowerCase().contains(searchQuery.toLowerCase())) || 
                 (job.getCompany() != null && job.getCompany().getName() != null && job.getCompany().getName().toLowerCase().contains(searchQuery.toLowerCase())))
                 
                 .collect(Collectors.toList());
@@ -125,7 +125,11 @@ public class JobServices {
 
     // Method to get jobs by category
     public List<Job> getJobsByCategory(JobCategory jobCategory) {
-        return jobRepository.findByJobCategory(jobCategory);
+        // Find jobs where the category string contains the enum name
+        List<Job> allJobs = jobRepository.findAll();
+        return allJobs.stream()
+            .filter(j -> j.getJobCategory() != null && j.getJobCategory().contains(jobCategory.name()))
+            .collect(java.util.stream.Collectors.toList());
     }
     
     public long getLocationCount() {

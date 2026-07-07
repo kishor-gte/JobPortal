@@ -784,6 +784,18 @@
             </a>
         </div>
         <div class="nav-section">
+            <h4>Competitions</h4>
+            <a href="${pageContext.request.contextPath}/tech/conduct-competition" class="nav-link">
+                <i class="fas fa-trophy"></i> Conduct Competition
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/manage-competitions" class="nav-link">
+                <i class="fas fa-tasks"></i> Manage Competitions
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Competition Results
+            </a>
+        </div>
+        <div class="nav-section">
             <h4>Account</h4>
             <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout

@@ -788,7 +788,20 @@
 <body>
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <jsp:include page="/views/commons/student_sidebar.jsp" />
+    <c:choose>
+        <c:when test="${not empty sessionScope.admin or not empty sessionScope.loggedInAdmin}">
+            <jsp:include page="/views/commons/admin_sidebar.jsp" />
+        </c:when>
+        <c:when test="${not empty sessionScope.loggedInCompany or not empty sessionScope.company}">
+            <jsp:include page="/views/commons/interviewer_sidebar.jsp" />
+        </c:when>
+        <c:when test="${not empty sessionScope.jobSeeker and sessionScope.jobSeeker.role == 'INTERVIEWER'}">
+            <jsp:include page="/views/commons/interviewer_sidebar.jsp" />
+        </c:when>
+        <c:otherwise>
+            <jsp:include page="/views/commons/student_sidebar.jsp" />
+        </c:otherwise>
+    </c:choose>
 
     <div class="main-content">
         <div class="top-bar">
