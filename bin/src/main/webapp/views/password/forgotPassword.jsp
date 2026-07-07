@@ -621,7 +621,18 @@
                 <p class="login-subtitle">Don't worry! Enter your email and we'll send you a secure link to reset your password.</p>
             </div>
 
-            
+            <c:if test="${not empty message}">
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i> ${message}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i> ${error}
+                </div>
+            </c:if>
+
             <form action="${pageContext.request.contextPath}/jobSeekers/forgot-password" method="POST">
                 <input type="hidden" name="role" value="${role}">
                 <div class="mb-3">
