@@ -128,15 +128,22 @@ public class AdminController {
 
     // Admin verification
     @RequestMapping(value = "/admin/verify/{id}", method = RequestMethod.GET)
-    public String verifyCompany(@PathVariable Long id, HttpSession session) {    	
+    public String verifyCompany(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {    	
         // Check if admin is logged in
         in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
         if (admin == null) {
             return "redirect:/loginAdmin";
         }
         
-        companyService.verifyCompany(id);
-        return "redirect:/admin/pending";
+        try {
+            companyService.verifyCompany(id);
+            redirectAttributes.addFlashAttribute("success", "Company approved successfully.");
+            return "redirect:/admin/pending";
+        } catch (Throwable t) {
+            t.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Unable to approve company.");
+            return "redirect:/admin/pending";
+        }
     }
 
     @RequestMapping(value = {"/dashboard", "/admin/dashboard"}, method = RequestMethod.GET)
