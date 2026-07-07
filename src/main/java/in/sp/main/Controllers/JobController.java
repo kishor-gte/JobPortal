@@ -326,6 +326,7 @@ public class JobController {
                 return "redirect:/jobs/all";
             }
             int matchScore = 0;
+            boolean hasApplied = false;
             JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");
             if (seeker != null) {
                 try {
@@ -335,9 +336,15 @@ public class JobController {
                     e.printStackTrace();
                     matchScore = 0;
                 }
+                try {
+                    hasApplied = applicationService.hasApplied(job, seeker);
+                } catch (Exception e) {
+                    hasApplied = false;
+                }
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
+            model.addAttribute("hasApplied", hasApplied);
             if (seeker != null) {
                 activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
             }

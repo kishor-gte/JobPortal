@@ -291,6 +291,9 @@ public class SportsService {
 	}
 
 	public String getCoverImageUrl() {
+		if (coverImageUrl != null && !coverImageUrl.isEmpty() && !coverImageUrl.startsWith("/") && !coverImageUrl.startsWith("http")) {
+			return "/" + coverImageUrl;
+		}
 		return coverImageUrl;
 	}
 
@@ -299,6 +302,17 @@ public class SportsService {
 	}
 
 	public List<String> getGalleryImageUrls() {
+		if (galleryImageUrls != null) {
+			java.util.List<String> formattedUrls = new java.util.ArrayList<>();
+			for (String url : galleryImageUrls) {
+				if (url != null && !url.isEmpty() && !url.startsWith("/") && !url.startsWith("http")) {
+					formattedUrls.add("/" + url);
+				} else {
+					formattedUrls.add(url);
+				}
+			}
+			return formattedUrls;
+		}
 		return galleryImageUrls;
 	}
 

@@ -42,9 +42,8 @@ public class Job {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 50)
-    private Location location;
+    @Column(length = 255)
+    private String location;
 
     @Enumerated(EnumType.STRING)
     private EmploymentType employmentType;
@@ -66,9 +65,8 @@ public class Job {
     @Size(max = 500, message = "Job category cannot exceed 500 characters")
     private String jobCategoryString;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "job_category", length = 500)
-    private JobCategory jobCategory;
+    private String jobCategory;
 
 
     @Enumerated(EnumType.STRING)
@@ -287,11 +285,11 @@ public class Job {
 
 
 
-	public Location getLocation() {
+	public String getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(String location) {
 		this.location = location;
 	}
 
@@ -359,11 +357,11 @@ public class Job {
 		this.skillRequirement = skillRequirement;
 	}
 
-	public JobCategory getJobCategory() {
+	public String getJobCategory() {
 		return jobCategory;
 	}
 
-	public void setJobCategory(JobCategory jobCategory) {
+	public void setJobCategory(String jobCategory) {
 		this.jobCategory = jobCategory;
 	}
 

@@ -405,19 +405,43 @@ public class AdminController {
         return "admin/ReportedJobs";
     }
 
-    @RequestMapping(value = "/resolve-report/{id}", method = RequestMethod.GET)
-    public String resolveReport(@PathVariable Long id) {
-        ReportedJob report = reportedJobRepository.findById(id).orElse(null);
-        if (report != null) {
-            report.setResolved(true);
-            reportedJobRepository.save(report);
+    @RequestMapping(value = "/resolve-report/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String resolveReport(@PathVariable Long id, org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttrs) {
+        try {
+            ReportedJob report = reportedJobRepository.findById(id).orElse(null);
+            if (report != null) {
+                if (!report.isResolved()) {
+                    report.setResolved(true);
+                    reportedJobRepository.save(report);
+                    redirectAttrs.addFlashAttribute("message", "Report marked as resolved successfully.");
+                } else {
+                    redirectAttrs.addFlashAttribute("message", "Report is already resolved.");
+                }
+            } else {
+                redirectAttrs.addFlashAttribute("error", "Invalid report ID.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error resolving report: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttrs.addFlashAttribute("error", "An error occurred while resolving the report.");
         }
         return "redirect:/reported-jobs";
     }
     
-    @RequestMapping(value = "/delete-report/{id}", method = RequestMethod.GET)
-    public String deleteReportedJob(@PathVariable Long id) {
-        reportedJobRepository.deleteById(id);
+    @RequestMapping(value = "/delete-report/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String deleteReportedJob(@PathVariable Long id, org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttrs) {
+        try {
+            if (reportedJobRepository.existsById(id)) {
+                reportedJobRepository.deleteById(id);
+                redirectAttrs.addFlashAttribute("message", "Report deleted successfully.");
+            } else {
+                redirectAttrs.addFlashAttribute("error", "Invalid report ID.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error deleting report: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttrs.addFlashAttribute("error", "An error occurred while deleting the report.");
+        }
         return "redirect:/reported-jobs";
     }
 

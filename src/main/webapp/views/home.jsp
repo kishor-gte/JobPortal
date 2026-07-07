@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/glightbox.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <!-- ========== PREMIUM FRONTEND - MODERN CRYSTAL DESIGN ========== -->
 <style>
@@ -1161,6 +1162,106 @@
         return true; 
       }); 
     } 
+
+    // Subscription Razorpay Integration
+    var newsletterForm = document.querySelector('.newsletter-inner');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var btn = this.querySelector('button[type="submit"]');
+            var originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+            btn.disabled = true;
+
+            var email = this.querySelector('input[name="email"]').value;
+
+            fetch("/api/subscription/createOrder", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: "amount=99&email=" + encodeURIComponent(email) // Subscription amount
+            })
+            .then(response => {
+                if (response.status === 409) throw new Error("You already have an active subscription.");
+                if (!response.ok) throw new Error("Order creation failed");
+                return response.json();
+            })
+            .then(order => {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+                
+                if (order.id && order.id.startsWith("order_mock_")) {
+                    // Mock flow bypass: submit dummy details to backend
+                    fetch("/api/subscription/verify", {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: "razorpay_payment_id=mock_payment_id" +
+                              "&razorpay_order_id=" + encodeURIComponent(order.id) +
+                              "&razorpay_signature=mock_signature" +
+                              "&email=" + encodeURIComponent(email)
+                    })
+                    .then(res => {
+                        if(res.ok) {
+                            alert("You have claimed the subscription.");
+                            window.location.reload();
+                        } else {
+                            alert("Payment verification failed.");
+                        }
+                    });
+                    return;
+                }
+                
+                var options = {
+                    "key": "rzp_test_YourKeyID", 
+                    "amount": order.amount,
+                    "currency": "INR",
+                    "name": "JobU Subscription",
+                    "description": "Premium Job Alerts",
+                    "order_id": order.id,
+                    "handler": function (response) {
+                        // Payment successful, submit to backend for verification
+                        fetch("/api/subscription/verify", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: "razorpay_payment_id=" + encodeURIComponent(response.razorpay_payment_id) +
+                                  "&razorpay_order_id=" + encodeURIComponent(response.razorpay_order_id) +
+                                  "&razorpay_signature=" + encodeURIComponent(response.razorpay_signature) +
+                                  "&email=" + encodeURIComponent(email)
+                        })
+                        .then(res => {
+                            if(res.ok) {
+                                alert("You have claimed the subscription.");
+                                window.location.reload();
+                            } else {
+                                alert("Payment verification failed.");
+                            }
+                        }).catch(err => {
+                            alert("Error verifying payment.");
+                        });
+                    },
+                    "prefill": {
+                        "email": email
+                    },
+                    "theme": {
+                        "color": "#10b981"
+                    },
+                    "modal": {
+                        "ondismiss": function() {
+                            btn.innerHTML = originalHtml;
+                            btn.disabled = false;
+                        }
+                    }
+                };
+                var rzp = new Razorpay(options);
+                rzp.open();
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+                alert(error.message || "Something went wrong with the payment system.");
+            });
+        });
+    }
   });
 </script>
 </body>

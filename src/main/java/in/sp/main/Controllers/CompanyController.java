@@ -583,6 +583,9 @@ public class CompanyController {
         }
         
         in.sp.main.Entities.SportsService service = sportsServiceService.getById(id);
+        if (service == null) {
+            return "redirect:/company/sports/explore";
+        }
         model.addAttribute("service", service);
         model.addAttribute("company", company);
         return "company/sports-service-details";
@@ -851,12 +854,15 @@ public class CompanyController {
     @RequestMapping(value = "/assessments/upload", method = RequestMethod.POST)
     public String uploadCompanyExcel(@RequestParam("file") MultipartFile file,
                                       @RequestParam("skill") String skill,
-                                      @RequestParam(value = "replace", required = false) boolean replace,
-                                      @RequestParam(value = "replaceInvitations", required = false) boolean replaceInvitations,
+                                      @RequestParam(value = "replace", required = false) String replaceStr,
+                                      @RequestParam(value = "replaceInvitations", required = false) String replaceInvitationsStr,
                                       @RequestParam("jobId") Long jobId,
                                       @RequestParam("companyId") Long companyId,
                                       HttpSession session,
                                       Model model) {
+        
+        boolean replace = "on".equalsIgnoreCase(replaceStr) || "true".equalsIgnoreCase(replaceStr) || "yes".equalsIgnoreCase(replaceStr) || "1".equals(replaceStr);
+        boolean replaceInvitations = "on".equalsIgnoreCase(replaceInvitationsStr) || "true".equalsIgnoreCase(replaceInvitationsStr) || "yes".equalsIgnoreCase(replaceInvitationsStr) || "1".equals(replaceInvitationsStr);
         try {
             // Validate company session
             Company company = (Company) session.getAttribute("loggedInCompany");

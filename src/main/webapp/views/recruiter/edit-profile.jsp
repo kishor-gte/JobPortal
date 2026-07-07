@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -478,7 +478,7 @@
 
             <div class="form-group mb-4">
                 <label for="password"><i class="fas fa-lock"></i> Password</label>
-                <input type="password" id="password" name="password" value="${recruiter.password}" class="form-control" placeholder="Enter your password" required>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Leave blank to keep current password">
             </div>
 
             <div class="btn-group-custom">

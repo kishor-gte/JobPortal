@@ -775,21 +775,21 @@
                 <i class="fas fa-grid-2"></i> All
             </a>
             <c:forEach var="cat" items="${categories}">
-                <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?categoryId=${cat.id}"
+                <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?categoryId=${cat.id}<c:if test='${not empty selectedDifficulty}'>&difficulty=${selectedDifficulty}</c:if>"
                     class="filter-btn ${selectedCategory == cat.id ? 'active' : ''}">
                     <i class="fas fa-folder"></i> ${cat.name}
                 </a>
             </c:forEach>
             <span class="filter-divider">|</span>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=EASY"
+            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=EASY<c:if test='${not empty selectedCategory}'>&categoryId=${selectedCategory}</c:if>"
                 class="filter-btn ${selectedDifficulty == 'EASY' ? 'active' : ''}">
                 <i class="fas fa-circle" style="color: #10b981; font-size: 8px;"></i> Easy
             </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=MEDIUM"
+            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=MEDIUM<c:if test='${not empty selectedCategory}'>&categoryId=${selectedCategory}</c:if>"
                 class="filter-btn ${selectedDifficulty == 'MEDIUM' ? 'active' : ''}">
                 <i class="fas fa-circle" style="color: #f59e0b; font-size: 8px;"></i> Medium
             </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=HARD"
+            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=HARD<c:if test='${not empty selectedCategory}'>&categoryId=${selectedCategory}</c:if>"
                 class="filter-btn ${selectedDifficulty == 'HARD' ? 'active' : ''}">
                 <i class="fas fa-circle" style="color: #ef4444; font-size: 8px;"></i> Hard
             </a>

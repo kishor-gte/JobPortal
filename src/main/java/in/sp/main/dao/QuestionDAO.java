@@ -141,6 +141,12 @@ public class QuestionDAO {
                 codingQuestionRowMapper, difficulty);
     }
 
+    public List<CodingQuestion> findCodingByCategoryAndDifficulty(Long categoryId, String difficulty) {
+        return jdbcTemplate.query(
+                "SELECT cq.*, c.name as category_name FROM coding_questions cq LEFT JOIN categories c ON cq.category_id = c.id WHERE cq.category_id = ? AND cq.difficulty = ?",
+                codingQuestionRowMapper, categoryId, difficulty);
+    }
+
     public CodingQuestion findCodingById(Long id) {
         try {
             return jdbcTemplate.queryForObject(

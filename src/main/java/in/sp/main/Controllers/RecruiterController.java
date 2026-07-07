@@ -102,6 +102,9 @@ public class RecruiterController {
             return "redirect:/recruiter/login";
 
         in.sp.main.Entities.SportsService service = sportsServiceService.getById(id);
+        if (service == null) {
+            return "redirect:/recruiter/sports/explore";
+        }
         model.addAttribute("service", service);
         return "recruiter/service-details";
     }
@@ -306,8 +309,8 @@ public class RecruiterController {
         List<JobApplicationWithResult> wrapperList = new ArrayList<>();
 
         for (JobApplication app : applications) {
-            AssessmentResult result = resultRepo.findTopByJobSeekerIdAndJobIdAndRecruiterIdOrderBySubmittedAtDesc(
-                    app.getJobSeeker().getId(), jobId, recruiterId);
+            AssessmentResult result = resultRepo.findTopByJobSeekerIdAndJobIdOrderBySubmittedAtDesc(
+                    app.getJobSeeker().getId(), jobId);
 
             // If score or badge filter applied but no result, skip
             if ((badge != null || minScore != null || maxScore != null) && result == null) {

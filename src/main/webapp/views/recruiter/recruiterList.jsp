@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -467,13 +467,57 @@
                 font-size: 3.5rem;
             }
         }
+        .back-btn-wrapper {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .back-btn-wrapper {
+                position: static;
+                transform: none;
+                margin-bottom: 1rem;
+                display: flex;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- Page Header -->
     <div class="page-header">
-        <div class="container">
+        <div class="container" style="position: relative;">
+            <div class="back-btn-wrapper">
+                <button onclick="goBack()" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
             <h1>
                 <i class="fas fa-user-tie"></i>
                 Manage Recruiters
@@ -555,5 +599,14 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <script>
+        function goBack() {
+            if (window.history.length > 1 && document.referrer.indexOf(window.location.host) !== -1) {
+                window.history.back();
+            } else {
+                window.location.href = '${pageContext.request.contextPath}/company/dashboard';
+            }
+        }
+    </script>
 </body>
 </html>

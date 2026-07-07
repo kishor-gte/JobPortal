@@ -33,11 +33,21 @@ public class PaymentController {
             throw new IllegalStateException("Razorpay credentials not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET environment variables.");
         }
         
+        // Amount provided is in Rupee, convert to paise safely handling decimals
+        double amountValue = Double.parseDouble(amount);
+        int amountInPaise = (int) Math.round(amountValue * 100);
+
+        // Mock flow for local testing if dummy keys are detected
+        if ("rzp_test_YourKeyID".equals(KEY_ID)) {
+            JSONObject mockOrder = new JSONObject();
+            mockOrder.put("id", "order_mock_" + System.currentTimeMillis());
+            mockOrder.put("amount", amountInPaise);
+            return mockOrder.toString();
+        }
+        
         RazorpayClient razorpay = new RazorpayClient(KEY_ID, KEY_SECRET);
 
         JSONObject orderRequest = new JSONObject();
-        // Amount provided is in Rupee, convert to paise
-        int amountInPaise = Integer.parseInt(amount) * 100;
 
         orderRequest.put("amount", amountInPaise);
         orderRequest.put("currency", "INR");

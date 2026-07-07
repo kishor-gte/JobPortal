@@ -45,7 +45,7 @@ public class JobApplicationService {
 	    private JobApplicationRepository repo;
 	  
 	  public void apply(Job job, JobSeeker seeker) {
-		    boolean alreadyApplied = applicationRepository.existsByJobAndJobSeeker(job, seeker);
+		    boolean alreadyApplied = hasApplied(job, seeker);
 		    if (alreadyApplied) {
 		        throw new IllegalStateException("Already applied to this job.");
 		    }
@@ -57,6 +57,10 @@ public class JobApplicationService {
 		    application.setStatus(ApplicationStatus.APPLIED);
 		    applicationRepository.save(application);
 		}
+
+	  public boolean hasApplied(Job job, JobSeeker seeker) {
+		  return applicationRepository.existsByJobAndJobSeeker(job, seeker);
+	  }
 
 	    public List<JobApplication> getApplicationsBySeeker(JobSeeker seeker) {
 	        return repo.findByJobSeekerWithJobAndCompany(seeker);

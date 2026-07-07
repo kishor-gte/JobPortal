@@ -289,6 +289,17 @@
         .contact-item.active::before {
             transform: translateX(0);
         }
+        
+        .unread-badge {
+            background: var(--danger, #ef4444);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.4);
+        }
 
         .contact-avatar {
             width: 48px; 
@@ -729,6 +740,9 @@
                             ${contact.role}
                         </p>
                     </div>
+                    <c:if test="${contact.unreadCount > 0}">
+                        <div class="unread-badge">${contact.unreadCount}</div>
+                    </c:if>
                 </a>
             </c:forEach>
             <c:if test="${empty contacts}">

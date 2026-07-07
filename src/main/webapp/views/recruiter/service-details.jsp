@@ -1,4 +1,4 @@
-﻿<%@ page session="false" %>
+<%@ page session="false" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -245,13 +245,22 @@
                     <div class="carousel-inner">
                         <c:choose>
                             <c:when test="${not empty service.coverImageUrl}">
+                                <c:set var="imgUrl" value="${service.coverImageUrl}" />
+                                <c:if test="${not imgUrl.startsWith('/')}">
+                                    <c:set var="imgUrl" value="/${imgUrl}" />
+                                </c:if>
                                 <div class="carousel-item active">
-                                    <img src="${pageContext.request.contextPath}${service.coverImageUrl}"
-                                         class="d-block w-100" alt="${service.serviceTitle}">
+                                    <img src="${pageContext.request.contextPath}${imgUrl}"
+                                         class="d-block w-100" alt="${service.serviceTitle}"
+                                         onerror="this.src='https://placehold.co/800x400/e2e8f0/5a6e66?text=Sports+Event'">
                                 </div>
-                                <c:forEach items="${service.galleryImageUrls}" var="imgUrl">
+                                <c:forEach items="${service.galleryImageUrls}" var="galUrl">
+                                    <c:set var="fmtGalUrl" value="${galUrl}" />
+                                    <c:if test="${not fmtGalUrl.startsWith('/')}">
+                                        <c:set var="fmtGalUrl" value="/${fmtGalUrl}" />
+                                    </c:if>
                                     <div class="carousel-item">
-                                        <img src="${pageContext.request.contextPath}${imgUrl}"
+                                        <img src="${pageContext.request.contextPath}${fmtGalUrl}"
                                              class="d-block w-100" alt="${service.serviceTitle}">
                                     </div>
                                 </c:forEach>
@@ -427,12 +436,20 @@ document.getElementById('rzp-button1').onclick = function(e){
         data: { amount: amountRaw },
         type: "POST",
         dataType: "json",
-        success: function (response) {
-            // Reset button
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            
-            var options = {
+          success: function (response) {
+              // Reset button
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+              
+              if (response.id && response.id.startsWith("order_mock_")) {
+                  document.getElementById('razorpayPaymentId').value = "mock_payment_id";
+                  document.getElementById('razorpayOrderId').value = response.id;
+                  document.getElementById('razorpaySignature').value = "mock_signature";
+                  document.getElementById('bookingForm').submit();
+                  return;
+              }
+              
+              var options = {
                 key: "rzp_test_RIlD5bEKRjyn3h",
                 amount: response.amount,
                 currency: "INR",

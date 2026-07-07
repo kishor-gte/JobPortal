@@ -330,8 +330,8 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
-                <select id="location" name="location" class="form-select" required>
-                    <option value="">-- Select Location --</option>
+                <select id="location" name="location" class="form-select" multiple="multiple" required>
+                    <option value="">-- Select Locations --</option>
                     <c:forEach var="loc" items="${locations}">
                         <option value="${loc}">${loc}</option>
                     </c:forEach>
@@ -360,8 +360,8 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="jobCategory"><i class="fas fa-tags"></i> Category</label>
-                <select id="jobCategory" name="jobCategory" class="form-select" required>
-                    <option value="" disabled selected>Select Job Category</option>
+                <select id="jobCategory" name="jobCategory" class="form-select" multiple="multiple" required>
+                    <option value="" disabled>Select Job Categories</option>
                     <c:forEach var="cat" items="${jobCategories}">
                         <option value="${cat}">${cat}</option>
                     </c:forEach>
@@ -412,7 +412,7 @@
 
         <div class="form-group mb-3">
             <label class="form-label" for="skillRequirement"><i class="fas fa-tools"></i> Skills / Language Requirement</label>
-            <input type="text" id="skillRequirement" name="skillRequirement" class="form-control" placeholder="e.g., Java, Python, React" />
+            <select id="skillRequirement" name="skillRequirement" class="form-control" multiple="multiple"></select>
         </div>
 
         <div class="form-group mb-4">
@@ -430,7 +430,19 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#skillRequirement').select2();
+        $('#skillRequirement').select2({
+            tags: true,
+            tokenSeparators: [',', ' '],
+            placeholder: "e.g., Java, Python, React"
+        });
+        $('#location').select2({
+            placeholder: "-- Select Locations --",
+            allowClear: true
+        });
+        $('#jobCategory').select2({
+            placeholder: "Select Job Categories",
+            allowClear: true
+        });
         
         var dtToday = new Date();
         var month = dtToday.getMonth() + 1;
