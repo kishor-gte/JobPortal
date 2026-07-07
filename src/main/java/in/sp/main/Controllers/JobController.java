@@ -326,6 +326,7 @@ public class JobController {
                 return "redirect:/jobs/all";
             }
             int matchScore = 0;
+            boolean hasApplied = false;
             JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");
             if (seeker != null) {
                 try {
@@ -335,12 +336,20 @@ public class JobController {
                     e.printStackTrace();
                     matchScore = 0;
                 }
+                try {
+                    hasApplied = applicationService.hasApplied(job, seeker);
+                } catch (Exception e) {
+                    hasApplied = false;
+                }
+
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
+            model.addAttribute("hasApplied", hasApplied);
             if (seeker != null) {
                 activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
             }
+
             return "job/jobDetails"; // JSP page name
         } catch (Exception e) {
             System.err.println("Error showing job details for job ID " + jobId + ": " + e.getMessage());
@@ -361,6 +370,10 @@ public class JobController {
         @RequestParam(required = false) String keyword, 
         @RequestParam(required = false) String location, 
         Model model,HttpSession session) {
+
+        if ((keyword == null || keyword.trim().isEmpty()) && (location == null || location.trim().isEmpty())) {
+            return "redirect:/userdashboard.html";
+        }
 
         List<Job> jobs = jobService.searchJobs(keyword, location);
         JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");

@@ -76,16 +76,23 @@ public class ChatMessageDAO {
         return jdbcTemplate.query(sql, messageRowMapper, userId1, type1, userId2, type2, userId2, type2, userId1, type1);
     }
 
-    public int markAsRead(Long senderId, Long receiverId) {
+    public int markAsRead(Long senderId, String senderType, Long receiverId, String receiverType) {
         return jdbcTemplate.update(
-                "UPDATE chat_messages SET is_read = TRUE WHERE sender_id = ? AND receiver_id = ?",
-                senderId, receiverId);
+                "UPDATE chat_messages SET is_read = TRUE WHERE sender_id = ? AND sender_type = ? AND receiver_id = ? AND receiver_type = ?",
+                senderId, senderType, receiverId, receiverType);
     }
     
     public int getUnreadCount(Long userId) {
         Integer count = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM chat_messages WHERE receiver_id = ? AND is_read = FALSE",
                 Integer.class, userId);
+        return count != null ? count : 0;
+    }
+
+    public int getUnreadCountFromSender(Long receiverId, String receiverType, Long senderId, String senderType) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM chat_messages WHERE receiver_id = ? AND receiver_type = ? AND sender_id = ? AND sender_type = ? AND is_read = FALSE",
+                Integer.class, receiverId, receiverType, senderId, senderType);
         return count != null ? count : 0;
     }
 }

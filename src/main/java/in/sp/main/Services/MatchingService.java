@@ -50,7 +50,7 @@ public class MatchingService {
         }
 
         // ===== LOCATION (20%) =====
-        if (job.getLocation() != null && job.getLocation() == seeker.getLocation()) { // enum safe
+        if (job.getLocation() != null && seeker.getLocation() != null && job.getLocation().contains(seeker.getLocation().name())) {
             score += 20;
         }
 

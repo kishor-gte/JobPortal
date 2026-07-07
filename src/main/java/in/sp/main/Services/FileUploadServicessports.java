@@ -20,7 +20,7 @@ public class FileUploadServicessports {
 
     // EXISTING METHOD (UNCHANGED)
     public String saveFile(MultipartFile file) throws IOException {
-        return saveFileToSubFolder(file, "uploads");
+        return saveFileToSubFolder(file, "images");
     }
 
     // ✅ NEW METHOD: SAVE TO SUBFOLDER UNDER /uploads
@@ -32,7 +32,7 @@ public class FileUploadServicessports {
         }
 
         // Base uploads directory
-        String baseUploadDir = servletContext.getRealPath("/uploads/");
+        String baseUploadDir = System.getProperty("user.home") + "/jobportal-uploads/";
         File baseFolder = new File(baseUploadDir);
         if (!baseFolder.exists()) {
             baseFolder.mkdirs();

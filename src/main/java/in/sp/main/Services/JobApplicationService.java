@@ -42,10 +42,13 @@ public class JobApplicationService {
 	    applicationRepository.save(application);
 	}
 	  @Autowired
-	    private JobApplicationRepository repo;
+	  private JobApplicationRepository repo;
+	  
+	  @Autowired
+	  private MatchingService matchingService;
 	  
 	  public void apply(Job job, JobSeeker seeker) {
-		    boolean alreadyApplied = applicationRepository.existsByJobAndJobSeeker(job, seeker);
+		    boolean alreadyApplied = hasApplied(job, seeker);
 		    if (alreadyApplied) {
 		        throw new IllegalStateException("Already applied to this job.");
 		    }
@@ -55,8 +58,13 @@ public class JobApplicationService {
 		    application.setJobSeeker(seeker);
 		    application.setAppliedDate(LocalDate.now());
 		    application.setStatus(ApplicationStatus.APPLIED);
+		    application.setResumeScore(matchingService.calculateMatch(job, seeker));
 		    applicationRepository.save(application);
 		}
+
+	  public boolean hasApplied(Job job, JobSeeker seeker) {
+		  return applicationRepository.existsByJobAndJobSeeker(job, seeker);
+	  }
 
 	    public List<JobApplication> getApplicationsBySeeker(JobSeeker seeker) {
 	        return repo.findByJobSeekerWithJobAndCompany(seeker);

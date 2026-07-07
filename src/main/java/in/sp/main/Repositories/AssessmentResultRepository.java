@@ -23,4 +23,6 @@ public interface AssessmentResultRepository extends JpaRepository<AssessmentResu
 
 	AssessmentResult findTopByJobSeekerIdAndJobIdAndRecruiterIdOrderBySubmittedAtDesc(Long id, Long jobId,
 			Long recruiterId);
+			
+	AssessmentResult findTopByJobSeekerIdAndJobIdOrderBySubmittedAtDesc(Long jobSeekerId, Long jobId);
 }

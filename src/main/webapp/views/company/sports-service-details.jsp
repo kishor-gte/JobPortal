@@ -261,7 +261,11 @@
                 <div class="info-card">
                     <c:choose>
                         <c:when test="${not empty service.coverImageUrl}">
-                            <img src="${pageContext.request.contextPath}${service.coverImageUrl}"
+                            <c:set var="imgUrl" value="${service.coverImageUrl}" />
+                            <c:if test="${not imgUrl.startsWith('/')}">
+                                <c:set var="imgUrl" value="/${imgUrl}" />
+                            </c:if>
+                            <img src="${pageContext.request.contextPath}${imgUrl}"
                                  class="service-image mb-4" alt="${service.serviceTitle}"
                                  onerror="this.src='https://placehold.co/800x400/e2e8f0/5a6e66?text=Sports+Event'">
                         </c:when>
@@ -399,6 +403,34 @@
             })
             .then(function(response) { return response.json(); })
             .then(function(data) {
+                if (data.id && data.id.startsWith("order_mock_")) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = contextPath + '/company/sports/booking/confirm';
+                    
+                    const fields = [
+                        { name: 'serviceId', value: serviceId },
+                        { name: 'razorpayPaymentId', value: 'mock_payment_id' },
+                        { name: 'razorpayOrderId', value: data.id },
+                        { name: 'razorpaySignature', value: 'mock_signature' },
+                        { name: 'amount', value: servicePrice },
+                        { name: 'participants', value: participants },
+                        { name: 'eventDate', value: eventDate }
+                    ];
+                    
+                    for (let i = 0; i < fields.length; i++) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = fields[i].name;
+                        input.value = fields[i].value;
+                        form.appendChild(input);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                    return;
+                }
+
                 const options = {
                     key: "rzp_test_RIlD5bEKRjyn3h",
                     amount: data.amount,

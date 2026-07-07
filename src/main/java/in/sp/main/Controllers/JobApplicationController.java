@@ -69,7 +69,7 @@ public class JobApplicationController {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
 
-        return "redirect:/jobs/all";
+        return "redirect:/jobs/details/" + jobId;
     }
 
 

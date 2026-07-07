@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <style>
         :root {
@@ -337,8 +338,10 @@
         }
 
         /* ===== JOB CATEGORY ===== */
+        .job-category {
+            padding: 100px 0;
+        }
         .job-category .single-cat {
-            background: var(--white);
             background: var(--white);
             border: 1px solid var(--slate-100);
             border-radius: 20px;
@@ -620,18 +623,20 @@
                         </p>
                     </div>
                     <div class="job-search-wrap-two mt-40 wow fadeInUp" data-wow-delay=".6s">
-                        <form action="/jobs/search" method="get">
+                        <form id="jobSearchForm" action="/jobs/search" method="get">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="single-field-item">
                                         <label><i class="fas fa-briefcase"></i> Search Jobs</label>
-                                        <input name="keyword" type="text" placeholder="Job title or skill">
+
+                                        <input id="searchKeyword" name="keyword" type="text" placeholder="Job title or skill">
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="single-field-item">
                                         <label><i class="fas fa-map-marker-alt"></i> Location</label>
-                                        <input name="location" type="text" placeholder="City or remote">
+
+                                        <input id="searchLocation" name="location" type="text" placeholder="City or remote">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -673,7 +678,7 @@
                         <div class="card-content">
                             <h3>Create Profile</h3>
                             <p>Build an outstanding profile and get matched with dream jobs instantly.</p>
-                            <a href="/jobSeekers/update" class="card-btn">Get Started →</a>
+                            <a href="jobSeekers/update" class="card-btn">Get Started →</a>
                         </div>
                     </div>
                 </div>
@@ -684,7 +689,7 @@
                         <div class="card-content">
                             <h3>Video Resume</h3>
                             <p>Upload your video introduction and shine among recruiters.</p>
-                            <a href="/jobseeker/videos" class="card-btn">Upload Now →</a>
+                            <a href="jobseeker/videos" class="card-btn">Upload Now →</a>
                         </div>
                     </div>
                 </div>
@@ -695,7 +700,7 @@
                         <div class="card-content">
                             <h3>Find Jobs</h3>
                             <p>Explore thousands of opportunities and apply in minutes.</p>
-                            <a href="/jobs/all" class="card-btn">Explore →</a>
+                            <a href="jobs/all" class="card-btn">Explore →</a>
                         </div>
                     </div>
                 </div>
@@ -706,12 +711,12 @@
     <!-- Job Categories -->
     <section class="job-category">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title text-center mb-5">
                 <span class="wow fadeInDown">📂 Browse Categories</span>
                 <h2 class="wow fadeInUp">Choose Your Desired Category</h2>
                 <p class="wow fadeInUp">Handpicked fields to elevate your professional journey</p>
             </div>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-lg-3 col-md-6"><a href="/jobs/category/TECHNICAL_SUPPORT"
                         class="single-cat wow fadeInUp">
                         <div class="icon"><img src="assets/images/categories/technical_support.png"
@@ -788,7 +793,7 @@
                             <li><a href="/about-us.html">About Us</a></li>
                             <li><a href="#">Help Center</a></li>
                             <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="/terms-conditions.html" class="btn-legal"></a></li>
+                            <li><a href="/legal-info.html" class="btn-legal"></a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
@@ -909,7 +914,139 @@
                 });
             });
         }
+
+        // Job search validation - prevent empty submissions
+        var searchForm = document.getElementById('jobSearchForm');
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                var keyword = document.getElementById('searchKeyword').value.trim();
+                var location = document.getElementById('searchLocation').value.trim();
+                if (!keyword && !location) {
+                    e.preventDefault();
+                    var inputs = this.querySelectorAll('input[type="text"]');
+                    inputs.forEach(function(input) {
+                        input.style.borderColor = '#ef4444';
+                        input.setAttribute('placeholder', 'Please enter a value');
+                    });
+                    this.style.animation = 'shake 0.4s ease';
+                    setTimeout(function() {
+                        inputs.forEach(function(input) { input.style.borderColor = ''; });
+                    }, 2000);
+                    setTimeout(function() {
+                        e.target.style.animation = '';
+                    }, 400);
+                    return false;
+                }
+            });
+        }
+
+        // Subscription Razorpay Integration
+        var newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var btn = this.querySelector('button[type="submit"]');
+                var originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+                btn.disabled = true;
+
+                var email = this.querySelector('input[name="email"]').value;
+
+                fetch("/api/subscription/createOrder", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: "amount=99&email=" + encodeURIComponent(email) // Subscription amount
+                })
+                .then(response => {
+                    if (response.status === 409) throw new Error("You already have an active subscription.");
+                    if (!response.ok) throw new Error("Order creation failed");
+                    return response.json();
+                })
+                .then(order => {
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                    
+                    if (order.id && order.id.startsWith("order_mock_")) {
+                        // Mock flow bypass: submit dummy details to backend
+                        fetch("/api/subscription/verify", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: "razorpay_payment_id=mock_payment_id" +
+                                  "&razorpay_order_id=" + encodeURIComponent(order.id) +
+                                  "&razorpay_signature=mock_signature" +
+                                  "&email=" + encodeURIComponent(email)
+                        })
+                        .then(res => {
+                            if(res.ok) {
+                                alert("You have claimed the subscription.");
+                                window.location.reload();
+                            } else {
+                                alert("Payment verification failed.");
+                            }
+                        });
+                        return;
+                    }
+                    
+                    var options = {
+                        "key": "rzp_test_YourKeyID", 
+                        "amount": order.amount,
+                        "currency": "INR",
+                        "name": "JobU Subscription",
+                        "description": "Premium Job Alerts",
+                        "order_id": order.id,
+                        "handler": function (response) {
+                            // Payment successful, submit to backend for verification
+                            fetch("/api/subscription/verify", {
+                                method: "POST",
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: "razorpay_payment_id=" + encodeURIComponent(response.razorpay_payment_id) +
+                                      "&razorpay_order_id=" + encodeURIComponent(response.razorpay_order_id) +
+                                      "&razorpay_signature=" + encodeURIComponent(response.razorpay_signature) +
+                                      "&email=" + encodeURIComponent(email)
+                            })
+                            .then(res => {
+                                if(res.ok) {
+                                    alert("You have claimed the subscription.");
+                                    window.location.reload();
+                                } else {
+                                    alert("Payment verification failed.");
+                                }
+                            }).catch(err => {
+                                alert("Error verifying payment.");
+                            });
+                        },
+                        "prefill": {
+                            "email": email
+                        },
+                        "theme": {
+                            "color": "#10b981"
+                        },
+                        "modal": {
+                            "ondismiss": function() {
+                                btn.innerHTML = originalHtml;
+                                btn.disabled = false;
+                            }
+                        }
+                    };
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                    alert(error.message || "Something went wrong with the payment system.");
+                });
+            });
+        }
     </script>
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+    </style>
 
     <!-- Context path fix for Tomcat deployment (No backend change) -->
     <script>

@@ -291,6 +291,17 @@
         .contact-item.active::before {
             transform: translateX(0);
         }
+        
+        .unread-badge {
+            background: var(--danger, #ef4444);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.4);
+        }
 
         .contact-avatar {
             width: 48px; 
@@ -758,6 +769,9 @@
                             ${contact.role}
                         </p>
                     </div>
+                    <c:if test="${contact.unreadCount > 0}">
+                        <div class="unread-badge">${contact.unreadCount}</div>
+                    </c:if>
                 </a>
             </c:forEach>
             <c:if test="${empty contacts}">
@@ -880,6 +894,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            if ("Notification" in window && Notification.permission !== "denied" && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
             // Auto-scroll chat to bottom
             const chatArea = document.getElementById('chatArea');
             if (chatArea) {
@@ -982,10 +999,12 @@
                         const typingIndicator = document.getElementById('typingIndicator');
                         const newMessages = data.slice(messageCount);
                         
+                        let hasNewIncoming = false;
                         newMessages.forEach(msg => {
                             if (!msg.content || msg.content.trim() === '') return;
                             
                             const isOutgoing = (String(msg.senderId) === String(currentId) && String(msg.senderType) === String(currentType));
+                            if (!isOutgoing) hasNewIncoming = true;
                             const msgDiv = document.createElement('div');
                             msgDiv.className = `message ${isOutgoing ? 'message-outgoing' : 'message-incoming'}`;
                             
@@ -1019,6 +1038,12 @@
                         if (typingIndicator) {
                             typingIndicator.style.display = 'none';
                             isTyping = false;
+                        }
+                        
+                        if (hasNewIncoming && document.hidden) {
+                            if ("Notification" in window && Notification.permission === "granted") {
+                                new Notification("New Message", { body: "You have a new message from ${partner.fullName}" });
+                            }
                         }
                     }
                 })

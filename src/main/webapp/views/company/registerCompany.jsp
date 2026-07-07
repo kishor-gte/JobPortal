@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -180,6 +180,10 @@
             margin-right: 8px;
             width: 18px;
         }
+        .required-star {
+            color: var(--danger);
+            margin-left: 3px;
+        }
         input, textarea, select {
             width: 100%;
             padding: 12px 16px;
@@ -290,51 +294,59 @@
             <form action="${pageContext.request.contextPath}/company/register1" method="post" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group">
-                        <label><i class="fas fa-building"></i> Company Name</label>
+                        <label><i class="fas fa-building"></i> Company Name<span class="required-star">*</span></label>
                         <input type="text" id="name" name="name" required placeholder="e.g., Tech Solutions Inc.">
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-industry"></i> Industry</label>
+                        <label><i class="fas fa-industry"></i> Industry<span class="required-star">*</span></label>
                         <input type="text" id="industry" name="industry" required placeholder="e.g., Information Technology">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                        <label><i class="fas fa-map-marker-alt"></i> Location<span class="required-star">*</span></label>
                         <input type="text" id="location" name="location" required placeholder="e.g., New York, NY">
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Company Email</label>
+                        <label><i class="fas fa-envelope"></i> Company Email<span class="required-star">*</span></label>
                         <input type="email" id="email" name="email" required placeholder="contact@company.com">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label><i class="fas fa-phone"></i> Phone Number</label>
-                        <input type="text" id="phone" name="phone" required placeholder="+1 234 567 8900">
+                        <label><i class="fas fa-phone"></i> Phone Number<span class="required-star">*</span></label>
+                        <input type="text" id="phone" name="phone" required placeholder="+1 234 567 8900" pattern="^\+?[0-9\s\-\(\)]+$" title="Please enter a valid phone number">
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-calendar-alt"></i> Founded Year</label>
-                        <input type="text" id="foundedYear" name="foundedYear" placeholder="e.g., 2010">
+                        <label><i class="fas fa-calendar-alt"></i> Founded Year<span class="required-star">*</span></label>
+                        <input type="number" id="foundedYear" name="foundedYear" required placeholder="e.g., 2010" min="1800" max="2099">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label><i class="fas fa-users"></i> Company Size</label>
-                        <input type="text" id="companySize" name="companySize" placeholder="e.g., 50-100 employees">
+                        <label><i class="fas fa-users"></i> Company Size<span class="required-star">*</span></label>
+                        <select id="companySize" name="companySize" required>
+                            <option value="" disabled selected>Select company size</option>
+                            <option value="1-10 employees">1-10 employees</option>
+                            <option value="11-50 employees">11-50 employees</option>
+                            <option value="51-200 employees">51-200 employees</option>
+                            <option value="201-500 employees">201-500 employees</option>
+                            <option value="501-1000 employees">501-1000 employees</option>
+                            <option value="1000+ employees">1000+ employees</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-lock"></i> Password</label>
-                        <input type="password" id="password" name="password" required placeholder="Create a strong password">
+                        <label><i class="fas fa-lock"></i> Password<span class="required-star">*</span></label>
+                        <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="6">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label><i class="fas fa-align-left"></i> About Company</label>
-                    <textarea id="about" name="about" rows="4" placeholder="Tell us about your company, mission, values, and culture..."></textarea>
+                    <label><i class="fas fa-align-left"></i> About Company<span class="required-star">*</span></label>
+                    <textarea id="about" name="about" rows="4" required minlength="20" placeholder="Tell us about your company, mission, values, and culture..."></textarea>
                 </div>
 
                 <div class="form-row">
@@ -349,8 +361,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label><i class="fas fa-image"></i> Company Logo</label>
-                    <input type="file" id="logofile" name="logofile" accept="image/*">
+                    <label><i class="fas fa-image"></i> Company Logo<span class="required-star">*</span></label>
+                    <input type="file" id="logofile" name="logofile" accept="image/*" required>
                     <small class="text-muted" style="display: block; margin-top: 8px; font-size: 0.7rem;">Recommended: Square image, PNG or JPG, max 2MB</small>
                 </div>
 

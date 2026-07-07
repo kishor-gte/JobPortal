@@ -47,7 +47,11 @@ public class CompanyServices
                     + "If you need assistance, feel free to reach out to our support team.\n\n"
                     + "Best regards,\n"
                     + "The Job Portal Team";
-        mailService.sendEmail(company.getEmail(), subject, body);
+        try {
+            mailService.sendEmail(company.getEmail(), subject, body);
+        } catch (Throwable t) {
+            System.err.println("Failed to send verification email to " + company.getEmail() + ": " + t.getMessage());
+        }
 	   return company1;
 	}
 		

@@ -57,6 +57,9 @@ public class HackerrankController {
     private QuestionDAO questionDAO;
 
     @Autowired
+    private in.sp.main.Services.JobServices jobServices;
+
+    @Autowired
     private JobSeekerRepository jobSeekerRepository;
 
     @Autowired
@@ -83,6 +86,11 @@ public class HackerrankController {
 
     @Autowired
     private in.sp.main.Repositories.SavedJobRepository savedJobRepository;
+
+
+
+    @Autowired
+    private in.sp.main.Services.MatchingService matchingService;
 
     // Map frontend language names to Wandbox compiler names
     private static final Map<String, String> WANDBOX_COMPILERS = new HashMap<>() {{
@@ -170,7 +178,9 @@ public class HackerrankController {
         
         // Filter questions based on difficulty
         java.util.List<in.sp.main.Entities.CodingQuestion> questions;
-        if (difficulty != null && !difficulty.isEmpty()) {
+        if (difficulty != null && !difficulty.isEmpty() && categoryId != null) {
+            questions = questionDAO.findCodingByDifficultyAndCategory(difficulty, categoryId);
+        } else if (difficulty != null && !difficulty.isEmpty()) {
             questions = questionDAO.findCodingByDifficulty(difficulty);
         } else if (categoryId != null) {
             questions = questionDAO.findCodingByCategory(categoryId);
@@ -295,15 +305,76 @@ public class HackerrankController {
     }
 
     @RequestMapping(value = "/jobs", method = RequestMethod.GET)
-    public String jobs(Model model, HttpSession session) {
+    public String jobs(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String experienceLevel,
+            @RequestParam(required = false) String skills,
+            Model model, HttpSession session) {
         JobSeeker user = (JobSeeker) session.getAttribute("jobSeeker");
         if (user != null) {
             int totalCorrect = performanceDAO.countCorrectAnswersByStudent(user.getId());
             model.addAttribute("totalCorrect", totalCorrect);
             model.addAttribute("isQualified", true);
         }
+        
+        java.util.List<in.sp.main.Entities.Job> allJobs = jobServices.getAllActiveJobs();
+        
+        // Apply filters
+        java.util.List<in.sp.main.Entities.Job> filteredJobs = allJobs.stream().filter(job -> {
+            boolean matches = true;
+            
+            // Keyword filter (title or company)
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String k = keyword.toLowerCase();
+                boolean titleMatch = job.getTitle() != null && job.getTitle().toLowerCase().contains(k);
+                boolean companyMatch = job.getCompanyName() != null && job.getCompanyName().toLowerCase().contains(k);
+                if (!titleMatch && !companyMatch) matches = false;
+            }
+            
+            // Location filter
+            if (matches && location != null && !location.trim().isEmpty()) {
+                if (job.getLocation() == null || !job.getLocation().toLowerCase().contains(location.toLowerCase())) {
+                    matches = false;
+                }
+            }
+            
+            // Experience level filter
+            if (matches && experienceLevel != null && !experienceLevel.trim().isEmpty()) {
+                String jobExp = job.getExperienceLevel();
+                if (jobExp == null || !jobExp.equalsIgnoreCase(experienceLevel)) {
+                    // Try to fallback on experienceRequired
+                    Integer req = job.getExperienceRequired();
+                    boolean fallbackMatch = false;
+                    if (req != null) {
+                        if ("FRESHER".equalsIgnoreCase(experienceLevel) && req == 0) fallbackMatch = true;
+                        else if ("JUNIOR".equalsIgnoreCase(experienceLevel) && req >= 1 && req <= 3) fallbackMatch = true;
+                        else if ("MID".equalsIgnoreCase(experienceLevel) && req >= 4 && req <= 7) fallbackMatch = true;
+                        else if ("SENIOR".equalsIgnoreCase(experienceLevel) && req >= 8) fallbackMatch = true;
+                        else if ("LEAD".equalsIgnoreCase(experienceLevel) && req >= 10) fallbackMatch = true;
+                    }
+                    if (!fallbackMatch) matches = false;
+                }
+            }
+            
+            // Skills filter
+            if (matches && skills != null && !skills.trim().isEmpty()) {
+                if (job.getSkillRequirement() == null || !job.getSkillRequirement().toLowerCase().contains(skills.toLowerCase())) {
+                    matches = false;
+                }
+            }
+            
+            return matches;
+        }).collect(java.util.stream.Collectors.toList());
+
+        model.addAttribute("jobs", filteredJobs);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("location", location);
+        model.addAttribute("experienceLevel", experienceLevel);
+        model.addAttribute("skills", skills);
         model.addAttribute("user", user);
         model.addAttribute("jobSeeker", user);
+        
         return "hackerrank/job-listings";
     }
 
@@ -336,6 +407,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Student #" + js.getId());
                     contact.put("role", "STUDENT");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "STUDENT"));
                     contacts.add(contact);
                 });
         } else {
@@ -347,6 +419,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Interviewer #" + js.getId());
                     contact.put("role", "INTERVIEWER");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "INTERVIEWER"));
                     contacts.add(contact);
                 });
             
@@ -356,6 +429,7 @@ public class HackerrankController {
                 contact.put("id", c.getId());
                 contact.put("fullName", c.getName() != null ? c.getName() : "Company #" + c.getId());
                 contact.put("role", "COMPANY");
+                contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, c.getId(), "COMPANY"));
                 contacts.add(contact);
             });
         }
@@ -383,7 +457,7 @@ public class HackerrankController {
         
         // Populate contacts
         java.util.List<java.util.Map<String, Object>> contacts = new java.util.ArrayList<>();
-        if ("COMPANY".equals(currentUserType)) {
+        if ("COMPANY".equals(currentUserType) || "INTERVIEWER".equals(currentUserType)) {
             jobSeekerRepository.findAll().stream()
                 .filter(js -> "STUDENT".equalsIgnoreCase(js.getRole()) || js.getRole() == null || js.getRole().isEmpty())
                 .forEach(js -> {
@@ -391,6 +465,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Student #" + js.getId());
                     contact.put("role", "STUDENT");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "STUDENT"));
                     contacts.add(contact);
                 });
         } else {
@@ -401,6 +476,7 @@ public class HackerrankController {
                     contact.put("id", js.getId());
                     contact.put("fullName", js.getName() != null ? js.getName() : "Interviewer #" + js.getId());
                     contact.put("role", "INTERVIEWER");
+                    contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, js.getId(), "INTERVIEWER"));
                     contacts.add(contact);
                 });
             companyRepository.findAll().forEach(c -> {
@@ -408,6 +484,7 @@ public class HackerrankController {
                 contact.put("id", c.getId());
                 contact.put("fullName", c.getName() != null ? c.getName() : "Company #" + c.getId());
                 contact.put("role", "COMPANY");
+                contact.put("unreadCount", chatMessageDAO.getUnreadCountFromSender(currentUserId, currentUserType, c.getId(), "COMPANY"));
                 contacts.add(contact);
             });
         }
@@ -449,6 +526,9 @@ public class HackerrankController {
         String pType = (type != null) ? type : "COMPANY";
         model.addAttribute("messages", chatMessageDAO.getConversation(currentUserId, currentUserType, partnerId, pType));
         model.addAttribute("partnerType", pType);
+        
+        // Mark messages as read
+        chatMessageDAO.markAsRead(partnerId, pType, currentUserId, currentUserType);
         
         if ("COMPANY".equals(currentUserType) || "INTERVIEWER".equals(currentUserType)) {
             return "hackerrank/interviewer-chat";
@@ -540,6 +620,24 @@ public class HackerrankController {
         } catch(Exception e) {
             e.printStackTrace();
             redirectAttrs.addFlashAttribute("error", "Failed to upload resume: " + e.getMessage());
+        }
+        return "redirect:/hackerrank/student/upload-resume";
+    }
+
+    @RequestMapping(value = "/student/delete-resume/{id}", method = RequestMethod.GET)
+    public String studentDeleteResume(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttrs) {
+        JobSeeker user = (JobSeeker) session.getAttribute("jobSeeker");
+        if (user == null) return "redirect:/jobSeekers/login";
+        try {
+            Resume resume = resumeDAO.findById(id);
+            if(resume != null && resume.getStudentId().equals(user.getId())) {
+                java.io.File file = new java.io.File(System.getProperty("user.dir") + "/" + resume.getFilePath());
+                if(file.exists()) file.delete();
+                resumeDAO.delete(id);
+                redirectAttrs.addFlashAttribute("success", "Resume deleted successfully.");
+            }
+        } catch(Exception e) {
+            redirectAttrs.addFlashAttribute("error", "Failed to delete resume.");
         }
         return "redirect:/hackerrank/student/upload-resume";
     }
@@ -904,6 +1002,13 @@ public class HackerrankController {
         if (user == null) return "redirect:/jobSeekers/login";
         
         List<JobApplication> apps = jobApplicationRepository.findByJobSeekerWithJobAndCompany(user);
+        for (JobApplication app : apps) {
+            if (app.getResumeScore() == null || app.getResumeScore() == 0) {
+                int matchScore = matchingService.calculateMatch(app.getJob(), user);
+                app.setResumeScore(matchScore);
+                jobApplicationRepository.save(app);
+            }
+        }
         model.addAttribute("applications", apps);
         model.addAttribute("totalApplications", apps.size());
         model.addAttribute("user", user);

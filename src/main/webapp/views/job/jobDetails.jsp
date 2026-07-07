@@ -422,13 +422,24 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
     <!-- ACTION BUTTONS -->
     <div class="sidebar-actions">
 
-        <form action="${pageContext.request.contextPath}/applications/apply" method="post">
-            <input type="hidden" name="jobId" value="<c:out value='${job.id}'/>">
-            <button type="submit" class="sidebar-btn apply-btn">
-                <i class="fas fa-paper-plane"></i>
-                Apply Now
-            </button>
-        </form>
+        <c:choose>
+            <c:when test="${hasApplied}">
+                <button type="button" class="sidebar-btn apply-btn" disabled style="background-color: #6c757d; cursor: not-allowed; opacity: 0.8;">
+
+                    <i class="fas fa-check-circle"></i>
+                    Applied
+                </button>
+            </c:when>
+            <c:otherwise>
+                <form action="${pageContext.request.contextPath}/applications/apply" method="post">
+                    <input type="hidden" name="jobId" value="<c:out value='${job.id}'/>">
+                    <button type="submit" class="sidebar-btn apply-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Apply Now
+                    </button>
+                </form>
+            </c:otherwise>
+        </c:choose>
 
         <c:if test="${job.company != null}">
         <form action="${pageContext.request.contextPath}/company/details/<c:out value='${job.company.id}'/>">

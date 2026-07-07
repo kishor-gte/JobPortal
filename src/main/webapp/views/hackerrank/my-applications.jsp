@@ -750,10 +750,10 @@
                             </c:if>
 
                             <div class="app-actions">
-                                <a href="${pageContext.request.contextPath}/jobs/${app.jobId}" class="btn-view-job">
+                                <a href="${pageContext.request.contextPath}/jobs/details/${app.jobId}" class="btn-view-job">
                                     <i class="fas fa-eye"></i> View Job Details
                                 </a>
-                                <a href="${pageContext.request.contextPath}/jobs" class="btn-browse">
+                                <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="btn-browse">
                                     <i class="fas fa-search"></i> Browse More Jobs
                                 </a>
                             </div>
@@ -768,7 +768,7 @@
                     </div>
                     <h3>No Applications Yet</h3>
                     <p>You haven't applied to any jobs yet. Browse available positions and start applying to kickstart your career!</p>
-                    <a href="${pageContext.request.contextPath}/jobs" class="btn-browse-lg">
+                    <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="btn-browse-lg">
                         <i class="fas fa-search"></i> Browse Job Listings
                     </a>
                 </div>

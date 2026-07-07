@@ -268,10 +268,13 @@ public class JobSeekerController {
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String showUpdateForm(HttpSession session, Model model) {
     	
-    	 JobSeeker jobSeeker = (JobSeeker) session.getAttribute("jobSeeker");
-       // JobSeeker jobSeeker = jobSeekerService.getJobSeekerById(id);
-        if (jobSeeker == null) {
+    	 JobSeeker sessionUser = (JobSeeker) session.getAttribute("jobSeeker");
+        if (sessionUser == null) {
             return "redirect:login"; // Job Seeker not found
+        }
+        JobSeeker jobSeeker = jobSeekerService.getJobSeekerById(sessionUser.getId());
+        if (jobSeeker == null) {
+            return "redirect:login"; 
         }
         // Convert Hibernate PersistentBag to ArrayList for JSP compatibility
         if (jobSeeker.getSkills() != null) {
@@ -299,6 +302,7 @@ public class JobSeekerController {
                                   @RequestParam(value = "resume", required = false) MultipartFile resume,
                                   @RequestParam(value = "image", required = false) MultipartFile image,
                                   @RequestParam(value = "identityDoc", required = false) MultipartFile identityDoc,
+                                  @RequestParam(value = "videoResume", required = false) MultipartFile videoResume,
                                   @RequestParam(value = "education", required = false) Education education,
                                   @RequestParam(value = "ugDegree", required = false) String ugDegree,
                                   @RequestParam(value = "ugSpecialization", required = false) String ugSpecialization,
@@ -400,6 +404,12 @@ public class JobSeekerController {
             existingJobSeeker.setIdentityDocument(identityPath);
         }
 
+        // Update video resume if a new file is provided
+        if (videoResume != null && !videoResume.isEmpty()) {
+            String videoPath = fileUploadService.saveVideo(videoResume);
+            existingJobSeeker.setVideoResumeUrl(videoPath);
+        }
+
         // Update the Job Seeker in the database
         jobSeekerService.updateJobSeeker(id, existingJobSeeker);
         activityLogger.log(existingJobSeeker.getId(), existingJobSeeker.getName(), existingJobSeeker.getEmail(), "JOBSEEKER", ActivityType.PROFILE_UPDATED, "JobSeeker updated profile");
@@ -413,6 +423,24 @@ public class JobSeekerController {
             model.addAttribute("education", Education.values());
             return "jobSeekers/jobSeekerUpdateForm";
         }
+    }
+
+    // Update Job Seeker Profile Picture
+    @RequestMapping(value = "/updateProfilePicture/{id}", method = RequestMethod.POST)
+    public String updateProfilePicture(@PathVariable Long id, @RequestParam("image") MultipartFile image, RedirectAttributes redirectAttributes) {
+        try {
+            JobSeeker existingJobSeeker = jobSeekerService.getJobSeekerById(id);
+            if (existingJobSeeker != null && image != null && !image.isEmpty()) {
+                String profilePictureUrl = fileUploadService.saveImage(image);
+                existingJobSeeker.setProfilePicture(profilePictureUrl);
+                jobSeekerService.updateJobSeeker(id, existingJobSeeker);
+                activityLogger.log(existingJobSeeker.getId(), existingJobSeeker.getName(), existingJobSeeker.getEmail(), "JOBSEEKER", ActivityType.PROFILE_UPDATED, "JobSeeker updated profile picture");
+                redirectAttributes.addFlashAttribute("message", "Profile picture updated successfully.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error updating profile picture: " + e.getMessage());
+        }
+        return "redirect:/jobSeekers/profile";
     }
 
     // Delete Job Seeker
@@ -463,12 +491,71 @@ public class JobSeekerController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signupFromIndex(@RequestParam("email") String email,
                                    @RequestParam("password") String password,
+                                   @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
                                    HttpSession session,
                                    RedirectAttributes redirectAttributes) {
+                                   
+        // Validation - Required fields
+        if (email == null || email.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Email is required.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (password == null || password.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Password is required.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (confirmPassword == null || confirmPassword.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Confirm Password is required.");
+            return "redirect:/jobSeekers/register";
+        }
+
+        // Trim spaces
+        email = email.trim().toLowerCase();
+        password = password.trim();
+        confirmPassword = confirmPassword.trim();
+        
+        // Email format validation
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        if (!email.matches(emailRegex)) {
+            redirectAttributes.addFlashAttribute("error", "Please enter a valid email address.");
+            return "redirect:/jobSeekers/register";
+        }
+        
+        // Password validation
+        if (password.length() < 8 || password.length() > 32) {
+            redirectAttributes.addFlashAttribute("error", "Password must be between 8 and 32 characters.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one uppercase letter.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[a-z].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one lowercase letter.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[0-9].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one number.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{}|;:',.<>?/].*")) {
+            redirectAttributes.addFlashAttribute("error", "Password must contain at least one special character.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (password.contains(" ")) {
+            redirectAttributes.addFlashAttribute("error", "Password must not contain spaces.");
+            return "redirect:/jobSeekers/register";
+        }
+        
+        // Confirm Password validation
+        if (!password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match.");
+            return "redirect:/jobSeekers/register";
+        }
 
         if (jobSeekerService.findByEmail(email) != null) {
-            redirectAttributes.addFlashAttribute("signupError", "Email already registered.");
-            return "redirect:/home.html?error=email_exists";
+            redirectAttributes.addFlashAttribute("error", "This email is already registered.");
+            return "redirect:/jobSeekers/register";
         }
 
         JobSeeker jobSeeker = new JobSeeker();
@@ -479,7 +566,7 @@ public class JobSeekerController {
         jobSeekerService.createJobSeeker(jobSeeker);
         activityLogger.log(jobSeeker.getId(), jobSeeker.getName(), jobSeeker.getEmail(), "JOBSEEKER", ActivityType.USER_REGISTRATION, "JobSeeker registered from index page");
 
-        redirectAttributes.addFlashAttribute("signupSuccess", "Account created successfully! Please log in.");
+        redirectAttributes.addFlashAttribute("message", "Account created successfully! Please log in.");
         return "redirect:/jobSeekers/login";
     }
 
@@ -547,7 +634,11 @@ public class JobSeekerController {
     @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam String email, @RequestParam(required = false) String role, Model model) {
         String response = passwordResetService.createPasswordResetToken(email);
-        model.addAttribute("message", response);
+        if (response.startsWith("Failed") || response.equals("Email not found")) {
+            model.addAttribute("error", response);
+        } else {
+            model.addAttribute("message", response);
+        }
         model.addAttribute("role", role);
         return "password/forgotPassword";
     }
