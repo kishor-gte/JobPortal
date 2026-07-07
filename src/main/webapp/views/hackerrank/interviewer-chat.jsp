@@ -849,10 +849,18 @@
             document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if ("Notification" in window && Notification.permission !== "denied" && Notification.permission !== "granted") {
-                Notification.requestPermission();
+        function requestNotificationPermission() {
+            if ("Notification" in window && Notification.permission === "default") {
+                Notification.requestPermission().then(permission => {
+                    console.log("Notification permission status:", permission);
+                });
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Request notification permission on first user interaction (bypass browser gesture block)
+            document.addEventListener('click', requestNotificationPermission, { once: true });
+            document.addEventListener('keydown', requestNotificationPermission, { once: true });
             const chatArea = document.getElementById('chatArea');
             if (chatArea) {
                 chatArea.scrollTop = chatArea.scrollHeight;
@@ -925,6 +933,29 @@
         const currentId = '${currentUserId}';
         const currentType = '${currentUserType}';
 
+        function playNotificationSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                oscillator.frequency.exponentialRampToValueAtTime(880.00, oscillator.context.currentTime + 0.15); // A5
+                
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, oscillator.context.currentTime + 0.3);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            } catch (e) {
+                console.error("Failed to play audio notification:", e);
+            }
+        }
+
         function pollMessages() {
             if (!partnerId) return;
             
@@ -974,9 +1005,12 @@
                             typingIndicator.style.display = 'none';
                         }
                         
-                        if (hasNewIncoming && document.hidden) {
+                        if (hasNewIncoming) {
+                            playNotificationSound();
                             if ("Notification" in window && Notification.permission === "granted") {
-                                new Notification("New Message", { body: "You have a new message from ${partner.fullName}" });
+                                new Notification("New Message from ${partner.fullName}", {
+                                    body: newMessages[newMessages.length - 1].content
+                                });
                             }
                         }
                     }
