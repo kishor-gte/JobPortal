@@ -230,6 +230,28 @@
         .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
         .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
 
+        .btn-profile {
+            background: var(--hover-bg);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-profile:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
+        }
+
         /* Actions Dropdown */
         .dropdown { position: relative; display: inline-block; }
         .dropbtn {
@@ -256,7 +278,7 @@
             align-items: center; justify-content: center;
         }
         .modal-content {
-            background: #fff; border-radius: 24px; width: 90%; max-width: 700px;
+            background: #fff; border-radius: 24px; width: 95%; max-width: 1000px;
             max-height: 90vh; overflow-y: auto; padding: 32px; position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: modalPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -451,6 +473,7 @@
                             <th>Location</th>
                             <th>Resume Status</th>
                             <th>Reg. Date</th>
+                            <th>Profile</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -496,10 +519,12 @@
                                 </td>
                                 <td>${candidate.createdAt != null ? candidate.createdAt : 'N/A'}</td>
                                 <td>
+                                    <button onclick="viewProfile(${candidate.id})" class="btn-profile"><i class="fas fa-user-circle"></i> View Profile</button>
+                                </td>
+                                <td>
                                     <div class="dropdown">
                                         <button class="dropbtn">Actions <i class="fas fa-chevron-down ms-1"></i></button>
                                         <div class="dropdown-content">
-                                            <button onclick="viewProfile(${candidate.id})"><i class="fas fa-user"></i> View Profile</button>
                                             <c:if test="${not empty candidate.resumeUploaded}">
                                                 <a href="${pageContext.request.contextPath}/${candidate.resumeUploaded}" target="_blank"><i class="fas fa-file-pdf"></i> View Resume</a>
                                                 <a href="${pageContext.request.contextPath}/${candidate.resumeUploaded}" download><i class="fas fa-download"></i> Download Resume</a>
@@ -513,7 +538,7 @@
                             </tr>
                         </c:forEach>
                         <c:if test="${empty candidatesPage.content}">
-                            <tr><td colspan="8" style="text-align:center; padding: 40px; color: #64748b;">No candidates found matching your criteria.</td></tr>
+                            <tr><td colspan="9" style="text-align:center; padding: 40px; color: #64748b;">No candidates found matching your criteria.</td></tr>
                         </c:if>
                     </tbody>
                 </table>

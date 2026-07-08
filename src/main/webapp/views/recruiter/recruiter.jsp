@@ -382,9 +382,9 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#">Corporate Sports</a>
+                                        <a href="#">Corporate Events</a>
                                         <ul class="sub-menu">
-                                            <li><a href="${pageContext.request.contextPath}/recruiter/explore">Explore Corporate Sports</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/recruiter/explore">Explore Corporate Events</a></li>
                                             <li><a href="${pageContext.request.contextPath}/recruiter/bookings">My Bookings</a></li>
                                         </ul>
                                     </li>

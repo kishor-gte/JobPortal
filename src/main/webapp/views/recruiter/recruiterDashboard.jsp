@@ -457,7 +457,7 @@
                 <div class="dashboard-card">
                     <div class="dashboard-icon"><i class="fas fa-search-location"></i></div>
                     <h5>Explore Services</h5>
-                    <p>Discover corporate sports events</p>
+                    <p>Discover corporate events</p>
                 </div>
             </a>
         </div>

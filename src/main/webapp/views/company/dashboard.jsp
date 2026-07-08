@@ -360,9 +360,9 @@
                                 <li class="nav-item"><a class="active" href="${pageContext.request.contextPath}/index">Home</a></li>
                                 <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/login">Recruiters Login</a></li>
                                 <li class="nav-item">
-                                    <a href="#">Corporate Sports</a>
+                                    <a href="#">Corporate Events</a>
                                     <ul class="sub-menu">
-                                        <li><a href="${pageContext.request.contextPath}/company/sports/explore">Explore Corporate Sports</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/company/sports/explore">Explore Corporate Events</a></li>
                                         <li><a href="${pageContext.request.contextPath}/company/sports/bookings">My Bookings</a></li>
                                     </ul>
                                 </li>

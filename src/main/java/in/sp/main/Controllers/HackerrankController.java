@@ -48,10 +48,21 @@ import org.springframework.data.domain.Sort;
 import in.sp.main.Repositories.UserActivityRepository;
 import in.sp.main.Entities.UserActivity;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Value;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
+import in.sp.main.dto.ResumeAnalysisResponse;
 
 @Controller
 @RequestMapping("/hackerrank")
 public class HackerrankController {
+
+    @Autowired
+    private in.sp.main.Services.ResumeParserService resumeParserService;
+
+    @Autowired
+    private in.sp.main.Services.AtsScoreService atsScoreService;
 
     @Autowired
     private QuestionDAO questionDAO;
@@ -310,6 +321,7 @@ public class HackerrankController {
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String experienceLevel,
             @RequestParam(required = false) String skills,
+            @RequestParam(required = false) String jobType,
             Model model, HttpSession session) {
         JobSeeker user = (JobSeeker) session.getAttribute("jobSeeker");
         if (user != null) {
@@ -356,6 +368,12 @@ public class HackerrankController {
                     if (!fallbackMatch) matches = false;
                 }
             }
+            // Job Type filter
+            if (matches && jobType != null && !jobType.trim().isEmpty()) {
+                if (job.getJobType() == null || !job.getJobType().equalsIgnoreCase(jobType)) {
+                    matches = false;
+                }
+            }
             
             // Skills filter
             if (matches && skills != null && !skills.trim().isEmpty()) {
@@ -371,6 +389,7 @@ public class HackerrankController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("location", location);
         model.addAttribute("experienceLevel", experienceLevel);
+        model.addAttribute("jobType", jobType);
         model.addAttribute("skills", skills);
         model.addAttribute("user", user);
         model.addAttribute("jobSeeker", user);
@@ -639,6 +658,43 @@ public class HackerrankController {
         } catch(Exception e) {
             redirectAttrs.addFlashAttribute("error", "Failed to delete resume.");
         }
+        return "redirect:/hackerrank/student/upload-resume";
+    }
+
+    @RequestMapping(value = "/student/analyze-resume/{id}", method = RequestMethod.POST)
+    public String analyzeResume(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttrs) {
+        JobSeeker user = (JobSeeker) session.getAttribute("jobSeeker");
+        if (user == null) return "redirect:/jobSeekers/login";
+
+        try {
+            Resume resume = resumeDAO.findById(id);
+            if (resume == null || !resume.getStudentId().equals(user.getId())) {
+                redirectAttrs.addFlashAttribute("error", "Resume not found.");
+                return "redirect:/hackerrank/student/upload-resume";
+            }
+
+            java.io.File file = new java.io.File(System.getProperty("user.dir") + "/" + resume.getFilePath());
+            if (!file.exists()) {
+                redirectAttrs.addFlashAttribute("error", "Resume file not found on server.");
+                return "redirect:/hackerrank/student/upload-resume";
+            }
+
+            String resumeText = resumeParserService.extractText(file, resume.getFileName());
+            
+            ResumeAnalysisResponse response = atsScoreService.analyzeResume(resumeText);
+            
+            if (response.isSuccess()) {
+                resumeDAO.updateAiFeedback(resume.getId(), response.getFeedback(), response.getScore());
+                redirectAttrs.addFlashAttribute("success", "Resume analyzed successfully!");
+            } else {
+                redirectAttrs.addFlashAttribute("error", response.getErrorMessage());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttrs.addFlashAttribute("error", "Failed to analyze resume: " + e.getMessage());
+        }
+
         return "redirect:/hackerrank/student/upload-resume";
     }
 

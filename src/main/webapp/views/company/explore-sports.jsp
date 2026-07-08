@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Corporate Sports Events | JobU - Team Building & Sports</title>
+    <title>Corporate Events | JobU - Team Building & Sports</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
@@ -303,7 +303,7 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div>
-                    <h2><i class="fas fa-futbol me-2"></i>Corporate Sports Events</h2>
+                    <h2><i class="fas fa-futbol me-2"></i>Corporate Events</h2>
                     <p>Explore and book sports services for your company</p>
                 </div>
                 <a href="${pageContext.request.contextPath}/company/dashboard" class="back-btn">

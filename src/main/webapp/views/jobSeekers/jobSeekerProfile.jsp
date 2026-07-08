@@ -524,6 +524,17 @@
                  <i class="fas fa-edit mr-1"></i> Edit Profile
              </a>
          </div>
+         <div style="position: absolute; top: 20px; left: 20px; display: flex; gap: 10px; z-index: 2;">
+             <label for="bgColorPicker" class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; backdrop-filter: blur(4px); cursor: pointer; margin: 0;" title="Change Background Color">
+                 <i class="fas fa-palette mr-1"></i> Color
+             </label>
+             <input type="color" id="bgColorPicker" style="opacity: 0; position: absolute; left: 0; top: 0; width: 0; height: 0;" oninput="updateHeaderColor(this.value)">
+             
+             <label for="bgImagePicker" class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; backdrop-filter: blur(4px); cursor: pointer; margin: 0;" title="Upload Background Image">
+                 <i class="fas fa-image mr-1"></i> Image
+             </label>
+             <input type="file" id="bgImagePicker" accept="image/*" style="display: none;" onchange="updateHeaderImage(this)">
+         </div>
          <form id="profilePicForm" action="${pageContext.request.contextPath}/jobSeekers/updateProfilePicture/${jobSeeker.id}" method="post" enctype="multipart/form-data">
              <div style="position: relative; display: inline-block; cursor: pointer;" onclick="document.getElementById('profilePicInput').click();" title="Change Profile Picture">
                  <img src="${pageContext.request.contextPath}${jobSeeker.profilePicture}"
@@ -741,6 +752,89 @@
              this.style.transform = 'scale(1) rotate(0deg)';
          });
      }
+
+     // Background color and image editing
+     function applyBackground() {
+         const header = document.querySelector('.profile-header');
+         if (!header) return;
+         
+         const savedImage = localStorage.getItem('jobSeekerHeaderImage');
+         const savedBgColor = localStorage.getItem('jobSeekerHeaderColor');
+         
+         if (savedImage) {
+             header.style.setProperty('background-color', 'transparent', 'important');
+             header.style.setProperty('background-image', `url("${savedImage}")`, 'important');
+             header.style.setProperty('background-position', 'center center', 'important');
+             header.style.setProperty('background-size', 'cover', 'important');
+             header.style.setProperty('background-repeat', 'no-repeat', 'important');
+         } else if (savedBgColor) {
+             header.style.setProperty('background-image', 'none', 'important');
+             header.style.setProperty('background-color', savedBgColor, 'important');
+             const picker = document.getElementById('bgColorPicker');
+             if (picker) picker.value = savedBgColor;
+         } else {
+             header.style.removeProperty('background-color');
+             header.style.removeProperty('background-image');
+             header.style.removeProperty('background-position');
+             header.style.removeProperty('background-size');
+             header.style.removeProperty('background-repeat');
+         }
+     }
+
+     window.updateHeaderColor = function(color) {
+         localStorage.setItem('jobSeekerHeaderColor', color);
+         localStorage.removeItem('jobSeekerHeaderImage'); // Reset image if color is chosen
+         applyBackground();
+     };
+
+     window.updateHeaderImage = function(input) {
+         if (input.files && input.files[0]) {
+             const file = input.files[0];
+             const objectUrl = URL.createObjectURL(file);
+             
+             const img = new Image();
+             img.onload = function() {
+                 URL.revokeObjectURL(objectUrl); // Clean up memory
+                 
+                 const canvas = document.createElement('canvas');
+                 const MAX_WIDTH = 1200; // Small width for guaranteed fast base64 string
+                 let width = img.width;
+                 let height = img.height;
+                 
+                 if (width > MAX_WIDTH) {
+                     height = Math.round((height * MAX_WIDTH) / width);
+                     width = MAX_WIDTH;
+                 }
+                 
+                 canvas.width = width;
+                 canvas.height = height;
+                 const ctx = canvas.getContext('2d');
+                 ctx.drawImage(img, 0, 0, width, height);
+                 
+                 // High compression JPEG ensures base64 string is tiny and safe
+                 const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                 
+                 try {
+                     localStorage.setItem('jobSeekerHeaderImage', dataUrl);
+                     localStorage.removeItem('jobSeekerHeaderColor');
+                     applyBackground();
+                 } catch (err) {
+                     alert("Error saving image. Try a smaller file.");
+                 }
+                 input.value = ''; // Reset input to allow selecting same file again
+             };
+             
+             img.onerror = function() {
+                 alert("Failed to read the image file.");
+                 input.value = '';
+             };
+             
+             img.src = objectUrl;
+         }
+     };
+
+     // Initial apply on load
+     applyBackground();
 
      // Keyboard shortcuts
      document.addEventListener('keydown', function(e) {

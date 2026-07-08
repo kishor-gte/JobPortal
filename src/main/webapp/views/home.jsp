@@ -1073,6 +1073,39 @@
           </div>
         </div>
       </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="feature-card">
+          <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/create_profile.png" alt="Apply Fulltime"></div>
+          <div class="feature-card-content">
+            <h3>Apply Fulltime</h3>
+            <p>Find permanent, full-time positions with top companies and secure your long-term career.</p>
+            <a href="${pageContext.request.contextPath}/jobs/all?employmentType=FULLTIME" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="feature-card">
+          <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/video_resume.png" alt="Apply Parttime"></div>
+          <div class="feature-card-content">
+            <h3>Apply Parttime</h3>
+            <p>Discover flexible part-time opportunities that fit your schedule and lifestyle.</p>
+            <a href="${pageContext.request.contextPath}/jobs/all?employmentType=PARTTIME" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="feature-card">
+          <div class="feature-img-wrapper"><img src="${pageContext.request.contextPath}/assets/images/categories/smart_apply.png" alt="Apply Internship"></div>
+          <div class="feature-card-content">
+            <h3>Apply Internship</h3>
+            <p>Kickstart your career with exciting internship opportunities for students and freshers.</p>
+            <a href="${pageContext.request.contextPath}/jobs/all?employmentType=INTERNSHIP" class="btn-feature">Explore Jobs <i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
