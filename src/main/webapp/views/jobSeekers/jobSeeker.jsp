@@ -654,7 +654,7 @@
                     return false;
                 }
                 let errorMsg = '';
-                if (val.length < 8 || val.length > 32) errorMsg = 'Password must be between 8 and 32 characters.';
+                if (val.length < 6 || val.length > 32) errorMsg = 'Password must be between 6 and 32 characters.';
                 else if (!/[A-Z]/.test(val)) errorMsg = 'Password must contain at least one uppercase letter.';
                 else if (!/[a-z]/.test(val)) errorMsg = 'Password must contain at least one lowercase letter.';
                 else if (!/[0-9]/.test(val)) errorMsg = 'Password must contain at least one number.';
@@ -716,6 +716,7 @@
                     else if (!isEmailValid) email.focus();
                     return false;
                 }
+                alert("Registration successful!");
             });
 
             // Keyboard shortcut for submit

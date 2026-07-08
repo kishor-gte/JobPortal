@@ -522,8 +522,8 @@ public class JobSeekerController {
         }
         
         // Password validation
-        if (password.length() < 8 || password.length() > 32) {
-            redirectAttributes.addFlashAttribute("error", "Password must be between 8 and 32 characters.");
+        if (password.length() < 6 || password.length() > 32) {
+            redirectAttributes.addFlashAttribute("error", "Password must be between 6 and 32 characters.");
             return "redirect:/jobSeekers/register";
         }
         if (!password.matches(".*[A-Z].*")) {

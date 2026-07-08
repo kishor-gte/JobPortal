@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
@@ -25,26 +26,27 @@
 <!-- ========== PREMIUM FRONTEND - MODERN CRYSTAL DESIGN ========== -->
 <style>
   :root {
-    --primary: #10b981;
-    --primary-dark: #059669;
-    --primary-light: #34d399;
-    --primary-soft: rgba(16, 185, 129, 0.08);
-    --accent: #fbbf24;
+    --primary: #19A77B;
+    --primary-dark: #12825d;
+    --primary-light: #3BC49A;
+    --primary-soft: rgba(25, 167, 123, 0.08);
+    --accent: #06B6D4;
+    --success: #10B981;
     --slate-900: #0f172a;
-    --slate-800: #000000;
-    --slate-700: #000000;
-    --slate-600: #000000;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
     --slate-50: #f8fafc;
     --white: #ffffff;
     --glass: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.2);
-    --gradient-primary: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --gradient-primary: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
     --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    --shadow-premium: 0 25px 50px -12px rgba(25, 167, 123, 0.15);
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -74,267 +76,341 @@
 
   html { scroll-behavior: smooth; }
 
-  /* ========== NAVBAR - SQUARE REFINED DESIGN ========== */
+  /* ========== PREMIUM NAVBAR DESIGN ========== */
   .navbar-area {
     position: fixed;
     top: 0;
     left: 0;
     transform: none;
     width: 100%;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 0;
     padding: 0px 30px;
     z-index: 1000;
-    transition: var(--transition);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease-in-out;
+    border-bottom: 1px solid #E5E7EB;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px; /* Increased balanced height */
+    height: 72px;
   }
 
   .navbar-area.sticky {
-    height: 56px;
-    background: white;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
   }
 
   .navbar-brand.logo {
     padding: 0;
-    margin-right: 15px;
+    margin-right: 40px;
     display: flex;
     align-items: center;
   }
 
   .logo1 {
-    height: 36px !important;
+    height: 48px !important;
     width: auto;
-    transition: var(--transition);
+    transition: all 0.3s ease;
   }
 
   .navbar-nav {
     display: flex;
     align-items: center;
-    gap: 0;
+    gap: 6px;
     height: 100%;
   }
 
   .navbar-nav .nav-item .nav-link {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--slate-700) !important;
-    padding: 0 16px !important;
-    height: 60px;
+    color: #374151 !important;
+    padding: 8px 14px !important;
+    border-radius: 50px;
     display: flex;
     align-items: center;
-    gap: 5px;
-    transition: var(--transition);
+    gap: 4px;
+    transition: all 0.3s ease;
   }
 
   .navbar-nav .nav-item .nav-link i { 
-    font-size: 0.75rem; 
+    font-size: 0.85rem; 
     opacity: 0.7; 
+    transition: opacity 0.3s ease;
   }
 
-  .navbar-nav .nav-item .nav-link:hover, 
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #19A77B !important;
+    background: #E6F6F1;
+    transform: translateY(-2px);
+  }
+
+  .navbar-nav .nav-item .nav-link:hover i {
+    opacity: 1;
+  }
+
   .navbar-nav .nav-item .nav-link.active {
-    color: var(--primary) !important;
-    background: var(--primary-soft);
+    background: linear-gradient(135deg, #19A77B, #3BC49A);
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(25, 167, 123, 0.25);
+  }
+
+  .navbar-nav .nav-item .nav-link.active i {
+    color: white !important;
+    opacity: 1;
   }
 
   .btn-login {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #19A77B, #3BC49A);
     color: white !important;
-    font-weight: 700;
-    padding: 6px 18px !important;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
-    margin-left: 10px;
+    font-weight: 600;
+    padding: 10px 24px !important;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(25, 167, 123, 0.2);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
   }
 
   .btn-login:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+    box-shadow: 0 8px 25px rgba(25, 167, 123, 0.45);
     color: white !important;
   }
 
   .btn-register {
-    background: transparent;
-    color: var(--primary) !important;
-    font-weight: 700;
-    padding: 6px 18px !important;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    transition: var(--transition);
-    border: 1.5px solid var(--primary);
-    margin-left: 8px;
+    background: white;
+    color: #19A77B !important;
+    font-weight: 600;
+    padding: 10px 24px !important;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: 1.5px solid #19A77B;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
   }
 
   .btn-register:hover {
-    background: var(--primary-soft);
+    background: #19A77B;
     transform: translateY(-2px);
-    color: var(--primary-dark) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
   }
 
+  /* Dropdown Menu Glass Effect */
   .sub-menu {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 18px;
-    box-shadow: var(--shadow-xl);
-    border: 1px solid var(--slate-50);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     padding: 12px;
-    min-width: 220px;
-    transform: translateY(10px);
-    transition: var(--transition);
+    min-width: 240px;
+    transform: translateY(15px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 100%;
+    margin-top: 5px;
+    list-style: none;
   }
 
-  .button .login, .button .btn {
-    padding: 12px 28px !important;
-    border-radius: 16px !important;
-    font-weight: 700 !important;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: var(--transition);
-    box-shadow: var(--shadow-md);
+  .nav-item:hover .sub-menu {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 
-  .button .login {
-    background: var(--white) !important;
-    color: var(--primary) !important;
-    border: 1px solid var(--primary) !important;
+  .sub-menu li {
+    margin-bottom: 2px;
   }
 
-  .button .btn {
-    background: var(--gradient-primary) !important;
-    color: var(--white) !important;
-    border: none !important;
+  .sub-menu li a {
+    padding: 14px 18px !important;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #4B5563 !important;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
   }
 
-  .button .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 20px -8px var(--primary);
+  .sub-menu li a:hover {
+    background: #E6F6F1 !important;
+    color: #19A77B !important;
   }
 
-  /* ========== HERO AREA - CINEMATIC ========== */
-  .hero-area {
-    min-height: 100vh;
-    background: url('https://media.licdn.com/dms/image/v2/D5612AQHmWpsKqCEUgQ/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1692110377639?e=2147483647&v=beta&t=8o8pbq1bZtrQjOZxyCis8GkK8FtHx38WqMoea3qjPB0') no-repeat center center;
-    background-size: cover;
-    position: relative;
+  .sub-menu li a i {
+    color: inherit;
+  }
+
+  /* Notifications Badge */
+  .nav-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #EF4444;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    padding-top: 100px;
+    font-weight: bold;
+    border: 2px solid white;
   }
 
-  .hero-area::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 100%);
-    z-index: 1;
-  }
-
-  .hero-area::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 20% 70%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
-    z-index: 1;
-  }
-
-  .hero-content-wrapper {
+  /* ========== PREMIUM HERO AREA ========== */
+  .premium-hero-area {
     position: relative;
-    z-index: 2;
-    text-align: center;
+    background: linear-gradient(135deg, #F8FAFC 0%, #DBEAFE 50%, #E6F6F1 100%);
+    padding: 100px 0 90px;
+    overflow: hidden;
+    margin-top: 0 !important;
+  }
+  
+  .premium-hero-bg-elements {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+  .premium-blob-1 {
+    position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(25, 167, 123,0.08) 0%, rgba(255,255,255,0) 70%);
+    top: -10%; right: -5%; border-radius: 50%; animation: float-blob 20s infinite alternate;
+  }
+  .premium-blob-2 {
+    position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, rgba(255,255,255,0) 70%);
+    bottom: -10%; left: -10%; border-radius: 50%; animation: float-blob 15s infinite alternate-reverse;
   }
 
-  .hero-text h1 {
-    font-size: 5rem;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: 24px;
-    letter-spacing: -2px;
-  }
-
-  .hero-text p {
-    font-size: 1.25rem;
-    color: var(--slate-50);
-    opacity: 0.8;
-    max-width: 700px;
-    margin: 0 auto 48px;
-  }
-
-  /* Floating Search Bar */
-  .job-search-form {
-    background: var(--white);
-    padding: 12px;
-    border-radius: 24px;
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
-    display: flex;
-    align-items: center;
-    max-width: 900px;
-    margin: 0 auto;
-    border: 1px solid var(--slate-50);
-  }
-
-  .single-field-item {
-    flex: 1;
-    padding: 0 24px;
-    border-right: 1px solid var(--slate-50);
+  .premium-hero-content {
+    position: relative;
+    z-index: 5;
     text-align: left;
   }
-
-  .single-field-item:last-child { border-right: none; }
-
-  .single-field-item label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--slate-600);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  
+  .premium-hero-badge {
+    display: inline-block;
+    background: white; color: #0F172A; font-weight: 700; font-size: 0.8rem;
+    padding: 6px 16px; border-radius: 50px; margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,0.8);
   }
+  .premium-hero-badge i { color: #F59E0B; margin-right: 8px; }
 
-  .single-field-item input {
-    border: none;
-    background: transparent;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 4px 0;
-    outline: none;
+  .premium-hero-title {
+    font-size: clamp(2.8rem, 4vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #0F172A;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
   }
+  .premium-hero-title .gradient-text {
+    background: linear-gradient(135deg, #19A77B, #06B6D4);
+    -webkit-background-clip: text; color: transparent;
+  }
+  .premium-hero-title .light-text { color: #3BC49A; }
+  
+  .premium-hero-subtitle {
+    font-size: 1.05rem; color: #475569; max-width: 550px; line-height: 1.6; margin-bottom: 30px;
+  }
+  
+  .premium-hero-buttons {
+    display: flex; gap: 15px; margin-bottom: 40px;
+  }
+  .btn-premium-primary {
+    background: linear-gradient(135deg, #19A77B, #3BC49A); color: white !important;
+    padding: 14px 30px; border-radius: 14px; font-weight: 700; font-size: 1rem;
+    box-shadow: 0 10px 25px rgba(25, 167, 123,0.3); transition: all 0.3s; border: none; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-premium-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(25, 167, 123,0.4); }
+  
+  .btn-premium-secondary {
+    background: white; color: #0F172A !important;
+    padding: 14px 30px; border-radius: 14px; font-weight: 700; font-size: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-premium-secondary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-color: rgba(25, 167, 123,0.2); color: #19A77B !important; }
 
-  .submit-btn button {
-    background: var(--gradient-primary);
-    color: var(--white);
-    padding: 16px 40px;
-    border-radius: 18px;
-    border: none;
-    font-weight: 700;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: var(--transition);
+  .premium-search-panel {
+    background: #FFFFFF;
+    padding: 12px 12px 12px 24px; border-radius: 16px; box-shadow: 0 15px 40px rgba(15,23,42,0.06);
+    border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 15px; margin-bottom: 25px;
   }
+  .premium-search-field { flex: 1; padding-right: 15px; border-right: 1px solid #E2E8F0; display: flex; align-items: center; gap: 12px; }
+  .premium-search-field:last-of-type { border-right: none; }
+  .premium-search-field i { color: #94A3B8; font-size: 1.1rem; }
+  .premium-search-field input { border: none; background: transparent; font-size: 1.05rem; font-weight: 500; color: #0F172A; outline: none; width: 100%; }
+  .premium-search-field input::placeholder { color: #94A3B8; font-weight: 400; }
+  .premium-search-btn {
+    background: #19A77B; color: white; border: none; padding: 14px 28px; border-radius: 12px;
+    font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 15px rgba(25, 167, 123,0.2); transition: all 0.3s; cursor: pointer;
+  }
+  .premium-search-btn:hover { background: #1D4ED8; transform: translateY(-2px); box-shadow: 0 12px 20px rgba(25, 167, 123,0.3); }
 
-  .submit-btn button:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 30px -10px var(--primary);
+  .premium-popular-searches { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .premium-popular-searches span { font-size: 0.85rem; font-weight: 600; color: #64748B; }
+  .premium-popular-pill {
+    background: white; padding: 4px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+    color: #475569; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid #F1F5F9;
+    transition: all 0.3s; cursor: pointer; text-decoration: none;
   }
+  .premium-popular-pill:hover { background: #19A77B; color: white; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(25, 167, 123,0.2); }
+
+  .premium-hero-image-wrapper { position: relative; z-index: 5; margin-left: 20px; }
+  .premium-hero-image {
+    width: 100%; height: 550px; object-fit: cover;
+    border-radius: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    border: 6px solid rgba(255,255,255,0.8);
+    animation: float-card 8s ease-in-out infinite;
+  }
+  .premium-floating-card {
+    position: absolute; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+    padding: 16px 20px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,1); display: flex; align-items: center; gap: 12px;
+    z-index: 10; transition: all 0.3s; text-align: left;
+  }
+  .premium-floating-card:hover { transform: translateY(-5px) scale(1.02); }
+  .floating-1 { top: 10%; left: -30px; animation: float-card 6s ease-in-out infinite alternate; }
+  .floating-2 { bottom: 15%; right: -20px; animation: float-card 7s ease-in-out infinite alternate-reverse; }
+  .fc-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+  .fc-content h4 { font-size: 1.2rem; font-weight: 800; color: #0F172A; margin: 0 0 2px; }
+  .fc-content p { font-size: 0.8rem; font-weight: 600; color: #64748B; margin: 0; }
+  
+  .premium-stats-bar {
+    position: relative; z-index: 10; margin-top: -60px;
+  }
+  .premium-stats-container {
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+    border-radius: 20px; padding: 30px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,1);
+    display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+  .premium-stat-item { display: flex; align-items: center; gap: 16px; transition: transform 0.3s; text-align: left; }
+  .premium-stat-item:hover { transform: translateY(-5px); }
+  .stat-icon { width: 54px; height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+  .stat-info h3 { font-size: 1.6rem; font-weight: 800; color: #0F172A; margin: 0 0 2px; letter-spacing: -0.5px; }
+  .stat-info p { font-size: 0.9rem; font-weight: 600; color: #64748B; margin: 0; }
 
   /* ========== FEATURE CARDS - SOFT PREMIUM ========== */
   .features-section { background: var(--white) !important; }
@@ -436,61 +512,7 @@
 
   .section-title h2 { font-size: 3rem; font-weight: 800; margin-bottom: 60px; letter-spacing: -1px; }
 
-  .single-cat {
-    background: var(--white);
-    border: 1px solid var(--slate-50);
-    border-radius: 24px;
-    padding: 40px 24px;
-    transition: var(--transition);
-    text-align: center;
-    display: block;
-    text-decoration: none;
-    height: 100%;
-  }
-
-  .single-cat:hover {
-    background: var(--gradient-primary);
-    transform: scale(1.05);
-    box-shadow: 0 30px 60px -15px rgba(16, 185, 129, 0.3);
-  }
-
-  .single-cat .icon {
-    width: 100%;
-    height: 140px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--slate-50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-  }
-
-  .single-cat .icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
-    opacity: 0.9;
-  }
-
-  .single-cat:hover .icon img {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-
-  .single-cat h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--slate-800);
-    transition: var(--transition);
-    text-align: center;
-  }
-
-  .single-cat:hover h3 {
-    color: var(--primary);
-  }
+  /* Explore Opportunities CSS removed - moved to inline style block in the section below */
 
   /* ========== FOOTER - SLEEK DARK ========== */
   .footer {
@@ -825,16 +847,21 @@
   <div class="navbar-area" id="navbarSticky">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-lg-12">
-          <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand logo" href="${pageContext.request.contextPath}/"> 
-              <img class="logo1" src="${pageContext.request.contextPath}/assets/images/logo/logo-premium.png" alt="Logo" />
+          <nav class="navbar navbar-expand-lg" style="width: 100%; display: flex; justify-content: space-between; align-items: center; position: relative;">
+            
+            <!-- Left: Logo -->
+            <a class="custom-premium-logo" href="${pageContext.request.contextPath}/" style="position: absolute; left: -95px; display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
+              <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block; opacity: 1 !important; visibility: visible !important; background-color: transparent !important;" />
             </a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="toggler-icon"></span> <span class="toggler-icon"></span> <span class="toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-              <ul id="nav" class="navbar-nav ml-auto">
+            
+            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="flex-grow: 1; justify-content: space-between;">
+              
+              <!-- Center: Nav Options -->
+              <ul id="nav" class="navbar-nav mx-auto" style="display: flex; gap: 8px; align-items: center; margin-left: auto; margin-right: auto;">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/services.html"><i class="fas fa-briefcase"></i> Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> JobSeekers</a>
@@ -852,7 +879,7 @@
                     <li><a href="${pageContext.request.contextPath}/company/register">Register Company</a></li>
                     <li><a href="${pageContext.request.contextPath}/company/login">Company Login</a></li>
                     <li><a href="${pageContext.request.contextPath}/recruiter/login">Recruiters Login</a></li>
-					<li><a href="${pageContext.request.contextPath}/tech/login">Tech Persons Login</a></li>
+                    <li><a href="${pageContext.request.contextPath}/tech/login">Tech Persons Login</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search"></i> Jobs</a>
@@ -865,66 +892,151 @@
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/assessment/my-invites"><i class="fas fa-trophy"></i> Assessments</a></li>
               </ul>
-            </div>
-            <div class="button-group d-flex align-items-center ml-auto">
-              <a href="javascript:void(0)" data-toggle="modal" data-target="#signup" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
-              <a href="javascript:void(0)" data-toggle="modal" data-target="#login" class="btn-login"> <i class="lni lni-lock-alt"></i> Login </a>
+              
+              <!-- Right: Action Buttons -->
+              <div class="button-group d-flex align-items-center" style="gap: 15px;">
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#signup" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#login" class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
+              </div>
+              
             </div>
           </nav>
-        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- Hero Area -->
-<section class="hero-area">
+<!-- Hero Area Premium Redesign -->
+<section class="premium-hero-area">
+  <div class="premium-hero-bg-elements">
+    <div class="premium-blob-1"></div>
+    <div class="premium-blob-2"></div>
+  </div>
+  
   <div class="container">
-    <div class="row">
-      <div class="col-lg-10 offset-lg-1">
-        <div class="hero-content-wrapper">
-          <div class="hero-text wow fadeInUp" data-wow-delay=".3s">
-            <h1>Elevate Your Career <br>With JobU.</h1>
-            <p>Connect with the world's most innovative companies. <br> Your next big opportunity is just a search away.</p>
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="premium-hero-content animate-fade-up">
+          
+          <div class="premium-hero-badge">
+            <i class="fas fa-crown"></i> No.1 Verified Job Portal
           </div>
           
-          <div class="job-search-wrap-two mt-40 wow fadeInUp" data-wow-delay=".5s">
-            <div class="job-search-form">
-              <form action="${pageContext.request.contextPath}/jobs/search" method="get" style="display: flex; flex-wrap: wrap; width: 100%; align-items: center;">
-                <div class="single-field-item keyword">
-                  <label for="keyword">Role or Keyword</label> 
-                  <input id="keyword" name="keyword" type="text" placeholder="e.g. Software Engineer">
-                </div>
-                <div class="single-field-item location">
-                  <label for="location">Location</label> 
-                  <input id="location" name="location" type="text" placeholder="Remote, New York, etc.">
-                </div>
-                <div class="submit-btn">
-                  <button class="btn" type="submit">Find Jobs <i class="fas fa-arrow-right ml-2"></i></button>
-                </div>
-              </form>
-            </div>
-            
-            <div class="trending-keywords mt-30">
-              <div class="keywords style-two">
-                <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-right: 12px;">Trusted by candidates from:</span>
-                <div style="display: flex; justify-content: center; gap: 40px; margin-top: 20px; opacity: 0.5; filter: grayscale(1) invert(1);">
-                   <i class="fab fa-google fa-2x"></i>
-                   <i class="fab fa-amazon fa-2x"></i>
-                   <i class="fab fa-microsoft fa-2x"></i>
-                   <i class="fab fa-apple fa-2x"></i>
-                   <i class="fab fa-meta fa-2x"></i>
-                </div>
+          <h1 class="premium-hero-title">
+            Find Your Dream Job<br>
+            <span class="gradient-text">Build Your Future</span><br>
+            <span class="light-text">With Confidence</span>
+          </h1>
+          
+          <p class="premium-hero-subtitle">
+            Discover thousands of verified job opportunities from leading companies. Apply smarter, get hired faster, and take the next step in your career with our AI-powered platform.
+          </p>
+          
+          <div class="premium-hero-buttons">
+            <a href="${pageContext.request.contextPath}/jobs/all" class="btn-premium-primary">
+              Find Jobs <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="${pageContext.request.contextPath}/jobseeker/videos" class="btn-premium-secondary">
+              <i class="fas fa-file-upload"></i> Upload Resume
+            </a>
+          </div>
+          
+          <form action="${pageContext.request.contextPath}/jobs/search" method="get">
+            <div class="premium-search-panel">
+              <div class="premium-search-field">
+                <i class="fas fa-search"></i>
+                <input type="text" name="keyword" placeholder="Job title, keyword, or company">
               </div>
+              <div class="premium-search-field">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" name="location" placeholder="City, state, or remote">
+              </div>
+              <button type="submit" class="premium-search-btn">
+                Search
+              </button>
+            </div>
+          </form>
+          
+          <div class="premium-popular-searches">
+            <span>Popular:</span>
+            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Developer" class="premium-popular-pill">Developer</a>
+            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Java" class="premium-popular-pill">Java</a>
+            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Python" class="premium-popular-pill">Python</a>
+            <a href="${pageContext.request.contextPath}/jobs/search?keyword=React" class="premium-popular-pill">React</a>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="premium-hero-image-wrapper animate-fade-up" style="animation-delay: 0.2s;">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Professional Corporate Woman" class="premium-hero-image">
+          
+          <!-- Floating Card 1 -->
+          <div class="premium-floating-card floating-1">
+            <div class="fc-icon" style="background: #E6F6F1; color: #19A77B;"><i class="fas fa-briefcase"></i></div>
+            <div class="fc-content">
+              <h4><span class="premium-counter" data-target="${activeJobs != null ? activeJobs : 0}">0</span>+</h4>
+              <p>Active Jobs</p>
             </div>
           </div>
+          
+          <!-- Floating Card 2 -->
+          <div class="premium-floating-card floating-2">
+            <div class="fc-icon" style="background: #FEF3C7; color: #F59E0B;"><i class="fas fa-star"></i></div>
+            <div class="fc-content">
+              <h4><span class="premium-counter" data-target="${topCompanies != null ? topCompanies : 0}">0</span>+</h4>
+              <p>Top Companies</p>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Dashboard Stats -->
+<!-- Dashboard Stats Bar Integrated -->
+<section class="premium-stats-bar">
+  <div class="container">
+    <div class="premium-stats-container animate-fade-up" style="animation-delay: 0.4s;">
+      
+      <div class="premium-stat-item">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #19A77B, #3BC49A); box-shadow: 0 10px 20px rgba(25, 167, 123,0.3);"><i class="fas fa-briefcase"></i></div>
+        <div class="stat-info">
+          <h3><span class="premium-counter" data-target="${activeJobs != null ? activeJobs : 0}">0</span>+</h3>
+          <p>Active Jobs</p>
+        </div>
+      </div>
+      
+      <div class="premium-stat-item">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #10B981, #34D399); box-shadow: 0 10px 20px rgba(16,185,129,0.3);"><i class="fas fa-star"></i></div>
+        <div class="stat-info">
+          <h3><span class="premium-counter" data-target="${topCompanies != null ? topCompanies : 0}">0</span>+</h3>
+          <p>Top Companies</p>
+        </div>
+      </div>
+      
+      <div class="premium-stat-item">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #8B5CF6, #A78BFA); box-shadow: 0 10px 20px rgba(139,92,246,0.3);"><i class="fas fa-user-tie"></i></div>
+        <div class="stat-info">
+          <h3><span class="premium-counter" data-target="${professionals != null ? professionals : 0}">0</span>+</h3>
+          <p>Professionals</p>
+        </div>
+      </div>
+      
+      <div class="premium-stat-item">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #F59E0B, #FBBF24); box-shadow: 0 10px 20px rgba(245,158,11,0.3);"><i class="fas fa-rocket"></i></div>
+        <div class="stat-info">
+          <h3><span class="premium-counter" data-target="98">0</span>%</h3>
+          <p>Hiring Success</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
 <!-- FEATURE CARDS SECTION -->
 <section class="features-section" style="padding: 100px 0;">
   <div class="container">
@@ -965,26 +1077,365 @@
   </div>
 </section>
 
-<!-- Job Category Area -->
-<section class="job-category section py-5">
+<!-- Job Category Area Premium Redesign -->
+<style>
+.premium-explore-section {
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+}
+.premium-explore-section::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -10%; width: 120%; height: 200%;
+  background: radial-gradient(circle, rgba(25, 167, 123,0.03) 0%, rgba(255,255,255,0) 70%);
+  z-index: 0;
+}
+.premium-explore-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 60px;
+}
+.premium-explore-badge {
+  display: inline-block;
+  background: #E6F6F1;
+  color: #19A77B;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(25, 167, 123,0.15);
+  box-shadow: 0 4px 10px rgba(25, 167, 123,0.05);
+}
+.premium-explore-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.premium-explore-subtitle {
+  color: #64748B;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.premium-explore-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #19A77B, #06B6D4);
+  margin: 25px auto 0;
+  border-radius: 4px;
+}
+.premium-cat-card {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(229,231,235,0.8);
+  border-radius: 20px;
+  padding: 30px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  height: 100%;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+.premium-cat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(25, 167, 123,0.03), rgba(255,255,255,0));
+  opacity: 0; transition: all 0.4s ease; z-index: -1;
+}
+.premium-cat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(25, 167, 123,0.08);
+  border-color: rgba(25, 167, 123,0.3);
+}
+.premium-cat-card:hover::before { opacity: 1; }
+.premium-cat-card .icon-wrapper {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+  font-size: 1.8rem;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.premium-cat-card:hover .icon-wrapper {
+  transform: scale(1.1) translateY(-2px);
+}
+.premium-cat-card h3 {
+  font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 12px; transition: color 0.3s;
+}
+.premium-cat-card:hover h3 { color: #19A77B; }
+.premium-cat-card p {
+  font-size: 0.9rem; color: #64748B; margin-bottom: 24px; line-height: 1.6;
+}
+.premium-cat-job-count {
+  background: #F8FAFC; color: #475569; font-size: 0.8rem; font-weight: 700;
+  padding: 6px 14px; border-radius: 8px; display: inline-block;
+  margin-bottom: auto; border: 1px solid #E2E8F0;
+  transition: all 0.3s;
+}
+.premium-cat-card:hover .premium-cat-job-count {
+  background: #E6F6F1; border-color: rgba(25, 167, 123,0.1); color: #19A77B;
+}
+.premium-cat-footer {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  color: #19A77B;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.premium-cat-footer i {
+  margin-left: 8px; transition: transform 0.3s;
+}
+.premium-cat-card:hover .premium-cat-footer i {
+  transform: translateX(5px);
+}
+.premium-btn-view-all {
+  display: inline-block;
+  background: linear-gradient(135deg, #19A77B, #3BC49A);
+  color: white !important;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(25, 167, 123,0.3);
+  transition: all 0.3s;
+  margin-top: 50px;
+}
+.premium-btn-view-all:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(25, 167, 123,0.4);
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+</style>
+
+<section class="premium-explore-section">
+  <div class="container position-relative z-index-1">
+    <div class="premium-explore-header animate-fade-up">
+      <span class="premium-explore-badge">💼 Explore Careers</span>
+      <h2 class="premium-explore-title">Explore Opportunities</h2>
+      <p class="premium-explore-subtitle">Discover thousands of jobs across multiple industries and find the perfect opportunity for your career.</p>
+      <div class="premium-explore-divider"></div>
+    </div>
+    
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.1s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/IT_SOFTWARE" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #E6F6F1; color: #3BC49A;"><i class="fas fa-laptop-code"></i></div>
+          <h3>IT & Software</h3>
+          <p>Software engineering, cloud architecture, and data science roles.</p>
+          <div><span class="premium-cat-job-count">1,420 Jobs</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.2s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/FINANCE" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #ECFDF5; color: #10B981;"><i class="fas fa-chart-line"></i></div>
+          <h3>Finance & Banking</h3>
+          <p>Investment banking, accounting, and financial planning careers.</p>
+          <div><span class="premium-cat-job-count">875 Openings</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.3s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/HEALTHCARE" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #FEF2F2; color: #EF4444;"><i class="fas fa-heartbeat"></i></div>
+          <h3>Healthcare Services</h3>
+          <p>Medical, nursing, hospital and healthcare careers.</p>
+          <div><span class="premium-cat-job-count">2,350 Jobs</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.4s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/EDUCATION" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #FFFBEB; color: #F59E0B;"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Education Services</h3>
+          <p>Teaching, administration, and academic research positions.</p>
+          <div><span class="premium-cat-job-count">640 Jobs</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 5 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.1s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/MARKETING" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #F5F3FF; color: #8B5CF6;"><i class="fas fa-bullhorn"></i></div>
+          <h3>Marketing Services</h3>
+          <p>Digital marketing, brand management, and content creation.</p>
+          <div><span class="premium-cat-job-count">920 Openings</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 6 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.2s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/LEGAL" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #F3F4F6; color: #4B5563;"><i class="fas fa-balance-scale"></i></div>
+          <h3>Legal & Defense</h3>
+          <p>Corporate law, litigation, and defense attorney roles.</p>
+          <div><span class="premium-cat-job-count">310 Jobs</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 7 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.3s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/TECHNICAL_SUPPORT" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #FDF4FF; color: #D946EF;"><i class="fas fa-headset"></i></div>
+          <h3>Technical Support</h3>
+          <p>Helping customers solve technical issues and product support.</p>
+          <div><span class="premium-cat-job-count">1,150 Jobs</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Card 8 -->
+      <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.4s;">
+        <a href="${pageContext.request.contextPath}/jobs/category/LOCAL_JOBS" class="premium-cat-card">
+          <div class="icon-wrapper" style="background: #F0FDF4; color: #22C55E;"><i class="fas fa-store"></i></div>
+          <h3>Local Jobs</h3>
+          <p>Retail, hospitality, and local business opportunities.</p>
+          <div><span class="premium-cat-job-count">4,200 Openings</span></div>
+          <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </div>
+    
+    <div class="text-center animate-fade-up" style="animation-delay: 0.5s;">
+      <a href="${pageContext.request.contextPath}/jobs/all" class="premium-btn-view-all">View All Opportunities <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED JOBS SECTION -->
+<style>
+  .premium-job-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .premium-job-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(25, 167, 123, 0.08);
+    border-color: var(--primary);
+  }
+  .premium-job-card .company-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .premium-job-card .company-logo { 
+    width: 50px; height: 50px; border-radius: 12px; background: #F8FAFC; 
+    display: flex; align-items: center; justify-content: center; 
+    border: 1px solid #F1F5F9; overflow: hidden;
+    transition: all 0.3s;
+  }
+  .premium-job-card:hover .company-logo {
+    transform: scale(1.05);
+  }
+  .premium-job-card h3 { font-size: 1.25rem; font-weight: 800; color: #0F172A; margin-bottom: 10px; transition: color 0.3s; }
+  .premium-job-card:hover h3 { color: #19A77B; }
+  .premium-job-card .location { font-size: 0.9rem; color: #6B7280; margin-bottom: 25px; font-weight: 500; }
+  .premium-job-card .tags-container { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
+  .premium-job-card .premium-tag { background: #E8F5E9; color: #19A77B; font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; font-weight: 700; border: 1px solid rgba(25,167,123,0.2); }
+  .premium-job-card .time-ago { font-size: 0.8rem; color: #9CA3AF; font-weight: 600; }
+
+  .premium-pill-btn {
+    background: linear-gradient(135deg, #19A77B, #3BC49A);
+    color: white !important;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(25, 167, 123, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+  }
+  .premium-pill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(25, 167, 123, 0.3);
+  }
+</style>
+
+<section class="featured-jobs section py-5" style="background: #F8FAFC; padding-top: 80px !important; padding-bottom: 80px !important;">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="section-title text-center">
-        
-          <h2>Find Jobs by Interest</h2>
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 col-md-10 text-center">
+        <div class="mb-0">
+          <span style="background: #E8F5E9; color: #19A77B; border: 1px solid #A5D6A7; padding: 8px 20px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px; letter-spacing: 0.5px;"><i class="fas fa-rocket" style="margin-right: 5px;"></i>EXPLORE CAREERS</span>
+          <h2 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 15px; color: #0F172A; letter-spacing: -1px;">Explore Opportunities</h2>
+          <p style="color: #64748B; font-size: 1.1rem; max-width: 650px; margin: 0 auto; line-height: 1.7;">Discover thousands of jobs across multiple industries and find the perfect opportunity for your career.</p>
+          <div style="height: 3px; width: 60px; background: linear-gradient(90deg, #19A77B, #3BC49A); margin: 25px auto 0; border-radius: 3px;"></div>
         </div>
       </div>
     </div>
     <div class="row g-4">
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/TECHNICAL_SUPPORT" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/technical_support.png" alt="Technical Support"></div><h3>Technical Support</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/HEALTHCARE" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/healthcare.png" alt="Healthcare"></div><h3>Healthcare Services</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/FINANCE" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/finance.png" alt="Finance"></div><h3>Finance & Banking</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/EDUCATION" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/education.png" alt="Education"></div><h3>Education Services</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/MARKETING" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/marketing.png" alt="Marketing"></div><h3>Marketing Services</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/IT_SOFTWARE" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/it_software.png" alt="IT Software"></div><h3>IT & Software</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/LOCAL_JOBS" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/local_jobs.png" alt="Local Jobs"></div><h3>Local Jobs</h3></a></div>
-      <div class="col-lg-3 col-md-6"><a href="${pageContext.request.contextPath}/jobs/category/LEGAL" class="single-cat"><div class="icon"><img src="${pageContext.request.contextPath}/assets/images/categories/legal.png" alt="Legal"></div><h3>Legal & Defense</h3></a></div>
+      <c:choose>
+        <c:when test="${empty featuredJobs}">
+          <div class="col-12 text-center py-5">
+            <h4 style="color: #475569; font-weight: 600;">No featured jobs are available right now. Please check back later.</h4>
+          </div>
+        </c:when>
+        <c:otherwise>
+          <c:forEach var="job" items="${featuredJobs}">
+            <div class="col-lg-3 col-md-6 mb-4">
+              <a href="${pageContext.request.contextPath}/jobs/details?id=${job.id}" class="premium-job-card">
+                <div class="company-header">
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-logo">
+                      <c:choose>
+                        <c:when test="${not empty job.company.logo}">
+                          <img src="${job.company.logo}" alt="${job.company.name} Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                        </c:when>
+                        <c:otherwise>
+                          <span style="font-size: 1.5rem; font-weight: 700; color: #19A77B;">${job.company.name.substring(0, 1).toUpperCase()}</span>
+                        </c:otherwise>
+                      </c:choose>
+                    </div>
+                    <h4 style="font-size: 1rem; font-weight: 700; margin: 0; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;">${job.company.name}</h4>
+                  </div>
+                  <i class="far fa-bookmark" style="color: #9CA3AF; font-size: 1.2rem;"></i>
+                </div>
+                <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${job.title}">${job.title}</h3>
+                <p class="location"><i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #19A77B;"></i> ${job.location}</p>
+                <div class="tags-container">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <c:if test="${not empty job.employmentType}">
+                      <span class="premium-tag">${job.employmentType}</span>
+                    </c:if>
+                    <c:if test="${not empty job.workMode}">
+                      <span class="premium-tag" style="background: #ECFDF5; color: #10B981; border-color: rgba(16,185,129,0.2);">${job.workMode}</span>
+                    </c:if>
+                  </div>
+                  <span class="time-ago">${job.postedDate}</span>
+                </div>
+              </a>
+            </div>
+          </c:forEach>
+        </c:otherwise>
+      </c:choose>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+        <a href="${pageContext.request.contextPath}/jobs/all" class="premium-pill-btn">View All Jobs <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
   </div>
 </section>
@@ -1026,64 +1477,80 @@
 </div>
 
 <!-- Footer - Premium Design -->
-<footer class="footer">
+<style>
+  .footer-premium {
+    background: #0B0F19; /* Extremely deep dark blue */
+    padding: 100px 0 40px;
+    color: #94A3B8;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-premium::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(90deg, #19A77B, #06B6D4, #8B5CF6);
+  }
+  .footer-premium h3 { color: white; font-size: 1.25rem; font-weight: 800; margin-bottom: 25px; }
+  .footer-premium a { color: #94A3B8; text-decoration: none; transition: color 0.3s; font-size: 0.95rem; }
+  .footer-premium a:hover { color: #3BC49A; }
+  .footer-social-icons { display: flex; gap: 15px; list-style: none; padding: 0; margin-top: 30px; }
+  .footer-social-icons a { 
+    background: rgba(255,255,255,0.05); width: 45px; height: 45px; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;
+  }
+  .footer-social-icons a:hover { background: #19A77B; color: white; transform: translateY(-3px); border-color: transparent; box-shadow: 0 10px 20px rgba(25, 167, 123,0.3); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 60px; font-size: 0.9rem; }
+</style>
+
+<footer class="footer-premium">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-        <div class="single-footer pe-lg-5">
-          <a href="${pageContext.request.contextPath}/index.html" style="text-decoration: none;"><span style="font-size: 1.8rem; font-weight: 800; color: #fff; display: block;" class="mb-4">JobU</span></a>
-          <p class="mb-4" style="opacity: 0.7; line-height: 1.8;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>
-          <div class="footer-social">
-            <ul style="padding-left: 0; list-style: none; display: flex; gap: 16px;">
-              <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-              <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-              <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            </ul>
-          </div>
-        </div>
+    <div class="row g-5">
+      <div class="col-lg-4 col-md-6">
+        <a href="${pageContext.request.contextPath}/index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px; margin-bottom: 25px;">
+          <img src="${pageContext.request.contextPath}/assets/images/logo/logo-white.png" style="height: 40px; filter: brightness(0) invert(1);" alt="JobU Logo" />
+        </a>
+        <p style="line-height: 1.8; color: #64748B;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>
+        <ul class="footer-social-icons">
+          <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
       </div>
-      <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-        <div class="single-footer">
-          <h3>Platform</h3>
-          <ul class="quick-links" style="list-style: none; padding-left: 0;">
-            <li class="mb-3"><a href="#">Browse Jobs</a></li>
-            <li class="mb-3"><a href="#">Companies</a></li>
-            <li class="mb-3"><a href="#">Candidates</a></li>
-            <li class="mb-3"><a href="#">Pricing</a></li>
-          </ul>
-        </div>
+      <div class="col-lg-2 col-md-6">
+        <h3>Platform</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 15px;"><a href="#">Browse Jobs</a></li>
+          <li style="margin-bottom: 15px;"><a href="#">Companies</a></li>
+          <li style="margin-bottom: 15px;"><a href="#">Candidates</a></li>
+          <li style="margin-bottom: 15px;"><a href="#">Pricing</a></li>
+        </ul>
       </div>
-      <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-        <div class="single-footer">
-          <h3>Support</h3>
-          <ul class="quick-links" style="list-style: none; padding-left: 0;">
-            <li class="mb-3"><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
-            <li class="mb-3"><a href="#">Help Center</a></li>
-            <li class="mb-3"><a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></li>
-            <li class="mb-3"><a href="#">Privacy Policy</a></li>
-            <li class="mb-3"><a href="#">Contact Us</a></li>
-          </ul>
-        </div>
+      <div class="col-lg-2 col-md-6">
+        <h3>Support</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
+          <li style="margin-bottom: 15px;"><a href="#">Help Center</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></li>
+          <li style="margin-bottom: 15px;"><a href="#">Privacy Policy</a></li>
+        </ul>
       </div>
       <div class="col-lg-4 col-md-6">
-        <div class="single-footer">
-          <h3>Stay Updated</h3>
-          <p class="mb-4" style="opacity: 0.7;">Subscribe to our newsletter for the latest career tips and job alerts.</p>
-          <form action="${pageContext.request.contextPath}/subscribe" method="post" class="newsletter-inner">
-            <input name="email" type="email" required placeholder="Email address" class="common-input">
-            <button class="btn" type="submit">Subscribe Now</button>
-          </form>
-        </div>
+        <h3>Stay Updated</h3>
+        <p style="margin-bottom: 25px; color: #64748B;">Subscribe to our newsletter for the latest career tips and job alerts.</p>
+        <form action="${pageContext.request.contextPath}/subscribe" method="post" style="display: flex; gap: 10px;">
+          <input name="email" type="email" required placeholder="Email address" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 20px; border-radius: 12px; width: 100%; outline: none;">
+          <button type="submit" style="background: linear-gradient(135deg, #19A77B, #3BC49A); color: white; border: none; padding: 0 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s;">Join</button>
+        </form>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-md-6 text-center text-md-start">
-          <p class="mb-0">&copy; 2026 JobU. Built for the future of work.</p>
+          <p class="mb-0 text-muted">&copy; 2026 JobU. Built for the future of work.</p>
         </div>
         <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-          <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by JobU Platform</p>
+          <p class="mb-0 text-muted">Designed with <i class="fas fa-heart text-danger"></i> by JobU Platform</p>
         </div>
       </div>
     </div>
@@ -1159,7 +1626,13 @@
         const terms = document.getElementById('termsCheckbox'); 
         if(pwd !== conf){ e.preventDefault(); alert('Passwords do not match.'); return false; } 
         if(pwd && pwd.length < 6){ e.preventDefault(); alert('Password must be at least 6 characters.'); return false; } 
+        if(pwd && !/[A-Z]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one uppercase letter.'); return false; }
+        if(pwd && !/[a-z]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one lowercase letter.'); return false; }
+        if(pwd && !/[0-9]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one number.'); return false; }
+        if(pwd && !/[!@#$%^&*()_+\-=\[\]{}|;:\',.<>?/]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one special character.'); return false; }
         if(terms && !terms.checked){ e.preventDefault(); alert('Please agree to Terms & Conditions.'); return false; } 
+        
+        alert("Registration successful!");
         return true; 
       }); 
     } 
@@ -1265,5 +1738,45 @@
     }
   });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.premium-counter');
+    
+    const animateCounter = (counter) => {
+      const target = +counter.getAttribute('data-target');
+      const duration = 2000; 
+      let current = 0;
+      
+      const updateCounter = () => {
+        const increment = target / (duration / 16); // 60fps
+        current += increment;
+        
+        if (current < target) {
+          counter.innerText = Math.ceil(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      
+      updateCounter();
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    counters.forEach(counter => {
+      observer.observe(counter);
+    });
+  });
+</script>
 </body>
 </html>
+

@@ -17,6 +17,8 @@ public interface JobRepository extends JpaRepository<Job, Long>{
     List<Job> findByCompany_Id(Long companyId);
 
     List<Job> findByStatus(JobStatus status);
+    
+    List<Job> findTop8ByStatusOrderByPostedDateDesc(JobStatus status);
 
 	List<Job> findByCreatedBy_Id(Long recruiterId);
 
