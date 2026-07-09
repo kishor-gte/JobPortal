@@ -2,7 +2,7 @@ name: Deploy to VPS (dev/staging)
 
 on:
   push:
-    branches: [dev]
+    branches: [main]
 
 jobs:
   deploy:
