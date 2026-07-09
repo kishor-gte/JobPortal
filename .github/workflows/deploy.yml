@@ -26,7 +26,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "target/JobPortal-1.war"
+          source: "target/jobportal.war"
           target: "/opt/jobportal/incoming/"
           strip_components: 1
 
@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            mv /opt/jobportal/incoming/JobPortal-1.war /opt/jobportal/app.war
+            mv /opt/jobportal/incoming/jobportal.war /opt/jobportal/app.war
             sudo systemctl restart jobportal
             sleep 5
             sudo systemctl status jobportal --no-pager
