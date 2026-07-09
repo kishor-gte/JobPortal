@@ -1,0 +1,19 @@
+# Systemd unit for JobPortal (Spring Boot, executable WAR)
+# Install on VPS at: /etc/systemd/system/jobportal.service
+# Then: sudo systemctl daemon-reload && sudo systemctl enable jobportal
+
+[Unit]
+Description=JobPortal Spring Boot App (dev/staging)
+After=network.target mysql.service
+
+[Service]
+User=deploy
+WorkingDirectory=/opt/jobportal
+ExecStart=/usr/bin/java -jar /opt/jobportal/app.war
+Restart=always
+RestartSec=5
+EnvironmentFile=/opt/jobportal/.env
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
