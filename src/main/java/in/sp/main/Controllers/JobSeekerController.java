@@ -633,7 +633,7 @@ public class JobSeekerController {
     
     @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam String email, @RequestParam(required = false) String role, Model model) {
-        String response = passwordResetService.createPasswordResetToken(email);
+        String response = passwordResetService.createPasswordResetToken(email, role);
         if (response.startsWith("Failed") || response.equals("Email not found")) {
             model.addAttribute("error", response);
         } else {

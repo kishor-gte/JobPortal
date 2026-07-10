@@ -569,7 +569,7 @@
                         New Job Seeker?
                         <a href="${pageContext.request.contextPath}/jobSeekers/register">Register Here <i class="fas fa-arrow-right"></i></a>
                         <span style="margin: 0 8px; color: var(--border-color);">|</span>
-                        <a href="${pageContext.request.contextPath}/auth/forgot-password">Forgot Password?</a>
+                        <a href="${pageContext.request.contextPath}/user/forgot-password">Forgot Password?</a>
                     </p>
                 </div>
 

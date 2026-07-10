@@ -339,14 +339,23 @@
                 <div class="form-group">
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" name="password" placeholder="Password" class="form-control" required autocomplete="current-password">
+                        <input type="password" id="adminLoginPwd" name="password" placeholder="Password" class="form-control" required autocomplete="current-password" style="padding-right: 50px;">
+                        <span onclick="toggleAdminLoginPwd()" id="adminLoginEye" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                     </div>
+                    <small style="display:block;margin-top:6px;font-size:0.75rem;color:#94a3b8;text-align:left;padding-left:4px;">
+                        <i class="fas fa-info-circle" style="color:#19A77B;margin-right:4px;"></i>
+                        Min 6 chars, 1 uppercase, 1 lowercase &amp; 1 special character
+                    </small>
                 </div>
 
                 <button type="submit" class="btn-primary" id="loginBtn">
                     <i class="fas fa-arrow-right-to-bracket"></i> Sign In
                 </button>
             </form>
+
+            <div class="register-link" style="margin-bottom: 15px;">
+                <p><a href="${pageContext.request.contextPath}/admin/forgot-password"><i class="fas fa-key" style="margin-right: 8px; color: var(--primary);"></i> Forgot Password?</a></p>
+            </div>
 
             <div class="register-link">
                 <p><i class="fas fa-user-plus" style="margin-right: 8px; color: var(--primary);"></i> New admin? <a href="${pageContext.request.contextPath}/getregisterAdmin">Register here</a></p>
@@ -368,6 +377,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function toggleAdminLoginPwd() {
+    const input = document.getElementById('adminLoginPwd');
+    const icon = document.getElementById('adminLoginEye');
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
 </script>
 </body>
 </html>

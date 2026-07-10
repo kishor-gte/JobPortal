@@ -1,6 +1,5 @@
 package in.sp.main.Config;
 
-import in.sp.main.Configuration.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private in.sp.main.Configuration.JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,6 +32,7 @@ public class SecurityConfig {
                 .requestMatchers("/recruiter/login", "/recruiter/login1", "/recruiter/register","tech/add-category", "/recruiter/verify-otp").permitAll()
                 .requestMatchers("/tech/login", "/tech/login1").permitAll()
                 .requestMatchers("/forgot-password", "/reset-password", "/api/password/**").permitAll()
+                .requestMatchers("/admin/forgot-password", "/recruiter/forgot-password", "/techperson/forgot-password", "/company/forgot-password", "/user/forgot-password").permitAll()
                 
                 // Secure Tech Person Routes
                 .requestMatchers("/tech/**").hasRole("TECHPERSON")

@@ -651,7 +651,7 @@
             <div class="register-link">
                 <p>
                     <i class="fas fa-arrow-left me-1"></i> Remember your password?
-                    <a href="${pageContext.request.contextPath}/jobSeekers/login">
+                    <a href="${pageContext.request.contextPath}/tech/login">
                         Back to Login <i class="fas fa-arrow-right fa-xs"></i>
                     </a>
                 </p>

@@ -13,10 +13,10 @@
         </c:choose>
         <!-- Logic for status badge -->
         <c:choose>
-            <c:when test="${isCompleted == true || comp.examStartTime.plusMinutes(comp.examDurationMinutes).isBefore(now)}">
+            <c:when test="${isCompleted == true || compIsExamEnded[comp.id]}">
                 <div class="comp-status-badge status-completed">Completed</div>
             </c:when>
-            <c:when test="${(comp.examStartTime.isBefore(now) || comp.examStartTime.isEqual(now)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).isAfter(now)}">
+            <c:when test="${compIsLive[comp.id]}">
                 <div class="comp-status-badge status-live">Live</div>
             </c:when>
             <c:otherwise>
@@ -27,9 +27,17 @@
     <div class="comp-body">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <h3 class="comp-title">${comp.title}</h3>
-            <span class="badge ${comp.difficulty eq 'Hard' ? 'bg-danger' : (comp.difficulty eq 'Medium' ? 'bg-warning' : 'bg-success')}" style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">
-                ${comp.difficulty}
-            </span>
+            <c:choose>
+                <c:when test="${comp.difficulty eq 'Hard'}">
+                    <span class="badge bg-danger" style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">${comp.difficulty}</span>
+                </c:when>
+                <c:when test="${comp.difficulty eq 'Medium'}">
+                    <span class="badge bg-warning" style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">${comp.difficulty}</span>
+                </c:when>
+                <c:otherwise>
+                    <span class="badge bg-success" style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">${comp.difficulty}</span>
+                </c:otherwise>
+            </c:choose>
         </div>
         <p class="comp-desc">${comp.description}</p>
         
@@ -54,7 +62,7 @@
                 </c:when>
                 <c:when test="${isRegistered}">
                     <c:choose>
-                        <c:when test="${(comp.examStartTime.isBefore(now) || comp.examStartTime.isEqual(now)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).isAfter(now)}">
+                        <c:when test="${compIsLive[comp.id]}">
                             <a href="${pageContext.request.contextPath}/student/coding-competitions/${comp.id}/start" class="btn-register" style="background: #f59e0b; color: white; display: block; text-align: center; text-decoration: none;"><i class="fas fa-play"></i> Start Exam</a>
                         </c:when>
                         <c:otherwise>
@@ -62,14 +70,14 @@
                         </c:otherwise>
                     </c:choose>
                 </c:when>
-                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).isBefore(now)}">
+                <c:when test="${compIsExamEnded[comp.id]}">
                     <button class="btn-register" disabled>Competition Closed</button>
                 </c:when>
-                <c:when test="${not empty comp.registrationStartTime and now.isBefore(comp.registrationStartTime)}">
+                <c:when test="${compIsRegNotStarted[comp.id]}">
                     <fmt:parseDate value="${comp.registrationStartTime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegDate" type="both" />
                     <button class="btn-register" disabled style="font-size: 0.8rem;">Opens: <fmt:formatDate pattern="MMM dd, h:mm a" value="${parsedRegDate}" /></button>
                 </c:when>
-                <c:when test="${now.isAfter(comp.registrationEndTime)}">
+                <c:when test="${compIsRegClosed[comp.id]}">
                     <button class="btn-register" disabled>Registration Closed</button>
                 </c:when>
                 <c:otherwise>

@@ -258,7 +258,8 @@
     }
 
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="text"] {
         width: 100%;
         padding: 14px 16px 14px 46px;
         border: 2px solid var(--border-color);
@@ -269,7 +270,8 @@
     }
 
     input[type="email"]:focus,
-    input[type="password"]:focus {
+    input[type="password"]:focus,
+    input[type="text"]:focus {
         outline: none;
         border-color: var(--primary);
         background-color: white;
@@ -548,8 +550,13 @@
                         <label for="password"><i class="fas fa-lock"></i> Password</label>
                         <div class="input-wrapper">
                             <span class="input-icon password-icon"></span>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" class="form-control" id="techLoginPwd" name="password" placeholder="Enter your password" required style="padding-right: 50px;">
+                            <span onclick="toggleTechLoginPwd()" id="techLoginEye" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                         </div>
+                        <small style="display:block;margin-top:6px;font-size:0.75rem;color:#94a3b8;text-align:left;padding-left:4px;">
+                            <i class="fas fa-info-circle" style="color:#19A77B;margin-right:4px;"></i>
+                            Min 6 chars, 1 uppercase, 1 lowercase &amp; 1 special character
+                        </small>
                     </div>
                     <button type="submit" class="btn-primary" id="submitBtn">
                         <i class="fas fa-sign-in-alt"></i> Login
@@ -557,7 +564,7 @@
                 </form>
      
                 <div class="forgot-password-link">
-                    <p><a href="${pageContext.request.contextPath}/auth/forgot-password"><i class="fas fa-key"></i> Forgot Password?</a></p>
+                    <p><a href="${pageContext.request.contextPath}/techperson/forgot-password"><i class="fas fa-key"></i> Forgot Password?</a></p>
                 </div>
             </div>
         </div>
@@ -567,6 +574,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+    function toggleTechLoginPwd() {
+        const pwd = document.getElementById('techLoginPwd');
+        const eye = document.getElementById('techLoginEye').querySelector('i');
+        if (pwd.type === 'password') {
+            pwd.type = 'text';
+            eye.className = 'fas fa-eye-slash';
+        } else {
+            pwd.type = 'password';
+            eye.className = 'fas fa-eye';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('loginForm');
         const submitBtn = document.getElementById('submitBtn');

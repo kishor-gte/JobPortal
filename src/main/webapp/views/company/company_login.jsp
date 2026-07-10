@@ -316,7 +316,8 @@
         }
 
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="text"] {
             width: 100%;
             padding: 14px 14px 14px 48px;
             border: 2px solid #e2e8f0;
@@ -522,8 +523,13 @@
                         <label for="password">Password</label>
                         <div class="input-field">
                             <i class="fas fa-lock input-icon"></i>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required style="padding-right: 48px;">
+                            <span onclick="toggleLoginPwd()" id="eyeIcon" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--primary);font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                         </div>
+                        <small style="display:block;margin-top:6px;font-size:0.75rem;color:#94a3b8;">
+                            <i class="fas fa-info-circle" style="color:#19A77B;margin-right:4px;"></i>
+                            Min 6 chars, 1 uppercase, 1 lowercase &amp; 1 special character
+                        </small>
                     </div>
 
                     <button type="submit">
@@ -531,7 +537,7 @@
                     </button>
 
                     <div class="forgot">
-                        <a href="${pageContext.request.contextPath}/auth/forgot-password?role=company">
+                        <a href="${pageContext.request.contextPath}/company/forgot-password">
                             <i class="fas fa-question-circle me-1"></i> Forgot password?
                         </a>
                     </div>
@@ -544,15 +550,16 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS for scroll animations
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
+        AOS.init({ duration: 800, once: true, offset: 50 });
+        function toggleLoginPwd() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            const isText = input.type === 'text';
+            input.type = isText ? 'password' : 'text';
+            icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        }
     </script>
 </body>
 </html>

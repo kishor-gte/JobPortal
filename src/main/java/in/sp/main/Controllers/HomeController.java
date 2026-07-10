@@ -79,6 +79,15 @@ public class HomeController {
 		model.addAttribute("topCompanies", companyRepository.count());
 		model.addAttribute("professionals", jobSeekerRepository.count());
 		
+		model.addAttribute("countIT", jobRepository.countByJobCategoryContaining("IT_SOFTWARE"));
+		model.addAttribute("countFinance", jobRepository.countByJobCategoryContaining("FINANCE"));
+		model.addAttribute("countHealthcare", jobRepository.countByJobCategoryContaining("HEALTHCARE"));
+		model.addAttribute("countEducation", jobRepository.countByJobCategoryContaining("EDUCATION"));
+		model.addAttribute("countMarketing", jobRepository.countByJobCategoryContaining("MARKETING"));
+		model.addAttribute("countLegal", jobRepository.countByJobCategoryContaining("LEGAL"));
+		model.addAttribute("countTechSupport", jobRepository.countByJobCategoryContaining("TECHNICAL_SUPPORT"));
+		model.addAttribute("countLocal", jobRepository.countByJobCategoryContaining("LOCAL_JOBS"));
+		
 		List<Job> featuredJobs = jobRepository.findTop8ByStatusOrderByPostedDateDesc(JobStatus.OPEN);
 		model.addAttribute("featuredJobs", featuredJobs);
 		
@@ -90,6 +99,15 @@ public class HomeController {
 		model.addAttribute("activeJobs", jobRepository.count());
 		model.addAttribute("topCompanies", companyRepository.count());
 		model.addAttribute("professionals", jobSeekerRepository.count());
+		
+		model.addAttribute("countIT", jobRepository.countByJobCategoryContaining("IT_SOFTWARE"));
+		model.addAttribute("countFinance", jobRepository.countByJobCategoryContaining("FINANCE"));
+		model.addAttribute("countHealthcare", jobRepository.countByJobCategoryContaining("HEALTHCARE"));
+		model.addAttribute("countEducation", jobRepository.countByJobCategoryContaining("EDUCATION"));
+		model.addAttribute("countMarketing", jobRepository.countByJobCategoryContaining("MARKETING"));
+		model.addAttribute("countLegal", jobRepository.countByJobCategoryContaining("LEGAL"));
+		model.addAttribute("countTechSupport", jobRepository.countByJobCategoryContaining("TECHNICAL_SUPPORT"));
+		model.addAttribute("countLocal", jobRepository.countByJobCategoryContaining("LOCAL_JOBS"));
 		
 		List<Job> featuredJobs = jobRepository.findTop8ByStatusOrderByPostedDateDesc(JobStatus.OPEN);
 		model.addAttribute("featuredJobs", featuredJobs);

@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <!-- External CSS (preserved for backend compatibility) -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LineIcons.2.0.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/tiny-slider.css" />
@@ -379,10 +379,9 @@
 
   .premium-hero-image-wrapper { position: relative; z-index: 5; margin-left: 20px; }
   .premium-hero-image {
-    width: 100%; height: 550px; object-fit: cover;
+    width: 100%; height: auto; object-fit: contain;
     border-radius: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-    border: 6px solid rgba(255,255,255,0.8);
-    animation: float-card 8s ease-in-out infinite;
+    border: none;
   }
   .premium-floating-card {
     position: absolute; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
@@ -393,6 +392,12 @@
   .premium-floating-card:hover { transform: translateY(-5px) scale(1.02); }
   .floating-1 { top: 10%; left: -30px; animation: float-card 6s ease-in-out infinite alternate; }
   .floating-2 { bottom: 15%; right: -20px; animation: float-card 7s ease-in-out infinite alternate-reverse; }
+  
+  @keyframes float-card {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-25px); }
+  }
+  
   .fc-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
   .fc-content h4 { font-size: 1.2rem; font-weight: 800; color: #0F172A; margin: 0 0 2px; }
   .fc-content p { font-size: 0.8rem; font-weight: 600; color: #64748B; margin: 0; }
@@ -617,13 +622,86 @@
     box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
   }
 
+  /* ========== RESPONSIVE ========== */
   @media (max-width: 991px) {
-    .navbar-area { width: 100%; top: 0; border-radius: 0; }
-    .hero-text h1 { font-size: 3rem; }
-    .job-search-form { flex-direction: column; padding: 24px; border-radius: 32px; }
-    .single-field-item { border-right: none; border-bottom: 1px solid var(--slate-50); width: 100%; padding: 16px 0; }
-    .submit-btn { width: 100%; margin-top: 24px; }
-    .submit-btn button { width: 100%; }
+    .navbar-area { width: 100%; top: 0; border-radius: 0; padding: 15px 20px; height: auto !important; position: absolute; }
+    .navbar-area.sticky { position: fixed; }
+    
+    .navbar-collapse {
+      background: #ffffff !important;
+      padding: 20px !important;
+      border-radius: 16px !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+      margin-top: 15px !important;
+      height: auto !important;
+      max-height: calc(100vh - 100px) !important;
+      overflow-y: auto !important;
+      border: 1px solid #E5E7EB !important;
+    }
+
+    .navbar-nav {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    .navbar-nav .nav-item {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .navbar-nav .nav-item .nav-link {
+      width: 100%;
+      justify-content: flex-start;
+      padding: 12px 16px !important;
+    }
+
+    .header .navbar-nav .nav-item .sub-menu {
+      position: static !important;
+      box-shadow: none !important;
+      border: none !important;
+      background: #F8FAFC !important;
+      margin-top: 8px !important;
+      padding: 10px !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      display: none !important;
+    }
+
+    .header .navbar-nav .nav-item:hover .sub-menu {
+      display: block !important;
+    }
+
+    .button-group {
+      flex-direction: column !important;
+      width: 100% !important;
+      gap: 10px !important;
+      margin-top: 20px !important;
+    }
+    
+    .btn-register, .btn-login {
+      width: 100% !important;
+      justify-content: center !important;
+      margin: 0 !important;
+    }
+
+    .hero-text h1 { font-size: 2.5rem; }
+    .premium-search-panel { flex-direction: column; padding: 16px; border-radius: 20px; gap: 10px; }
+    .premium-search-field { width: 100%; border-right: none; border-bottom: 1px solid #E2E8F0; padding-bottom: 10px; margin-bottom: 5px; }
+    .premium-search-field:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .premium-search-btn { width: 100%; justify-content: center; }
+    .premium-hero-area { padding: 120px 0 60px; }
+    .premium-hero-buttons { flex-direction: column; }
+    .premium-hero-buttons a { width: 100%; justify-content: center; text-align: center; }
+    .premium-stats-bar { margin-top: 30px; }
+    .scroll-top { right: 20px !important; bottom: 80px !important; }
+    .whatsapp-float { right: 20px !important; bottom: 20px !important; }
+    .chat-widget { right: 20px !important; bottom: 140px !important; }
+    .chat-container { width: 300px; height: 400px; right: 0; }
   }
 
   @keyframes float {
@@ -847,18 +925,18 @@
   <div class="navbar-area" id="navbarSticky">
     <div class="container">
       <div class="row align-items-center">
-          <nav class="navbar navbar-expand-lg" style="width: 100%; display: flex; justify-content: space-between; align-items: center; position: relative;">
+          <nav class="navbar navbar-expand-lg w-100 position-relative">
             
             <!-- Left: Logo -->
-            <a class="custom-premium-logo" href="${pageContext.request.contextPath}/" style="position: absolute; left: -95px; display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
+            <a class="navbar-brand custom-premium-logo" href="${pageContext.request.contextPath}/" style="display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
               <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block; opacity: 1 !important; visibility: visible !important; background-color: transparent !important;" />
             </a>
             
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="toggler-icon"></span> <span class="toggler-icon"></span> <span class="toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="flex-grow: 1; justify-content: space-between;">
+            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               
               <!-- Center: Nav Options -->
               <ul id="nav" class="navbar-nav mx-auto" style="display: flex; gap: 8px; align-items: center; margin-left: auto; margin-right: auto;">
@@ -894,9 +972,9 @@
               </ul>
               
               <!-- Right: Action Buttons -->
-              <div class="button-group d-flex align-items-center" style="gap: 15px;">
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#signup" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#login" class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
+              <div class="button-group d-flex align-items-center mt-3 mt-lg-0" style="gap: 15px;">
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signup" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
               </div>
               
             </div>
@@ -968,18 +1046,12 @@
         </div>
       </div>
       
-      <div class="col-lg-6 d-none d-lg-block">
+      <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="premium-hero-image-wrapper animate-fade-up" style="animation-delay: 0.2s;">
-          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Professional Corporate Woman" class="premium-hero-image">
+          <img src="${pageContext.request.contextPath}/assets/images/premium-hero-img.png" alt="Professional Corporate Team" class="premium-hero-image">
           
           <!-- Floating Card 1 -->
-          <div class="premium-floating-card floating-1">
-            <div class="fc-icon" style="background: #E6F6F1; color: #19A77B;"><i class="fas fa-briefcase"></i></div>
-            <div class="fc-content">
-              <h4><span class="premium-counter" data-target="${activeJobs != null ? activeJobs : 0}">0</span>+</h4>
-              <p>Active Jobs</p>
-            </div>
-          </div>
+         
           
           <!-- Floating Card 2 -->
           <div class="premium-floating-card floating-2">
@@ -1003,10 +1075,10 @@
       
       <div class="premium-stat-item">
         <div class="stat-icon" style="background: linear-gradient(135deg, #19A77B, #3BC49A); box-shadow: 0 10px 20px rgba(25, 167, 123,0.3);"><i class="fas fa-briefcase"></i></div>
-        <div class="stat-info">
-          <h3><span class="premium-counter" data-target="${activeJobs != null ? activeJobs : 0}">0</span>+</h3>
-          <p>Active Jobs</p>
-        </div>
+		<div class="stat-info">
+		          <h3><span class="premium-counter" data-target="${activeJobs != null ? activeJobs : 0}">0</span>+</h3>
+		          <p>Active Jobs</p>
+		        </div>
       </div>
       
       <div class="premium-stat-item">
@@ -1038,8 +1110,18 @@
 </section>
 
 <!-- FEATURE CARDS SECTION -->
-<section class="features-section" style="padding: 100px 0;">
+<section class="features-section" style="padding: 100px 0; background-color: #ffffff;">
   <div class="container">
+    <div class="row justify-content-center mb-5 animate-fade-up">
+      <div class="col-lg-8 col-md-10 text-center">
+        <div class="mb-0">
+          <span style="background: #E8F5E9; color: #19A77B; border: 1px solid #A5D6A7; padding: 8px 20px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px; letter-spacing: 0.5px;"><i class="fas fa-bolt" style="margin-right: 5px;"></i>GET STARTED</span>
+          <h2 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 15px; color: #0F172A; letter-spacing: -1px;">How It Works</h2>
+          <p style="color: #64748B; font-size: 1.1rem; max-width: 650px; margin: 0 auto; line-height: 1.7;">Everything you need to accelerate your job search, build your professional brand, and stand out to top employers.</p>
+          <div style="height: 3px; width: 60px; background: linear-gradient(90deg, #19A77B, #3BC49A); margin: 25px auto 0; border-radius: 3px;"></div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="feature-card">
@@ -1255,7 +1337,7 @@
 <section class="premium-explore-section">
   <div class="container position-relative z-index-1">
     <div class="premium-explore-header animate-fade-up">
-      <span class="premium-explore-badge">💼 Explore Careers</span>
+      <span class="premium-explore-badge"> Explore Careers</span>
       <h2 class="premium-explore-title">Explore Opportunities</h2>
       <p class="premium-explore-subtitle">Discover thousands of jobs across multiple industries and find the perfect opportunity for your career.</p>
       <div class="premium-explore-divider"></div>
@@ -1268,7 +1350,7 @@
           <div class="icon-wrapper" style="background: #E6F6F1; color: #3BC49A;"><i class="fas fa-laptop-code"></i></div>
           <h3>IT & Software</h3>
           <p>Software engineering, cloud architecture, and data science roles.</p>
-          <div><span class="premium-cat-job-count">1,420 Jobs</span></div>
+          <div><span class="premium-cat-job-count">${countIT != null ? countIT : 0} Jobs</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1278,7 +1360,7 @@
           <div class="icon-wrapper" style="background: #ECFDF5; color: #10B981;"><i class="fas fa-chart-line"></i></div>
           <h3>Finance & Banking</h3>
           <p>Investment banking, accounting, and financial planning careers.</p>
-          <div><span class="premium-cat-job-count">875 Openings</span></div>
+          <div><span class="premium-cat-job-count">${countFinance != null ? countFinance : 0} Openings</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1288,7 +1370,7 @@
           <div class="icon-wrapper" style="background: #FEF2F2; color: #EF4444;"><i class="fas fa-heartbeat"></i></div>
           <h3>Healthcare Services</h3>
           <p>Medical, nursing, hospital and healthcare careers.</p>
-          <div><span class="premium-cat-job-count">2,350 Jobs</span></div>
+          <div><span class="premium-cat-job-count">${countHealthcare != null ? countHealthcare : 0} Jobs</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1298,7 +1380,7 @@
           <div class="icon-wrapper" style="background: #FFFBEB; color: #F59E0B;"><i class="fas fa-graduation-cap"></i></div>
           <h3>Education Services</h3>
           <p>Teaching, administration, and academic research positions.</p>
-          <div><span class="premium-cat-job-count">640 Jobs</span></div>
+          <div><span class="premium-cat-job-count">${countEducation != null ? countEducation : 0} Jobs</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1308,7 +1390,7 @@
           <div class="icon-wrapper" style="background: #F5F3FF; color: #8B5CF6;"><i class="fas fa-bullhorn"></i></div>
           <h3>Marketing Services</h3>
           <p>Digital marketing, brand management, and content creation.</p>
-          <div><span class="premium-cat-job-count">920 Openings</span></div>
+          <div><span class="premium-cat-job-count">${countMarketing != null ? countMarketing : 0} Openings</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1318,7 +1400,7 @@
           <div class="icon-wrapper" style="background: #F3F4F6; color: #4B5563;"><i class="fas fa-balance-scale"></i></div>
           <h3>Legal & Defense</h3>
           <p>Corporate law, litigation, and defense attorney roles.</p>
-          <div><span class="premium-cat-job-count">310 Jobs</span></div>
+          <div><span class="premium-cat-job-count">${countLegal != null ? countLegal : 0} Jobs</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1328,7 +1410,7 @@
           <div class="icon-wrapper" style="background: #FDF4FF; color: #D946EF;"><i class="fas fa-headset"></i></div>
           <h3>Technical Support</h3>
           <p>Helping customers solve technical issues and product support.</p>
-          <div><span class="premium-cat-job-count">1,150 Jobs</span></div>
+          <div><span class="premium-cat-job-count">${countTechSupport != null ? countTechSupport : 0} Jobs</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1338,7 +1420,7 @@
           <div class="icon-wrapper" style="background: #F0FDF4; color: #22C55E;"><i class="fas fa-store"></i></div>
           <h3>Local Jobs</h3>
           <p>Retail, hospitality, and local business opportunities.</p>
-          <div><span class="premium-cat-job-count">4,200 Openings</span></div>
+          <div><span class="premium-cat-job-count">${countLocal != null ? countLocal : 0} Openings</span></div>
           <div class="premium-cat-footer">Explore Jobs <i class="fas fa-arrow-right"></i></div>
         </a>
       </div>
@@ -1476,15 +1558,15 @@
 <!-- Login Modal -->
 <div class="modal fade form-modal" id="login" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog max-width-px-840 position-relative">
-    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal"><i class="lni lni-close"></i></button>
-    <div class="login-modal-main">
+    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-bs-dismiss="modal"><i class="lni lni-close"></i></button>
+    <div class="modal-content login-modal-main" style="pointer-events: auto; border: none;">
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>JobSeeker Login</h3><p>Access your JobSeeker account<br> to find and apply for your dream jobs.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"><span>Or</span></div>
       <form action="${pageContext.request.contextPath}/jobSeekers/authenticate" method="post">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" id="email"></div>
         <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" id="password" placeholder="Enter password"></div></div>
         <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Remember password</label></div><a href="${pageContext.request.contextPath}/jobSeekers/forgot-password" class="font-size-3 text-dodger line-height-reset">Forget Password</a></div>
         <div class="form-group mb-8 button"><button class="btn">Log in</button></div>
-        <p class="text-center create-new-account">Don't have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#signup" data-dismiss="modal">Create a free account</a></p>
+        <p class="text-center create-new-account">Don't have an account? <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signup" data-bs-dismiss="modal">Create a free account</a></p>
       </form>
       </div></div></div>
     </div>
@@ -1494,8 +1576,8 @@
 <!-- Signup Modal -->
 <div class="modal fade form-modal" id="signup" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog max-width-px-840 position-relative">
-    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal"><i class="lni lni-close"></i></button>
-    <div class="login-modal-main">
+    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-bs-dismiss="modal"><i class="lni lni-close"></i></button>
+    <div class="modal-content login-modal-main" style="pointer-events: auto; border: none;">
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>Create Your JobSeeker Account<br> Today</h3><p>Sign up to start your job search,<br> apply for roles, and grow your career.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"></div>
       <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="jobSeekerSignupForm">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" required></div>
@@ -1511,6 +1593,9 @@
 
 <!-- Footer - Premium Design -->
 <style>
+  .modal-backdrop { z-index: 1040 !important; }
+  .modal { z-index: 1055 !important; }
+  
   .footer-premium {
     background: #0B0F19; /* Extremely deep dark blue */
     padding: 100px 0 40px;
@@ -1539,9 +1624,6 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-4 col-md-6">
-        <a href="${pageContext.request.contextPath}/index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px; margin-bottom: 25px;">
-          <img src="${pageContext.request.contextPath}/assets/images/logo/logo-white.png" style="height: 40px; filter: brightness(0) invert(1);" alt="JobU Logo" />
-        </a>
         <p style="line-height: 1.8; color: #64748B;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>
         <ul class="footer-social-icons">
           <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
@@ -1553,19 +1635,19 @@
       <div class="col-lg-2 col-md-6">
         <h3>Platform</h3>
         <ul style="list-style: none; padding: 0;">
-          <li style="margin-bottom: 15px;"><a href="#">Browse Jobs</a></li>
-          <li style="margin-bottom: 15px;"><a href="#">Companies</a></li>
-          <li style="margin-bottom: 15px;"><a href="#">Candidates</a></li>
-          <li style="margin-bottom: 15px;"><a href="#">Pricing</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Browse Jobs</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Companies</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Candidates</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Pricing</a></li>
         </ul>
       </div>
       <div class="col-lg-2 col-md-6">
         <h3>Support</h3>
         <ul style="list-style: none; padding: 0;">
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
-          <li style="margin-bottom: 15px;"><a href="#">Help Center</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/contact.html">Help Center</a></li>
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></li>
-          <li style="margin-bottom: 15px;"><a href="#">Privacy Policy</a></li>
+          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/policy.html">Privacy Policy</a></li>
         </ul>
       </div>
       <div class="col-lg-4 col-md-6">
@@ -1580,10 +1662,10 @@
     <div class="footer-bottom">
       <div class="row align-items-center">
         <div class="col-md-6 text-center text-md-start">
-          <p class="mb-0 text-muted">&copy; 2026 JobU. Built for the future of work.</p>
+          <p class="mb-0 text-white">&copy; 2026 JobU. Built for the future of work.</p>
         </div>
         <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-          <p class="mb-0 text-muted">Designed with <i class="fas fa-heart text-danger"></i> by JobU Platform</p>
+          <p class="mb-0 text-white">Designed with <i class="fas fa-heart text-danger"></i> by JobU Platform</p>
         </div>
       </div>
     </div>
@@ -1604,7 +1686,7 @@
   <button class="chat-button" id="chatButton" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></button>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/wow.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script>
@@ -1662,7 +1744,7 @@
         if(pwd && !/[A-Z]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one uppercase letter.'); return false; }
         if(pwd && !/[a-z]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one lowercase letter.'); return false; }
         if(pwd && !/[0-9]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one number.'); return false; }
-        if(pwd && !/[!@#$%^&*()_+\-=\[\]{}|;:\',.<>?/]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one special character.'); return false; }
+        if(pwd && !/[!@#$%^&*()_+\-=\[\]{}|;:',.<>?\/]/.test(pwd)){ e.preventDefault(); alert('Password must contain at least one special character.'); return false; }
         if(terms && !terms.checked){ e.preventDefault(); alert('Please agree to Terms & Conditions.'); return false; } 
         
         alert("Registration successful!");

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.time.LocalDateTime" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -380,18 +379,14 @@
             <button class="tab-btn" data-tab="my-competitions">My Competitions</button>
         </div>
 
-        <!-- Pre-process times in JSP for easy comparison -->
-        <%
-            LocalDateTime currentNow = LocalDateTime.now();
-            request.setAttribute("now", currentNow);
-        %>
+        <!-- Pre-process times - now set in controller -->
 
         <!-- Upcoming Tab -->
         <div class="tab-pane active" id="upcoming">
             <div class="competitions-grid">
                 <c:set var="upcomingCount" value="0"/>
                 <c:forEach var="comp" items="${allCompetitions}">
-                    <c:if test="${comp.examStartTime.isAfter(now)}">
+                    <c:if test="${compIsUpcoming[comp.id]}">
                         <c:set var="upcomingCount" value="${upcomingCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -413,7 +408,7 @@
                             <c:set var="isCompleted" value="true"/>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${!isCompleted && (comp.examStartTime.isBefore(now) || comp.examStartTime.isEqual(now)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).isAfter(now)}">
+                    <c:if test="${!isCompleted && compIsLive[comp.id]}">
                         <c:set var="liveCount" value="${liveCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -435,7 +430,7 @@
                             <c:set var="isCompleted" value="true"/>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${isCompleted || comp.examStartTime.plusMinutes(comp.examDurationMinutes).isBefore(now)}">
+                    <c:if test="${isCompleted || compIsExamEnded[comp.id]}">
                         <c:set var="compCount" value="${compCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -506,10 +501,10 @@
                                                 <c:when test="${isCompleted}">
                                                     <button class="btn-register" disabled style="background: var(--text-muted); color: white;"><i class="fas fa-check-circle"></i> Exam Submitted</button>
                                                 </c:when>
-                                                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).isBefore(now)}">
+                                                <c:when test="${compIsExamEnded[comp.id]}">
                                                     <button class="btn-register" disabled>Competition Closed</button>
                                                 </c:when>
-                                                <c:when test="${(comp.examStartTime.isBefore(now) || comp.examStartTime.isEqual(now)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).isAfter(now)}">
+                                                <c:when test="${compIsLive[comp.id]}">
                                                     <a href="${pageContext.request.contextPath}/student/coding-competitions/rules/${comp.id}" class="btn-start"><i class="fas fa-play"></i> Start Exam</a>
                                                 </c:when>
                                                 <c:otherwise>

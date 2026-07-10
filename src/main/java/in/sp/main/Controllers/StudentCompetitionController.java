@@ -70,10 +70,36 @@ public class StudentCompetitionController {
             }
         }
         
+        // Pre-compute time-based status flags for each competition (avoids EL method invocation issues in JSP)
+        LocalDateTime now = LocalDateTime.now();
+        Map<Long, Boolean> compIsLive = new HashMap<>();
+        Map<Long, Boolean> compIsUpcoming = new HashMap<>();
+        Map<Long, Boolean> compIsExamEnded = new HashMap<>();
+        Map<Long, Boolean> compIsRegNotStarted = new HashMap<>();
+        Map<Long, Boolean> compIsRegClosed = new HashMap<>();
+        
+        for (Competition comp : publishedCompetitions) {
+            LocalDateTime examEnd = comp.getExamStartTime().plusMinutes(comp.getExamDurationMinutes());
+            boolean examStartedOrNow = !now.isBefore(comp.getExamStartTime()); // now >= examStartTime
+            boolean examNotEnded = now.isBefore(examEnd);
+            
+            compIsLive.put(comp.getId(), examStartedOrNow && examNotEnded);
+            compIsUpcoming.put(comp.getId(), now.isBefore(comp.getExamStartTime()));
+            compIsExamEnded.put(comp.getId(), !now.isBefore(examEnd)); // now >= examEnd
+            compIsRegNotStarted.put(comp.getId(), comp.getRegistrationStartTime() != null && now.isBefore(comp.getRegistrationStartTime()));
+            compIsRegClosed.put(comp.getId(), comp.getRegistrationEndTime() != null && now.isAfter(comp.getRegistrationEndTime()));
+        }
+        
+        model.addAttribute("now", now);
         model.addAttribute("student", student);
         model.addAttribute("allCompetitions", publishedCompetitions);
         model.addAttribute("studentRegistrations", studentRegistrations);
         model.addAttribute("completedCompetitionIds", completedCompetitionIds);
+        model.addAttribute("compIsLive", compIsLive);
+        model.addAttribute("compIsUpcoming", compIsUpcoming);
+        model.addAttribute("compIsExamEnded", compIsExamEnded);
+        model.addAttribute("compIsRegNotStarted", compIsRegNotStarted);
+        model.addAttribute("compIsRegClosed", compIsRegClosed);
 
         return "jobSeekers/coding-competitions";
     }

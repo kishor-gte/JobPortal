@@ -5,5 +5,6 @@ public enum UserType {
     ADMIN,
     COMPANY,
     RECRUITER,
-    JOBSEEKER
+    JOBSEEKER,
+    TECHPERSON
 }

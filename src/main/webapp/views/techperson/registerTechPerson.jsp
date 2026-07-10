@@ -523,14 +523,25 @@
                     </label>
                     <div class="input-icon-wrapper">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter secure password" required />
-                        <button type="button" class="password-toggle" id="togglePassword" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
-                            <i class="fas fa-eye"></i>
+                        <input type="password" id="techPassword" name="password" class="form-control" placeholder="Enter secure password" required style="padding-right: 48px;" />
+                        <button type="button" class="password-toggle" id="toggleTechPwdBtn" onclick="toggleTechPwd()" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye" id="techEyeIcon"></i>
                         </button>
                     </div>
-                    <small class="text-muted d-block mt-2">
-                        <i class="fas fa-info-circle"></i> Password should be at least 6 characters long
-                    </small>
+                    <!-- Live Strength Indicator -->
+                    <div id="techPwdStrengthBar" style="display:none;margin-top:8px;padding:0 4px;">
+                        <div style="height:5px;border-radius:10px;background:#e2e8f0;overflow:hidden;">
+                            <div id="techPwdStrengthFill" style="height:100%;width:0;border-radius:10px;transition:width 0.4s,background 0.4s;"></div>
+                        </div>
+                        <small id="techPwdStrengthText" style="font-size:0.75rem;margin-top:4px;display:block;"></small>
+                    </div>
+                    <!-- Requirements Checklist -->
+                    <ul id="techPwdChecklist" style="display:none;list-style:none;padding:0 4px;margin:8px 0 0;font-size:0.78rem;text-align:left;">
+                        <li id="tech-chk-len" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>Minimum 6 characters</li>
+                        <li id="tech-chk-upper" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 uppercase letter (A-Z)</li>
+                        <li id="tech-chk-lower" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 lowercase letter (a-z)</li>
+                        <li id="tech-chk-special" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 special character (!@#$...)</li>
+                    </ul>
                 </div>
 
                 <!-- Submit Button -->
@@ -547,9 +558,9 @@
     
     <script>
         // Password Toggle Functionality
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('togglePassword').querySelector('i');
+        function toggleTechPwd() {
+            const passwordInput = document.getElementById('techPassword');
+            const toggleIcon = document.getElementById('techEyeIcon');
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -560,6 +571,48 @@
                 toggleIcon.classList.remove('fa-eye-slash');
                 toggleIcon.classList.add('fa-eye');
             }
+        }
+
+        const techPwdInput = document.getElementById('techPassword');
+        if (techPwdInput) {
+            techPwdInput.addEventListener('focus', () => {
+                document.getElementById('techPwdChecklist').style.display = 'block';
+                document.getElementById('techPwdStrengthBar').style.display = 'block';
+            });
+            techPwdInput.addEventListener('input', function () {
+                const val = this.value;
+                const checks = {
+                    len: val.length >= 6,
+                    upper: /[A-Z]/.test(val),
+                    lower: /[a-z]/.test(val),
+                    special: /[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(val)
+                };
+                techUpdateCheck('tech-chk-len', checks.len);
+                techUpdateCheck('tech-chk-upper', checks.upper);
+                techUpdateCheck('tech-chk-lower', checks.lower);
+                techUpdateCheck('tech-chk-special', checks.special);
+                const score = Object.values(checks).filter(Boolean).length;
+                const fill = document.getElementById('techPwdStrengthFill');
+                const text = document.getElementById('techPwdStrengthText');
+                const levels = [
+                    { w: '25%', color: '#ef4444', label: 'Weak' },
+                    { w: '50%', color: '#f59e0b', label: 'Fair' },
+                    { w: '75%', color: '#3b82f6', label: 'Good' },
+                    { w: '100%', color: '#19A77B', label: 'Strong' }
+                ];
+                const lvl = levels[score - 1] || { w: '0', color: '#e2e8f0', label: '' };
+                fill.style.width = lvl.w;
+                fill.style.background = lvl.color;
+                text.textContent = lvl.label ? 'Strength: ' + lvl.label : '';
+                text.style.color = lvl.color;
+            });
+        }
+        function techUpdateCheck(id, passed) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.color = passed ? '#19A77B' : '#94a3b8';
+            el.querySelector('i').className = passed ? 'fas fa-check-circle' : 'fas fa-circle';
+            el.querySelector('i').style.fontSize = passed ? '0.75rem' : '0.5rem';
         }
 
         // Form validation enhancement
@@ -595,8 +648,8 @@
                     } else {
                         field.classList.remove('is-valid', 'is-invalid');
                     }
-                } else if (field.id === 'password') {
-                    if (value.length >= 6) {
+                } else if (field.id === 'techPassword') {
+                    if (value.length >= 6 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(value)) {
                         field.classList.remove('is-invalid');
                         field.classList.add('is-valid');
                     } else if (value) {
@@ -631,11 +684,21 @@
                     }
                 });
 
-                // Check password length
-                const password = document.getElementById('password');
-                if (password.value.trim().length < 6) {
+                // Check password format
+                const password = document.getElementById('techPassword');
+                const pwdVal = password.value;
+                const pwdErrors = [];
+                if (pwdVal.length < 6) pwdErrors.push('at least 6 characters');
+                if (!/[A-Z]/.test(pwdVal)) pwdErrors.push('1 uppercase letter');
+                if (!/[a-z]/.test(pwdVal)) pwdErrors.push('1 lowercase letter');
+                if (!/[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(pwdVal)) pwdErrors.push('1 special character');
+                
+                if (pwdErrors.length > 0) {
                     isValid = false;
                     password.classList.add('is-invalid');
+                    if (pwdErrors.length > 0) {
+                        alert('Password must contain: ' + pwdErrors.join(', ') + '.');
+                    }
                 }
 
                 // Check email format
