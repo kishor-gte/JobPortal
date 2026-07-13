@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
  <meta charset="UTF-8">
  <title>Job Seeker Profile | SmartInterview</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -763,7 +764,7 @@
          
          if (savedImage) {
              header.style.setProperty('background-color', 'transparent', 'important');
-             header.style.setProperty('background-image', `url("${savedImage}")`, 'important');
+             header.style.setProperty('background-image', 'url("' + savedImage + '")', 'important');
              header.style.setProperty('background-position', 'center center', 'important');
              header.style.setProperty('background-size', 'cover', 'important');
              header.style.setProperty('background-repeat', 'no-repeat', 'important');
@@ -794,8 +795,6 @@
              
              const img = new Image();
              img.onload = function() {
-                 URL.revokeObjectURL(objectUrl); // Clean up memory
-                 
                  const canvas = document.createElement('canvas');
                  const MAX_WIDTH = 1200; // Small width for guaranteed fast base64 string
                  let width = img.width;
@@ -809,7 +808,14 @@
                  canvas.width = width;
                  canvas.height = height;
                  const ctx = canvas.getContext('2d');
+                 
+                 // Fill with white first for transparent images
+                 ctx.fillStyle = '#ffffff';
+                 ctx.fillRect(0, 0, width, height);
                  ctx.drawImage(img, 0, 0, width, height);
+                 
+                 // Clean up memory AFTER drawing
+                 URL.revokeObjectURL(objectUrl);
                  
                  // High compression JPEG ensures base64 string is tiny and safe
                  const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
@@ -826,6 +832,7 @@
              
              img.onerror = function() {
                  alert("Failed to read the image file.");
+                 URL.revokeObjectURL(objectUrl);
                  input.value = '';
              };
              
