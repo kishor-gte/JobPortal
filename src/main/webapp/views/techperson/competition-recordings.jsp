@@ -681,8 +681,13 @@
         }
         /* Light Mode */
         body.light-mode {
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
-            color: #1e293b !important;
+            color: var(--text-primary) !important;
         }
         body.light-mode::before {
             background: 
@@ -794,7 +799,7 @@
             <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
                 <i class="fas fa-chart-bar"></i> Competition Results
             </a>
-            <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
+            <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link active">
                 <i class="fas fa-video"></i> Competition Recordings
             </a>
         </div>
@@ -816,99 +821,86 @@
             </div>
         </div>
 
-        <!-- Stats Row 1 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fas fa-users"></i></div>
-                <div class="stat-value">${totalUsers}</div>
-                <div class="stat-label">Total Users</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
-                <div class="stat-value">${totalStudents}</div>
-                <div class="stat-label">Students</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div>
-                <div class="stat-value">${totalInterviewers}</div>
-                <div class="stat-label">Interviewers</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-code"></i></div>
-                <div class="stat-value">${totalCodingQuestions}</div>
-                <div class="stat-label">Coding Questions</div>
-            </div>
-        </div>
-
-        <!-- Stats Row 2 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon cyan"><i class="fas fa-comments"></i></div>
-                <div class="stat-value">${totalInterviewQuestions}</div>
-                <div class="stat-label">Interview Questions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon pink"><i class="fas fa-tags"></i></div>
-                <div class="stat-value">${totalCategories}</div>
-                <div class="stat-label">Categories</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon yellow"><i class="fas fa-video"></i></div>
-                <div class="stat-value">${totalInterviews}</div>
-                <div class="stat-label">Total Interviews</div>
-            </div>
-			<div class="stat-card">
-			               <div class="stat-icon blue"><i class="fas fa-briefcase"></i></div>
-			               <div class="stat-value">${totalJobs}</div>
-			               <div class="stat-label">Total Jobs</div>
-			           </div>
-        </div>
-
-        <!-- Stats Row 3 -->
-        <div class="stats-grid">
-           
-           
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-file-alt"></i></div>
-                <div class="stat-value">${totalApplications}</div>
-                <div class="stat-label">Job Applications</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-handshake"></i></div>
-                <div class="stat-value">${activeJobs.size()}</div>
-                <div class="stat-label">Active Jobs</div>
-            </div>
-        </div>
-
-        <!-- Recent Users -->
-        <div class="content-grid">
+        <div class="content-grid" style="grid-template-columns: 1fr;">
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-user-clock" style="color: var(--accent);"></i> Recent Users</h3>
-                    <a href="${pageContext.request.contextPath}/tech/manage-users">Manage All <i class="fas fa-arrow-right"></i></a>
+                    <h3><i class="fas fa-video" style="color: var(--accent);"></i> Proctoring Recordings</h3>
                 </div>
-                <c:forEach var="u" items="${recentUsers}" end="7">
-                    <div class="user-item">
-                        <div class="info">
-                            <div class="user-avatar ${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">
-                                ${u.name.substring(0,1)}
-                            </div>
-                            <span class="user-name">${u.name}</span>
-                        </div>
-                        <span class="user-role role-${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">${u.role}</span>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty recentUsers}">
-                    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 30px;">No recent users</p>
-                </c:if>
+                
+                <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-tertiary); font-size: 13px; text-transform: uppercase;">
+                            <th style="padding: 12px 16px;">Student</th>
+                            <th style="padding: 12px 16px;">Competition</th>
+                            <th style="padding: 12px 16px;">Duration</th>
+                            <th style="padding: 12px 16px;">Status</th>
+                            <th style="padding: 12px 16px;">Date</th>
+                            <th style="padding: 12px 16px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="item" items="${recordings}">
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;">
+                                <td style="padding: 16px;">
+                                    <div style="font-weight: 600;">${item.studentName}</div>
+                                </td>
+                                <td style="padding: 16px;">${item.competitionTitle}</td>
+                                <td style="padding: 16px;">${item.recording.durationSeconds}s</td>
+                                <td style="padding: 16px;">
+                                    <span style="padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; 
+                                        ${item.recording.status == 'Completed' ? 'background: rgba(16, 185, 129, 0.15); color: #10b981;' : 'background: rgba(239, 68, 68, 0.15); color: #ef4444;'}">
+                                        ${item.recording.status}
+                                    </span>
+                                </td>
+                                <td style="padding: 16px;">${item.recording.recordedAt}</td>
+                                <td style="padding: 16px;">
+                                    <div style="display: flex; gap: 8px;">
+                                        <button onclick="playVideo(${item.recording.id}, '${item.studentName}')" style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;"><i class="fas fa-play"></i> Watch</button>
+                                        <a href="${pageContext.request.contextPath}/tech/delete-recording/${item.recording.id}" onclick="return confirm('Delete this recording permanently?')" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600;"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        <c:if test="${empty recordings}">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-tertiary);">No recordings available.</td>
+                            </tr>
+                        </c:if>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Job Portal Overview -->
-       
+        <!-- Video Modal -->
+        <div id="videoModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center;">
+            <div style="background: var(--bg-dark); padding: 20px; border-radius: 12px; max-width: 900px; width: 90%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 id="modalTitle" style="color: white; font-size: 18px;">Recording</h3>
+                    <button onclick="closeVideo()" style="background: transparent; border: none; color: white; font-size: 20px; cursor: pointer;"><i class="fas fa-times"></i></button>
+                </div>
+                <video id="player" controls controlsList="nodownload" style="width: 100%; max-height: 600px; border-radius: 8px; background: #000;"></video>
+                <div style="margin-top: 16px; text-align: right;">
+                    <a id="downloadLink" href="#" download style="background: var(--primary); color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;"><i class="fas fa-download"></i> Download Video</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        function playVideo(id, name) {
+            const url = '${pageContext.request.contextPath}/tech/stream-recording/' + id;
+            document.getElementById('modalTitle').innerText = "Recording: " + name;
+            document.getElementById('player').src = url;
+            document.getElementById('downloadLink').href = url;
+            document.getElementById('videoModal').style.display = 'flex';
+        }
+
+        function closeVideo() {
+            document.getElementById('player').pause();
+            document.getElementById('player').src = '';
+            document.getElementById('videoModal').style.display = 'none';
+        }
+
         // Sidebar Toggle for Mobile
         function toggleSidebar() {
             document.getElementById('mainSidebar').classList.toggle('active');
