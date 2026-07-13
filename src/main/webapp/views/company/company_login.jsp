@@ -436,9 +436,52 @@
             .stats-badge { gap: 15px; }
             .stat-number { font-size: 1.3rem; }
         }
+        .back-home-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(25, 167, 123, 0.2);
+            border-radius: 30px;
+            color: #19A77B;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .back-home-btn:hover {
+            background: #19A77B;
+            color: white !important;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 18px rgba(25, 167, 123, 0.25);
+            border-color: #19A77B;
+        }
+        @media (max-width: 992px) {
+            .back-home-btn {
+                background: #19A77B;
+                color: white !important;
+                border-color: #19A77B;
+                top: 16px;
+                left: 16px;
+            }
+            .back-home-btn:hover {
+                background: #148F69;
+                color: white !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="${pageContext.request.contextPath}/" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
     <div class="main-container">
         <!-- Left Side - Premium Image Section with Animations -->
         <div class="image-section">

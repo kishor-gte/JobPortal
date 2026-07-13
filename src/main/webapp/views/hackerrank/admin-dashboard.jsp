@@ -568,7 +568,12 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h1><i class="fas fa-shield-halved"></i> Admin Dashboard</h1>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a href="${pageContext.request.contextPath}/dashboard" class="theme-toggle" title="Back to Main Dashboard" style="text-decoration: none;">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1><i class="fas fa-shield-halved"></i> Admin Dashboard</h1>
+            </div>
             <div style="display: flex; align-items: center; gap: 12px;">
                 <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
