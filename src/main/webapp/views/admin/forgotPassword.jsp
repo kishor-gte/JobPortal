@@ -592,9 +592,41 @@
             background: var(--accent);
             color: white;
         }
+    
+        .back-to-home {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,1);
+        }
+        .back-to-home:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: white;
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
+
+<!-- Back Premium Button -->
+<a href="${pageContext.request.contextPath}/loginAdmin" class="back-to-home" title="Go Back">
+    <i class="fas fa-arrow-left"></i>
+</a>
 
 <!-- Decorative floating shapes -->
 <div class="floating-shape" style="width: 400px; height: 400px; top: -150px; right: -100px;"></div>
@@ -662,3 +694,5 @@
 
 </body>
 </html>
+
+

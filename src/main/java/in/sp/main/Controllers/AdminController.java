@@ -27,6 +27,10 @@ import in.sp.main.Repositories.OrganizerEventPhotoRepository;
 import in.sp.main.Repositories.ReportedJobRepository;
 import in.sp.main.Repositories.ReviewRepository;
 import in.sp.main.Repositories.SportsOrganizerRepository;
+import in.sp.main.Entities.Recruiter;
+import in.sp.main.Entities.TechPerson;
+import in.sp.main.Repositories.RecruiterRepository;
+import in.sp.main.Repositories.TechPersonRepository;
 import in.sp.main.Services.AdminService;
 import in.sp.main.Services.CompanyServices;
 import in.sp.main.Services.JobSeekerService;
@@ -63,7 +67,17 @@ public class AdminController {
     @Autowired
     private ReportedJobRepository reportedJobRepository;
     @Autowired
+    private RecruiterRepository recruiterRepository;
+    @Autowired
+    private TechPersonRepository techPersonRepository;
+    @Autowired
     private JobSeekerService jobSeekerService;
+    
+    @Autowired
+    private in.sp.main.Services.TechPersonServices techPersonServices;
+
+    @Autowired
+    private in.sp.main.Services.RecruiterServices recruiterServices;
 
     @Autowired
     private ReviewRepository reviewService;
@@ -881,5 +895,93 @@ public class AdminController {
             model.addAttribute("recentApplications", java.util.Collections.emptyList());
             return "hackerrank/admin-dashboard";
         }
+    }
+
+    @RequestMapping(value = "/admin/recruiters", method = RequestMethod.GET)
+    public String viewRecruitersCompanyWise(Model model, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        List<Company> companies = companyService.getAllCompanies();
+        Map<Long, List<Recruiter>> companyRecruitersMap = new HashMap<>();
+        for (Company c : companies) {
+            List<Recruiter> recruiters = recruiterRepository.findByCompany_Id(c.getId());
+            companyRecruitersMap.put(c.getId(), recruiters);
+        }
+        model.addAttribute("companies", companies);
+        model.addAttribute("companyRecruitersMap", companyRecruitersMap);
+        return "admin/recruiters-company-wise";
+    }
+
+    @RequestMapping(value = "/admin/technicians", method = RequestMethod.GET)
+    public String viewTechniciansCompanyWise(Model model, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        List<Company> companies = companyService.getAllCompanies();
+        Map<Long, List<TechPerson>> companyTechniciansMap = new HashMap<>();
+        for (Company c : companies) {
+            List<TechPerson> technicians = techPersonRepository.findByCompanyId(c.getId());
+            companyTechniciansMap.put(c.getId(), technicians);
+        }
+        model.addAttribute("companies", companies);
+        model.addAttribute("companyTechniciansMap", companyTechniciansMap);
+        return "admin/technicians-company-wise";
+    }
+
+    @RequestMapping(value = "/admin/delete-company-with-reason/{id}", method = RequestMethod.POST)
+    public String deleteCompanyByAdminWithReason(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted company " + id + " for reason: " + reason);
+        companyService.deleteCompany(id);
+        redirectAttributes.addFlashAttribute("success", "Company deleted successfully.");
+        return "redirect:/admin/technicians";
+    }
+
+    @RequestMapping(value = "/admin/delete-techperson/{id}", method = RequestMethod.POST)
+    public String deleteTechPersonByAdmin(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted techperson " + id + " for reason: " + reason);
+        techPersonServices.deleteTechPerson(id);
+        redirectAttributes.addFlashAttribute("success", "Technician deleted successfully.");
+        return "redirect:/admin/technicians";
+    }
+
+    @RequestMapping(value = "/admin/delete-company-recruiter-with-reason/{id}", method = RequestMethod.POST)
+    public String deleteCompanyRecruiterByAdminWithReason(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted company " + id + " for reason: " + reason);
+        companyService.deleteCompany(id);
+        redirectAttributes.addFlashAttribute("success", "Company deleted successfully.");
+        return "redirect:/admin/recruiters";
+    }
+
+    @RequestMapping(value = "/admin/delete-recruiter/{id}", method = RequestMethod.POST)
+    public String deleteRecruiterByAdmin(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted recruiter " + id + " for reason: " + reason);
+        recruiterServices.deleteRecruiter(id);
+        redirectAttributes.addFlashAttribute("success", "Recruiter deleted successfully.");
+        return "redirect:/admin/recruiters";
     }
 }

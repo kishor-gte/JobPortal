@@ -816,6 +816,9 @@
             <h2>Mentor Panel</h2>
         </div>
         <div class="nav-section">
+            <a href="${pageContext.request.contextPath}/company/dashboard" class="nav-link" style="background: rgba(25, 167, 123, 0.1); color: var(--primary); margin-bottom: 20px; font-weight: 600;">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
             <h4>Main</h4>
             <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="nav-link active">
                 <i class="fas fa-th-large"></i> Dashboard

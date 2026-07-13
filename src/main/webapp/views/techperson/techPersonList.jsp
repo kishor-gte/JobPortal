@@ -498,10 +498,16 @@
 
         <!-- Action Bar -->
         <div class="action-bar">
-            <a href="${pageContext.request.contextPath}/techperson/register/${company.id}" class="btn-add-techperson">
-                <i class="fas fa-user-plus"></i>
-                Add New Tech Person
-            </a>
+            <div class="d-flex gap-3 flex-wrap">
+                <a href="${pageContext.request.contextPath}/company/dashboard" class="btn btn-secondary" style="border-radius: 30px; padding: 0.85rem 1.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <a href="${pageContext.request.contextPath}/techperson/register/${company.id}" class="btn-add-techperson">
+                    <i class="fas fa-user-plus"></i>
+                    Add New Tech Person
+                </a>
+            </div>
             <div class="techperson-count">
                 <i class="fas fa-users"></i>
                 <span>${fn:length(techpersons)} Tech Person${fn:length(techpersons) != 1 ? 's' : ''}</span>
