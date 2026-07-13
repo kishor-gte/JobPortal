@@ -17,7 +17,7 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:yoursupersecretkeyforjwtverificationwhichisatleast32characterslong}")
     private String secretKeyConfig;
 
     @Value("${secure.cookies:false}")
