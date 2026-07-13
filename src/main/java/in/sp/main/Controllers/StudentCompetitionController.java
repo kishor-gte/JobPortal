@@ -26,6 +26,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import in.sp.main.Entities.CompetitionRecording;
+import in.sp.main.Repositories.CompetitionRecordingRepository;
 
 @Controller
 @RequestMapping("/student/coding-competitions")
@@ -33,6 +40,9 @@ public class StudentCompetitionController {
 
     @Autowired
     private CompetitionRepository competitionRepository;
+
+    @Autowired
+    private CompetitionRecordingRepository recordingRepository;
 
     @Autowired
     private CompetitionRegistrationRepository registrationRepository;
@@ -396,8 +406,22 @@ public class StudentCompetitionController {
                 
                 Optional<CompetitionResult> resultOpt = resultRepository.findByCompetitionIdAndStudentId(comp.getId(), student.getId());
                 if (resultOpt.isPresent()) {
+                    CompetitionResult myRes = resultOpt.get();
                     historyItem.put("status", "Completed");
-                    historyItem.put("result", resultOpt.get());
+                    
+                    // Dynamically calculate and set rank
+                    List<CompetitionResult> leaderboard = resultRepository.findByCompetitionIdOrderByQuestionsSolvedDescSubmittedAtAsc(comp.getId());
+                    int rank = 1;
+                    for (CompetitionResult res : leaderboard) {
+                        if (res.getStudentId() != null && student.getId() != null && res.getStudentId().longValue() == student.getId().longValue()) {
+                            break;
+                        }
+                        rank++;
+                    }
+                    myRes.setRank(rank);
+                    historyItem.put("rank", rank);
+                    
+                    historyItem.put("result", myRes);
                 } else {
                     LocalDateTime examEndTime = comp.getExamStartTime().plusMinutes(comp.getExamDurationMinutes());
                     if (LocalDateTime.now().isAfter(examEndTime)) {
@@ -455,5 +479,91 @@ public class StudentCompetitionController {
         model.addAttribute("leaderboard", leaderboardDetails);
 
         return "jobSeekers/competition-result";
+    }
+
+    @PostMapping("/{id}/upload-recording-chunk")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> uploadRecordingChunk(
+            @PathVariable Long id,
+            @RequestParam("videoChunk") MultipartFile chunk,
+            HttpSession session) {
+        
+        JobSeeker student = (JobSeeker) session.getAttribute("jobSeeker");
+        if (student == null) {
+            return ResponseEntity.status(401).body(Map.of("success", false));
+        }
+
+        try {
+            String uploadDir = System.getProperty("user.home") + "/jobportal-uploads/competition-recordings/";
+            Path dirPath = Paths.get(uploadDir);
+            if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
+            }
+
+            String filename = "comp_" + id + "_student_" + student.getId() + ".webm";
+            Path filePath = dirPath.resolve(filename);
+
+            Files.write(filePath, chunk.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
+            return ResponseEntity.ok(Map.of("success", true));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("success", false, "message", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/{id}/finalize-recording")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> finalizeRecording(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> payload,
+            HttpSession session) {
+        
+        JobSeeker student = (JobSeeker) session.getAttribute("jobSeeker");
+        if (student == null) {
+            return ResponseEntity.status(401).body(Map.of("success", false));
+        }
+
+        try {
+            String filename = "comp_" + id + "_student_" + student.getId() + ".webm";
+            String videoPath = "/uploads/competition-recordings/" + filename;
+
+            CompetitionRecording rec = recordingRepository.findByCompetitionIdAndStudentId(id, student.getId());
+            if (rec == null) {
+                rec = new CompetitionRecording();
+                rec.setCompetitionId(id);
+                rec.setStudentId(student.getId());
+                rec.setVideoPath(videoPath);
+                
+                String startTimeStr = (String) payload.get("startTime");
+                if (startTimeStr != null) {
+                    try {
+                        java.time.Instant instant = java.time.Instant.parse(startTimeStr);
+                        rec.setStartTime(java.time.LocalDateTime.ofInstant(instant, java.time.ZoneId.systemDefault()));
+                    } catch (Exception ex) {
+                        rec.setStartTime(java.time.LocalDateTime.now());
+                    }
+                } else {
+                    rec.setStartTime(java.time.LocalDateTime.now());
+                }
+            }
+            
+            rec.setEndTime(LocalDateTime.now());
+            
+            if (rec.getStartTime() != null) {
+                long duration = ChronoUnit.SECONDS.between(rec.getStartTime(), rec.getEndTime());
+                rec.setDurationSeconds(duration);
+            }
+
+            rec.setStatus((String) payload.get("status")); // e.g., Completed, Terminated
+            rec.setRecordedAt(LocalDateTime.now());
+            
+            recordingRepository.save(rec);
+
+            return ResponseEntity.ok(Map.of("success", true));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("success", false));
+        }
     }
 }

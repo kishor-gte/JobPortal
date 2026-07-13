@@ -1264,6 +1264,24 @@
             }
         });
 
+        // === RESTRICT EDITOR ACTIONS ===
+        const editorWrapper = editor.getWrapperElement();
+        ['copy', 'cut', 'paste', 'drop'].forEach(evt => {
+            editorWrapper.addEventListener(evt, e => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (window.handleViolation) {
+                    window.handleViolation('Copying, pasting, or cutting code is not allowed during the coding assessment.');
+                }
+            }, true);
+        });
+        ['dragenter', 'dragover', 'contextmenu'].forEach(evt => {
+            editorWrapper.addEventListener(evt, e => {
+                e.preventDefault();
+                e.stopPropagation();
+            }, true);
+        });
+
         // === RESTORE SAVED ANSWER OR USE TEMPLATE ===
         (function initEditorContent() {
             const savedCode = document.getElementById('savedAnswerCode').value.trim();
@@ -1473,28 +1491,38 @@
         // === ANTI-CHEAT LOGIC ===
         (function() {
             let isTerminated = false;
-            let warningCount = 0;
+            const questionId = '${question.id}';
+            const storageKey = 'examWarningCount_' + questionId;
+            let warningCount = parseInt(sessionStorage.getItem(storageKey) || '0', 10);
             const maxWarnings = 3;
 
             window.closeWarning = function() {
                 document.getElementById('warningOverlay').classList.remove('active');
             };
 
-            function handleViolation(reason) {
+            window.handleViolation = function(reason) {
                 if (isTerminated) return;
 
                 warningCount++;
+                sessionStorage.setItem(storageKey, warningCount);
                 const remaining = maxWarnings - warningCount;
 
                 if (warningCount < maxWarnings) {
-                    document.getElementById('warningMessage').innerText = reason;
+                    document.querySelector('#warningOverlay .warning-title').innerText = 'Warning ' + warningCount + ' of ' + maxWarnings;
+                    
+                    let displayReason = reason;
+                    if (warningCount === 2) {
+                        displayReason = 'You have violated the coding assessment rules again. Another violation will end your session.';
+                    }
+                    
+                    document.getElementById('warningMessage').innerText = displayReason;
                     document.getElementById('warningsRemaining').innerText = remaining;
                     document.getElementById('warningOverlay').classList.add('active');
                     console.warn(`Violation ${warningCount}/${maxWarnings}: ${reason}`);
                 } else {
-                    terminateExam('Exam Terminated: Final warning exceeded for prohibited actions.');
+                    terminateExam('You have exceeded the maximum number of violations. Your coding session has been terminated.');
                 }
-            }
+            };
 
             function terminateExam(reason) {
                 if (isTerminated) return;
@@ -1502,50 +1530,51 @@
                 
                 clearInterval(timer);
                 
+                const vTitle = document.querySelector('#violationOverlay .violation-title');
+                if (vTitle) vTitle.innerText = 'Warning 3 of 3';
+                
                 document.getElementById('violationMessage').innerText = reason;
                 document.getElementById('violationOverlay').classList.add('active');
                 document.getElementById('warningOverlay').classList.remove('active');
                 
+                // Disable editor and run button
+                if (typeof editor !== 'undefined') {
+                    editor.setOption('readOnly', 'nocursor');
+                }
+                const runBtn = document.getElementById('runBtn');
+                if (runBtn) {
+                    runBtn.disabled = true;
+                    runBtn.style.opacity = '0.5';
+                    runBtn.style.pointerEvents = 'none';
+                }
+                
+                // Submit the code
                 submitCode('TERMINATED');
                 
                 console.error('Exam terminated due to repeated violations: ' + reason);
+                
+                // Countdown redirect
+                let redirectTimer = 5;
+                const btn = document.querySelector('#violationOverlay .violation-btn');
+                if (btn) {
+                    btn.innerText = 'Redirecting in ' + redirectTimer + 's...';
+                    btn.onclick = function(e) { e.preventDefault(); };
+                }
+                
+                setInterval(() => {
+                    redirectTimer--;
+                    if (redirectTimer <= 0) {
+                        location.href = '${pageContext.request.contextPath}/hackerrank/student/coding-practice';
+                    } else if (btn) {
+                        btn.innerText = 'Redirecting in ' + redirectTimer + 's...';
+                    }
+                }, 1000);
             }
 
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    handleViolation('Prohibited action: Tab switching or window minimization detected.');
-                }
-            });
-
-            window.addEventListener('blur', () => {
-                setTimeout(() => {
-                    if (document.activeElement.tagName !== 'IFRAME') {
-                         handleViolation('Prohibited action: Browser focus lost.');
-                    }
-                }, 100);
-            });
-
-            /*
-            ['copy', 'paste', 'cut', 'contextmenu'].forEach(evt => {
-                document.addEventListener(evt, e => {
-                    e.preventDefault();
-                    if (evt !== 'contextmenu') {
-                        handleViolation('Prohibited action: Copying or pasting is not allowed.');
-                    }
-                    return false;
-                }, true);
-            });
-            */
-            
-            document.addEventListener('keydown', e => {
-                if (e.keyCode === 123 || 
-                    (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
-                    (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 80))) {
-                    e.preventDefault();
-                    handleViolation('Prohibited action: Unauthorized keyboard shortcuts are restricted.');
-                    return false;
-                }
-            });
+            // Check if already terminated on load
+            if (warningCount >= maxWarnings) {
+                terminateExam('You have exceeded the maximum number of violations. Your coding session has been terminated.');
+            }
         })();
 
         // === RESIZE PANELS ===

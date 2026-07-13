@@ -194,7 +194,7 @@
                                 <fmt:formatDate pattern="MMM dd, yyyy" value="${parsedDate}" />
                             </div>
 
-                            <c:if test="${not empty item.result and item.result.rank <= 10 and item.result.rank > 0}">
+                            <c:if test="${item.rank != null and item.rank <= 10 and item.rank > 0}">
                                 <div class="winner-badge"><i class="fas fa-crown"></i> Top 10 Winner!</div>
                             </c:if>
 
@@ -205,8 +205,8 @@
                                 </span></div>
                                 <div class="stat-item">Final Rank: <span class="stat-value">
                                     <c:choose>
-                                        <c:when test="${not empty item.result and not empty item.result.rank}">
-                                            #${item.result.rank}
+                                        <c:when test="${item.rank != null}">
+                                            #${item.rank}
                                         </c:when>
                                         <c:otherwise>-</c:otherwise>
                                     </c:choose>
