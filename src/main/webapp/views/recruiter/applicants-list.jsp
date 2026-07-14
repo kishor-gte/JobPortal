@@ -434,7 +434,7 @@
                                 <li class="nav-item"><a href="#">Manage Jobs</a>
                                     <ul class="sub-menu">
                                         <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post/${company.id}">Post New Job</a></li>
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/by-company/${company.id}">Posted Jobs</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/posted-jobs">Posted Jobs</a></li>
                                     </ul>
                                 </li>
 

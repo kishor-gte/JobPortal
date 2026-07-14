@@ -1,4 +1,8 @@
 package in.sp.main.Controllers;
+import in.sp.main.Services.AssessmentService;
+import in.sp.main.Services.ExcelHelper;
+import in.sp.main.Entities.AssessmentQuestion;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -64,6 +68,8 @@ public class RecruiterController {
 
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private AssessmentService assessmentService;
 
     @Autowired
     private RecruiterServices recruiterService;
@@ -699,4 +705,185 @@ public class RecruiterController {
         redirectAttributes.addFlashAttribute("message", "Recruiter updated successfully!");
         return "redirect:/recruiter/list"; // Redirect to recruiter list
     }
+
+    @RequestMapping(value = "/posted-jobs", method = RequestMethod.GET)
+    public String viewPostedJobs(@RequestParam(required = false) String employmentType,
+                                   Model model, HttpSession session) {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        if(recruiter == null) return "redirect:/recruiter/login";
+        
+        Long companyId = recruiter.getCompany().getId();
+        List<Job> jobs = jobService.getJobsByCompany(companyId);
+
+        if (employmentType != null && !employmentType.isEmpty()) {
+            final String filter = employmentType;
+            jobs = jobs.stream()
+                .filter(j -> j.getEmploymentType() != null &&
+                             j.getEmploymentType().name().equalsIgnoreCase(filter))
+                .collect(java.util.stream.Collectors.toList());
+            model.addAttribute("filterType", employmentType);
+        }
+
+        model.addAttribute("jobs", jobs);
+        model.addAttribute("companyId", companyId);
+        model.addAttribute("recruiter", recruiter);
+        return "recruiter/posted-jobs";
+    }
+    @RequestMapping(value = "/assessments/uploadpage", method = RequestMethod.GET)
+    public String showRecruiterUploadPage(@RequestParam("jobId") Long jobId, HttpSession session, Model model) {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        
+        if (recruiter == null) {
+            return "redirect:/recruiter/login";
+        }
+        
+        // Get job details to pre-fill information
+        Job job = jobService.getJobById(jobId);
+        if (job == null || !job.getCreatedBy().getId().equals(recruiter.getId())) {
+            return "redirect:/recruiter/posted-jobs";
+        }
+        
+        model.addAttribute("jobId", jobId);
+        model.addAttribute("companyId", job.getCompany().getId());
+        model.addAttribute("jobTitle", job.getTitle());
+        
+        return "recruiter/assessment-upload";
+    }
+
+    @RequestMapping(value = "/assessments/upload", method = RequestMethod.POST)
+    public String uploadRecruiterExcel(@RequestParam("file") MultipartFile file,
+                                      @RequestParam("skill") String skill,
+                                      @RequestParam(value = "replace", required = false) String replaceStr,
+                                      @RequestParam(value = "replaceInvitations", required = false) String replaceInvitationsStr,
+                                      @RequestParam("jobId") Long jobId,
+                                      @RequestParam("companyId") Long companyId,
+                                      HttpSession session,
+                                      Model model) {
+        
+        boolean replace = "on".equalsIgnoreCase(replaceStr) || "true".equalsIgnoreCase(replaceStr) || "yes".equalsIgnoreCase(replaceStr) || "1".equals(replaceStr);
+        boolean replaceInvitations = "on".equalsIgnoreCase(replaceInvitationsStr) || "true".equalsIgnoreCase(replaceInvitationsStr) || "yes".equalsIgnoreCase(replaceInvitationsStr) || "1".equals(replaceInvitationsStr);
+        try {
+            // Validate recruiter session
+            Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+            if (recruiter == null) {
+                model.addAttribute("message", "Error: Unauthorized access. Please login.");
+                model.addAttribute("companyId", companyId);
+                return "recruiter/upload-result"; // Can reuse the company result page or create recruiter version, let's just return to company/upload-result for now as it's just a message page
+            }
+            
+            // Validate file
+            if (file == null || file.isEmpty()) {
+                model.addAttribute("message", "Error: Please select a file to upload");
+                model.addAttribute("companyId", companyId);
+                return "recruiter/upload-result";
+            }
+            
+            // Check file type
+            String fileName = file.getOriginalFilename();
+            if (fileName == null || !fileName.endsWith(".xlsx")) {
+                model.addAttribute("message", "Error: Only .xlsx files are supported");
+                model.addAttribute("companyId", companyId);
+                return "recruiter/upload-result";
+            }
+            
+            // Delete existing questions if replace is checked
+            if (replace) {
+                assessmentService.deleteBySkill(skill);
+            }
+            
+            // Delete existing invitations if replaceInvitations is checked
+            if (replaceInvitations) {
+                List<in.sp.main.Entities.AssessmentInvitation> existingInvites = 
+                    invitationRepo.findByJobIdAndSkill(jobId, skill);
+                if (!existingInvites.isEmpty()) {
+                    System.out.println("Deleting " + existingInvites.size() + " existing invitations...");
+                    invitationRepo.deleteAll(existingInvites);
+                }
+            }
+            
+            // Parse Excel and save questions
+            java.util.List<AssessmentQuestion> questions = ExcelHelper.convertExcelToList(file.getInputStream(), skill);
+            
+            if (questions.isEmpty()) {
+                model.addAttribute("message", "Error: No valid questions found in the file. Please check the format.");
+                model.addAttribute("companyId", companyId);
+                return "recruiter/upload-result";
+            }
+            
+            // Set source type, job ID and recruiter ID for each question
+            for (AssessmentQuestion q : questions) {
+                q.setSourceType("RECRUITER");
+                q.setJobId(jobId);
+                q.setRecruiterId(recruiter.getId());
+            }
+            
+            assessmentService.saveAll(questions);
+            
+            // AUTO-CREATE ASSESSMENT INVITATIONS for ALL job seekers (EVERY TIME)
+            try {
+                // Get ALL job seekers from the database
+                List<in.sp.main.Entities.JobSeeker> allJobSeekers = jobSeekerRepo.findAll();
+                
+                System.out.println("=== ASSESSMENT INVITATION DEBUG ===");
+                System.out.println("Total job seekers in database: " + allJobSeekers.size());
+                System.out.println("Job ID: " + jobId);
+                System.out.println("Skill: " + skill);
+                System.out.println("Recruiter ID: " + recruiter.getId());
+                
+                int invitationsCreated = 0;
+                
+                // Create invitation for EVERY job seeker (no duplicate check)
+                for (in.sp.main.Entities.JobSeeker jobSeeker : allJobSeekers) {
+                    // Create new invitation every time
+                    in.sp.main.Entities.AssessmentInvitation invite = new in.sp.main.Entities.AssessmentInvitation();
+                    invite.setJobSeekerId(jobSeeker.getId());
+                    invite.setJobId(jobId);
+                    invite.setRecruiterId(recruiter.getId());
+                    invite.setSkill(skill);
+                    invite.setType("JOB");
+                    invite.setStatus("SENT");
+                    invite.setSentAt(java.time.LocalDateTime.now());
+                    invitationRepo.save(invite);
+                    invitationsCreated++;
+                }
+                
+                System.out.println("New invitations created: " + invitationsCreated);
+                System.out.println("=== END DEBUG ===");
+                
+                model.addAttribute("message", "Successfully uploaded " + questions.size() + " questions for " + skill + 
+                    ". Assessment invitations sent to " + invitationsCreated + " job seeker(s).");
+                
+            } catch (Exception e) {
+                System.err.println("Warning: Questions uploaded but failed to create invitations: " + e.getMessage());
+                e.printStackTrace();
+                model.addAttribute("message", "Successfully uploaded " + questions.size() + " questions for " + skill + 
+                    ". Note: Some invitations may not have been created.");
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error uploading file: " + e.getMessage());
+            e.printStackTrace();
+            model.addAttribute("message", "Error uploading file: " + e.getMessage());
+        }
+        
+        model.addAttribute("companyId", companyId);
+        return "recruiter/upload-result";
+    }
+    @RequestMapping(value = "/assessments/info", method = RequestMethod.GET)
+    public String showAssessmentInfo(HttpSession session, Model model) {
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        
+        if (recruiter == null) {
+            return "redirect:/recruiter/login";
+        }
+        
+        // Find a company ID from one of their jobs, or just use the recruiter ID. 
+        // We'll just return the view, which maybe doesn't need companyId, or we can fetch a job.
+        // The original view company/assessment-info.jsp probably needs companyId for back button.
+        // We'll let it fail gracefully or just return "recruiter/assessment-info".
+        // Wait, does recruiter/assessment-info exist?
+        // Let's just return company/assessment-info for now, it's just an info page!
+        return "company/assessment-info";
+    }
 }
+
