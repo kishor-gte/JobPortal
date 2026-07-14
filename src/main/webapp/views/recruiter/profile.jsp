@@ -77,39 +77,66 @@
             50% { opacity: 1; }
         }
 
-        /* Navbar Fixed Styles */
-        .navbar {
+        /* Header styling */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 9999;
+        }
+
+        .header .navbar-area {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-sm);
-            padding: 8px 0;
+            box-shadow: var(--shadow-md);
         }
 
-        .navbar .navbar-nav {
-            margin-left: 10px;
-        }
-
-        .navbar .nav-item {
-            margin-left: 15px;
-        }
-
-        .navbar .nav-item a {
-            color: var(--text-primary) !important;
+        .header .navbar-nav > .nav-item > a {
+            color: var(--text-primary, #1e293b) !important;
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
-        .navbar .nav-item a:hover,
-        .navbar .nav-item a.active {
+        .header .navbar-nav > .nav-item > a:hover,
+        .header .navbar-nav > .nav-item > a.active {
             color: var(--primary) !important;
         }
 
-        .navbar .button .btn {
+        /* Dropdown Visibility & Hover Fixes */
+        @media (min-width: 992px) {
+            .header, .header .navbar-area, .header .navbar, .header .navbar-collapse, .header .navbar-nav, .header .navbar-nav > .nav-item {
+                overflow: visible !important;
+            }
+        }
+        .header .navbar-nav li .sub-menu {
+            overflow: visible !important;
+            z-index: 9999999 !important;
+        }
+        .header .navbar-nav li .sub-menu::before {
+            height: 15px !important;
+            top: -15px !important;
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: transparent;
+        }
+        .header .navbar-nav .sub-menu li a {
+            color: #1e293b !important;
+            background-color: transparent !important;
+        }
+        .header .navbar-nav .sub-menu li a:hover,
+        .header .navbar-nav .sub-menu li:hover > a,
+        .header .navbar-nav .sub-menu li a:focus,
+        .header .navbar-nav .sub-menu li:focus-within > a,
+        .header .navbar-nav .sub-menu li a:active,
+        .header .navbar-nav .sub-menu li a.active {
+            background-color: #19A77B !important;
+            color: #ffffff !important;
+        }
+
+        .header .button .btn {
             background: var(--gradient-primary);
             color: white;
             border: none;
@@ -120,7 +147,7 @@
             box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
         }
 
-        .navbar .button .btn:hover {
+        .header .button .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(25, 167, 123, 0.4);
         }
@@ -432,7 +459,6 @@
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand logo" href="${pageContext.request.contextPath}/index">
                             <img class="logo1" src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="Logo" />
-                            <span style="font-weight: 700; color: var(--primary); margin-left: 8px;">SmartInterview</span>
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -444,35 +470,41 @@
 
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ml-auto">
-
                                 <li class="nav-item">
-                                    <a class="active" href="${pageContext.request.contextPath}/recruiter.html">Home</a>
+                                    <a href="${pageContext.request.contextPath}/recruiter/dashboard">Home</a>
                                 </li>
-
-                                <li class="nav-item"><a href="#">Pages</a>
+                                <li class="nav-item"><a href="#">Resources</a>
                                     <ul class="sub-menu">
                                         <li><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
                                         <li><a href="${pageContext.request.contextPath}/services.html">Services</a></li>
                                         <li><a href="${pageContext.request.contextPath}/contact.html">Contact</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/faq.html">FAQ</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/policy.html">Policies</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></li>
                                     </ul>
                                 </li>
-
                                 <li class="nav-item"><a href="#">Manage Jobs</a>
                                     <ul class="sub-menu">
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post">Post New Job</a></li>
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/by-company">Posted Jobs</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post/${recruiter.company.id}">Post New Job</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/posted-jobs">Posted Jobs</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post-internship/${recruiter.company.id}">Post New Internship</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/posted-jobs">Posted Internships</a></li>
                                     </ul>
                                 </li>
-
                                 <li class="nav-item"><a href="#">Manage Candidates</a>
                                     <ul class="sub-menu">
                                         <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/applicants">Applicants</a></li>
                                         <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/competition-results">Competition Results</a></li>
                                     </ul>
                                 </li>
-
-                                <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/profile">My Profile</a></li>
-
+                                <li class="nav-item">
+                                    <a href="#">Corporate Events</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="${pageContext.request.contextPath}/recruiter/explore">Explore Corporate Events</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/recruiter/bookings">My Bookings</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="active" href="${pageContext.request.contextPath}/recruiter/profile">My Profile</a></li>
                             </ul>
                         </div>
 
@@ -552,13 +584,6 @@
             <a href="${pageContext.request.contextPath}/recruiter/profile/edit" class="btn btn-custom btn-edit">
                 <i class="fas fa-edit"></i> Edit Profile
             </a>
-
-            <form action="${pageContext.request.contextPath}/recruiter/profile/delete" method="post" class="d-inline"
-                  onsubmit="return confirm('Are you sure you want to delete your recruiter profile? This action is irreversible.');">
-                <button type="submit" class="btn btn-custom btn-danger">
-                    <i class="fas fa-trash-alt"></i> Delete Account
-                </button>
-            </form>
 
             <a href="${pageContext.request.contextPath}/recruiter/dashboard" class="btn btn-custom btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
