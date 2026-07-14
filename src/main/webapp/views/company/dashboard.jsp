@@ -358,7 +358,6 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item"><a class="active" href="${pageContext.request.contextPath}/index">Home</a></li>
-                                <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/login">Recruiters Login</a></li>
                                 <li class="nav-item">
                                     <a href="#">Corporate Events</a>
                                     <ul class="sub-menu">

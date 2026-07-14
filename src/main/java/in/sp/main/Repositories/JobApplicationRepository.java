@@ -28,6 +28,7 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 	    List<Long> findJobIdsBySeeker(@Param("seeker") JobSeeker seeker);
 		List<JobApplication> findByJob_IdAndStatus(Long jobId, ApplicationStatus valueOf);
 		List<JobApplication> findByJob_Id(Long jobId);
+		long countByJob_Id(Long jobId);
 		
 		@Query("SELECT ja FROM JobApplication ja " +
 			       "JOIN ja.jobSeeker js " +

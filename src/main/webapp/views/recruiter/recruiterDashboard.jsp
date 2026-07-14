@@ -443,7 +443,7 @@
         </div>
 
         <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/jobs/by-company/${companyId}" class="text-decoration-none">
+            <a href="${pageContext.request.contextPath}/recruiter/posted-jobs" class="text-decoration-none">
                 <div class="dashboard-card">
                     <div class="dashboard-icon"><i class="fas fa-briefcase"></i></div>
                     <h5>Posted Jobs</h5>

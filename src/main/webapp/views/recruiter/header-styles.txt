@@ -1,0 +1,66 @@
+﻿        .header .navbar-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header .navbar-nav > .nav-item > a {
+            color: var(--text-primary, #1e293b) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .header .navbar-nav > .nav-item > a:hover,
+        .header .navbar-nav > .nav-item > a.active {
+            color: var(--primary) !important;
+        }
+
+        /* Dropdown Visibility & Hover Fixes */
+        @media (min-width: 992px) {
+            .header, .header .navbar-area, .header .navbar, .header .navbar-collapse, .header .navbar-nav, .header .navbar-nav > .nav-item {
+                overflow: visible !important;
+            }
+        }
+        .header .navbar-nav li .sub-menu {
+            overflow: visible !important;
+            z-index: 9999999 !important;
+        }
+        .header .navbar-nav li .sub-menu::before {
+            height: 15px !important;
+            top: -15px !important;
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: transparent;
+        }
+        .header .navbar-nav .sub-menu li a {
+            color: #1e293b !important;
+            background-color: transparent !important;
+        }
+        .header .navbar-nav .sub-menu li a:hover,
+        .header .navbar-nav .sub-menu li:hover > a,
+        .header .navbar-nav .sub-menu li a:focus,
+        .header .navbar-nav .sub-menu li:focus-within > a,
+        .header .navbar-nav .sub-menu li a:active,
+        .header .navbar-nav .sub-menu li a.active {
+            background-color: #19A77B !important;
+            color: #ffffff !important;
+        }
+
+        .header .button .btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
+        }
+
+        .header .button .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 167, 123, 0.4);
+        }
+

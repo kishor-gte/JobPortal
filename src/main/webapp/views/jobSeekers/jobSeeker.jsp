@@ -579,7 +579,8 @@
                         <label for="password" class="form-label">Password</label>
                         <div class="input-wrapper">
                             <span class="input-icon password-icon"></span>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required style="padding-right: 40px;">
+                            <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
                         </div>
                         <div id="passwordError" class="password-match mismatch" style="display: none;"></div>
                     </div>
@@ -587,7 +588,8 @@
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <div class="input-wrapper">
                             <span class="input-icon password-icon"></span>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required style="padding-right: 40px;">
+                            <i class="far fa-eye" id="toggleConfirmPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
                         </div>
                         <div id="passwordMatch" class="password-match" style="display: none;"></div>
                     </div>
@@ -618,6 +620,28 @@
     <script>
         // Password match validation
         document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+            
+            if (togglePassword) {
+                togglePassword.addEventListener('click', function (e) {
+                    const pwd = document.getElementById('password');
+                    const type = pwd.getAttribute('type') === 'password' ? 'text' : 'password';
+                    pwd.setAttribute('type', type);
+                    this.classList.toggle('fa-eye-slash');
+                    this.classList.toggle('fa-eye');
+                });
+            }
+
+            if (toggleConfirmPassword) {
+                toggleConfirmPassword.addEventListener('click', function (e) {
+                    const confirmPwd = document.getElementById('confirmPassword');
+                    const type = confirmPwd.getAttribute('type') === 'password' ? 'text' : 'password';
+                    confirmPwd.setAttribute('type', type);
+                    this.classList.toggle('fa-eye-slash');
+                    this.classList.toggle('fa-eye');
+                });
+            }
             const email = document.getElementById('email');
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirmPassword');

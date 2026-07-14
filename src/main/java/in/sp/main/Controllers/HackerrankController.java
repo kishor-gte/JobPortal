@@ -309,6 +309,7 @@ public class HackerrankController {
         try {
             model.addAttribute("interviews", interviewDAO.findByStudentId(user.getId()));
         } catch (Exception e) {
+            e.printStackTrace();
             model.addAttribute("interviews", new java.util.ArrayList<>());
         }
         model.addAttribute("interviewQuestions", questionDAO.findAllInterviewQuestions());
@@ -843,6 +844,7 @@ public class HackerrankController {
             allInterviews = interviewDAO.findAll();
             model.addAttribute("interviews", allInterviews);
         } catch (Exception e) {
+            e.printStackTrace();
             model.addAttribute("interviews", allInterviews);
         }
 
@@ -877,6 +879,7 @@ public class HackerrankController {
         try {
             model.addAttribute("interviews", interviewDAO.findAll());
         } catch (Exception e) {
+             e.printStackTrace();
              model.addAttribute("interviews", new java.util.ArrayList<>());
         }
         return "hackerrank/schedule-interview";

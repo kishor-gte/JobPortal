@@ -479,7 +479,7 @@
                                         <c:when test="${job.applicantCount != null && job.applicantCount > 0}">
                                             <span class="candidate-count">
                                                 <i class="fas fa-user-check"></i>
-                                                ${job.applicantCount} Candidate${job.applicantCount > 1 ? 's' : ''}
+                                                ${job.applicantCount} Candidate${job.applicantCount > 1 ? 's' : ''} Applied
                                             </span>
                                         </c:when>
                                         <c:otherwise>
@@ -710,3 +710,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+

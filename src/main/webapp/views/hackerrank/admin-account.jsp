@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Admin Dashboard | JobU - SmartInterview</title>
+    <title>Account Profile | SmartInterview</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -602,10 +602,10 @@
     <div class="main-content">
         <div class="top-bar">
             <div style="display: flex; align-items: center; gap: 16px;">
-                <a href="${pageContext.request.contextPath}/dashboard" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Back to Main
+                <a href="${pageContext.request.contextPath}/hackerrank/admin/dashboard" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
                 </a>
-                <h1><i class="fas fa-shield-halved"></i> Admin Dashboard</h1>
+                <h1><i class="fas fa-user-circle"></i> Account Profile</h1>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
                 <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
@@ -616,65 +616,40 @@
             </div>
         </div>
 
-        <!-- Stats Row 1 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fas fa-users"></i></div>
-                <div class="stat-value">${totalUsers}</div>
-                <div class="stat-label">Total Users</div>
+        <div class="card" style="max-width: 600px; margin: 0 auto; margin-top: 40px; padding: 40px; text-align: center; border-radius: 24px;">
+            <div class="user-avatar admin" style="width: 100px; height: 100px; font-size: 36px; margin: 0 auto 20px; box-shadow: var(--shadow-md);">
+                ${user != null ? user.name.substring(0,1).toUpperCase() : 'A'}
             </div>
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
-                <div class="stat-value">${totalStudents}</div>
-                <div class="stat-label">Students</div>
+            <h2 style="font-size: 28px; margin-bottom: 8px;">${user != null ? user.name : 'Administrator'}</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 15px;">${user != null ? user.email : 'admin@smartinterview.com'}</p>
+            
+            <div style="display: inline-block; padding: 8px 24px; background: rgba(25,167,123,0.15); border: 1px solid var(--primary); color: var(--accent); border-radius: 30px; font-weight: 600; font-size: 14px; margin-bottom: 30px;">
+                <i class="fas fa-crown"></i> ADMIN
             </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-code"></i></div>
-                <div class="stat-value">${totalCodingQuestions}</div>
-                <div class="stat-label">Coding Questions</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; background: rgba(0,0,0,0.1); padding: 24px; border-radius: 16px;">
+                <div>
+                    <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; text-transform: uppercase;">Full Name</label>
+                    <div style="font-weight: 500;">${user != null ? user.name : 'Administrator'}</div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; text-transform: uppercase;">Email Address</label>
+                    <div style="font-weight: 500;">${user != null ? user.email : 'N/A'}</div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; text-transform: uppercase;">Account Status</label>
+                    <div style="font-weight: 500; color: var(--success);"><i class="fas fa-check-circle"></i> Active</div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; text-transform: uppercase;">Role</label>
+                    <div style="font-weight: 500;">System Administrator</div>
+                </div>
             </div>
-        </div>
 
-        <!-- Stats Row 2 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon cyan"><i class="fas fa-comments"></i></div>
-                <div class="stat-value">${totalInterviewQuestions}</div>
-                <div class="stat-label">Interview Questions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon yellow"><i class="fas fa-video"></i></div>
-                <div class="stat-value">${totalInterviews}</div>
-                <div class="stat-label">Total Interviews</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-check-double"></i></div>
-                <div class="stat-value">${completedInterviews}</div>
-                <div class="stat-label">Completed</div>
-            </div>
-        </div>
-
-        <!-- Stats Row 3 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fas fa-building"></i></div>
-                <div class="stat-value">${totalCompanies}</div>
-                <div class="stat-label">Companies</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fas fa-briefcase"></i></div>
-                <div class="stat-value">${totalJobs}</div>
-                <div class="stat-label">Total Jobs</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-file-alt"></i></div>
-                <div class="stat-value">${totalApplications}</div>
-                <div class="stat-label">Job Applications</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fas fa-handshake"></i></div>
-                <div class="stat-value">${activeJobs.size()}</div>
-                <div class="stat-label">Active Jobs</div>
+            <div style="margin-top: 30px;">
+                <a href="${pageContext.request.contextPath}/admin/edit/${user != null ? user.id : 0}" style="display: inline-block; padding: 10px 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 14px; box-shadow: var(--shadow-md); transition: var(--transition);">
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </a>
             </div>
         </div>
 

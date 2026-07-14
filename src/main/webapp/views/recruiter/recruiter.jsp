@@ -45,15 +45,48 @@
             box-shadow: var(--shadow-md);
         }
 
-        .header .navbar-nav .nav-item a {
+        .header .navbar-nav > .nav-item > a {
             color: var(--text-primary, #1e293b) !important;
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
-        .header .navbar-nav .nav-item a:hover,
-        .header .navbar-nav .nav-item a.active {
+        .header .navbar-nav > .nav-item > a:hover,
+        .header .navbar-nav > .nav-item > a.active {
             color: var(--primary) !important;
+        }
+
+        /* Dropdown Visibility & Hover Fixes */
+        @media (min-width: 992px) {
+            .header, .header .navbar-area, .header .navbar, .header .navbar-collapse, .header .navbar-nav, .header .navbar-nav > .nav-item {
+                overflow: visible !important;
+            }
+        }
+        .header .navbar-nav li .sub-menu {
+            overflow: visible !important;
+            z-index: 9999999 !important;
+        }
+        .header .navbar-nav li .sub-menu::before {
+            height: 15px !important;
+            top: -15px !important;
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: transparent;
+        }
+        .header .navbar-nav .sub-menu li a {
+            color: #1e293b !important;
+            background-color: transparent !important;
+        }
+        .header .navbar-nav .sub-menu li a:hover,
+        .header .navbar-nav .sub-menu li:hover > a,
+        .header .navbar-nav .sub-menu li a:focus,
+        .header .navbar-nav .sub-menu li:focus-within > a,
+        .header .navbar-nav .sub-menu li a:active,
+        .header .navbar-nav .sub-menu li a.active {
+            background-color: #19A77B !important;
+            color: #ffffff !important;
         }
 
         .header .button .btn {
@@ -370,9 +403,9 @@
                                     <li class="nav-item"><a href="#">Manage Jobs</a>
                                         <ul class="sub-menu">
                                             <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post/${companyId}">Post New Job</a></li>
-                                            <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/by-company/${companyId}">Posted Jobs</a></li>
+                                            <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/posted-jobs">Posted Jobs</a></li>
                                             <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post-internship/${companyId}">Post New Internship</a></li>
-                                            <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/by-company/${companyId}?employmentType=INTERNSHIP">Posted Internships</a></li>
+                                            <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/posted-jobs">Posted Internships</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item"><a href="#">Manage Candidates</a>

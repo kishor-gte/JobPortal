@@ -220,13 +220,13 @@
         .candidate-cell { display: flex; align-items: center; gap: 14px; }
         .candidate-avatar {
             width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-primary);
-            color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px;
+            color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; overflow: hidden;
         }
         .candidate-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .candidate-info h4 { margin: 0 0 4px 0; font-size: 15px; color: var(--text-primary); font-weight: 600; }
         .candidate-info p { margin: 0; font-size: 12px; color: var(--text-tertiary); }
         
-        .badge { padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+        .badge { padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
         .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
         .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
 
@@ -362,7 +362,7 @@
             <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="nav-link">
                 <i class="fas fa-th-large"></i> Dashboard
             </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/performance" class="nav-link">
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/evaluations" class="nav-link">
                 <i class="fas fa-chart-line"></i> Student Performance
             </a>
             <a href="${pageContext.request.contextPath}/hackerrank/interviewer/schedule-interview" class="nav-link">
@@ -485,7 +485,8 @@
                                         <div class="candidate-avatar">
                                             <c:choose>
                                                 <c:when test="${not empty candidate.profilePicture}">
-                                                    <img src="${pageContext.request.contextPath}/${candidate.profilePicture}" alt="Profile">
+                                                    <c:set var="initial" value="${not empty candidate.name ? candidate.name.substring(0,1).toUpperCase() : 'C'}" />
+                                                    <img src="${pageContext.request.contextPath}/${candidate.profilePicture}" alt="" onerror="this.onerror=null; this.outerHTML='<span>${initial}</span>';">
                                                 </c:when>
                                                 <c:otherwise>
                                                     ${not empty candidate.name ? candidate.name.substring(0,1).toUpperCase() : 'C'}

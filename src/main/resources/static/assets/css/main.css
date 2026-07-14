@@ -5056,3 +5056,48 @@ ol {
 
 
 
+
+/* Fix for Recruiter Dropdowns visibility and hover */
+@media (min-width: 992px) {
+    .header, 
+    .header .navbar-area, 
+    .header .navbar, 
+    .header .navbar-collapse,
+    .header .navbar-nav,
+    .header .navbar-nav > .nav-item {
+        overflow: visible !important;
+    }
+}
+.header .navbar-nav li .sub-menu {
+    overflow: visible !important;
+    z-index: 9999999 !important;
+}
+.header .navbar-nav li .sub-menu::before {
+    height: 15px !important;
+    top: -15px !important;
+}
+html body .header .navbar-nav .sub-menu .nav-item a {
+    color: #666 !important;
+}
+html body .header .navbar-nav .sub-menu .nav-item:hover a,
+html body .header .navbar-nav .sub-menu .nav-item a:hover {
+    background-color: #19A77B !important;
+    color: #fff !important;
+}
+
+/* Enhanced Accessibility and Hover Contrast for Recruiter Dropdowns */
+html body .header .navbar-nav .sub-menu li a {
+    color: #1e293b !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease;
+}
+
+html body .header .navbar-nav .sub-menu li a:hover,
+html body .header .navbar-nav .sub-menu li:hover > a,
+html body .header .navbar-nav .sub-menu li a:focus,
+html body .header .navbar-nav .sub-menu li:focus-within > a,
+html body .header .navbar-nav .sub-menu li a:active,
+html body .header .navbar-nav .sub-menu li a.active {
+    background-color: #19A77B !important;
+    color: #ffffff !important;
+}
