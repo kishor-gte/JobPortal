@@ -473,22 +473,14 @@
             </div>
         </div>
         
-        <h2>Admin Profile</h2>
+        <h2>Edit Admin Profile</h2>
         <div class="role-badge">
             <i class="fas fa-crown" style="margin-right: 6px; font-size: 10px;"></i> Super Administrator
         </div>
         
-        <!-- Profile Information with Icons -->
-        <div class="profile-info">
-            <div class="info-row">
-                <div class="info-icon">
-                    <i class="fas fa-id-card"></i>
-                </div>
-                <div class="info-content">
-                    <div class="info-label">Administrator ID</div>
-                    <div class="info-value">${admin.id}</div>
-                </div>
-            </div>
+        <!-- Profile Information Form -->
+        <form action="${pageContext.request.contextPath}/admin/updateProfile" method="post" class="profile-info">
+            <input type="hidden" name="id" value="${admin.id}">
             
             <div class="info-row">
                 <div class="info-icon">
@@ -496,7 +488,7 @@
                 </div>
                 <div class="info-content">
                     <div class="info-label">Full Name</div>
-                    <div class="info-value">${admin.name}</div>
+                    <input type="text" name="name" value="${admin.name}" class="form-control info-value" style="background:transparent; border:1px solid rgba(25,167,123,0.3); border-radius:8px; padding:8px; width:100%;">
                 </div>
             </div>
             
@@ -506,20 +498,20 @@
                 </div>
                 <div class="info-content">
                     <div class="info-label">Email Address</div>
-                    <div class="info-value">${admin.email}</div>
+                    <input type="email" name="email" value="${admin.email}" class="form-control info-value" style="background:transparent; border:1px solid rgba(25,167,123,0.3); border-radius:8px; padding:8px; width:100%;" readonly>
                 </div>
             </div>
-        </div>
-        
-        <!-- Action Buttons -->
-        <div class="button-group">
-            <a href="${pageContext.request.contextPath}/admin/edit/${admin.id}" class="btn edit-btn">
-                <i class="fas fa-pen"></i> Edit Profile
-            </a>
-            <a href="${pageContext.request.contextPath}/dashboard" class="btn back-btn">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
-        </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn edit-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="${pageContext.request.contextPath}/admin/profile" class="btn back-btn">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 

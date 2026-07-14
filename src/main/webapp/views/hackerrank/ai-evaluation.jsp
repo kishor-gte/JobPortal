@@ -710,62 +710,57 @@
             top: 0;
             width: 280px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            border-right: 1px solid rgba(25,167,123,0.15);
             padding: 24px 16px;
             z-index: 100;
             overflow-y: auto;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .sidebar::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
-
         .sidebar::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
         }
-
         .sidebar::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
         }
 
         .sidebar-logo {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 8px 12px 24px;
-            border-bottom: 1px solid var(--border-color);
+            gap: 12px;
+            padding: 0 8px 24px;
+            border-bottom: 1px solid rgba(25,167,123,0.2);
             margin-bottom: 24px;
         }
 
         .sidebar-logo .icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient-primary);
-            border-radius: 14px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), #148F69);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--glow-primary);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar-logo .icon i {
             color: #fff;
-            font-size: 24px;
+            font-size: 20px;
         }
 
         .sidebar-logo h2 {
             font-size: 20px;
-            font-weight: 700;
-            background: var(--gradient-primary);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
         }
 
         .nav-section {
@@ -773,47 +768,43 @@
         }
 
         .nav-section h4 {
-            color: var(--text-tertiary);
+            color: rgba(255, 255, 255, 0.35);
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             padding: 0 12px;
-            margin-bottom: 14px;
-            font-weight: 600;
+            margin-bottom: 12px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 12px 14px;
+            gap: 12px;
+            padding: 10px 12px;
             border-radius: 12px;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.65);
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             margin-bottom: 4px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link i {
-            width: 20px;
-            text-align: center;
-            font-size: 16px;
         }
 
         .nav-link:hover {
-            background: var(--hover-bg);
-            color: var(--primary);
+            background: rgba(25,167,123,0.12);
+            color: var(--accent);
             transform: translateX(4px);
         }
 
         .nav-link.active {
-            background: var(--hover-bg);
-            color: var(--primary);
-            box-shadow: inset 0 0 20px rgba(25, 167, 123, 0.05);
+            background: linear-gradient(135deg, rgba(25,167,123,0.2), rgba(59,196,154,0.1));
+            color: var(--accent);
+            border-left: 3px solid var(--primary);
+        }
+
+        .nav-link i {
+            width: 22px;
+            text-align: center;
         }
 
         .main-content {
@@ -877,7 +868,7 @@
             }
         }
     </style>
-	<jsp:include page="/views/commons/hackerrank_sidebar_styles.jsp" />
+
 </head>
 
 <body>

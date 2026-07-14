@@ -432,7 +432,7 @@ body::after {
 /* HR Stats Grid */
 .hr-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-bottom: 24px;
 }
@@ -812,8 +812,9 @@ html { scroll-behavior: smooth; }
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container">
-    <a class="navbar-brand-custom" href="${pageContext.request.contextPath}/dashboard">
-      <i class="fas fa-briefcase"></i> <span>JobU Admin</span>
+    <a class="navbar-brand-custom" href="${pageContext.request.contextPath}/dashboard" style="display: flex; align-items: center; text-decoration: none; gap: 10px;">
+      <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block;" />
+      <span>JobU Admin</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
@@ -821,7 +822,10 @@ html { scroll-behavior: smooth; }
       <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="ms-auto">
+      <div class="ms-auto" style="display: flex; gap: 10px;">
+        <a href="${pageContext.request.contextPath}/admin/profile" class="btn btn-logout" style="background: rgba(25,167,123,0.8); border-color: transparent;">
+          <i class="fas fa-user-edit"></i> <span>Edit Profile</span>
+        </a>
         <form action="${pageContext.request.contextPath}/adminLogout" method="post" class="d-inline">
           <button type="submit" class="btn btn-logout">
             <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
@@ -929,17 +933,10 @@ html { scroll-behavior: smooth; }
     <h2 class="section-title">Platform Statistics</h2>
     <div class="hr-stats-grid">
       <div class="hr-stat-card"><div class="hr-stat-icon orange"><i class="fas fa-users"></i></div><div class="hr-stat-value">${totalUsers}</div><div class="hr-stat-label">Total Job Seekers</div></div>
-      <div class="hr-stat-card"><div class="hr-stat-icon blue"><i class="fas fa-user-graduate"></i></div><div class="hr-stat-value">${totalStudents}</div><div class="hr-stat-label">Job Seekers</div></div>
-      <div class="hr-stat-card"><div class="hr-stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div><div class="hr-stat-value">${totalInterviewers}</div><div class="hr-stat-label">Interviewers</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon purple"><i class="fas fa-code"></i></div><div class="hr-stat-value">${totalCodingQuestions}</div><div class="hr-stat-label">Coding Questions</div></div>
-    </div>
-    <div class="hr-stats-grid">
       <div class="hr-stat-card"><div class="hr-stat-icon cyan"><i class="fas fa-comments"></i></div><div class="hr-stat-value">${totalInterviewQuestions}</div><div class="hr-stat-label">Interview Questions</div></div>
-      <div class="hr-stat-card"><div class="hr-stat-icon pink"><i class="fas fa-tags"></i></div><div class="hr-stat-value">${totalCategories}</div><div class="hr-stat-label">Categories</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon yellow"><i class="fas fa-video"></i></div><div class="hr-stat-value">${totalInterviews}</div><div class="hr-stat-label">Total Interviews</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon green"><i class="fas fa-check-double"></i></div><div class="hr-stat-value">${completedInterviews}</div><div class="hr-stat-label">Completed</div></div>
-    </div>
-    <div class="hr-stats-grid">
       <div class="hr-stat-card"><div class="hr-stat-icon orange"><i class="fas fa-building"></i></div><div class="hr-stat-value">${totalCompanies}</div><div class="hr-stat-label">Companies</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon blue"><i class="fas fa-briefcase"></i></div><div class="hr-stat-value">${totalJobs}</div><div class="hr-stat-label">Total Jobs</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon green"><i class="fas fa-file-alt"></i></div><div class="hr-stat-value">${totalApplications}</div><div class="hr-stat-label">Job Applications</div></div>

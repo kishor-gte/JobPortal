@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -815,6 +815,41 @@
         .mobile-menu-btn {
             display: none;
         }
+
+        .btn-back {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.65);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            background: rgba(25,167,123,0.15);
+            border-color: var(--primary);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        body.light-mode .btn-back {
+            background: white;
+            border-color: #e2e8f0;
+            color: #475569;
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.light-mode .btn-back:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
     </style>
 </head>
 
@@ -875,13 +910,18 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h1>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <i class="fas fa-question-circle"></i>
-                Manage Questions
-            </h1>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a href="${pageContext.request.contextPath}/hackerrank/admin/dashboard" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+                <h1>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <i class="fas fa-question-circle"></i>
+                    Manage Questions
+                </h1>
+            </div>
             <div class="top-bar-actions">
                 <button id="theme-toggle" class="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>

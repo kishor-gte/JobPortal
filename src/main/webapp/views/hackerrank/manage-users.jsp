@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -315,6 +315,48 @@
             border-color: var(--danger);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-back {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-back:hover {
+            background: var(--hover-bg);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--glow-primary);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary) !important;
+            box-shadow: var(--glow-primary);
         }
 
         .filters {
@@ -695,6 +737,18 @@
             color: #ef4444 !important;
         }
 
+        body.light-mode .btn-back {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            color: #475569 !important;
+        }
+
+        body.light-mode .search-input {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+        }
+
         body.light-mode td div[style*="color:"],
         body.light-mode td[style*="color:"] {
             color: #64748b !important;
@@ -808,12 +862,7 @@
             <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-users" class="nav-link active">
                 <i class="fas fa-users-cog"></i> Manage Users
             </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-questions" class="nav-link">
-                <i class="fas fa-question-circle"></i> Manage Questions
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-categories" class="nav-link">
-                <i class="fas fa-tags"></i> Manage Categories
-            </a>
+
         </div>
         <div class="nav-section">
             <h4>Evaluation</h4>
@@ -845,6 +894,9 @@
                 Manage Users
             </h1>
             <div class="top-bar-actions">
+                <a href="${pageContext.request.contextPath}/dashboard" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
                 <button id="theme-toggle" class="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -859,6 +911,16 @@
                 <i class="fas fa-check-circle"></i> ${success}
             </div>
         </c:if>
+
+        <div class="search-container" style="margin-bottom: 24px; display: flex; gap: 12px; max-width: 450px;">
+            <div style="position: relative; flex: 1;">
+                <input type="text" id="userSearchInput" class="search-input" placeholder="Search by name or email...">
+                <i class="fas fa-search" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary);"></i>
+            </div>
+            <button id="userSearchBtn" class="filter-btn active" onclick="performSearch()" style="border-radius: 30px; cursor: pointer; border: none; padding: 10px 22px;">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
 
         <div class="filters">
             <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-users" class="filter-btn ${empty selectedRole ? 'active' : ''}">
@@ -900,9 +962,6 @@
                                     </div>
                                     <div>
                                         <div style="font-weight: 600; color: var(--text-primary);">${u.name}</div>
-                                        <div style="font-size: 12px; color: var(--text-tertiary);">
-                                            <i class="fas fa-at"></i> ${u.email}
-                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -1051,6 +1110,64 @@
                     document.body.style.overflow = '';
                 }
             });
+        });
+
+        function performSearch() {
+            const query = document.getElementById('userSearchInput').value.toLowerCase().trim();
+            const rows = document.querySelectorAll('table tbody tr');
+            let foundAny = false;
+            
+            rows.forEach(row => {
+                if (row.id === 'searchEmptyRow') {
+                    return;
+                }
+                if (row.querySelector('.empty-state') && !row.id) {
+                    row.style.display = 'none';
+                    return;
+                }
+                
+                const nameEl = row.querySelector('.user-cell div div:first-child');
+                const emailEl = row.querySelector('td:nth-child(2)');
+                
+                const name = nameEl ? nameEl.textContent.toLowerCase() : '';
+                const email = emailEl ? emailEl.textContent.toLowerCase() : '';
+                
+                if (name.includes(query) || email.includes(query)) {
+                    row.style.display = '';
+                    foundAny = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            let emptyRow = document.getElementById('searchEmptyRow');
+            if (!foundAny) {
+                if (!emptyRow) {
+                    const tbody = document.querySelector('table tbody');
+                    emptyRow = document.createElement('tr');
+                    emptyRow.id = 'searchEmptyRow';
+                    emptyRow.innerHTML = `
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <i class="fas fa-search-minus"></i>
+                                <p>No users found matching "${query}"</p>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(emptyRow);
+                } else {
+                    emptyRow.querySelector('p').textContent = `No users found matching "${query}"`;
+                    emptyRow.style.display = '';
+                }
+            } else {
+                if (emptyRow) {
+                    emptyRow.style.display = 'none';
+                }
+            }
+        }
+
+        document.getElementById('userSearchInput').addEventListener('keyup', function(event) {
+            performSearch();
         });
     </script>
 </body>
