@@ -923,8 +923,7 @@
 <!-- Header -->
 <header class="header">
   <div class="navbar-area" id="navbarSticky">
-    <div class="container">
-      <div class="row align-items-center">
+    <div class="container-fluid">
           <nav class="navbar navbar-expand-lg w-100 position-relative">
             
             <!-- Left: Logo -->
@@ -941,7 +940,15 @@
               <!-- Center: Nav Options -->
               <ul id="nav" class="navbar-nav mx-auto" style="display: flex; gap: 8px; align-items: center; margin-left: auto; margin-right: auto;">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/services.html"><i class="fas fa-briefcase"></i> Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Services</a>
+                  <ul class="sub-menu">
+                    <li><a href="${pageContext.request.contextPath}/services.html">Services</a></li>
+                    <li><a href="${pageContext.request.contextPath}/faq.html">FAQ</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact.html">Contact</a></li>
+                    <li><a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></li>
+                    <li><a href="${pageContext.request.contextPath}/policy.html">Privacy Policy</a></li>
+                  </ul>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> JobSeekers</a>
                   <ul class="sub-menu">
                     <li><a href="${pageContext.request.contextPath}/jobSeekers/profile">Create/Update Profile</a></li>
@@ -979,7 +986,6 @@
               
             </div>
           </nav>
-      </div>
     </div>
   </div>
 </header>
@@ -991,7 +997,7 @@
     <div class="premium-blob-2"></div>
   </div>
   
-  <div class="container">
+  <div class="container-fluid">
     <div class="row align-items-center">
       <div class="col-lg-6">
         <div class="premium-hero-content animate-fade-up">
@@ -1070,7 +1076,7 @@
 
 <!-- Dashboard Stats Bar Integrated -->
 <section class="premium-stats-bar">
-  <div class="container">
+  <div class="container-fluid">
     <div class="premium-stats-container animate-fade-up" style="animation-delay: 0.4s;">
       
       <div class="premium-stat-item">
@@ -1111,7 +1117,7 @@
 
 <!-- FEATURE CARDS SECTION -->
 <section class="features-section" style="padding: 100px 0; background-color: #ffffff;">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row justify-content-center mb-5 animate-fade-up">
       <div class="col-lg-8 col-md-10 text-center">
         <div class="mb-0">
@@ -1490,7 +1496,7 @@
 </style>
 
 <section class="featured-jobs section py-5" style="background: #F8FAFC; padding-top: 80px !important; padding-bottom: 80px !important;">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row justify-content-center mb-5">
       <div class="col-lg-8 col-md-10 text-center">
         <div class="mb-0">
@@ -1621,7 +1627,7 @@
 </style>
 
 <footer class="footer-premium">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row g-5">
       <div class="col-lg-4 col-md-6">
         <p style="line-height: 1.8; color: #64748B;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>

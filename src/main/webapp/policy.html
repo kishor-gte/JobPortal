@@ -52,35 +52,173 @@
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
 
-        /* Header Navbar - Enhanced Glassmorphism */
+        /* Header Navbar - Home Page Premium Style */
         .navbar-area {
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(16px);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
             padding: 5px 0;
-            border-bottom: 1px solid rgba(25,167,123,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-        .navbar-brand img.logo1 { transition: transform 0.4s ease; height: 75px; width: auto; }
-        .navbar-brand:hover img.logo1 { transform: scale(1.03) rotate(2deg); }
-        .nav-item a {
+        .navbar-area.sticky {
+            height: 64px;
+        }
+
+        .navbar-brand.logo {
+            padding: 0;
+            margin-right: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo1 {
+            height: 48px !important;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            height: 100%;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            position: relative;
-            transition: var(--transition);
-            margin: 0 6px;
-            color: #2E3E41 !important;
+            font-size: 0.9rem;
+            color: #374151 !important;
+            padding: 8px 14px !important;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
         }
-        .nav-item a::before,
-        .nav-item a::after {
-            display: none !important;
+
+        .navbar-nav .nav-item .nav-link i { 
+            font-size: 0.85rem; 
+            opacity: 0.7; 
+            transition: opacity 0.3s ease;
         }
-        .nav-item a.active {
-            color: var(--primary) !important;
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #19A77B !important;
+            background: #E6F6F1;
+            transform: translateY(-2px);
         }
-        .nav-item a:hover { color: var(--primary) !important; transform: translateY(-2px); }
+
+        .navbar-nav .nav-item .nav-link:hover i {
+            opacity: 1;
+        }
+
+        .navbar-nav .nav-item .nav-link.active {
+            background: linear-gradient(135deg, #19A77B, #3BC49A);
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(25, 167, 123, 0.25);
+        }
+
+        .navbar-nav .nav-item .nav-link.active i {
+            color: white !important;
+            opacity: 1;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #19A77B, #3BC49A);
+            color: white !important;
+            font-weight: 600;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(25, 167, 123, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(25, 167, 123, 0.45);
+            color: white !important;
+        }
+
+        .btn-register {
+            background: white;
+            color: #19A77B !important;
+            font-weight: 600;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1.5px solid #19A77B;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-register:hover {
+            background: #19A77B;
+            transform: translateY(-2px);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
+        }
+
+        /* Dropdown Menu Glass Effect */
+        .sub-menu {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px;
+            min-width: 240px;
+            transform: translateY(15px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 100%;
+            margin-top: 5px;
+            list-style: none;
+        }
+
+        .nav-item:hover .sub-menu {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sub-menu li {
+            margin-bottom: 2px;
+        }
+
+        .sub-menu li a {
+            padding: 14px 18px !important;
+            border-radius: 12px;
+            font-weight: 500;
+            color: #4B5563 !important;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .sub-menu li a:hover {
+            background: #E6F6F1 !important;
+            color: #19A77B !important;
+        }
+
+        .sub-menu li a i {
+            color: inherit;
+        }
 
         /* ========== BREADCRUMBS - PREMIUM HERO SECTION ========== */
         .breadcrumbs {
@@ -98,23 +236,6 @@
             align-items: center;
         }
 
-        /* Funky Floating Elements */
-        .breadcrumbs .funky-orb {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: funkyFloat 8s infinite ease-in-out;
-        }
-        .funky-orb-1 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(59,196,154,0.25) 0%, transparent 70%); top: 10%; left: -50px; animation-delay: 0s; }
-        .funky-orb-2 { width: 150px; height: 150px; background: radial-gradient(circle, rgba(25,167,123,0.2) 0%, transparent 70%); bottom: 15%; right: -30px; animation-delay: 1s; }
-        .funky-orb-3 { width: 100px; height: 100px; background: radial-gradient(circle, rgba(72,219,251,0.2) 0%, transparent 70%); top: 50%; left: 20%; animation-delay: 2s; }
-        
-        @keyframes funkyFloat {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.4; }
-            25% { transform: translate(30px, -40px) scale(1.1) rotate(90deg); opacity: 0.6; }
-            50% { transform: translate(-20px, 30px) scale(0.9) rotate(180deg); opacity: 0.5; }
-            75% { transform: translate(40px, 20px) scale(1.05) rotate(270deg); opacity: 0.7; }
-        }
 
         /* Dancing Shapes */
         .breadcrumbs .dancing-shape {
@@ -139,11 +260,7 @@
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff, #3BC49A);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: textShine 3s infinite, textWobble 2s infinite alternate;
+            color: #ffffff;
         }
         @keyframes textShine {
             0%, 100% { background-position: 0% 50%; }
@@ -411,47 +528,84 @@
 
 <body>
 
-    <!-- Start Header Area - BACKEND STRUCTURE UNCHANGED -->
-    <header class="header other-page">
-        <div class="navbar-area">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand logo" href="index.html">
-                        <img class="logo1" src="assets/images/logo/logo.png" alt="Logo" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="toggler-icon"></span>
-                        <span class="toggler-icon"></span>
-                        <span class="toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                        <ul id="nav" class="navbar-nav ml-auto">
-                            <li class="nav-item"><a href="home.html">Home</a></li>
-                            <li class="nav-item"><a href="services.html">Services</a></li>
-                            <li class="nav-item"><a href="faq.html">FAQ</a></li>
-                            <li class="nav-item"><a href="contact.html">Contact</a></li>
-                            <li class="nav-item"><a href="terms-conditions.html">Terms & Conditions</a></li>
-                            <li class="nav-item"><a class="active" href="policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
+    <!-- Start Header Area -->
+    <header class="header">
+        <div class="navbar-area" id="navbarSticky">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg w-100 position-relative">
+                        
+                        <!-- Left: Logo -->
+                        <a class="navbar-brand custom-premium-logo" href="/" style="display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
+                            <img src="/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block; opacity: 1 !important; visibility: visible !important; background-color: transparent !important;" />
+                        </a>
+                        
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            
+                            <!-- Center: Nav Options -->
+                            <ul id="nav" class="navbar-nav mx-auto" style="display: flex; gap: 8px; align-items: center; margin-left: auto; margin-right: auto;">
+                                <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-home"></i> Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Services</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/services.html">Services</a></li>
+                                        <li><a href="/faq.html">FAQ</a></li>
+                                        <li><a href="/contact.html">Contact</a></li>
+                                        <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
+                                        <li><a href="/policy.html">Privacy Policy</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> JobSeekers</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/jobSeekers/profile">Create/Update Profile</a></li>
+                                        <li><a href="/company/Alllist">Companies</a></li>
+                                        <li><a href="/applications/track">Track applications</a></li>
+                                        <li><a href="/jobseeker/videos">Upload Video Resume</a></li>
+                                        <li><a href="/assessment/available-badges">Your Badges</a></li>
+                                        <li><a href="/qna">Ask or View Questions</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building"></i> Employers</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/company/register">Register Company</a></li>
+                                        <li><a href="/company/login">Company Login</a></li>
+                                        <li><a href="/recruiter/login">Recruiters Login</a></li>
+                                        <li><a href="/tech/login">Tech Persons Login</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search"></i> Jobs</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/jobs/all">Browse Jobs</a></li>
+                                        <li><a href="/seeker/saved-jobs">Saved Jobs</a></li>
+                                        <li><a href="/seeker/reported-jobs">Reported Jobs</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/assessment/my-invites"><i class="fas fa-trophy"></i> Assessments</a></li>
+                            </ul>
+                            
+                            <!-- Right: Action Buttons -->
+                            <div class="button-group d-flex align-items-center mt-3 mt-lg-0" style="gap: 15px;">
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signup" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
+                            </div>
+                            
+                        </div>
+                    </nav>
+    </div>
+  </div>
     </header>
     <!-- End Header Area -->
 
-    <!-- Start Breadcrumbs - PREMIUM HERO SECTION -->
+    <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
-        <div class="funky-orb funky-orb-1"></div>
-        <div class="funky-orb funky-orb-2"></div>
-        <div class="funky-orb funky-orb-3"></div>
         <div class="dancing-shape" style="top: 15%; left: 5%;">🔒</div>
         <div class="dancing-shape" style="bottom: 20%; right: 8%; animation-duration: 5s;">🛡️</div>
         <div class="dancing-shape" style="top: 40%; right: 12%; animation-duration: 7s;">🔐</div>
         <div class="dancing-shape" style="bottom: 35%; left: 10%; animation-duration: 6s;">📋</div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs-content wow fadeInUp" data-wow-delay=".2s">
@@ -470,7 +624,7 @@
 
     <!-- Start Privacy Section - PREMIUM CARDS -->
     <section class="privacy-section">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
@@ -560,7 +714,7 @@
 
     <!-- Start Footer - PREMIUM -->
     <footer class="footer" style="font-family: 'Inter', sans-serif;">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row py-5">
                 <div class="col-lg-6 col-md-6 col-12 mb-4">
                     <div class="single-footer">
@@ -628,3 +782,4 @@
 </body>
 
 </html>
+
