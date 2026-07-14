@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
@@ -756,35 +756,35 @@
             document.body.classList.add('light-mode');
         }
     </script>
-            <div class="sidebar" id="mainSidebar">
+                    <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
         </div>
         <div class="nav-section">
             <h4>Overview</h4>
-            <a href="${pageContext.request.contextPath}/tech/dashboard" class="nav-link active">
+            <a href="${pageContext.request.contextPath}/tech/dashboard" class="nav-link">
                 <i class="fas fa-th-large"></i> Dashboard
             </a>
         </div>
         <div class="nav-section">
             <h4>Management</h4>
-            <a href="${pageContext.request.contextPath}/tech/manage-users" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/manage-users" class="nav-link">
                 <i class="fas fa-users-cog"></i> Manage Users
             </a>
-            <a href="${pageContext.request.contextPath}/tech/manage-questions" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/manage-questions" class="nav-link">
                 <i class="fas fa-question-circle"></i> Manage Questions
             </a>
-            <a href="${pageContext.request.contextPath}/tech/manage-categories" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/manage-categories" class="nav-link">
                 <i class="fas fa-tags"></i> Manage Categories
             </a>
         </div>
         <div class="nav-section">
             <h4>Evaluation</h4>
-            <a href="${pageContext.request.contextPath}/tech/results" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/results" class="nav-link">
                 <i class="fas fa-poll"></i> Results
             </a>
-            <a href="${pageContext.request.contextPath}/tech/ai-evaluation" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/ai-evaluation" class="nav-link">
                 <i class="fas fa-robot"></i> AI Evaluation
             </a>
         </div>
@@ -805,7 +805,7 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -1012,6 +1012,8 @@
 </body>
 
 </html>
+
+
 
 
 

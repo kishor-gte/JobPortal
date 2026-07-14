@@ -13,10 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -168,5 +175,94 @@ public class TechAuthController {
         }
         
         return "redirect:/tech/competition-recordings";
+    }
+
+    @GetMapping("/profile")
+    public String showProfile(HttpSession session, Model model) {
+        if (session.getAttribute("loggedInTechPerson") == null) {
+            return "redirect:/tech/login";
+        }
+        
+        Long techPersonId = (Long) session.getAttribute("techPersonId");
+        TechPerson freshTechPerson = techPersonServices.findTechPersonById(techPersonId);
+        model.addAttribute("techPerson", freshTechPerson);
+        return "techperson/profile";
+    }
+
+    @PostMapping("/profile/update")
+    public String updateProfile(
+            @RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam(value = "username", required = false) String username,
+            @RequestParam(value = "phone", required = false) String phone,
+            @RequestParam(value = "employeeId", required = false) String employeeId,
+            @RequestParam(value = "department", required = false) String department,
+            @RequestParam(value = "experience", required = false) String experience,
+            @RequestParam(value = "primaryTechnology", required = false) String primaryTechnology,
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "designation", required = false) String designation,
+            @RequestParam(value = "profilePicFile", required = false) MultipartFile profilePicFile,
+            @RequestParam(value = "password", required = false) String password,
+            @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
+            HttpSession session, 
+            Model model) {
+        
+        if (session.getAttribute("loggedInTechPerson") == null) {
+            return "redirect:/tech/login";
+        }
+        
+        Long techPersonId = (Long) session.getAttribute("techPersonId");
+        TechPerson techPerson = techPersonServices.findTechPersonById(techPersonId);
+        techPerson.setName(name);
+        techPerson.setEmail(email);
+        
+        if(username != null) techPerson.setUsername(username);
+        if(phone != null) techPerson.setPhone(phone);
+        if(employeeId != null) techPerson.setEmployeeId(employeeId);
+        if(department != null) techPerson.setDepartment(department);
+        
+        if (experience != null && !experience.trim().isEmpty()) {
+            try {
+                techPerson.setExperience(Integer.parseInt(experience.trim()));
+            } catch (NumberFormatException e) {
+                // Ignore or log invalid number formats
+            }
+        } else {
+            techPerson.setExperience(null);
+        }
+        
+        if(primaryTechnology != null) techPerson.setPrimaryTechnology(primaryTechnology);
+        if(address != null) techPerson.setAddress(address);
+        if(designation != null) techPerson.setDesignation(designation);
+
+        if (password != null && !password.trim().isEmpty()) {
+            if (password.equals(confirmPassword)) {
+                techPerson.setPassword(org.mindrot.jbcrypt.BCrypt.hashpw(password, org.mindrot.jbcrypt.BCrypt.gensalt()));
+            } else {
+                model.addAttribute("error", "Passwords do not match");
+                return "redirect:/tech/profile"; // Ideally we shouldn't redirect with an error like this but it's simple
+            }
+        }
+        
+        try {
+            if (profilePicFile != null && !profilePicFile.isEmpty()) {
+                String uploadDir = "src/main/webapp/resources/profile_pics/";
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+                String filename = UUID.randomUUID().toString() + "_" + profilePicFile.getOriginalFilename();
+                Path filePath = uploadPath.resolve(filename);
+                Files.copy(profilePicFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                techPerson.setProfilePic(filename);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        techPersonServices.updateTechPerson(techPerson);
+        session.setAttribute("loggedInTechPerson", techPerson);
+        
+        return "redirect:/tech/profile";
     }
 }

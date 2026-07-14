@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@
             --bg-darker: #1a2a2c;
             --bg-lighter: #3a4e51;
             --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.85);
+            --text-secondary:black;
             --text-tertiary: rgba(255, 255, 255, 0.5);
             --border-color: rgba(255, 255, 255, 0.08);
             --card-bg: rgba(46, 62, 65, 0.6);
@@ -742,7 +742,67 @@
             border-color: rgba(239, 68, 68, 0.2) !important;
             color: #ef4444 !important;
         }
-    </style>
+    
+        /* Custom Form Input Styles */
+        .profile-form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .profile-form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(25, 167, 123, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .profile-form-control:disabled {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-tertiary);
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.04);
+        }
+        body.light-mode .profile-form-control {
+            background: #ffffff;
+            color: #1e293b;
+            border-color: #cbd5e1;
+        }
+        body.light-mode .profile-form-control:focus {
+            background: #ffffff;
+            border-color: var(--primary);
+        }
+        body.light-mode .profile-form-control:disabled {
+            background: #f1f5f9;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+        }
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 24px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
 </head>
 
 <body>
@@ -791,7 +851,7 @@
             <a href="${pageContext.request.contextPath}/tech/manage-competitions" class="nav-link">
                 <i class="fas fa-tasks"></i> Manage Competitions
             </a>
-            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link active">
+            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
                 <i class="fas fa-chart-bar"></i> Competition Results
             </a>
             <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
@@ -800,6 +860,9 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
+            <a href="${pageContext.request.contextPath}/tech/profile" class="nav-link active">
+                <i class="fas fa-user"></i> Profile
+            </a>
             <a href="${pageContext.request.contextPath}/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
@@ -808,7 +871,7 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h1><i class="fas fa-shield-halved"></i> Tech Person Dashboard</h1>
+            <h1><i class="fas fa-user"></i> Profile</h1>
             <div style="display: flex; align-items: center; gap: 12px;">
                 
                 <span class="admin-badge"><i class="fas fa-laptop-code"></i> Tech Person</span>
@@ -816,222 +879,198 @@
             </div>
         </div>
 
-                <style>
-            .form-card {
-                background: rgba(255, 255, 255, 0.95);
-                border: 1px solid var(--border-color);
-                border-radius: var(--radius-lg);
-                padding: 24px;
-                backdrop-filter: blur(20px);
-                margin-bottom: 24px;
-                animation: slideUp 0.5s ease-out;
-            }
-            .form-card-title {
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 20px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                color: var(--primary);
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-                padding-bottom: 12px;
-            }
-            body.light-mode .form-card-title {
-                border-bottom: 1px solid #e2e8f0;
-            }
-            .form-group {
-                margin-bottom: 16px;
-            }
-            .form-label {
-                font-size: 14px;
-                font-weight: 600;
-                color: #fff;
-                margin-bottom: 8px;
-                display: block;
-            }
-            body.light-mode .form-label {
-                color: #1e293b;
-            }
-            .form-control, .form-select {
-                width: 100%;
-                padding: 12px 16px;
-                background: rgba(0,0,0,0.2);
-                border: 1px solid rgba(255,255,255,0.1);
-                border-radius: var(--radius-md);
-                color: #fff;
-                font-family: inherit;
-                transition: var(--transition);
-            }
-            body.light-mode .form-control, body.light-mode .form-select {
-                background: #fff;
-                border: 1px solid #cbd5e1;
-                color: #1e293b;
-            }
-            .form-control:focus, .form-select:focus {
-                outline: none;
-                border-color: var(--primary);
-                box-shadow: 0 0 0 3px rgba(25, 167, 123, 0.2);
-            }
-            .checkbox-group {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                margin-bottom: 12px;
-            }
-            .checkbox-group input[type="checkbox"] {
-                width: 18px;
-                height: 18px;
-                accent-color: var(--primary);
-            }
-            .checkbox-group label {
-                font-size: 14px;
-                font-weight: 500;
-                color: #fff;
-            }
-            body.light-mode .checkbox-group label {
-                color: #1e293b;
-            }
-            .grid-2 {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
-            .btn-primary {
-                background: var(--gradient-primary);
-                color: white;
-                border: none;
-                padding: 14px 28px;
-                border-radius: var(--radius-md);
-                font-size: 16px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: var(--transition);
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                width: 100%;
-                justify-content: center;
-            }
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: var(--shadow-md);
-            }
-            .btn-secondary {
-                background: rgba(255,255,255,0.1);
-                color: white;
-                border: 1px solid rgba(255,255,255,0.2);
-                padding: 10px 20px;
-                border-radius: var(--radius-md);
-                font-size: 14px;
-                cursor: pointer;
-                transition: var(--transition);
-            }
-            body.light-mode .btn-secondary {
-                background: #f1f5f9;
-                color: #1e293b;
-                border-color: #cbd5e1;
-            }
-            .btn-secondary:hover {
-                background: rgba(255,255,255,0.2);
-            }
-            @keyframes slideUp {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            
-            .toast-container {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 9999;
-            }
-            .toast {
-                background: #10b981;
-                color: white;
-                padding: 16px 24px;
-                border-radius: var(--radius-md);
-                box-shadow: var(--shadow-lg);
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                font-weight: 600;
-                transform: translateX(120%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            .toast.show {
-                transform: translateX(0);
-            }
-            .toast.error {
-                background: #ef4444;
-            }
-            
-            .question-builder {
-                display: none;
-                margin-top: 20px;
-                padding: 20px;
-                border: 1px dashed rgba(255,255,255,0.3);
-                border-radius: var(--radius-md);
-                background: rgba(0,0,0,0.1);
-            }
-            body.light-mode .question-builder {
-                border-color: #cbd5e1;
-                background: #f8fafc;
-            }
-            .question-builder.active {
-                display: block;
-            }
-            
-            .new-question-item {
-                background: rgba(255,255,255,0.05);
-                border-radius: var(--radius-md);
-                padding: 16px;
-                margin-bottom: 16px;
-                position: relative;
-            }
-            body.light-mode .new-question-item {
-                background: #fff;
-                border: 1px solid #e2e8f0;
-            }
-        </style>
-
-            <div class="dashboard-header">
-                <div class="header-content">
-                    <h1>Competition Results</h1>
-                    <p>View leaderboards and detailed results of past competitions.</p>
-                </div>
-            </div>
-            
-            <div class="form-card" style="margin-top: 24px;">
-                <div class="form-group">
-                    <label class="form-label">Select Competition</label>
-                    <select class="form-select" onchange="if(this.value) window.location.href='${pageContext.request.contextPath}/tech/competition-results/' + this.value;">
-                        <option value="">-- Choose a competition --</option>
-                        <c:forEach var="comp" items="${competitions}">
-                            <option value="${comp.id}">${comp.title} (${comp.examStartTime})</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                
-                <div style="text-align:center; padding: 40px; color: var(--text-secondary);">
-                    <i class="fas fa-trophy" style="font-size: 48px; color: #cbd5e1; margin-bottom: 16px; display:block;"></i>
-                    <p>Select a competition above to view its leaderboard and statistics.</p>
-                </div>
+        <!-- Profile Form Card -->
+        <div class="card" style="max-width: 900px; margin: 0 auto 30px auto; padding: 30px; border-radius: var(--radius-lg); backdrop-filter: blur(20px);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+                <h2 style="font-size: 20px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 10px; margin: 0;">
+                    <i class="fas fa-user-circle"></i> Profile Settings
+                </h2>
+                <button type="button" class="btn-edit" id="editBtn" onclick="enableEdit()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
             </div>
 
-    </div>
+            <c:if test="${not empty message}">
+                <div style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    ${message}
+                </div>
+            </c:if>
+            <c:if test="${not empty error}">
+                <div style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    ${error}
+                </div>
+            </c:if>
 
-    <!-- Toast Notification -->
-    <div class="toast-container">
-        <div class="toast" id="toastMessage">
-            <i class="fas fa-check-circle"></i>
-            <span id="toastText">Competition created successfully.</span>
+            <form action="${pageContext.request.contextPath}/tech/profile/update" method="POST" id="profileForm" enctype="multipart/form-data">
+                <div style="display: flex; gap: 30px; margin-bottom: 24px; flex-wrap: wrap;">
+                    
+                    <!-- Profile Photo (upload with image preview) -->
+                    <div style="flex: 0 0 200px; text-align: center; margin: 0 auto;">
+                        <div style="width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--primary); overflow: hidden; margin: 0 auto 15px auto; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; position: relative;">
+                            <c:choose>
+                                <c:when test="${not empty techPerson.profilePic}">
+                                    <img src="${pageContext.request.contextPath}/resources/profile_pics/${techPerson.profilePic}" id="picPreview" style="width: 100%; height: 100%; object-fit: cover;">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="" id="picPreview" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <i class="fas fa-user" id="picFallback" style="font-size: 64px; color: var(--text-tertiary);"></i>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <label id="picLabel" for="profilePicInput" style="display: none; background: var(--primary); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: var(--transition);">
+                            <i class="fas fa-camera"></i> Upload Photo
+                        </label>
+                        <input type="file" id="profilePicInput" name="profilePicFile" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                    </div>
+
+                    <!-- Form Fields -->
+                    <div style="flex: 1; min-width: 280px;">
+                        
+                        <!-- Personal Information -->
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i> Personal Information
+                        </div>
+                        <div class="profile-grid">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: black; font-size: 14px;">Full Name</label>
+                                <input type="text" name="name" value="${techPerson.name}" class="profile-form-control" disabled required>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Email Address</label>
+                                <input type="email" name="email" value="${techPerson.email}" class="profile-form-control" disabled required>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Mobile Number</label>
+                                <input type="text" name="phone" value="${techPerson.phone}" class="profile-form-control" disabled>
+                            </div>
+                        </div>
+
+                        <!-- Professional Information -->
+                        <div class="form-section-title">
+                            <i class="fas fa-briefcase"></i> Professional Information
+                        </div>
+                        <div class="profile-grid">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Employee ID (read-only)</label>
+                                <input type="text" name="employeeId" value="${techPerson.employeeId}" class="profile-form-control" disabled readonly style="background: rgba(255, 255, 255, 0.02); color: var(--text-tertiary);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Designation</label>
+                                <input type="text" name="designation" value="${techPerson.designation}" class="profile-form-control" disabled>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Department</label>
+                                <input type="text" name="department" value="${techPerson.department}" class="profile-form-control" disabled>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Experience (Years)</label>
+                                <input type="text" name="experience" value="${techPerson.experience}" class="profile-form-control" disabled>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Primary Technology</label>
+                                <input type="text" name="primaryTechnology" value="${techPerson.primaryTechnology}" class="profile-form-control" disabled>
+                            </div>
+                        </div>
+
+                        <!-- Account Information -->
+                        <div class="form-section-title">
+                            <i class="fas fa-id-card"></i> Account Information
+                        </div>
+                        <div class="profile-grid">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Username</label>
+                                <input type="text" name="username" value="${techPerson.username}" class="profile-form-control" disabled>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Role</label>
+                                <input type="text" name="role" value="Tech Person" class="profile-form-control" disabled readonly style="background: rgba(255, 255, 255, 0.02); color: black; font-weight: 600;">
+                            </div>
+                        </div>
+
+                        <!-- Security -->
+                        <div class="form-section-title">
+                            <i class="fas fa-shield-alt"></i> Security
+                        </div>
+                        <div class="profile-grid">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Change Password</label>
+                                <input type="password" name="password" placeholder="New Password" class="profile-form-control" disabled>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px;">Confirm New Password</label>
+                                <input type="password" name="confirmPassword" placeholder="Confirm New Password" class="profile-form-control" disabled>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div style="text-align: right; margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <button type="button" id="cancelBtn" onclick="cancelEdit()" style="display: none; background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); padding: 10px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-right: 12px; transition: var(--transition);">
+                        Cancel
+                    </button>
+                    <button type="submit" id="saveBtn" style="display: none; background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transition);">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                </div>
+            </form>
         </div>
-    </div>
+        
+        <script>
+            function enableEdit() {
+                const inputs = document.querySelectorAll('.profile-form-control');
+                inputs.forEach(input => {
+                    if (input.name !== 'employeeId' && input.name !== 'role') {
+                        input.disabled = false;
+                    }
+                });
+                document.getElementById('editBtn').style.display = 'none';
+                document.getElementById('saveBtn').style.display = 'inline-block';
+                document.getElementById('cancelBtn').style.display = 'inline-block';
+                document.getElementById('picLabel').style.display = 'inline-block';
+            }
 
+            function cancelEdit() {
+                const inputs = document.querySelectorAll('.profile-form-control');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+                document.getElementById('editBtn').style.display = 'inline-flex';
+                document.getElementById('saveBtn').style.display = 'none';
+                document.getElementById('cancelBtn').style.display = 'none';
+                document.getElementById('picLabel').style.display = 'none';
+                document.getElementById('profileForm').reset();
+                // Reset image preview if cancelled
+                var preview = document.getElementById('picPreview');
+                var fallback = document.getElementById('picFallback');
+                <c:choose>
+                    <c:when test="${not empty techPerson.profilePic}">
+                        preview.src = '${pageContext.request.contextPath}/resources/profile_pics/${techPerson.profilePic}';
+                        preview.style.display = 'block';
+                        if (fallback) fallback.style.display = 'none';
+                    </c:when>
+                    <c:otherwise>
+                        preview.style.display = 'none';
+                        if (fallback) fallback.style.display = 'block';
+                    </c:otherwise>
+                </c:choose>
+            }
 
-    <script>
-        // Sidebar Toggle for Mobilee
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var output = document.getElementById('picPreview');
+                    output.src = reader.result;
+                    output.style.display = 'block';
+                    var fallback = document.getElementById('picFallback');
+                    if (fallback) fallback.style.display = 'none';
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        </script>
+<script>
+        // Sidebar Toggle for Mobile
         function toggleSidebar() {
             document.getElementById('mainSidebar').classList.toggle('active');
         }

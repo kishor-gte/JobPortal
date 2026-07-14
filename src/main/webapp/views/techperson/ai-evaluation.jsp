@@ -917,6 +917,21 @@
                 <i class="fas fa-robot"></i> AI Evaluation
             </a>
         </div>
+                <div class="nav-section">
+            <h4>Competitions</h4>
+            <a href="${pageContext.request.contextPath}/tech/conduct-competition" class="nav-link">
+                <i class="fas fa-trophy"></i> Conduct Competition
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/manage-competitions" class="nav-link">
+                <i class="fas fa-tasks"></i> Manage Competitions
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
+                <i class="fas fa-medal"></i> Competition Results
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
+                <i class="fas fa-video"></i> Competition Recordings
+            </a>
+        </div>
         <div class="nav-section">
             <h4>Account</h4>
             <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
@@ -1034,9 +1049,9 @@
                 <div class="eval-card" style="animation-delay: ${status.index * 0.05}s;">
                     <div class="eval-header">
                         <div class="eval-student">
-                            <div class="eval-avatar">${eval.studentName.substring(0,1)}</div>
+                            <div class="eval-avatar"><c:choose><c:when test="${not empty eval.studentName}">${eval.studentName.substring(0,1)}</c:when><c:otherwise>U</c:otherwise></c:choose></div>
                             <div class="eval-name">
-                                <h4>${eval.studentName}</h4>
+                                <h4>${not empty eval.studentName ? eval.studentName : "Unknown User"}</h4>
                                 <p>
                                     <i class="fas fa-calendar-alt"></i>
                                     Interview Date: ${eval.scheduledAt}
