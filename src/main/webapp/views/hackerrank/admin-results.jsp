@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
@@ -959,35 +959,7 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Tooltip */
-        [data-tooltip] {
-            position: relative;
-        }
-        
-        [data-tooltip]:before {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 6px 12px;
-            background: var(--bg-darker);
-            color: var(--text-primary);
-            font-size: 12px;
-            border-radius: 8px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            pointer-events: none;
-        }
-        
-        [data-tooltip]:hover:before {
-            opacity: 1;
-            visibility: visible;
-            bottom: calc(100% + 8px);
-        }
+
             
         /* Dark Mode Overrides */
         [data-theme="dark"] {
@@ -1059,6 +1031,40 @@
             box-shadow: var(--glow-primary);
         }
 
+        .btn-back {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.65);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            background: rgba(25,167,123,0.15);
+            border-color: var(--primary);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        body.light-mode .btn-back {
+            background: white;
+            border-color: #e2e8f0;
+            color: #475569;
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.light-mode .btn-back:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
 
         body.light-mode .theme-toggle {
             background: white;
@@ -1098,14 +1104,7 @@
                     <i class="fas fa-users-cog"></i> 
                     <span>Manage Users</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-questions" class="nav-link" data-tooltip="Manage Questions">
-                    <i class="fas fa-question-circle"></i> 
-                    <span>Manage Questions</span>
-                </a>
-                <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-categories" class="nav-link" data-tooltip="Manage Categories">
-                    <i class="fas fa-tags"></i> 
-                    <span>Manage Categories</span>
-                </a>
+
             </div>
             
             <div class="nav-section">
@@ -1137,13 +1136,18 @@
         <div class="main-content">
             <!-- Enhanced Top Bar -->
             <div class="top-bar">
-                <h1>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <i class="fas fa-poll"></i>
-                    Student Results
-                </h1>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <a href="${pageContext.request.contextPath}/hackerrank/admin/dashboard" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                    <h1>
+                        <button class="mobile-menu-btn" id="mobileMenuBtn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <i class="fas fa-poll"></i>
+                        Student Results
+                    </h1>
+                </div>
                 
                 <div class="top-bar-actions">
                     <div class="search-bar">

@@ -26,7 +26,21 @@ public class CompanyServices
 	public Company registerCompany(Company company) {
 		company.setVerified(false); // Needs admin approval
 		company.setPassword(BCrypt.hashpw(company.getPassword(), BCrypt.gensalt()));
-		return companyRepository.save(company);
+		Company savedCompany = companyRepository.save(company);
+		
+		String subject = "Congratulations on Registering with Job Portal!";
+		String body = "Dear " + company.getName() + ",\n\n"
+				+ "Congratulations! Your company registration has been successfully submitted.\n\n"
+				+ "Your profile is currently under review by our administration team. You will receive another email once your account has been approved.\n\n"
+				+ "Best regards,\n"
+				+ "The Job Portal Team";
+		try {
+			mailService.sendEmail(company.getEmail(), subject, body);
+		} catch (Throwable t) {
+			System.err.println("Failed to send registration email to " + company.getEmail() + ": " + t.getMessage());
+		}
+		
+		return savedCompany;
 	}
 	public Optional<Company> getCompany(Long id) {
 	    return companyRepository.findById(id);
@@ -67,7 +81,31 @@ public class CompanyServices
 	    companyRepository.save(company); // Same method can handle update
 	}
 	public void deleteCompany(Long id) {
-	    companyRepository.deleteById(id);
+	    companyRepository.findById(id).ifPresent(company -> {
+	        String subject;
+	        String body;
+	        if (!company.isVerified()) {
+	            subject = "Update on Your Company Registration Status";
+	            body = "Dear " + company.getName() + ",\n\n"
+	                 + "Thank you for registering with our platform. Unfortunately, after reviewing your application, we are unable to approve your company registration at this time.\n\n"
+	                 + "If you have any questions or believe this was a mistake, please reach out to our support team.\n\n"
+	                 + "Best regards,\n"
+	                 + "The Job Portal Team";
+	        } else {
+	            subject = "Notice of Account Removal";
+	            body = "Dear " + company.getName() + ",\n\n"
+	                 + "We regret to inform you that your company profile has been removed from our platform.\n\n"
+	                 + "If you have any questions, please contact our support team.\n\n"
+	                 + "Best regards,\n"
+	                 + "The Job Portal Team";
+	        }
+	        try {
+	            mailService.sendEmail(company.getEmail(), subject, body);
+	        } catch (Throwable t) {
+	            System.err.println("Failed to send rejection/removal email to " + company.getEmail() + ": " + t.getMessage());
+	        }
+	        companyRepository.deleteById(id);
+	    });
 	}
 	public String authenticateCompany(String email, String password) {
 	    Optional<Company> companyOpt = companyRepository.findFirstByEmail(email);
