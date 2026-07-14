@@ -309,6 +309,9 @@ public class RecruiterController {
         String recruiterEmail = loggedInRecruiter.getEmail();
         Recruiter recruiter = recruiterService.findByEmail(recruiterEmail);
         List<Job> jobs = jobService.findJobsByRecruiter(recruiter.getId());
+        for (Job job : jobs) {
+            job.setApplicantCount((int) applicationService.countByJobId(job.getId()));
+        }
         model.addAttribute("jobs", jobs);
 
         return "recruiter/recruiter-jobs";
@@ -886,4 +889,6 @@ public class RecruiterController {
         return "company/assessment-info";
     }
 }
+
+
 

@@ -1,0 +1,374 @@
+﻿<style>
+        :root {
+            --primary: #19A77B;
+            --primary-dark: #148F69;
+            --accent: #3BC49A;
+            --bg-dark: #2E3E41;
+            --bg-darker: #1a2a2c;
+            --bg-lighter: #3a4e51;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e0e6ed;
+            --white: #ffffff;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
+            --context-path: '${pageContext.request.contextPath}';
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(25, 167, 123, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 196, 154, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: backgroundPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Header override */
+        .header .navbar-area {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header .navbar-brand img {
+            max-height: 40px;
+        }
+
+        .header .navbar-nav .nav-item a {
+            color: var(--text-primary) !important;
+            font-weight: 500;
+        }
+
+        .header .navbar-nav .nav-item a:hover,
+        .header .navbar-nav .nav-item a.active {
+            color: var(--primary) !important;
+        }
+
+        .header .button .btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
+        }
+
+        .header .button .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 167, 123, 0.4);
+        }
+
+        /* Hero Section */
+        .call-action {
+            position: relative;
+            background: var(--gradient-primary) url('${pageContext.request.contextPath}/resources/images/hero/cat-bg.jpg') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+        }
+
+        .call-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(25, 167, 123, 0.85);
+            z-index: 1;
+        }
+
+        .call-action .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .call-action .section-title p {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .call-action .section-title h2 {
+            color: #fff !important;
+            font-size: 42px;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+
+        .call-action .section-title p:last-of-type {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-size: 16px;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .call-action .btn-primary {
+            background: #fff;
+            color: var(--primary) !important;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .call-action .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .call-action .btn-outline-light {
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .call-action .btn-outline-light:hover {
+            background: #fff;
+            color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Filter Form */
+        .filter-form {
+            background: var(--white);
+            padding: 28px 32px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(25, 167, 123, 0.1);
+            margin-bottom: 32px;
+        }
+
+        .filter-form .form-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-form .form-select,
+        .filter-form .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-form .form-select:focus,
+        .filter-form .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+            outline: none;
+        }
+
+        .filter-form .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
+        }
+
+        .filter-form .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 167, 123, 0.4);
+        }
+
+        .filter-form .btn-outline-primary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-form .btn-outline-primary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Table Styling */
+        .table {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(25, 167, 123, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .table thead {
+            background: var(--gradient-primary);
+        }
+
+        .table thead th {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 16px;
+            border: none;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(25, 167, 123, 0.03);
+        }
+
+        .table tbody td {
+            padding: 20px 16px;
+            vertical-align: middle;
+            color: var(--text-primary);
+        }
+
+        .table .rounded-circle {
+            border: 3px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+            object-fit: cover;
+        }
+
+        .table .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 13px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .table .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-primary);
+        }
+
+        .table .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .table .form-select-sm {
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            font-size: 13px;
+            padding: 6px 10px;
+        }
+
+        .table .form-select-sm:focus {
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Status Badges */
+        .badge-score {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-fail {
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-bronze {
+            background: rgba(205, 127, 50, 0.12);
+            color: #cd7f32;
+            border: 1px solid rgba(205, 127, 50, 0.3);
+        }
+
+        .badge-silver {
+            background: rgba(192, 192, 192, 0.15);
+            color: #a0a0a0;
+            border: 1px solid rgba(192, 192, 192, 0.4);
+        }
+
+        .badge-gold {
+            background: rgba(255, 215, 0, 0.12);
+            color: #d4a017;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .call-action .section-title h2 {
+                font-size: 32px;
+            }
+
+            .filter-form {
+                padding: 20px;
+            }
+
+            .table {
+                font-size: 13px;
+            }
+
+            .table .rounded-circle {
+                width: 50px !important;
+                height: 50px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .call-action {
+                border-radius: 0 0 20px 20px;
+            }
+        }
+    </style>
