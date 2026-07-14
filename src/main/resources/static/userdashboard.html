@@ -221,6 +221,7 @@
             margin-bottom: 8px;
             display: block;
             text-transform: uppercase;
+           
         }
 
         .single-field-item input {
@@ -231,6 +232,7 @@
             font-weight: 500;
             outline: none;
             transition: var(--transition);
+             border:2px solid black;
         }
 
         .single-field-item input:focus {
@@ -340,6 +342,7 @@
         /* ===== JOB CATEGORY ===== */
         .job-category {
             padding: 100px 0;
+            margin-top:-90px;
         }
         .job-category .single-cat {
             background: var(--white);
@@ -421,34 +424,7 @@
             transform: translateX(8px);
         }
 
-        .btn-legal {
-            background: #10b981 !important;
-            color: #10b981 !important;
-            padding: 10px 20px !important;
-            border-radius: 8px !important;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            position: relative;
-            overflow: hidden;
-            display: inline-flex !important;
-            text-decoration: none !important;
-        }
-
-        .btn-legal::before {
-            content: 'LEGAL INFO';
-            background: #64b5f6;
-            padding: 4px 12px;
-            border-radius: 4px;
-            color: #ffffff;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            font-weight: 800;
-        }
-
-        .btn-legal:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
+       
         .social-icons a {
             width: 40px;
             height: 40px;
@@ -459,6 +435,7 @@
             justify-content: center;
             color: var(--white);
             transition: var(--transition);
+            margin:5px
         }
 
         .social-icons a:hover {
@@ -648,7 +625,7 @@
                         </form>
                         <div class="trending-keywords mt-30 text-start">
                             <span class="title fw-bold me-2"><i class="fas fa-fire"></i> Top Searches:</span>
-                            <div class="d-inline-flex flex-wrap gap-2">
+                            <div style="color:black;" class="d-inline-flex flex-wrap gap-2">
                                 <a>Frontend</a>
                                 <a>Data Analyst</a>
                                 <a>Project Manager</a>
@@ -706,7 +683,7 @@
     <section class="job-category">
         <div class="container">
             <div class="section-title text-center mb-5">
-                <span class="wow fadeInDown">📂 Browse Categories</span>
+               
                 <h2 class="wow fadeInUp">Choose Your Desired Category</h2>
                 <p class="wow fadeInUp">Handpicked fields to elevate your professional journey</p>
             </div>
@@ -771,7 +748,7 @@
                 </div>
                 <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
                     <div class="single-footer">
-                        <h3>Platform</h3>
+                        <h3 style="color:white;">Platform</h3>
                         <ul class="quick-links" style="list-style: none; padding-left: 0;">
                             <li><a href="/jobs/all">Browse Jobs</a></li>
                             <li><a href="/company/Alllist">Companies</a></li>
@@ -782,12 +759,12 @@
                 </div>
                 <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
                     <div class="single-footer">
-                        <h3>Support</h3>
+                        <h3 style="color:white;">Support</h3>
                         <ul class="quick-links" style="list-style: none; padding-left: 0;">
                             <li><a href="/about-us.html">About Us</a></li>
                             <li><a href="#">Help Center</a></li>
                             <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="/legal-info.html" class="btn-legal"></a></li>
+                            <li><a href="/legal-info.html" >Legal info</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
@@ -795,7 +772,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-footer">
-                        <h3>Stay Updated</h3>
+                        <h3 style="color:white;">Stay Updated</h3>
                         <p class="mb-4" style="opacity: 0.7;">Subscribe to our newsletter for the latest career tips and
                             job alerts.</p>
                         <form action="/subscribe" method="post" class="newsletter-form">
