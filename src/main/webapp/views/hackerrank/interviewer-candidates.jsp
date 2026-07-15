@@ -362,7 +362,7 @@
             <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="nav-link">
                 <i class="fas fa-th-large"></i> Dashboard
             </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/performance" class="nav-link">
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/evaluations" class="nav-link">
                 <i class="fas fa-chart-line"></i> Student Performance
             </a>
             <a href="${pageContext.request.contextPath}/hackerrank/interviewer/schedule-interview" class="nav-link">

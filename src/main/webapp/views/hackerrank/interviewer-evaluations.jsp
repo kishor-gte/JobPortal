@@ -67,13 +67,81 @@
             50% { opacity: 1; }
         }
 
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 32px; 
-            position: relative;
-            z-index: 1;
-            animation: fadeInUp 0.6s ease-out;
+        /* Sidebar (Same as Dashboard) */
+        .sidebar {
+            position: fixed;
+            left: 0; top: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            padding: 24px 16px;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+        .sidebar-logo {
+            display: flex; align-items: center; gap: 14px;
+            padding: 8px 12px 24px; border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-logo .icon {
+            width: 48px; height: 48px;
+            background: var(--gradient-primary); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--glow-primary); animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(25, 167, 123, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(25, 167, 123, 0.4); }
+        }
+
+        .sidebar-logo .icon i { color: #fff; font-size: 24px; }
+        .sidebar-logo h2 {
+            font-size: 20px; font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; letter-spacing: -0.5px;
+        }
+
+        .nav-section { margin-bottom: 28px; }
+        .nav-section h4 {
+            color: var(--text-tertiary); font-size: 11px; text-transform: uppercase;
+            letter-spacing: 1.5px; padding: 0 12px; margin-bottom: 14px; font-weight: 600;
+        }
+
+        .nav-link {
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 14px; border-radius: 12px;
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 14px; font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 4px; position: relative; overflow: hidden;
+        }
+        .nav-link i { width: 20px; text-align: center; font-size: 16px; transition: transform 0.3s ease; }
+        .nav-link::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 3px; background: var(--gradient-primary);
+            transform: translateX(-100%); transition: transform 0.3s ease;
+        }
+        .nav-link:hover { background: var(--hover-bg); color: var(--primary); transform: translateX(4px); }
+        .nav-link:hover i { transform: scale(1.1); }
+        .nav-link:hover::before { transform: translateX(0); }
+        .nav-link.active { background: var(--hover-bg); color: var(--primary); box-shadow: inset 0 0 20px rgba(25, 167, 123, 0.05); }
+        .nav-link.active::before { transform: translateX(0); }
+        .nav-link.active i { color: var(--primary); }
+
+        .main-content {
+            margin-left: 280px; padding: 28px 36px;
+            position: relative; z-index: 1; animation: fadeInUp 0.6s ease-out;
         }
 
         @keyframes fadeInUp {
@@ -568,7 +636,47 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <h2>Mentor Panel</h2>
+        </div>
+        <div class="nav-section">
+            <h4>Main</h4>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="nav-link">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/evaluations" class="nav-link active">
+                <i class="fas fa-chart-line"></i> Student Performance
+            </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/schedule-interview" class="nav-link">
+                <i class="fas fa-calendar-plus"></i> Schedule Interview
+            </a>
+        </div>
+        <div class="nav-section">
+            <h4>Tools</h4>
+            <a href="${pageContext.request.contextPath}/hackerrank/chat" class="nav-link">
+                <i class="fas fa-comments"></i> Messages
+            </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/review-resumes" class="nav-link">
+                <i class="fas fa-file-alt"></i> Review Resumes
+            </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link">
+                <i class="fa-solid fa-robot fa-fw"></i> AI Evaluations
+            </a>
+            <a href="${pageContext.request.contextPath}/hackerrank/interviewer/candidates" class="nav-link">
+                <i class="fas fa-users fa-fw"></i> Candidates
+            </a>
+        </div>
+        <div class="nav-section">
+            <h4>Account</h4>
+            <a href="${pageContext.request.contextPath}/hackerrank/logout" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
         <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="back-link">
             <i class="fas fa-arrow-left"></i> Back to Dashboard
         </a>

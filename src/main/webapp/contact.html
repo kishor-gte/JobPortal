@@ -600,7 +600,7 @@
                         <p>We are here to assist you. Feel free to reach out for any inquiries or support.</p>
                     </div>
                     <ul class="breadcrumb-nav wow fadeInUp" data-wow-delay=".3s">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li>Contact</li>
                     </ul>
                 </div>
@@ -673,23 +673,61 @@
                 <div class="contact-right wow fadeInRight" data-wow-delay=".4s">
                     <h2>Get In Touch</h2>
                     <div class="contact-form-box">
-                        <form action="submit-contact" method="POST">
+                        <form action="submit-contact" method="POST" id="contactForm" onsubmit="return validateContactForm(event)">
                             <div style="margin-bottom: 20px;">
                                 <label>Your Name</label>
-                                <input type="text" name="name" required placeholder="John Doe">
+                                <input type="text" name="name" id="contactName" required placeholder="John Doe">
+                                <small class="error-msg text-danger" id="nameError" style="display: none; color: #dc3545; font-size: 0.85rem; margin-top: 5px;">Please enter your name.</small>
                             </div>
                             <div style="margin-bottom: 20px;">
                                 <label>Your Email</label>
-                                <input type="email" name="email" required placeholder="john@example.com">
+                                <input type="email" name="email" id="contactEmail" required pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$" placeholder="john@example.com" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a valid email address (e.g., name@example.com)')">
+                                <small class="error-msg text-danger" id="emailError" style="display: none; color: #dc3545; font-size: 0.85rem; margin-top: 5px;">Please enter a valid email address (e.g., name@example.com).</small>
                             </div>
                             <div style="margin-bottom: 20px;">
                                 <label>Message</label>
-                                <textarea name="message" rows="5" required placeholder="How can we help you?"></textarea>
+                                <textarea name="message" id="contactMessage" rows="5" required placeholder="How can we help you?"></textarea>
+                                <small class="error-msg text-danger" id="messageError" style="display: none; color: #dc3545; font-size: 0.85rem; margin-top: 5px;">Please enter a message.</small>
                             </div>
                             <button type="submit" class="contact-submit-btn">
                                 Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
                             </button>
                         </form>
+                        
+                        <script>
+                            function validateContactForm(e) {
+                                let isValid = true;
+                                const name = document.getElementById('contactName').value.trim();
+                                const email = document.getElementById('contactEmail').value.trim();
+                                const message = document.getElementById('contactMessage').value.trim();
+                                
+                                document.getElementById('nameError').style.display = 'none';
+                                document.getElementById('emailError').style.display = 'none';
+                                document.getElementById('messageError').style.display = 'none';
+                                
+                                if (!name) {
+                                    document.getElementById('nameError').style.display = 'block';
+                                    isValid = false;
+                                }
+                                
+                                // Proper regex to ensure TLD is between 2 and 6 characters
+                                const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$/;
+                                if (!email || !emailRegex.test(email)) {
+                                    document.getElementById('emailError').style.display = 'block';
+                                    isValid = false;
+                                }
+                                
+                                if (!message) {
+                                    document.getElementById('messageError').style.display = 'block';
+                                    isValid = false;
+                                }
+                                
+                                if (!isValid) {
+                                    e.preventDefault();
+                                }
+                                return isValid;
+                            }
+                        </script>
                     </div>
                 </div>
             </div>

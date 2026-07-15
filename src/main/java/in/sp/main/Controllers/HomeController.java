@@ -64,7 +64,8 @@ public class HomeController {
 			activityLogger.log(userId, name, email, userRole, ActivityType.CONTACT_SUPPORT, "Contact support message sent");
 		} catch (Exception e) {
 			e.printStackTrace();
-			// Log to allow debugging if not receiving mail
+			// If email fails to send (e.g., invalid address), show an error message instead of success
+			return "redirect:/contact.html?message=Failed%20to%20send%20message.%20Please%20try%20again.";
 		}
 		return "redirect:/contact.html?message=Your%20message%20has%20been%20sent%20successfully!";
 	}
