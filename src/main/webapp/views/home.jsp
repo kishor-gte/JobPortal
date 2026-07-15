@@ -1569,7 +1569,7 @@
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>JobSeeker Login</h3><p>Access your JobSeeker account<br> to find and apply for your dream jobs.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"><span>Or</span></div>
       <form action="${pageContext.request.contextPath}/jobSeekers/authenticate" method="post">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" id="email"></div>
-        <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" id="password" placeholder="Enter password"></div></div>
+        <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" id="password" placeholder="Enter password" style="padding-right: 40px;"><i class="far fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i></div></div>
         <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">Remember password</label></div><a href="${pageContext.request.contextPath}/jobSeekers/forgot-password" class="font-size-3 text-dodger line-height-reset">Forget Password</a></div>
         <div class="form-group mb-8 button"><button class="btn">Log in</button></div>
         <p class="text-center create-new-account">Don't have an account? <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signup" data-bs-dismiss="modal">Create a free account</a></p>
@@ -1587,8 +1587,8 @@
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>Create Your JobSeeker Account<br> Today</h3><p>Sign up to start your job search,<br> apply for roles, and grow your career.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"></div>
       <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="jobSeekerSignupForm">
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" required></div>
-        <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" placeholder="Enter password" id="signupPassword" required></div></div>
-        <div class="form-group"><label for="confirmPassword" class="label">Confirm Password</label><div class="position-relative"><input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" id="signupConfirmPassword" required></div></div>
+        <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" placeholder="Enter password" id="signupPassword" required style="padding-right: 40px;"><i class="far fa-eye" id="toggleSignupPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i></div></div>
+        <div class="form-group"><label for="confirmPassword" class="label">Confirm Password</label><div class="position-relative"><input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" id="signupConfirmPassword" required style="padding-right: 40px;"><i class="far fa-eye" id="toggleSignupConfirmPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i></div></div>
         <div class="form-group d-flex flex-wrap justify-content-between"><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="termsCheckbox" required><label class="form-check-label" for="termsCheckbox">Agree to the <a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a></label></div></div>
         <div class="form-group mb-8 button"><button class="btn" type="submit">Sign Up</button></div>
       </form>
@@ -1739,6 +1739,38 @@
   function showTypingIndicator() { const i = document.getElementById('typingIndicator'); if(i) i.style.display = 'flex'; }
   function hideTypingIndicator() { const i = document.getElementById('typingIndicator'); if(i) i.style.display = 'none'; }
   document.addEventListener('DOMContentLoaded', function() { 
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    if (togglePassword && password) {
+      togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+        this.classList.toggle('fa-eye');
+      });
+    }
+
+    const toggleSignupPassword = document.querySelector('#toggleSignupPassword');
+    const signupPassword = document.querySelector('#signupPassword');
+    if (toggleSignupPassword && signupPassword) {
+      toggleSignupPassword.addEventListener('click', function (e) {
+        const type = signupPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        signupPassword.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+        this.classList.toggle('fa-eye');
+      });
+    }
+
+    const toggleSignupConfirmPassword = document.querySelector('#toggleSignupConfirmPassword');
+    const signupConfirmPassword = document.querySelector('#signupConfirmPassword');
+    if (toggleSignupConfirmPassword && signupConfirmPassword) {
+      toggleSignupConfirmPassword.addEventListener('click', function (e) {
+        const type = signupConfirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        signupConfirmPassword.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+        this.classList.toggle('fa-eye');
+      });
+    }
     const signupForm = document.getElementById('jobSeekerSignupForm');
     if(signupForm){ 
       signupForm.addEventListener('submit', function(e) { 

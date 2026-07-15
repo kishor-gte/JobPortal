@@ -597,7 +597,8 @@
                         <label><i class="fas fa-lock"></i> Password</label>
                         <div class="input-wrapper">
                             <span class="input-icon password-icon"></span>
-                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" required style="padding-right: 40px;">
+                            <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
                         </div>
                     </div>
 
@@ -622,6 +623,17 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function (e) {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+                this.classList.toggle('fa-eye');
+            });
+        }
+
         const form = document.getElementById('loginForm');
         const submitBtn = document.getElementById('submitBtn');
         
