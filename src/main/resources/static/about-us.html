@@ -77,6 +77,7 @@
     font-weight: 800;
     color: var(--slate-900);
     margin-bottom: 1.5rem;
+    padding: 0;
   }
 
   .accent-text {
@@ -125,20 +126,15 @@
 </head>
 <body>
 
-<header class="navbar-area">
-  <div class="container d-flex align-items-center justify-content-between">
-    <a href="/">
-      <img src="assets/images/logo/logo-premium.png" alt="Logo" style="height: 40px;">
-    </a>
-    <nav>
-      <a href="/" style="color: var(--slate-900); font-weight: 600; margin-left: 20px;">Home</a>
-    </nav>
-  </div>
-</header>
+<div class="container" style="padding-top: 30px; position: absolute; z-index: 1000; left: 0; right: 0; display: flex; justify-content: flex-start;">
+  <a href="javascript:history.back()" class="btn" style="background-color: var(--primary); color: white; font-weight: 600; padding: 10px 24px; border-radius: 30px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+    <i class="fas fa-arrow-left me-2"></i> Back to Home
+  </a>
+</div>
 
 <section class="hero-section text-center">
   <div class="container">
-    <h1 class="section-title">Revolutionizing <span class="accent-text">Recruitment</span></h1>
+    <h1 class="section-title">Revolutionizing <b class="accent-text">Recruitment</b></h1>
     <p class="lead mx-auto" style="max-width: 700px; opacity: 0.8;">At JobU, we believe that every talent deserves a stage and every company deserves the best. We're bridging the gap between ambition and opportunity.</p>
   </div>
 </section>
@@ -171,7 +167,7 @@
 
     <div class="row mt-5 pt-5 align-items-center">
       <div class="col-lg-6">
-        <h2 class="section-title">Why Choose <span class="accent-text">JobU</span>?</h2>
+        <h2 class="section-title" style="text-align: left;">Why Choose <b class="accent-text">JobU</b>?</h2>
         <p class="mb-4">We're not just another job board. We're a comprehensive career ecosystem designed for the modern world. From AI-driven job matching to interactive skill assessments, we provide a holistic approach to hiring.</p>
         <ul class="list-unstyled">
           <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Verified Employers & Opportunities</li>

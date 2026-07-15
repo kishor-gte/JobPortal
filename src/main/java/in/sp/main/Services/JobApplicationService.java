@@ -94,6 +94,10 @@ public class JobApplicationService {
 	        return applicationRepository.findByJob_Id(jobId);
 	    }
 	    
+	    public long countByJobId(Long jobId) {
+	        return applicationRepository.countByJob_Id(jobId);
+	    }
+	    
 	    public void save(JobApplication application) {
 	        applicationRepository.save(application);
 	    }
