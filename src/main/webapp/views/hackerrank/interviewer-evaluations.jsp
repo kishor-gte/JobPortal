@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
@@ -599,7 +599,7 @@
                         <option value="">-- All Interviewed Candidates --</option>
                         <c:forEach var="student" items="${interviewedStudents}">
                             <option value="${student.id}" ${student.id == selectedStudentId ? 'selected' : ''}>
-                                ${student.name}
+                                ${not empty student.name ? student.name : 'Candidate #'.concat(student.id)}
                             </option>
                         </c:forEach>
                     </select>
