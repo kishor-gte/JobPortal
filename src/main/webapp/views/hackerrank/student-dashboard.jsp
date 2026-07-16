@@ -382,8 +382,13 @@
             grid-template-columns: 2fr 1fr;
             gap: 24px;
             margin-bottom: 32px;
+			
         }
-
+		.card {
+		    width: 100%;
+		    max-width: 900px;   /* Increase this value as needed */
+		    margin: 0 auto;
+		}
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -927,7 +932,7 @@
                 <div class="card-header">
                     <h3>
                         <i class="fas fa-calendar-alt"></i>
-                        Mock Interviews
+                         Interviews
                     </h3>
                     <a href="${pageContext.request.contextPath}/hackerrank/student/mock-interview">
                         View All <i class="fas fa-arrow-right"></i>
@@ -956,31 +961,7 @@
                     </div>
                 </c:if>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h3>
-                        <i class="fas fa-robot"></i>
-                        AI Feedback
-                    </h3>
-                    <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard">
-                        View All <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                <c:forEach var="eval" items="${evaluations}" end="2">
-                    <div class="feedback-item">
-                        <h4>Overall Score: ${eval.overallScore}/10</h4>
-                        <p>${eval.improvementSuggestions}</p>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty evaluations}">
-                    <div class="empty-state">
-                        <i class="fas fa-robot"></i>
-                        <p>No AI evaluations yet</p>
-                    </div>
-                </c:if>
-            </div>
-        </div>
+			 </div>
     </div>
 
     <script>

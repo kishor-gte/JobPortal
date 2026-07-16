@@ -317,6 +317,23 @@ public class JobController {
         redirectAttributes.addFlashAttribute("message", "Job saved for later.");
         return "redirect:/jobs/all";
     }
+
+    //seekers unsave job
+    @RequestMapping(value = "/seeker/unsave-job", method = RequestMethod.POST)
+    public String unsaveJob(@RequestParam Long jobId, HttpSession session, RedirectAttributes redirectAttributes) {
+        JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");
+        Job job = jobService.getJobById(jobId);
+
+        if (seeker == null || job == null) {
+            redirectAttributes.addFlashAttribute("error", "Invalid operation.");
+            return "redirect:/jobs/all";
+        }
+
+        savedJobService.removeSavedJob(job, seeker);
+        activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.REMOVED_SAVED_JOB, "Removed saved job: " + job.getTitle());
+        redirectAttributes.addFlashAttribute("message", "Job removed from saved list.");
+        return "redirect:/jobs/all";
+    }
 //show job details
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showJobDetails(@PathVariable("id") Long jobId, Model model,HttpSession session) {
