@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -190,7 +192,7 @@
         }
 
         .status-upcoming { background: rgba(25, 167, 123, 0.9); color: white; }
-        .status-live { background: rgba(245, 158, 11, 0.9); color: white; animation: pulseLive 2s infinite; }
+        .status-live { background: rgba(245, 158, 11, 0.9); color: #000000; animation: pulseLive 2s infinite; }
         .status-completed { background: rgba(90, 110, 102, 0.9); color: white; }
         .status-closed { background: rgba(239, 68, 68, 0.9); color: white; }
 
@@ -304,7 +306,7 @@
         .countdown {
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--warning);
+            color: #b45309;
             text-align: center;
             padding: 8px;
             background: rgba(245, 158, 11, 0.1);
@@ -366,27 +368,36 @@
     <!-- Sidebar Include -->
     <jsp:include page="/views/commons/student_sidebar.jsp" />
 
-    <div class="main-content">
+    <main class="main-content">
         <div class="header">
             <h1><i class="fas fa-trophy" style="color: var(--primary); margin-right: 10px;"></i> Coding Competitions</h1>
             <p>Challenge yourself, compete with peers, and showcase your skills.</p>
         </div>
 
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="upcoming">Upcoming</button>
-            <button class="tab-btn" data-tab="live">Live</button>
-            <button class="tab-btn" data-tab="completed">Completed</button>
-            <button class="tab-btn" data-tab="my-competitions">My Competitions</button>
+        <div class="tabs" role="tablist" aria-label="Competition tabs">
+            <button class="tab-btn active" id="tab-upcoming" role="tab" aria-selected="true" aria-controls="upcoming" data-tab="upcoming">Upcoming</button>
+            <button class="tab-btn" id="tab-live" role="tab" aria-selected="false" aria-controls="live" data-tab="live">Live</button>
+            <button class="tab-btn" id="tab-completed" role="tab" aria-selected="false" aria-controls="completed" data-tab="completed">Completed</button>
+            <button class="tab-btn" id="tab-my-competitions" role="tab" aria-selected="false" aria-controls="my-competitions" data-tab="my-competitions">My Competitions</button>
         </div>
 
-        <!-- Pre-process times - now set in controller -->
+        <%
+            LocalDateTime currentNow = LocalDateTime.now();
+            request.setAttribute("now", currentNow);
+            DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy h:mm a");
+            request.setAttribute("dtFormatter", dtFormatter);
+            DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM dd, h:mm a");
+            request.setAttribute("shortFormatter", shortFormatter);
+            DateTimeFormatter sortFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            request.setAttribute("sortFormatter", sortFormatter);
+        %>
 
         <!-- Upcoming Tab -->
-        <div class="tab-pane active" id="upcoming">
+        <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
             <div class="competitions-grid">
                 <c:set var="upcomingCount" value="0"/>
                 <c:forEach var="comp" items="${allCompetitions}">
-                    <c:if test="${compIsUpcoming[comp.id]}">
+                    <c:if test="${comp.examStartTime.format(sortFormatter) gt now.format(sortFormatter)}">
                         <c:set var="upcomingCount" value="${upcomingCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -398,7 +409,7 @@
         </div>
 
         <!-- Live Tab -->
-        <div class="tab-pane" id="live">
+        <div class="tab-pane" id="live" role="tabpanel" aria-labelledby="tab-live">
             <div class="competitions-grid">
                 <c:set var="liveCount" value="0"/>
                 <c:forEach var="comp" items="${allCompetitions}">
@@ -408,7 +419,7 @@
                             <c:set var="isCompleted" value="true"/>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${!isCompleted && compIsLive[comp.id]}">
+                    <c:if test="${!isCompleted && (comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
                         <c:set var="liveCount" value="${liveCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -420,7 +431,7 @@
         </div>
 
         <!-- Completed Tab -->
-        <div class="tab-pane" id="completed">
+        <div class="tab-pane" id="completed" role="tabpanel" aria-labelledby="tab-completed">
             <div class="competitions-grid">
                 <c:set var="compCount" value="0"/>
                 <c:forEach var="comp" items="${allCompetitions}">
@@ -430,7 +441,7 @@
                             <c:set var="isCompleted" value="true"/>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${isCompleted || compIsExamEnded[comp.id]}">
+                    <c:if test="${isCompleted || comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
                         <c:set var="compCount" value="${compCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -442,7 +453,7 @@
         </div>
 
         <!-- My Competitions Tab -->
-        <div class="tab-pane" id="my-competitions">
+        <div class="tab-pane" id="my-competitions" role="tabpanel" aria-labelledby="tab-my-competitions">
             <div class="competitions-grid">
                 <c:choose>
                     <c:when test="${not empty studentRegistrations}">
@@ -467,10 +478,10 @@
                                     <div class="comp-banner">
                                         <c:choose>
                                             <c:when test="${not empty comp.bannerImage}">
-                                                <img src="${comp.bannerImage}" alt="Banner">
+                                                <img src="${comp.bannerImage}" alt="Competition Banner for ${comp.title}">
                                             </c:when>
                                             <c:otherwise>
-                                                <i class="fas fa-code"></i>
+                                                <i class="fas fa-code" aria-hidden="true"></i>
                                             </c:otherwise>
                                         </c:choose>
                                         <div class="comp-status-badge ${reg.status eq 'REGISTERED' ? 'status-upcoming' : 'status-closed'}" style="right: auto; left: 12px; background: rgba(0,0,0,0.8);">
@@ -478,13 +489,12 @@
                                         </div>
                                     </div>
                                     <div class="comp-body">
-                                        <h3 class="comp-title">${comp.title}</h3>
+                                        <h2 class="comp-title">${comp.title}</h2>
                                         <div class="comp-details" style="grid-template-columns: 1fr;">
                                             <div class="detail-item"><i class="fas fa-calendar-alt"></i> Exam: 
                                                 <c:choose>
                                                     <c:when test="${not empty comp.examStartTime}">
-                                                        <fmt:parseDate value="${comp.examStartTime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedExamDate" type="both" />
-                                                        <fmt:formatDate pattern="MMM dd, yyyy h:mm a" value="${parsedExamDate}" />
+                                                        ${comp.examStartTime.format(dtFormatter)}
                                                     </c:when>
                                                     <c:otherwise>
                                                         TBA
@@ -501,16 +511,16 @@
                                                 <c:when test="${isCompleted}">
                                                     <button class="btn-register" disabled style="background: var(--text-muted); color: white;"><i class="fas fa-check-circle"></i> Exam Submitted</button>
                                                 </c:when>
-                                                <c:when test="${compIsExamEnded[comp.id]}">
+                                                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
                                                     <button class="btn-register" disabled>Competition Closed</button>
                                                 </c:when>
-                                                <c:when test="${compIsLive[comp.id]}">
-                                                    <a href="${pageContext.request.contextPath}/student/coding-competitions/rules/${comp.id}" class="btn-start"><i class="fas fa-play"></i> Start Exam</a>
+                                                <c:when test="${(comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
+                                                    <a href="${pageContext.request.contextPath}/student/coding-competitions/rules/${comp.id}" class="btn-start" role="button"><i class="fas fa-play" aria-hidden="true"></i> Start Exam</a>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:choose>
                                                         <c:when test="${not empty comp.examStartTime}">
-                                                            <fmt:parseDate value="${comp.examStartTime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedExamRegDate" type="both" />
+                                                            
                                                             <button class="btn-register" disabled style="font-size: 0.8rem; background: var(--success);"><i class="fas fa-check-circle"></i> Registered</button>
                                                         </c:when>
                                                         <c:otherwise>
@@ -535,7 +545,7 @@
                 </c:choose>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
@@ -548,10 +558,14 @@
                     const tabId = this.getAttribute('data-tab');
                     if(!tabId) return;
                     
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-selected', 'false');
+                    });
                     document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
                     
                     this.classList.add('active');
+                    this.setAttribute('aria-selected', 'true');
                     const targetPane = document.getElementById(tabId);
                     if (targetPane) {
                         targetPane.classList.add('active');
