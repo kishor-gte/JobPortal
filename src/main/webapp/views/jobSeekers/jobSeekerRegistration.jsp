@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta charset="UTF-8">
     <title>Job Seeker Registration | SmartInterview</title>
 
@@ -370,7 +371,10 @@
                         <label for="password" class="form-label">
                             <i class="fas fa-lock" style="color: var(--primary); margin-right: 6px;"></i>Password
                         </label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+                        <div style="position: relative;">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required style="padding-right: 40px;">
+                            <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
+                        </div>
                     </div>
 
                     <!-- Confirm Password -->
@@ -378,7 +382,10 @@
                         <label for="confirmPassword" class="form-label">
                             <i class="fas fa-lock" style="color: var(--primary); margin-right: 6px;"></i>Confirm Password
                         </label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        <div style="position: relative;">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required style="padding-right: 40px;">
+                            <i class="far fa-eye" id="toggleConfirmPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
+                        </div>
                         <div id="passwordMatch" style="font-size: 12px; margin-top: 6px; display: none;"></div>
                     </div>
 
@@ -414,6 +421,26 @@
         const confirmPassword = document.getElementById('confirmPassword');
         const passwordMatch = document.getElementById('passwordMatch');
         const form = document.getElementById('registrationForm');
+
+        const togglePassword = document.querySelector('#togglePassword');
+        if (togglePassword && password) {
+            togglePassword.addEventListener('click', function (e) {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+                this.classList.toggle('fa-eye');
+            });
+        }
+
+        const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+        if (toggleConfirmPassword && confirmPassword) {
+            toggleConfirmPassword.addEventListener('click', function (e) {
+                const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmPassword.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+                this.classList.toggle('fa-eye');
+            });
+        }
 
         function checkPasswordMatch() {
             if (confirmPassword.value === '') {

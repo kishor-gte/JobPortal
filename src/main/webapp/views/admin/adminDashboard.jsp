@@ -432,7 +432,7 @@ body::after {
 /* HR Stats Grid */
 .hr-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-bottom: 24px;
 }
@@ -812,8 +812,9 @@ html { scroll-behavior: smooth; }
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container">
-    <a class="navbar-brand-custom" href="${pageContext.request.contextPath}/dashboard">
-      <i class="fas fa-briefcase"></i> <span>JobU Admin</span>
+    <a class="navbar-brand-custom" href="${pageContext.request.contextPath}/dashboard" style="display: flex; align-items: center; text-decoration: none; gap: 10px;">
+      <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block;" />
+      <span>JobU Admin</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
@@ -821,7 +822,10 @@ html { scroll-behavior: smooth; }
       <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="ms-auto">
+      <div class="ms-auto" style="display: flex; gap: 10px;">
+        <a href="${pageContext.request.contextPath}/admin/profile" class="btn btn-logout" style="background: rgba(25,167,123,0.8); border-color: transparent;">
+          <i class="fas fa-user-edit"></i> <span>Edit Profile</span>
+        </a>
         <form action="${pageContext.request.contextPath}/adminLogout" method="post" class="d-inline">
           <button type="submit" class="btn btn-logout">
             <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
@@ -910,12 +914,14 @@ html { scroll-behavior: smooth; }
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/company_dashboard" class="action-card companies"><div class="action-icon"><i class="fas fa-building"></i></div><div class="action-title">Manage Companies</div><p class="action-desc">Verify and manage company accounts</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/reported-jobs" class="action-card reports"><div class="action-icon"><i class="fas fa-flag"></i></div><div class="action-title">Reported Jobs</div><p class="action-desc">Review and resolve job reports</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/qna/admin/questions" class="action-card qa"><div class="action-icon"><i class="fas fa-question-circle"></i></div><div class="action-title">Manage Q&A</div><p class="action-desc">Moderate questions and answers</p></a></div>
-      <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/sports/service/add" class="action-card sports"><div class="action-icon"><i class="fas fa-futbol"></i></div><div class="action-title">Add Sports Services</div><p class="action-desc">Create & manage corporate sports packages</p></a></div>
+      <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/sports/service/add" class="action-card sports"><div class="action-icon"><i class="fas fa-futbol"></i></div><div class="action-title">Add Sports Services</div><p class="action-desc">Create & manage corporate events packages</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/sports/service/list" class="action-card sports"><div class="action-icon"><i class="fas fa-tools"></i></div><div class="action-title">Manage Sports Services</div><p class="action-desc">View, edit & control all sports services</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/bookings" class="action-card sports"><div class="action-icon"><i class="fas fa-list-alt"></i></div><div class="action-title">All Bookings</div><p class="action-desc">View all sports service bookings by recruiters</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/alerts" class="action-card reports"><div class="action-icon"><i class="fas fa-flag"></i></div><div class="action-title">Reported Companies</div><p class="action-desc">Review, respond & remove company alerts</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/assessments/uploadpage" class="action-card assessments"><div class="action-icon"><i class="fas fa-file-alt"></i></div><div class="action-title">Assessment Questions</div><p class="action-desc">Add and manage assessment questions</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/had" class="action-card assessments"><div class="action-icon"><i class="fas fa-chart-line"></i></div><div class="action-title">HackerRank Dashboard</div><p class="action-desc">Advanced analytics & coding assessments</p></a></div>
+      <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/recruiters" class="action-card companies"><div class="action-icon"><i class="fas fa-user-tie"></i></div><div class="action-title">Recruiters</div><p class="action-desc">View recruiters grouped by company</p></a></div>
+      <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/technicians" class="action-card sports"><div class="action-icon"><i class="fas fa-tools"></i></div><div class="action-title">Technicians</div><p class="action-desc">View technicians grouped by company</p></a></div>
       <div class="col-lg-4 col-md-6"><a href="${pageContext.request.contextPath}/admin/activity-logs" class="action-card qa"><div class="action-icon"><i class="fas fa-history"></i></div><div class="action-title">User Activity Logs</div><p class="action-desc">Track and monitor all user actions across the portal</p></a></div>
     </div>
   </div>
@@ -927,17 +933,10 @@ html { scroll-behavior: smooth; }
     <h2 class="section-title">Platform Statistics</h2>
     <div class="hr-stats-grid">
       <div class="hr-stat-card"><div class="hr-stat-icon orange"><i class="fas fa-users"></i></div><div class="hr-stat-value">${totalUsers}</div><div class="hr-stat-label">Total Job Seekers</div></div>
-      <div class="hr-stat-card"><div class="hr-stat-icon blue"><i class="fas fa-user-graduate"></i></div><div class="hr-stat-value">${totalStudents}</div><div class="hr-stat-label">Job Seekers</div></div>
-      <div class="hr-stat-card"><div class="hr-stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div><div class="hr-stat-value">${totalInterviewers}</div><div class="hr-stat-label">Interviewers</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon purple"><i class="fas fa-code"></i></div><div class="hr-stat-value">${totalCodingQuestions}</div><div class="hr-stat-label">Coding Questions</div></div>
-    </div>
-    <div class="hr-stats-grid">
       <div class="hr-stat-card"><div class="hr-stat-icon cyan"><i class="fas fa-comments"></i></div><div class="hr-stat-value">${totalInterviewQuestions}</div><div class="hr-stat-label">Interview Questions</div></div>
-      <div class="hr-stat-card"><div class="hr-stat-icon pink"><i class="fas fa-tags"></i></div><div class="hr-stat-value">${totalCategories}</div><div class="hr-stat-label">Categories</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon yellow"><i class="fas fa-video"></i></div><div class="hr-stat-value">${totalInterviews}</div><div class="hr-stat-label">Total Interviews</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon green"><i class="fas fa-check-double"></i></div><div class="hr-stat-value">${completedInterviews}</div><div class="hr-stat-label">Completed</div></div>
-    </div>
-    <div class="hr-stats-grid">
       <div class="hr-stat-card"><div class="hr-stat-icon orange"><i class="fas fa-building"></i></div><div class="hr-stat-value">${totalCompanies}</div><div class="hr-stat-label">Companies</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon blue"><i class="fas fa-briefcase"></i></div><div class="hr-stat-value">${totalJobs}</div><div class="hr-stat-label">Total Jobs</div></div>
       <div class="hr-stat-card"><div class="hr-stat-icon green"><i class="fas fa-file-alt"></i></div><div class="hr-stat-value">${totalApplications}</div><div class="hr-stat-label">Job Applications</div></div>

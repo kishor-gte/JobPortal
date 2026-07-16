@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -258,7 +258,8 @@
     }
 
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="text"] {
         width: 100%;
         padding: 14px 16px 14px 46px;
         border: 2px solid var(--border-color);
@@ -269,7 +270,8 @@
     }
 
     input[type="email"]:focus,
-    input[type="password"]:focus {
+    input[type="password"]:focus,
+    input[type="text"]:focus {
         outline: none;
         border-color: var(--primary);
         background-color: white;
@@ -503,10 +505,53 @@
             font-size: 18px;
         }
     }
+    .back-home-btn {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        z-index: 1000;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(25, 167, 123, 0.2);
+        border-radius: 30px;
+        color: #19A77B;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .back-home-btn:hover {
+        background: #19A77B;
+        color: white !important;
+        transform: translateX(-4px);
+        box-shadow: 0 6px 18px rgba(25, 167, 123, 0.25);
+        border-color: #19A77B;
+    }
+    @media (max-width: 768px) {
+        .back-home-btn {
+            background: #19A77B;
+            color: white !important;
+            border-color: #19A77B;
+            top: 16px;
+            left: 16px;
+        }
+        .back-home-btn:hover {
+            background: #148F69;
+            color: white !important;
+        }
+    }
     </style>
 
 </head>
 <body>
+    <a href="${pageContext.request.contextPath}/" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
     <div class="main-container">
         <!-- Left Side - Image Section -->
         <div class="image-section">
@@ -548,8 +593,13 @@
                         <label for="password"><i class="fas fa-lock"></i> Password</label>
                         <div class="input-wrapper">
                             <span class="input-icon password-icon"></span>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" class="form-control" id="techLoginPwd" name="password" placeholder="Enter your password" required style="padding-right: 50px;">
+                            <span onclick="toggleTechLoginPwd()" id="techLoginEye" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                         </div>
+                        <small style="display:block;margin-top:6px;font-size:0.75rem;color:#94a3b8;text-align:left;padding-left:4px;">
+                            <i class="fas fa-info-circle" style="color:#19A77B;margin-right:4px;"></i>
+                            Min 6 chars, 1 uppercase, 1 lowercase &amp; 1 special character
+                        </small>
                     </div>
                     <button type="submit" class="btn-primary" id="submitBtn">
                         <i class="fas fa-sign-in-alt"></i> Login
@@ -557,7 +607,7 @@
                 </form>
      
                 <div class="forgot-password-link">
-                    <p><a href="${pageContext.request.contextPath}/auth/forgot-password"><i class="fas fa-key"></i> Forgot Password?</a></p>
+                    <p><a href="${pageContext.request.contextPath}/techperson/forgot-password"><i class="fas fa-key"></i> Forgot Password?</a></p>
                 </div>
             </div>
         </div>
@@ -567,6 +617,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+    function toggleTechLoginPwd() {
+        const pwd = document.getElementById('techLoginPwd');
+        const eye = document.getElementById('techLoginEye').querySelector('i');
+        if (pwd.type === 'password') {
+            pwd.type = 'text';
+            eye.className = 'fas fa-eye-slash';
+        } else {
+            pwd.type = 'password';
+            eye.className = 'fas fa-eye';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('loginForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -592,6 +654,7 @@
     </script>
 </body>
 </html>
+
 
 
 

@@ -291,6 +291,28 @@
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
         }
 
+        .btn-back {
+            padding: 10px 20px;
+            background: rgba(25, 167, 123, 0.08);
+            border: 1px solid rgba(25, 167, 123, 0.2);
+            color: var(--primary);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -794,6 +816,7 @@
             <h2>Mentor Panel</h2>
         </div>
         <div class="nav-section">
+
             <h4>Main</h4>
             <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="nav-link active">
                 <i class="fas fa-th-large"></i> Dashboard
@@ -841,6 +864,9 @@
                 <button id="theme-toggle" class="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
                 </button>
+                <a href="${pageContext.request.contextPath}/company/dashboard" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Company
+                </a>
                 <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>

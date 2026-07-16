@@ -404,7 +404,7 @@
 <!-- Page Header -->
 <div class="page-header">
     <div class="container">
-        <h1><i class="fas fa-calendar-alt me-2"></i> Corporate Sports Events</h1>
+        <h1><i class="fas fa-calendar-alt me-2"></i> Corporate Events</h1>
         <p>Discover and book premium sports facilities for your corporate events</p>
     </div>
 </div>

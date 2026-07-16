@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
@@ -1082,7 +1082,7 @@
 
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <div class="sidebar" id="sidebar">
+        <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -1115,8 +1115,23 @@
             </a>
         </div>
         <div class="nav-section">
+            <h4>Competitions</h4>
+            <a href="${pageContext.request.contextPath}/tech/conduct-competition" class="nav-link">
+                <i class="fas fa-trophy"></i> Conduct Competition
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/manage-competitions" class="nav-link">
+                <i class="fas fa-tasks"></i> Manage Competitions
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Competition Results
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
+                <i class="fas fa-video"></i> Competition Recordings
+            </a>
+        </div>
+        <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -1743,6 +1758,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 

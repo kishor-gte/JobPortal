@@ -316,7 +316,8 @@
         }
 
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="text"] {
             width: 100%;
             padding: 14px 14px 14px 48px;
             border: 2px solid #e2e8f0;
@@ -435,9 +436,52 @@
             .stats-badge { gap: 15px; }
             .stat-number { font-size: 1.3rem; }
         }
+        .back-home-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(25, 167, 123, 0.2);
+            border-radius: 30px;
+            color: #19A77B;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .back-home-btn:hover {
+            background: #19A77B;
+            color: white !important;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 18px rgba(25, 167, 123, 0.25);
+            border-color: #19A77B;
+        }
+        @media (max-width: 992px) {
+            .back-home-btn {
+                background: #19A77B;
+                color: white !important;
+                border-color: #19A77B;
+                top: 16px;
+                left: 16px;
+            }
+            .back-home-btn:hover {
+                background: #148F69;
+                color: white !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="${pageContext.request.contextPath}/" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
     <div class="main-container">
         <!-- Left Side - Premium Image Section with Animations -->
         <div class="image-section">
@@ -522,8 +566,13 @@
                         <label for="password">Password</label>
                         <div class="input-field">
                             <i class="fas fa-lock input-icon"></i>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required style="padding-right: 48px;">
+                            <span onclick="toggleLoginPwd()" id="eyeIcon" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--primary);font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                         </div>
+                        <small style="display:block;margin-top:6px;font-size:0.75rem;color:#94a3b8;">
+                            <i class="fas fa-info-circle" style="color:#19A77B;margin-right:4px;"></i>
+                            Min 6 chars, 1 uppercase, 1 lowercase &amp; 1 special character
+                        </small>
                     </div>
 
                     <button type="submit">
@@ -531,7 +580,7 @@
                     </button>
 
                     <div class="forgot">
-                        <a href="${pageContext.request.contextPath}/auth/forgot-password?role=company">
+                        <a href="${pageContext.request.contextPath}/company/forgot-password">
                             <i class="fas fa-question-circle me-1"></i> Forgot password?
                         </a>
                     </div>
@@ -544,15 +593,16 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS for scroll animations
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
+        AOS.init({ duration: 800, once: true, offset: 50 });
+        function toggleLoginPwd() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            const isText = input.type === 'text';
+            input.type = isText ? 'password' : 'text';
+            icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        }
     </script>
 </body>
 </html>

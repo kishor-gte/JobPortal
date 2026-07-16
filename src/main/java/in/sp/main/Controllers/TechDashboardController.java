@@ -1,4 +1,5 @@
-package in.sp.main.Controllers;
+package in.sp.main.Controllers; // Trigger rebuild
+
 
 import in.sp.main.Entities.TechPerson;
 import in.sp.main.Entities.JobSeeker;
@@ -274,31 +275,31 @@ public class TechDashboardController {
     }
 
         @RequestMapping(value = "/manage-users", method = RequestMethod.GET)
-    public String manageUsers(HttpSession session, Model model) {
-        return populateUsersModel(session, model, null, "techperson/manage-users");
+    public String manageUsers(@RequestParam(required = false) String search, HttpSession session, Model model) {
+        return populateUsersModel(session, model, null, search, "techperson/manage-users");
     }
 
     @RequestMapping(value = "/manage-users/all", method = RequestMethod.GET)
-    public String manageUsersAll(HttpSession session, Model model) {
-        return populateUsersModel(session, model, null, "techperson/manage-users-all");
+    public String manageUsersAll(@RequestParam(required = false) String search, HttpSession session, Model model) {
+        return populateUsersModel(session, model, null, search, "techperson/manage-users-all");
     }
 
     @RequestMapping(value = "/manage-users/students", method = RequestMethod.GET)
-    public String manageUsersStudents(HttpSession session, Model model) {
-        return populateUsersModel(session, model, "STUDENT", "techperson/manage-users-students");
+    public String manageUsersStudents(@RequestParam(required = false) String search, HttpSession session, Model model) {
+        return populateUsersModel(session, model, "STUDENT", search, "techperson/manage-users-students");
     }
 
     @RequestMapping(value = "/manage-users/interviewers", method = RequestMethod.GET)
-    public String manageUsersInterviewers(HttpSession session, Model model) {
-        return populateUsersModel(session, model, "INTERVIEWER", "techperson/manage-users-interviewers");
+    public String manageUsersInterviewers(@RequestParam(required = false) String search, HttpSession session, Model model) {
+        return populateUsersModel(session, model, "INTERVIEWER", search, "techperson/manage-users-interviewers");
     }
 
     @RequestMapping(value = "/manage-users/admins", method = RequestMethod.GET)
-    public String manageUsersAdmins(HttpSession session, Model model) {
-        return populateUsersModel(session, model, "ADMIN", "techperson/manage-users-admins");
+    public String manageUsersAdmins(@RequestParam(required = false) String search, HttpSession session, Model model) {
+        return populateUsersModel(session, model, "ADMIN", search, "techperson/manage-users-admins");
     }
 
-    private String populateUsersModel(HttpSession session, Model model, String role, String viewName) {
+    private String populateUsersModel(HttpSession session, Model model, String role, String search, String viewName) {
         TechPerson techPerson = (TechPerson) session.getAttribute("loggedInTechPerson");
         if (techPerson == null) return "redirect:/tech/login";
         model.addAttribute("techPerson", techPerson);
@@ -325,8 +326,35 @@ public class TechDashboardController {
             filteredJobSeekers = allJobSeekers;
         }
         
+        if (search != null && !search.trim().isEmpty()) {
+            String q = search.toLowerCase().trim();
+            filteredJobSeekers = filteredJobSeekers.stream()
+                .filter(u -> (u.getName() != null && u.getName().toLowerCase().contains(q)) || 
+                             (u.getEmail() != null && u.getEmail().toLowerCase().contains(q)))
+                .sorted((u1, u2) -> {
+                    String n1 = u1.getName() != null ? u1.getName().toLowerCase() : "";
+                    String n2 = u2.getName() != null ? u2.getName().toLowerCase() : "";
+                    String e1 = u1.getEmail() != null ? u1.getEmail().toLowerCase() : "";
+                    String e2 = u2.getEmail() != null ? u2.getEmail().toLowerCase() : "";
+                    
+                    boolean exact1 = n1.equals(q) || e1.equals(q);
+                    boolean exact2 = n2.equals(q) || e2.equals(q);
+                    if (exact1 && !exact2) return -1;
+                    if (!exact1 && exact2) return 1;
+                    
+                    boolean starts1 = n1.startsWith(q) || e1.startsWith(q);
+                    boolean starts2 = n2.startsWith(q) || e2.startsWith(q);
+                    if (starts1 && !starts2) return -1;
+                    if (!starts1 && starts2) return 1;
+                    
+                    return n1.compareTo(n2);
+                })
+                .collect(java.util.stream.Collectors.toList());
+        }
+        
         model.addAttribute("jobSeekers", filteredJobSeekers);
         model.addAttribute("selectedRole", role);
+        model.addAttribute("searchQuery", search);
 
         return viewName;
     }
@@ -372,9 +400,7 @@ public class TechDashboardController {
         TechPerson techPerson = (TechPerson) session.getAttribute("loggedInTechPerson");
         if (techPerson == null) return "redirect:/tech/login";
         model.addAttribute("techPerson", techPerson);
-        
         model.addAttribute("categories", categoryDAO.findAll());
-
         return "techperson/manage-categories";
     }
 

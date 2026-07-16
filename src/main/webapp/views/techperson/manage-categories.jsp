@@ -769,23 +769,23 @@
 
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-            <div class="sidebar" id="sidebar">
+                <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
         </div>
         <div class="nav-section">
             <h4>Overview</h4>
-            <a href="${pageContext.request.contextPath}/tech/dashboard" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/dashboard" class="nav-link">
                 <i class="fas fa-th-large"></i> Dashboard
             </a>
         </div>
         <div class="nav-section">
             <h4>Management</h4>
-            <a href="${pageContext.request.contextPath}/tech/manage-users" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/manage-users" class="nav-link">
                 <i class="fas fa-users-cog"></i> Manage Users
             </a>
-            <a href="${pageContext.request.contextPath}/tech/manage-questions" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/manage-questions" class="nav-link">
                 <i class="fas fa-question-circle"></i> Manage Questions
             </a>
             <a href="${pageContext.request.contextPath}/tech/manage-categories" class="nav-link active">
@@ -794,16 +794,31 @@
         </div>
         <div class="nav-section">
             <h4>Evaluation</h4>
-            <a href="${pageContext.request.contextPath}/tech/results" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/results" class="nav-link">
                 <i class="fas fa-poll"></i> Results
             </a>
-            <a href="${pageContext.request.contextPath}/tech/ai-evaluation" class="nav-link ">
+            <a href="${pageContext.request.contextPath}/tech/ai-evaluation" class="nav-link">
                 <i class="fas fa-robot"></i> AI Evaluation
             </a>
         </div>
         <div class="nav-section">
+            <h4>Competitions</h4>
+            <a href="${pageContext.request.contextPath}/tech/conduct-competition" class="nav-link">
+                <i class="fas fa-trophy"></i> Conduct Competition
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/manage-competitions" class="nav-link">
+                <i class="fas fa-tasks"></i> Manage Competitions
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Competition Results
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
+                <i class="fas fa-video"></i> Competition Recordings
+            </a>
+        </div>
+        <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -833,6 +848,7 @@
                 <i class="fas fa-check-circle"></i> ${success}
             </div>
         </c:if>
+
 
         <div class="add-form">
             <h3>
@@ -991,6 +1007,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 

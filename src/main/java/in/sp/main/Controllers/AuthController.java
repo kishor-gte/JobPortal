@@ -19,11 +19,11 @@ public class AuthController {
     @RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
     public String showForgotPasswordPage(@RequestParam(required = false) String role, Model model) {
         model.addAttribute("role", role);
-        return "password/forgotPassword"; // Return your JSP or HTML page
+        return "password/forgotPassword";
     }
     @RequestMapping(value = "/forgot-password1", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam String email, @RequestParam(required = false) String role, Model model) {
-        String response = passwordResetService.createPasswordResetToken(email);
+        String response = passwordResetService.createPasswordResetToken(email, role);
         if (response.startsWith("Failed") || response.equals("Email not found")) {
             model.addAttribute("error", response);
         } else {
@@ -32,6 +32,8 @@ public class AuthController {
         model.addAttribute("role", role);
         return "password/forgotPassword";
     }
+
+
 
     @RequestMapping(value = "/reset-password", method = RequestMethod.GET)
     public String showResetPasswordPage(@RequestParam String token, @RequestParam String type, Model model) {

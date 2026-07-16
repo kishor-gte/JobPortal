@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -754,10 +756,24 @@
                 <div class="form-group">
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" name="password" placeholder="Create Password" class="form-control"
-                               pattern=".{6,}"
-                               title="At least 6 characters" required autocomplete="new-password">
+                        <input type="password" id="adminPassword" name="password" placeholder="Create Password" class="form-control"
+                               required autocomplete="new-password" style="padding-right: 50px;">
+                        <span onclick="toggleAdminPwd()" id="adminEyeIcon" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                     </div>
+                    <!-- Live Strength Indicator -->
+                    <div id="adminPwdStrengthBar" style="display:none;margin-top:8px;padding:0 4px;">
+                        <div style="height:5px;border-radius:10px;background:#e2e8f0;overflow:hidden;">
+                            <div id="adminPwdStrengthFill" style="height:100%;width:0;border-radius:10px;transition:width 0.4s,background 0.4s;"></div>
+                        </div>
+                        <small id="adminPwdStrengthText" style="font-size:0.75rem;margin-top:4px;display:block;"></small>
+                    </div>
+                    <!-- Requirements Checklist -->
+                    <ul id="adminPwdChecklist" style="display:none;list-style:none;padding:0 4px;margin:8px 0 0;font-size:0.78rem;text-align:left;">
+                        <li id="admin-chk-len" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>Minimum 6 characters</li>
+                        <li id="admin-chk-upper" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 uppercase letter (A-Z)</li>
+                        <li id="admin-chk-lower" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 lowercase letter (a-z)</li>
+                        <li id="admin-chk-special" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 special character (!@#$...)</li>
+                    </ul>
                 </div>
 
                 <button type="submit" class="btn-primary" id="registerBtn">
@@ -1004,5 +1020,76 @@ document.addEventListener('DOMContentLoaded', function() {
         outline: none;
     }
 </style>
+
+<script>
+// ---- Admin Password Validation ----
+function toggleAdminPwd() {
+    const input = document.getElementById('adminPassword');
+    const icon = document.getElementById('adminEyeIcon');
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
+
+const adminPwdInput = document.getElementById('adminPassword');
+if (adminPwdInput) {
+    adminPwdInput.addEventListener('focus', () => {
+        document.getElementById('adminPwdChecklist').style.display = 'block';
+        document.getElementById('adminPwdStrengthBar').style.display = 'block';
+    });
+    adminPwdInput.addEventListener('input', function () {
+        const val = this.value;
+        const checks = {
+            len: val.length >= 6,
+            upper: /[A-Z]/.test(val),
+            lower: /[a-z]/.test(val),
+            special: /[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(val)
+        };
+        adminUpdateCheck('admin-chk-len', checks.len);
+        adminUpdateCheck('admin-chk-upper', checks.upper);
+        adminUpdateCheck('admin-chk-lower', checks.lower);
+        adminUpdateCheck('admin-chk-special', checks.special);
+        const score = Object.values(checks).filter(Boolean).length;
+        const fill = document.getElementById('adminPwdStrengthFill');
+        const text = document.getElementById('adminPwdStrengthText');
+        const levels = [
+            { w: '25%', color: '#ef4444', label: 'Weak' },
+            { w: '50%', color: '#f59e0b', label: 'Fair' },
+            { w: '75%', color: '#3b82f6', label: 'Good' },
+            { w: '100%', color: '#19A77B', label: 'Strong' }
+        ];
+        const lvl = levels[score - 1] || { w: '0', color: '#e2e8f0', label: '' };
+        fill.style.width = lvl.w;
+        fill.style.background = lvl.color;
+        text.textContent = lvl.label ? 'Strength: ' + lvl.label : '';
+        text.style.color = lvl.color;
+    });
+}
+function adminUpdateCheck(id, passed) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.color = passed ? '#19A77B' : '#94a3b8';
+    el.querySelector('i').className = passed ? 'fas fa-check-circle' : 'fas fa-circle';
+    el.querySelector('i').style.fontSize = passed ? '0.75rem' : '0.5rem';
+}
+
+// Override registerForm submit to add password validation FIRST
+const origRegisterForm = document.getElementById('registerForm');
+if (origRegisterForm) {
+    origRegisterForm.addEventListener('submit', function(e) {
+        const pwd = document.getElementById('adminPassword').value;
+        const errors = [];
+        if (pwd.length < 6) errors.push('at least 6 characters');
+        if (!/[A-Z]/.test(pwd)) errors.push('1 uppercase letter');
+        if (!/[a-z]/.test(pwd)) errors.push('1 lowercase letter');
+        if (!/[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(pwd)) errors.push('1 special character');
+        if (errors.length > 0) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            alert('Password must contain: ' + errors.join(', ') + '.');
+        }
+    }, true); // capture phase so it runs before existing submit handler
+}
+</script>
 </body>
 </html>

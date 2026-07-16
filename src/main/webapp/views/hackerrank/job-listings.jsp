@@ -195,7 +195,7 @@
         .search-section h3 i { color: var(--primary); }
         
         .search-grid {
-            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px;
         }
         .search-input { 
             background: var(--card-bg); border: 1px solid var(--border-color); 
@@ -445,7 +445,7 @@
 
         /* Mobile Responsive */
         @media (max-width: 1024px) {
-            .search-grid { grid-template-columns: 1fr 1fr; }
+            .search-grid { grid-template-columns: 1fr 1fr 1fr; }
             .jobs-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
@@ -514,6 +514,14 @@
                         <option value="MID" ${experienceLevel == 'MID' ? 'selected' : ''}>Mid Level</option>
                         <option value="SENIOR" ${experienceLevel == 'SENIOR' ? 'selected' : ''}>Senior</option>
                         <option value="LEAD" ${experienceLevel == 'LEAD' ? 'selected' : ''}>Lead</option>
+                    </select>
+                    <select name="jobType" class="search-input">
+                        <option value="">All Job Types</option>
+                        <option value="FULL_TIME" ${jobType == 'FULL_TIME' ? 'selected' : ''}>Full Time</option>
+                        <option value="PART_TIME" ${jobType == 'PART_TIME' ? 'selected' : ''}>Part Time</option>
+                        <option value="INTERNSHIP" ${jobType == 'INTERNSHIP' ? 'selected' : ''}>Internship</option>
+                        <option value="CONTRACT" ${jobType == 'CONTRACT' ? 'selected' : ''}>Contract</option>
+                        <option value="REMOTE" ${jobType == 'REMOTE' ? 'selected' : ''}>Remote</option>
                     </select>
                     <input type="text" name="skills" class="search-input" placeholder="Skills (e.g. Java, React)..." value="${skills}">
                 </div>

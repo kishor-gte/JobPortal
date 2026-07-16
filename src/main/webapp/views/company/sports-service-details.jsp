@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${service.serviceTitle} - Book Now | JobU Corporate Sports</title>
+    <title>${service.serviceTitle} - Book Now | JobU Corporate Events</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
@@ -435,7 +435,7 @@
                     key: "rzp_test_RIlD5bEKRjyn3h",
                     amount: data.amount,
                     currency: "INR",
-                    name: "Corporate Sports Booking",
+                    name: "Corporate Events Booking",
                     description: serviceTitle,
                     order_id: data.id,
                     handler: function (response) {

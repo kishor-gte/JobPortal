@@ -29,6 +29,7 @@ public class PasswordResetService {
     @Autowired private CompanyRepository companyRepo;
     @Autowired private RecruiterRepository recruiterRepo;
     @Autowired private JobSeekerRepository jobSeekerRepo;
+    @Autowired private in.sp.main.Repositories.TechPersonRepository techPersonRepo;
     @Autowired private PasswordResetTokenRepository tokenRepo;
     @Autowired private JavaMailSender mailSender;
 
@@ -37,18 +38,36 @@ public class PasswordResetService {
 
     private static final int EXPIRATION_MINUTES = 15;
 
-    public String createPasswordResetToken(String email) {
-        Optional<Admin> admin = adminRepo.findByEmail(email);
-        Optional<Company> company = companyRepo.findFirstByEmail(email);
-        Optional<Recruiter> recruiter = recruiterRepo.findByEmail(email);
-        Optional<JobSeeker> jobSeeker = jobSeekerRepo.findByEmail(email);
-
+    public String createPasswordResetToken(String email, String role) {
         UserType userType = null;
-        if (admin.isPresent()) userType = UserType.ADMIN;
-        else if (company.isPresent()) userType = UserType.COMPANY;
-        else if (recruiter.isPresent()) userType = UserType.RECRUITER;
-        else if (jobSeeker.isPresent()) userType = UserType.JOBSEEKER;
-        else return "Email not found";
+
+        if (role != null && !role.trim().isEmpty()) {
+            String roleLower = role.toLowerCase();
+            if (roleLower.equals("admin")) {
+                if (adminRepo.findByEmail(email).isPresent()) userType = UserType.ADMIN;
+            } else if (roleLower.equals("company")) {
+                if (companyRepo.findFirstByEmail(email).isPresent()) userType = UserType.COMPANY;
+            } else if (roleLower.equals("recruiter")) {
+                if (recruiterRepo.findByEmail(email).isPresent()) userType = UserType.RECRUITER;
+            } else if (roleLower.equals("jobseeker")) {
+                if (jobSeekerRepo.findByEmail(email).isPresent()) userType = UserType.JOBSEEKER;
+            } else if (roleLower.equals("techperson")) {
+                if (techPersonRepo.findByEmail(email) != null) userType = UserType.TECHPERSON;
+            }
+        } else {
+            Optional<Admin> admin = adminRepo.findByEmail(email);
+            Optional<Company> company = companyRepo.findFirstByEmail(email);
+            Optional<Recruiter> recruiter = recruiterRepo.findByEmail(email);
+            Optional<JobSeeker> jobSeeker = jobSeekerRepo.findByEmail(email);
+            in.sp.main.Entities.TechPerson techPerson = techPersonRepo.findByEmail(email);
+            if (admin.isPresent()) userType = UserType.ADMIN;
+            else if (company.isPresent()) userType = UserType.COMPANY;
+            else if (recruiter.isPresent()) userType = UserType.RECRUITER;
+            else if (jobSeeker.isPresent()) userType = UserType.JOBSEEKER;
+            else if (techPerson != null) userType = UserType.TECHPERSON;
+        }
+
+        if (userType == null) return "Email not found";
 
         String token = UUID.randomUUID().toString();
         PasswordResetToken resetToken = new PasswordResetToken(email, token, userType, EXPIRATION_MINUTES);
@@ -118,6 +137,14 @@ public class PasswordResetService {
                 if (jobSeeker.isPresent()) {
                     jobSeeker.get().setPassword(encodedPassword);
                     jobSeekerRepo.save(jobSeeker.get());
+                    updated = true;
+                }
+                break;
+            case TECHPERSON:
+                in.sp.main.Entities.TechPerson techPerson = techPersonRepo.findByEmail(email);
+                if (techPerson != null) {
+                    techPerson.setPassword(encodedPassword);
+                    techPersonRepo.save(techPerson);
                     updated = true;
                 }
                 break;

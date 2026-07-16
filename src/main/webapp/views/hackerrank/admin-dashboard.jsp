@@ -255,10 +255,32 @@
             transform: translateY(-2px);
         }
 
+        .btn-back {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.65);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            background: rgba(25,167,123,0.15);
+            border-color: var(--primary);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-bottom: 24px;
         }
@@ -487,6 +509,19 @@
             color: white;
         }
 
+        html.light-mode .btn-back {
+            background: white;
+            border-color: #e2e8f0;
+            color: #475569;
+            box-shadow: var(--shadow-sm);
+        }
+
+        html.light-mode .btn-back:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .stats-grid {
@@ -552,8 +587,6 @@
         <div class="nav-section">
             <h4>Management</h4>
             <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-users" class="nav-link"><i class="fas fa-users-cog"></i> Manage Users</a>
-            <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-questions" class="nav-link"><i class="fas fa-question-circle"></i> Manage Questions</a>
-            <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-categories" class="nav-link"><i class="fas fa-tags"></i> Manage Categories</a>
         </div>
         <div class="nav-section">
             <h4>Evaluation</h4>
@@ -568,7 +601,12 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h1><i class="fas fa-shield-halved"></i> Admin Dashboard</h1>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a href="${pageContext.request.contextPath}/dashboard" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Main
+                </a>
+                <h1><i class="fas fa-shield-halved"></i> Admin Dashboard</h1>
+            </div>
             <div style="display: flex; align-items: center; gap: 12px;">
                 <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
@@ -591,11 +629,6 @@
                 <div class="stat-label">Students</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon green"><i class="fas fa-chalkboard-teacher"></i></div>
-                <div class="stat-value">${totalInterviewers}</div>
-                <div class="stat-label">Interviewers</div>
-            </div>
-            <div class="stat-card">
                 <div class="stat-icon purple"><i class="fas fa-code"></i></div>
                 <div class="stat-value">${totalCodingQuestions}</div>
                 <div class="stat-label">Coding Questions</div>
@@ -608,11 +641,6 @@
                 <div class="stat-icon cyan"><i class="fas fa-comments"></i></div>
                 <div class="stat-value">${totalInterviewQuestions}</div>
                 <div class="stat-label">Interview Questions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon pink"><i class="fas fa-tags"></i></div>
-                <div class="stat-value">${totalCategories}</div>
-                <div class="stat-label">Categories</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon yellow"><i class="fas fa-video"></i></div>
@@ -650,74 +678,6 @@
             </div>
         </div>
 
-        <!-- Recent Users -->
-        <div class="content-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-user-clock" style="color: var(--accent);"></i> Recent Users</h3>
-                    <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-users">Manage All <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <c:forEach var="u" items="${recentUsers}" end="7">
-                    <div class="user-item">
-                        <div class="info">
-                            <div class="user-avatar ${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">
-                                ${u.name.substring(0,1)}
-                            </div>
-                            <span class="user-name">${u.name}</span>
-                        </div>
-                        <span class="user-role role-${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">${u.role}</span>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty recentUsers}">
-                    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 30px;">No recent users</p>
-                </c:if>
-            </div>
-        </div>
-
-        <!-- Job Portal Overview -->
-        <div class="content-grid" style="margin-top: 24px;">
-            <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-briefcase" style="color: #60a5fa;"></i> Companies & Jobs</h3>
-                </div>
-                <c:forEach var="j" items="${activeJobs}" end="7">
-                    <div class="user-item">
-                        <div class="info">
-                            <div class="user-avatar company">${not empty j.companyName ? j.companyName.substring(0,1) : 'C'}</div>
-                            <div>
-                                <span class="user-name" style="font-weight: 600;">${j.title}</span>
-                                <div style="font-size: 11px; color: rgba(255,255,255,0.5);">${j.companyName} &bull; ${j.location}</div>
-                            </div>
-                        </div>
-                        <span class="user-role role-admin">${j.applicantCount} Applicants</span>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty activeJobs}">
-                    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 30px;">No jobs posted yet</p>
-                </c:if>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-file-alt" style="color: #4ade80;"></i> Recent Job Applications</h3>
-                </div>
-                <c:forEach var="a" items="${recentApplications}" end="7">
-                    <div class="user-item">
-                        <div class="info">
-                            <div class="user-avatar student">${not empty a.applicantName ? a.applicantName.substring(0,1) : 'S'}</div>
-                            <div>
-                                <span class="user-name" style="font-weight: 600;">${a.applicantName}</span>
-                                <div style="font-size: 11px; color: rgba(255,255,255,0.5);">Applied for: ${a.jobTitle}</div>
-                            </div>
-                        </div>
-                        <span class="user-role role-${a.status == 'APPLIED' ? 'student' : a.status == 'HIRED' ? 'interviewer' : 'admin'}">${a.status}</span>
-                    </div>
-                </c:forEach>
-                <c:if test="${empty recentApplications}">
-                    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 30px;">No applications yet</p>
-                </c:if>
-            </div>
-        </div>
     </div>
 
     <script>

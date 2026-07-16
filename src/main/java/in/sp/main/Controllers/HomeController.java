@@ -3,7 +3,13 @@ package in.sp.main.Controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.ui.Model;
+import in.sp.main.Repositories.JobRepository;
+import in.sp.main.Repositories.CompanyRepository;
+import in.sp.main.Repositories.JobSeekerRepository;
+import in.sp.main.Entities.Job;
+import in.sp.main.Enums.JobStatus;
+import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,18 +64,55 @@ public class HomeController {
 			activityLogger.log(userId, name, email, userRole, ActivityType.CONTACT_SUPPORT, "Contact support message sent");
 		} catch (Exception e) {
 			e.printStackTrace();
-			// Log to allow debugging if not receiving mail
+			// If email fails to send (e.g., invalid address), show an error message instead of success
+			return "redirect:/contact.html?message=Failed%20to%20send%20message.%20Please%20try%20again.";
 		}
 		return "redirect:/contact.html?message=Your%20message%20has%20been%20sent%20successfully!";
 	}
 
+	@Autowired private JobRepository jobRepository;
+	@Autowired private CompanyRepository companyRepository;
+	@Autowired private JobSeekerRepository jobSeekerRepository;
+
 	@RequestMapping(value = {"/", "/home.html", "/home"}, method = RequestMethod.GET)
-	public String home1() {
+	public String home1(Model model) {
+		model.addAttribute("activeJobs", jobRepository.count());
+		model.addAttribute("topCompanies", companyRepository.count());
+		model.addAttribute("professionals", jobSeekerRepository.count());
+		
+		model.addAttribute("countIT", jobRepository.countByJobCategoryContaining("IT_SOFTWARE"));
+		model.addAttribute("countFinance", jobRepository.countByJobCategoryContaining("FINANCE"));
+		model.addAttribute("countHealthcare", jobRepository.countByJobCategoryContaining("HEALTHCARE"));
+		model.addAttribute("countEducation", jobRepository.countByJobCategoryContaining("EDUCATION"));
+		model.addAttribute("countMarketing", jobRepository.countByJobCategoryContaining("MARKETING"));
+		model.addAttribute("countLegal", jobRepository.countByJobCategoryContaining("LEGAL"));
+		model.addAttribute("countTechSupport", jobRepository.countByJobCategoryContaining("TECHNICAL_SUPPORT"));
+		model.addAttribute("countLocal", jobRepository.countByJobCategoryContaining("LOCAL_JOBS"));
+		
+		List<Job> featuredJobs = jobRepository.findTop8ByStatusOrderByPostedDateDesc(JobStatus.OPEN);
+		model.addAttribute("featuredJobs", featuredJobs);
+		
 		return "home";  // Serves dynamic JSP from views/home.jsp
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String home() {
+	public String home(Model model) {
+		model.addAttribute("activeJobs", jobRepository.count());
+		model.addAttribute("topCompanies", companyRepository.count());
+		model.addAttribute("professionals", jobSeekerRepository.count());
+		
+		model.addAttribute("countIT", jobRepository.countByJobCategoryContaining("IT_SOFTWARE"));
+		model.addAttribute("countFinance", jobRepository.countByJobCategoryContaining("FINANCE"));
+		model.addAttribute("countHealthcare", jobRepository.countByJobCategoryContaining("HEALTHCARE"));
+		model.addAttribute("countEducation", jobRepository.countByJobCategoryContaining("EDUCATION"));
+		model.addAttribute("countMarketing", jobRepository.countByJobCategoryContaining("MARKETING"));
+		model.addAttribute("countLegal", jobRepository.countByJobCategoryContaining("LEGAL"));
+		model.addAttribute("countTechSupport", jobRepository.countByJobCategoryContaining("TECHNICAL_SUPPORT"));
+		model.addAttribute("countLocal", jobRepository.countByJobCategoryContaining("LOCAL_JOBS"));
+		
+		List<Job> featuredJobs = jobRepository.findTop8ByStatusOrderByPostedDateDesc(JobStatus.OPEN);
+		model.addAttribute("featuredJobs", featuredJobs);
+		
 		return "home";  // Serves dynamic JSP from views/home.jsp
 	}
 

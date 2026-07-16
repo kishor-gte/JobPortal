@@ -706,8 +706,7 @@
         /* Sidebar Styles */
         .sidebar {
             position: fixed;
-            left: 0;
-            top: 0;
+            left: 0; top: 0;
             width: 280px;
             height: 100vh;
             background: rgba(255, 255, 255, 0.95);
@@ -717,104 +716,64 @@
             padding: 24px 16px;
             z-index: 100;
             overflow-y: auto;
-            transition: transform 0.3s ease;
         }
 
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
         .sidebar-logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 8px 12px 24px;
-            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 14px;
+            padding: 8px 12px 24px; border-bottom: 1px solid var(--border-color);
             margin-bottom: 24px;
         }
 
         .sidebar-logo .icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient-primary);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--glow-primary);
+            width: 48px; height: 48px;
+            background: var(--gradient-primary); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--glow-primary); animation: logoGlow 3s ease-in-out infinite;
         }
 
-        .sidebar-logo .icon i {
-            color: #fff;
-            font-size: 24px;
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(25, 167, 123, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(25, 167, 123, 0.4); }
         }
 
+        .sidebar-logo .icon i { color: #fff; font-size: 24px; }
         .sidebar-logo h2 {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 20px; font-weight: 700;
             background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; letter-spacing: -0.5px;
         }
 
-        .nav-section {
-            margin-bottom: 28px;
-        }
-
+        .nav-section { margin-bottom: 28px; }
         .nav-section h4 {
-            color: var(--text-tertiary);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 0 12px;
-            margin-bottom: 14px;
-            font-weight: 600;
+            color: var(--text-tertiary); font-size: 11px; text-transform: uppercase;
+            letter-spacing: 1.5px; padding: 0 12px; margin-bottom: 14px; font-weight: 600;
         }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 14px;
-            border-radius: 12px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 14px; border-radius: 12px;
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 14px; font-weight: 500;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 4px;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 4px; position: relative; overflow: hidden;
         }
-
-        .nav-link i {
-            width: 20px;
-            text-align: center;
-            font-size: 16px;
+        .nav-link i { width: 20px; text-align: center; font-size: 16px; transition: transform 0.3s ease; }
+        .nav-link::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 3px; background: var(--gradient-primary);
+            transform: translateX(-100%); transition: transform 0.3s ease;
         }
-
-        .nav-link:hover {
-            background: var(--hover-bg);
-            color: var(--primary);
-            transform: translateX(4px);
-        }
-
-        .nav-link.active {
-            background: var(--hover-bg);
-            color: var(--primary);
-            box-shadow: inset 0 0 20px rgba(25, 167, 123, 0.05);
-        }
+        .nav-link:hover { background: var(--hover-bg); color: var(--primary); transform: translateX(4px); }
+        .nav-link:hover i { transform: scale(1.1); }
+        .nav-link:hover::before { transform: translateX(0); }
+        .nav-link.active { background: var(--hover-bg); color: var(--primary); box-shadow: inset 0 0 20px rgba(25, 167, 123, 0.05); }
+        .nav-link.active::before { transform: translateX(0); }
+        .nav-link.active i { color: var(--primary); }
 
         .main-content {
             margin-left: 280px;
@@ -877,7 +836,7 @@
             }
         }
     </style>
-	<jsp:include page="/views/commons/hackerrank_sidebar_styles.jsp" />
+
 </head>
 
 <body>

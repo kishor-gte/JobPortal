@@ -71,42 +71,7 @@
             50% { opacity: 1; }
         }
 
-        /* Header override */
-        .header .navbar-area {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-sm);
-        }
 
-        .header .navbar-brand img {
-            max-height: 40px;
-        }
-
-        .header .navbar-nav .nav-item a {
-            color: var(--text-primary) !important;
-            font-weight: 500;
-        }
-
-        .header .navbar-nav .nav-item a:hover,
-        .header .navbar-nav .nav-item a.active {
-            color: var(--primary) !important;
-        }
-
-        .header .button .btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
-        }
-
-        .header .button .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(25, 167, 123, 0.4);
-        }
 
         /* Hero Section */
         .call-action {
@@ -396,72 +361,6 @@
     </style>
 </head>
 <body>
-
-<!-- Start Header Area -->
-<header class="header">
-    <div class="navbar-area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand logo d-flex align-items-center" href="${pageContext.request.contextPath}/index">
-                            <img class="logo1" src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="Logo" />
-                            <span style="font-weight: 700; color: var(--primary); margin-left: 8px;">SmartInterview</span>
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul id="nav" class="navbar-nav ml-auto">
-
-                                <li class="nav-item">
-                                    <a class="active" href="${pageContext.request.contextPath}/recruiter.html">Home</a>
-                                </li>
-
-                                <li class="nav-item"><a href="#">Pages</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/services.html">Services</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/contact.html">Contact</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item"><a href="#">Manage Jobs</a>
-                                    <ul class="sub-menu">
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post/${company.id}">Post New Job</a></li>
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/by-company/${company.id}">Posted Jobs</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item"><a href="#">Manage Candidates</a>
-                                    <ul class="sub-menu">
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/applicants">Applicants</a></li>
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/competition-results">Competition Results</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/profile">My Profile</a></li>
-
-                            </ul>
-                        </div>
-
-                        <div class="button">
-                            <a href="${pageContext.request.contextPath}/recruiter/logout" class="btn">
-                                <i class="lni lni-exit"></i> Logout
-                            </a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- End Header Area -->
 
 <!-- Hero Section -->
 <section class="call-action overlay section">

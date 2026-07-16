@@ -340,7 +340,24 @@
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Password<span class="required-star">*</span></label>
-                        <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="6">
+                        <div style="position: relative;">
+                            <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="6" style="padding-right: 48px;">
+                            <span onclick="togglePwd('password', this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
+                        </div>
+                        <!-- Live Strength Indicator -->
+                        <div id="pwdStrengthBar" style="display:none;margin-top:8px;">
+                            <div style="height:5px;border-radius:10px;background:#e2e8f0;overflow:hidden;">
+                                <div id="pwdStrengthFill" style="height:100%;width:0;border-radius:10px;transition:width 0.4s,background 0.4s;"></div>
+                            </div>
+                            <small id="pwdStrengthText" style="font-size:0.75rem;margin-top:4px;display:block;"></small>
+                        </div>
+                        <!-- Requirements Checklist -->
+                        <ul id="pwdChecklist" style="display:none;list-style:none;padding:0;margin:8px 0 0;font-size:0.78rem;">
+                            <li id="chk-len" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>Minimum 6 characters</li>
+                            <li id="chk-upper" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 uppercase letter (A-Z)</li>
+                            <li id="chk-lower" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 lowercase letter (a-z)</li>
+                            <li id="chk-special" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 special character (!@#$...)</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -373,10 +390,69 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true, offset: 50 });
+
+        function togglePwd(id, icon) {
+            const input = document.getElementById(id);
+            const isText = input.type === 'text';
+            input.type = isText ? 'password' : 'text';
+            icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        }
+
+        const pwdInput = document.getElementById('password');
+        pwdInput.addEventListener('focus', () => {
+            document.getElementById('pwdChecklist').style.display = 'block';
+            document.getElementById('pwdStrengthBar').style.display = 'block';
+        });
+        pwdInput.addEventListener('input', function () {
+            const val = this.value;
+            const checks = {
+                len: val.length >= 6,
+                upper: /[A-Z]/.test(val),
+                lower: /[a-z]/.test(val),
+                special: /[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(val)
+            };
+            updateCheck('chk-len', checks.len);
+            updateCheck('chk-upper', checks.upper);
+            updateCheck('chk-lower', checks.lower);
+            updateCheck('chk-special', checks.special);
+            const score = Object.values(checks).filter(Boolean).length;
+            const fill = document.getElementById('pwdStrengthFill');
+            const text = document.getElementById('pwdStrengthText');
+            const levels = [
+                { w: '25%', color: '#ef4444', label: 'Weak' },
+                { w: '50%', color: '#f59e0b', label: 'Fair' },
+                { w: '75%', color: '#3b82f6', label: 'Good' },
+                { w: '100%', color: '#19A77B', label: 'Strong' }
+            ];
+            const lvl = levels[score - 1] || { w: '0', color: '#e2e8f0', label: '' };
+            fill.style.width = lvl.w;
+            fill.style.background = lvl.color;
+            text.textContent = lvl.label ? 'Strength: ' + lvl.label : '';
+            text.style.color = lvl.color;
+        });
+        function updateCheck(id, passed) {
+            const el = document.getElementById(id);
+            el.style.color = passed ? '#19A77B' : '#94a3b8';
+            el.querySelector('i').className = passed ? 'fas fa-check-circle' : 'fas fa-circle';
+            el.querySelector('i').style.fontSize = passed ? '0.75rem' : '0.5rem';
+        }
+
+        // Validate on form submit
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const pwd = document.getElementById('password').value;
+            const errors = [];
+            if (pwd.length < 6) errors.push('at least 6 characters');
+            if (!/[A-Z]/.test(pwd)) errors.push('1 uppercase letter');
+            if (!/[a-z]/.test(pwd)) errors.push('1 lowercase letter');
+            if (!/[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(pwd)) errors.push('1 special character');
+            if (errors.length > 0) {
+                e.preventDefault();
+                alert('Password must contain: ' + errors.join(', ') + '.');
+            }
+        });
     </script>
 </body>
 </html>

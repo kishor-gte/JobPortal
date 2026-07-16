@@ -1,4 +1,4 @@
-
+﻿
         :root {
             --primary-color: #2042e3;
             --primary-hover: #081828;
@@ -10,26 +10,7 @@
             --border-light: #eee;
             --font-main: "Inter", sans-serif;
         }
-             /* Navbar Fixed Styles */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 5px 0;  /* Decreased padding for reduced height */
-        }
-
-        /* Keep navbar items at a reasonable distance with gap between items */
-        .navbar .navbar-nav {
-            margin-left: 10px; /* Adjust to ensure items have some space */
-        }
-
-        .navbar .nav-item {
-            margin-left: 15px;  /* Standard gap between navbar items */
-        }
+             
         
 
         body {
@@ -146,4 +127,5 @@
         .table .btn-sm {
             padding: 5px 10px; /* Adjust the button size */
         }
+
 

@@ -304,9 +304,53 @@
                 height: 200px;
             }
         }
+        .back-home-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(25, 167, 123, 0.2);
+            border-radius: 30px;
+            color: #19A77B;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .back-home-btn:hover {
+            background: #19A77B;
+            color: white !important;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 18px rgba(25, 167, 123, 0.25);
+            border-color: #19A77B;
+        }
+        @media (max-width: 968px) {
+            .back-home-btn {
+                background: #19A77B;
+                color: white !important;
+                border-color: #19A77B;
+                top: 16px;
+                left: 16px;
+            }
+            .back-home-btn:hover {
+                background: #148F69;
+                color: white !important;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <a href="${pageContext.request.contextPath}/" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
 
 <div class="main-container">
     <div class="image-section">
@@ -339,14 +383,23 @@
                 <div class="form-group">
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" name="password" placeholder="Password" class="form-control" required autocomplete="current-password">
+                        <input type="password" id="adminLoginPwd" name="password" placeholder="Password" class="form-control" required autocomplete="current-password" style="padding-right: 50px;">
+                        <span onclick="toggleAdminLoginPwd()" id="adminLoginEye" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                     </div>
+                    <small style="display:block;margin-top:6px;font-size:0.75rem;color:#94a3b8;text-align:left;padding-left:4px;">
+                        <i class="fas fa-info-circle" style="color:#19A77B;margin-right:4px;"></i>
+                        Min 6 chars, 1 uppercase, 1 lowercase &amp; 1 special character
+                    </small>
                 </div>
 
                 <button type="submit" class="btn-primary" id="loginBtn">
                     <i class="fas fa-arrow-right-to-bracket"></i> Sign In
                 </button>
             </form>
+
+            <div class="register-link" style="margin-bottom: 15px;">
+                <p><a href="${pageContext.request.contextPath}/admin/forgot-password"><i class="fas fa-key" style="margin-right: 8px; color: var(--primary);"></i> Forgot Password?</a></p>
+            </div>
 
             <div class="register-link">
                 <p><i class="fas fa-user-plus" style="margin-right: 8px; color: var(--primary);"></i> New admin? <a href="${pageContext.request.contextPath}/getregisterAdmin">Register here</a></p>
@@ -368,6 +421,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function toggleAdminLoginPwd() {
+    const input = document.getElementById('adminLoginPwd');
+    const icon = document.getElementById('adminLoginEye');
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
 </script>
 </body>
 </html>

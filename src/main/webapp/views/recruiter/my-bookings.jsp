@@ -1,4 +1,4 @@
-﻿<%@ page session="false" %>
+<%@ page session="false" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
@@ -429,7 +429,7 @@
                                             <i class="far fa-clock"></i> ${booking.bookedAt.toLocalTime().toString().substring(0,5)}
                                         </small>
                                     </td>
-                                    <td class="amount-text">₹${booking.finalPrice}</td>
+                                    <td class="amount-text">?${booking.finalPrice}</td>
                                     <td>
                                         <span class="status-badge 
                                             ${booking.status == 'CONFIRMED' ? 'status-confirmed' : 

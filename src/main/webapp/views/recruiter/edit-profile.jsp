@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta charset="UTF-8">
     <title>Edit Recruiter Profile | SmartInterview</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -410,7 +411,7 @@
                                 <li class="nav-item"><a href="#">Manage Jobs</a>
                                     <ul class="sub-menu">
                                         <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/post">Post New Job</a></li>
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/jobs/by-company">Posted Jobs</a></li>
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/recruiter/posted-jobs">Posted Jobs</a></li>
                                     </ul>
                                 </li>
 

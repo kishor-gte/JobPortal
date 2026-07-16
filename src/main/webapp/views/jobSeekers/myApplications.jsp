@@ -12,6 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>My Job Applications | SmartInterview</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/<c:url value='/css/bootstrap.min.css'/>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

@@ -27,6 +27,11 @@ import in.sp.main.Repositories.OrganizerEventPhotoRepository;
 import in.sp.main.Repositories.ReportedJobRepository;
 import in.sp.main.Repositories.ReviewRepository;
 import in.sp.main.Repositories.SportsOrganizerRepository;
+import in.sp.main.Entities.Recruiter;
+import in.sp.main.Entities.TechPerson;
+import in.sp.main.Repositories.RecruiterRepository;
+import in.sp.main.Repositories.TechPersonRepository;
+import in.sp.main.Repositories.JobApplicationRepository;
 import in.sp.main.Services.AdminService;
 import in.sp.main.Services.CompanyServices;
 import in.sp.main.Services.JobSeekerService;
@@ -35,6 +40,7 @@ import in.sp.main.dao.QuestionDAO;
 import in.sp.main.dao.InterviewDAO;
 import in.sp.main.dao.PerformanceDAO;
 import in.sp.main.dao.CategoryDAO;
+import in.sp.main.dao.AIEvaluationDAO;
 import in.sp.main.Services.SportsBookingService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -63,7 +69,17 @@ public class AdminController {
     @Autowired
     private ReportedJobRepository reportedJobRepository;
     @Autowired
+    private RecruiterRepository recruiterRepository;
+    @Autowired
+    private TechPersonRepository techPersonRepository;
+    @Autowired
     private JobSeekerService jobSeekerService;
+    
+    @Autowired
+    private in.sp.main.Services.TechPersonServices techPersonServices;
+
+    @Autowired
+    private in.sp.main.Services.RecruiterServices recruiterServices;
 
     @Autowired
     private ReviewRepository reviewService;
@@ -95,6 +111,11 @@ public class AdminController {
     @Autowired
     private ActivityLogger activityLogger;
    
+    @Autowired
+    private JobApplicationRepository jobApplicationRepository;
+
+    @Autowired
+    private AIEvaluationDAO aiEvaluationDAO;
 	/*
 	 * @Autowired private JobSeekerService userService;
 	 */
@@ -144,6 +165,45 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("error", "Unable to approve company.");
             return "redirect:/admin/pending";
         }
+    }
+
+    @RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
+    public String adminProfile(Model model, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        model.addAttribute("admin", admin);
+        return "admin/adminProfile";
+    }
+
+    @RequestMapping(value = "/admin/edit/{id}", method = RequestMethod.GET)
+    public String editAdminProfile(@PathVariable Long id, Model model, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null || !admin.getId().equals(id)) {
+            return "redirect:/loginAdmin";
+        }
+        model.addAttribute("admin", admin);
+        return "admin/editAdminProfile";
+    }
+
+    @RequestMapping(value = "/admin/updateProfile", method = RequestMethod.POST)
+    public String updateAdminProfile(@RequestParam("id") Long id, @RequestParam("name") String name, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null || !admin.getId().equals(id)) {
+            return "redirect:/loginAdmin";
+        }
+        
+        admin.setName(name);
+        try {
+            if (adminService != null) {
+                adminService.updateAdmin(id.intValue(), admin);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        session.setAttribute("loggedInAdmin", admin);
+        return "redirect:/admin/profile";
     }
 
     @RequestMapping(value = {"/dashboard", "/admin/dashboard"}, method = RequestMethod.GET)
@@ -223,7 +283,58 @@ public class AdminController {
             } catch (Exception e) {
                 System.err.println("Error fetching resolved reports: " + e.getMessage());
             }
+
+            // Fetch actual counts from DAOs for Platform Statistics
+            long totalCodingQuestions = 0;
+            long totalInterviewQuestions = 0;
+            long totalInterviews = 0;
+            long completedInterviews = 0;
+            long totalApplications = 0;
             
+            try {
+                if (questionDAO != null) {
+                    List<in.sp.main.Entities.CodingQuestion> codingQs = questionDAO.findAllCodingQuestions();
+                    totalCodingQuestions = codingQs != null ? codingQs.size() : 0;
+                    
+                    List<in.sp.main.Entities.InterviewQuestion> interviewQs = questionDAO.findAllInterviewQuestions();
+                    totalInterviewQuestions = interviewQs != null ? interviewQs.size() : 0;
+                }
+            } catch (Exception e) {
+                System.err.println("Error fetching questions: " + e.getMessage());
+            }
+            
+            try {
+                if (interviewDAO != null) {
+                    List<in.sp.main.Entities.MockInterview> allInterviews = interviewDAO.findAll();
+                    totalInterviews = allInterviews != null ? allInterviews.size() : 0;
+                    
+                    if (allInterviews != null) {
+                        completedInterviews = allInterviews.stream()
+                            .filter(i -> "COMPLETED".equalsIgnoreCase(i.getStatus()))
+                            .count();
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error fetching interviews: " + e.getMessage());
+            }
+
+            try {
+                if (jobApplicationRepository != null) {
+                    totalApplications = jobApplicationRepository.count();
+                }
+            } catch (Exception e) {
+                System.err.println("Error fetching job applications: " + e.getMessage());
+            }
+            
+            List<in.sp.main.Entities.PerformanceScore> performancesList = new java.util.ArrayList<>();
+            try {
+                if (performanceDAO != null) {
+                    performancesList = performanceDAO.findAllPerformances();
+                }
+            } catch (Exception e) {
+                System.err.println("Error fetching performances: " + e.getMessage());
+            }
+
             model.addAttribute("totalUsers", totalUsers);
             model.addAttribute("totalCompanies", totalCompanies);
             model.addAttribute("pendingCompanies", pendingCompanies);
@@ -232,6 +343,13 @@ public class AdminController {
             model.addAttribute("activeJobs", activeJobsList);
             model.addAttribute("activeJobsCount", activeJobsCount);
             model.addAttribute("resolvedReports", resolvedReports);
+
+            model.addAttribute("totalCodingQuestions", totalCodingQuestions);
+            model.addAttribute("totalInterviewQuestions", totalInterviewQuestions);
+            model.addAttribute("totalInterviews", totalInterviews);
+            model.addAttribute("completedInterviews", completedInterviews);
+            model.addAttribute("totalApplications", totalApplications);
+            model.addAttribute("performances", performancesList);
             
             // Add admin name to display on dashboard
             model.addAttribute("adminName", admin.getName() != null ? admin.getName() : admin.getEmail());
@@ -561,14 +679,92 @@ public class AdminController {
         return "hackerrank/admin-dashboard";
     }
 
-    @RequestMapping(value = "/hackerrank/admin/analytics", method = RequestMethod.GET)
-    public String hackerrankAdminAnalytics(Model model) {
-        model.addAttribute("performances", java.util.Collections.emptyList());
+    @RequestMapping(value = {"/hackerrank/admin/analytics", "/admin/analytics"}, method = RequestMethod.GET)
+    public String hackerrankAdminAnalytics(Model model, HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        long totalUsers = 0;
+        long totalStudents = 0;
+        long totalInterviewers = 0;
+        long totalCodingQuestions = 0;
+        long totalInterviewQuestions = 0;
+        long totalInterviews = 0;
+        long completedInterviews = 0;
+        long scheduledInterviews = 0;
+        
+        try {
+            if (jobSeekerService != null && jobSeekerService.getAllJobSeekers() != null) {
+                List<JobSeeker> allJobSeekers = jobSeekerService.getAllJobSeekers();
+                totalUsers = allJobSeekers.size();
+                totalStudents = allJobSeekers.stream().filter(u -> "STUDENT".equalsIgnoreCase(u.getRole())).count();
+                totalInterviewers = allJobSeekers.stream().filter(u -> "INTERVIEWER".equalsIgnoreCase(u.getRole())).count();
+            }
+        } catch (Exception e) {
+            System.err.println("Error fetching user stats: " + e.getMessage());
+        }
+        
+        try {
+            if (questionDAO != null) {
+                List<in.sp.main.Entities.CodingQuestion> codingQs = questionDAO.findAllCodingQuestions();
+                totalCodingQuestions = codingQs != null ? codingQs.size() : 0;
+                
+                List<in.sp.main.Entities.InterviewQuestion> interviewQs = questionDAO.findAllInterviewQuestions();
+                totalInterviewQuestions = interviewQs != null ? interviewQs.size() : 0;
+            }
+        } catch (Exception e) {
+            System.err.println("Error fetching questions: " + e.getMessage());
+        }
+        
+        try {
+            if (interviewDAO != null) {
+                List<in.sp.main.Entities.MockInterview> allInterviews = interviewDAO.findAll();
+                totalInterviews = allInterviews != null ? allInterviews.size() : 0;
+                
+                if (allInterviews != null) {
+                    completedInterviews = allInterviews.stream()
+                        .filter(i -> "COMPLETED".equalsIgnoreCase(i.getStatus()))
+                        .count();
+                        
+                    scheduledInterviews = allInterviews.stream()
+                        .filter(i -> "SCHEDULED".equalsIgnoreCase(i.getStatus()) || "PENDING".equalsIgnoreCase(i.getStatus()))
+                        .count();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error fetching interviews: " + e.getMessage());
+        }
+        
+        List<in.sp.main.Entities.AIEvaluation> evaluations = new java.util.ArrayList<>();
+        try {
+            if (aiEvaluationDAO != null) {
+                evaluations = aiEvaluationDAO.findAll();
+            }
+        } catch (Exception e) {
+            System.err.println("Error fetching evaluations: " + e.getMessage());
+        }
+        
+        model.addAttribute("totalUsers", totalUsers);
+        model.addAttribute("totalStudents", totalStudents);
+        model.addAttribute("totalInterviewers", totalInterviewers);
+        model.addAttribute("totalCodingQuestions", totalCodingQuestions);
+        model.addAttribute("totalInterviewQuestions", totalInterviewQuestions);
+        model.addAttribute("totalInterviews", totalInterviews);
+        model.addAttribute("completedInterviews", completedInterviews);
+        model.addAttribute("scheduledInterviews", scheduledInterviews);
+        model.addAttribute("evaluations", evaluations);
+        
         return "hackerrank/analytics";
     }
 
-    @RequestMapping(value = "/hackerrank/admin/manage-users", method = RequestMethod.GET)
-    public String hackerrankAdminManageUsers(@RequestParam(required = false) String role, Model model) {
+    @RequestMapping(value = {"/hackerrank/admin/manage-users", "/admin/manage-users"}, method = RequestMethod.GET)
+    public String hackerrankAdminManageUsers(@RequestParam(required = false) String role, Model model, HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
         List<JobSeeker> allJobSeekers = jobSeekerService.getAllJobSeekers();
         
         // Calculate role counts
@@ -731,8 +927,18 @@ public class AdminController {
 
     @RequestMapping(value = "/hackerrank/admin/delete-coding-question/{id}", method = RequestMethod.POST)
     public String deleteCodingQuestion(@PathVariable Long id, RedirectAttributes redirectAttrs) {
-        redirectAttrs.addFlashAttribute("success", "Coding question deleted successfully!");
+        questionDAO.deleteCodingQuestion(id);
+        redirectAttrs.addFlashAttribute("success", "Question deleted successfully!");
         return "redirect:/hackerrank/admin/manage-questions";
+    }
+
+    @RequestMapping(value = "/hackerrank/admin/account", method = RequestMethod.GET)
+    public String hackerrankAdminAccount(Model model, HttpSession session) {
+        in.sp.main.Entities.Admin user = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+        return "hackerrank/admin-account";
     }
 
     @RequestMapping(value = "/hackerrank/admin/delete-interview-question/{id}", method = RequestMethod.POST)
@@ -881,5 +1087,93 @@ public class AdminController {
             model.addAttribute("recentApplications", java.util.Collections.emptyList());
             return "hackerrank/admin-dashboard";
         }
+    }
+
+    @RequestMapping(value = "/admin/recruiters", method = RequestMethod.GET)
+    public String viewRecruitersCompanyWise(Model model, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        List<Company> companies = companyService.getAllCompanies();
+        Map<Long, List<Recruiter>> companyRecruitersMap = new HashMap<>();
+        for (Company c : companies) {
+            List<Recruiter> recruiters = recruiterRepository.findByCompany_Id(c.getId());
+            companyRecruitersMap.put(c.getId(), recruiters);
+        }
+        model.addAttribute("companies", companies);
+        model.addAttribute("companyRecruitersMap", companyRecruitersMap);
+        return "admin/recruiters-company-wise";
+    }
+
+    @RequestMapping(value = "/admin/technicians", method = RequestMethod.GET)
+    public String viewTechniciansCompanyWise(Model model, HttpSession session) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        List<Company> companies = companyService.getAllCompanies();
+        Map<Long, List<TechPerson>> companyTechniciansMap = new HashMap<>();
+        for (Company c : companies) {
+            List<TechPerson> technicians = techPersonRepository.findByCompanyId(c.getId());
+            companyTechniciansMap.put(c.getId(), technicians);
+        }
+        model.addAttribute("companies", companies);
+        model.addAttribute("companyTechniciansMap", companyTechniciansMap);
+        return "admin/technicians-company-wise";
+    }
+
+    @RequestMapping(value = "/admin/delete-company-with-reason/{id}", method = RequestMethod.POST)
+    public String deleteCompanyByAdminWithReason(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted company " + id + " for reason: " + reason);
+        companyService.deleteCompany(id);
+        redirectAttributes.addFlashAttribute("success", "Company deleted successfully.");
+        return "redirect:/admin/technicians";
+    }
+
+    @RequestMapping(value = "/admin/delete-techperson/{id}", method = RequestMethod.POST)
+    public String deleteTechPersonByAdmin(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted techperson " + id + " for reason: " + reason);
+        techPersonServices.deleteTechPerson(id);
+        redirectAttributes.addFlashAttribute("success", "Technician deleted successfully.");
+        return "redirect:/admin/technicians";
+    }
+
+    @RequestMapping(value = "/admin/delete-company-recruiter-with-reason/{id}", method = RequestMethod.POST)
+    public String deleteCompanyRecruiterByAdminWithReason(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted company " + id + " for reason: " + reason);
+        companyService.deleteCompany(id);
+        redirectAttributes.addFlashAttribute("success", "Company deleted successfully.");
+        return "redirect:/admin/recruiters";
+    }
+
+    @RequestMapping(value = "/admin/delete-recruiter/{id}", method = RequestMethod.POST)
+    public String deleteRecruiterByAdmin(@PathVariable Long id, @RequestParam("reason") String reason, HttpSession session, RedirectAttributes redirectAttributes) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        
+        System.out.println("Admin deleted recruiter " + id + " for reason: " + reason);
+        recruiterServices.deleteRecruiter(id);
+        redirectAttributes.addFlashAttribute("success", "Recruiter deleted successfully.");
+        return "redirect:/admin/recruiters";
     }
 }

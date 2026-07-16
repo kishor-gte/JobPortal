@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -523,14 +523,25 @@
                     </label>
                     <div class="input-icon-wrapper">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter secure password" required />
-                        <button type="button" class="password-toggle" id="togglePassword" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
-                            <i class="fas fa-eye"></i>
+                        <input type="password" id="recruiterPassword" name="password" class="form-control" placeholder="Enter secure password" required style="padding-right: 48px;" />
+                        <button type="button" class="password-toggle" id="toggleRecruiterPwdBtn" onclick="toggleRecruiterPwd()" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye" id="recruiterEyeIcon"></i>
                         </button>
                     </div>
-                    <small class="text-muted d-block mt-2">
-                        <i class="fas fa-info-circle"></i> Password should be at least 6 characters long
-                    </small>
+                    <!-- Live Strength Indicator -->
+                    <div id="recruiterPwdStrengthBar" style="display:none;margin-top:8px;padding:0 4px;">
+                        <div style="height:5px;border-radius:10px;background:#e2e8f0;overflow:hidden;">
+                            <div id="recruiterPwdStrengthFill" style="height:100%;width:0;border-radius:10px;transition:width 0.4s,background 0.4s;"></div>
+                        </div>
+                        <small id="recruiterPwdStrengthText" style="font-size:0.75rem;margin-top:4px;display:block;"></small>
+                    </div>
+                    <!-- Requirements Checklist -->
+                    <ul id="recruiterPwdChecklist" style="display:none;list-style:none;padding:0 4px;margin:8px 0 0;font-size:0.78rem;text-align:left;">
+                        <li id="recruiter-chk-len" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>Minimum 6 characters</li>
+                        <li id="recruiter-chk-upper" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 uppercase letter (A-Z)</li>
+                        <li id="recruiter-chk-lower" style="color:#94a3b8;margin-bottom:3px;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 lowercase letter (a-z)</li>
+                        <li id="recruiter-chk-special" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 special character (!@#$...)</li>
+                    </ul>
                 </div>
 
                 <!-- Submit Button -->
@@ -547,9 +558,9 @@
     
     <script>
         // Password Toggle Functionality
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('togglePassword').querySelector('i');
+        function toggleRecruiterPwd() {
+            const passwordInput = document.getElementById('recruiterPassword');
+            const toggleIcon = document.getElementById('recruiterEyeIcon');
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -560,6 +571,48 @@
                 toggleIcon.classList.remove('fa-eye-slash');
                 toggleIcon.classList.add('fa-eye');
             }
+        }
+
+        const recruiterPwdInput = document.getElementById('recruiterPassword');
+        if (recruiterPwdInput) {
+            recruiterPwdInput.addEventListener('focus', () => {
+                document.getElementById('recruiterPwdChecklist').style.display = 'block';
+                document.getElementById('recruiterPwdStrengthBar').style.display = 'block';
+            });
+            recruiterPwdInput.addEventListener('input', function () {
+                const val = this.value;
+                const checks = {
+                    len: val.length >= 6,
+                    upper: /[A-Z]/.test(val),
+                    lower: /[a-z]/.test(val),
+                    special: /[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(val)
+                };
+                recruiterUpdateCheck('recruiter-chk-len', checks.len);
+                recruiterUpdateCheck('recruiter-chk-upper', checks.upper);
+                recruiterUpdateCheck('recruiter-chk-lower', checks.lower);
+                recruiterUpdateCheck('recruiter-chk-special', checks.special);
+                const score = Object.values(checks).filter(Boolean).length;
+                const fill = document.getElementById('recruiterPwdStrengthFill');
+                const text = document.getElementById('recruiterPwdStrengthText');
+                const levels = [
+                    { w: '25%', color: '#ef4444', label: 'Weak' },
+                    { w: '50%', color: '#f59e0b', label: 'Fair' },
+                    { w: '75%', color: '#3b82f6', label: 'Good' },
+                    { w: '100%', color: '#19A77B', label: 'Strong' }
+                ];
+                const lvl = levels[score - 1] || { w: '0', color: '#e2e8f0', label: '' };
+                fill.style.width = lvl.w;
+                fill.style.background = lvl.color;
+                text.textContent = lvl.label ? 'Strength: ' + lvl.label : '';
+                text.style.color = lvl.color;
+            });
+        }
+        function recruiterUpdateCheck(id, passed) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.color = passed ? '#19A77B' : '#94a3b8';
+            el.querySelector('i').className = passed ? 'fas fa-check-circle' : 'fas fa-circle';
+            el.querySelector('i').style.fontSize = passed ? '0.75rem' : '0.5rem';
         }
 
         // Form validation enhancement
@@ -595,8 +648,8 @@
                     } else {
                         field.classList.remove('is-valid', 'is-invalid');
                     }
-                } else if (field.id === 'password') {
-                    if (value.length >= 6) {
+                } else if (field.id === 'recruiterPassword') {
+                    if (value.length >= 6 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(value)) {
                         field.classList.remove('is-invalid');
                         field.classList.add('is-valid');
                     } else if (value) {
@@ -631,11 +684,21 @@
                     }
                 });
 
-                // Check password length
-                const password = document.getElementById('password');
-                if (password.value.trim().length < 6) {
+                // Check password format
+                const password = document.getElementById('recruiterPassword');
+                const pwdVal = password.value;
+                const pwdErrors = [];
+                if (pwdVal.length < 6) pwdErrors.push('at least 6 characters');
+                if (!/[A-Z]/.test(pwdVal)) pwdErrors.push('1 uppercase letter');
+                if (!/[a-z]/.test(pwdVal)) pwdErrors.push('1 lowercase letter');
+                if (!/[!@#$%^&*()_+\-=\[\]{}|;:',.<>?/]/.test(pwdVal)) pwdErrors.push('1 special character');
+                
+                if (pwdErrors.length > 0) {
                     isValid = false;
                     password.classList.add('is-invalid');
+                    if (pwdErrors.length > 0) {
+                        alert('Password must contain: ' + pwdErrors.join(', ') + '.');
+                    }
                 }
 
                 // Check email format

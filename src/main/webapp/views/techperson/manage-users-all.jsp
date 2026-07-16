@@ -796,7 +796,7 @@
 
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <div class="sidebar" id="sidebar">
+        <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -829,8 +829,23 @@
             </a>
         </div>
         <div class="nav-section">
+            <h4>Competitions</h4>
+            <a href="${pageContext.request.contextPath}/tech/conduct-competition" class="nav-link">
+                <i class="fas fa-trophy"></i> Conduct Competition
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/manage-competitions" class="nav-link">
+                <i class="fas fa-tasks"></i> Manage Competitions
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Competition Results
+            </a>
+            <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
+                <i class="fas fa-video"></i> Competition Recordings
+            </a>
+        </div>
+        <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -861,22 +876,25 @@
             </div>
         </c:if>
 
-        <div class="filters">
-            <a href="${pageContext.request.contextPath}/tech/manage-users/all" class="filter-btn ${empty selectedRole ? 'active' : ''}">
-                <i class="fas fa-users"></i> All Users (${totalCount})
-            </a>
-            <a href="${pageContext.request.contextPath}/tech/manage-users/students"
-                class="filter-btn ${selectedRole == 'STUDENT' ? 'active' : ''}">
-                <i class="fas fa-user-graduate"></i> Students (${studentCount})
-            </a>
-            <a href="${pageContext.request.contextPath}/tech/manage-users/interviewers"
-                class="filter-btn ${selectedRole == 'INTERVIEWER' ? 'active' : ''}">
-                <i class="fas fa-chalkboard-teacher"></i> Interviewers (${interviewerCount})
-            </a>
-            <a href="${pageContext.request.contextPath}/tech/manage-users/admins"
-                class="filter-btn ${selectedRole == 'ADMIN' ? 'active' : ''}">
-                <i class="fas fa-shield-alt"></i> Admins (${adminCount})
-            </a>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px;">
+            <div class="filters" style="margin-bottom: 0;">
+                <a href="${pageContext.request.contextPath}/tech/manage-users" class="filter-btn active">
+                    <i class="fas fa-users"></i> All Users (${totalCount})
+                </a>
+            </div>
+            
+            <form action="${pageContext.request.contextPath}/tech/manage-users" method="get" class="search-form" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" name="search" placeholder="Search by name..." value="${searchQuery}" 
+                       style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 10px 18px; color: var(--text-primary); outline: none; width: 280px; font-size: 14px;">
+                <button type="submit" style="background: var(--primary); color: white; border: none; border-radius: 14px; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                    <i class="fas fa-search"></i>
+                </button>
+                <c:if test="${not empty searchQuery}">
+                    <a href="${pageContext.request.contextPath}/tech/manage-users" style="background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 14px; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.3s ease;">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </c:if>
+            </form>
         </div>
 
         <div class="table-card">
@@ -919,7 +937,7 @@
                                 </span>
                             </td>
                             <td style="color: var(--text-tertiary); font-size: 13px;">
-                                <i class="far fa-calendar-alt"></i> -
+                                <i class="far fa-calendar-alt"></i> ${not empty u.createdAt ? u.createdAt : '-'}
                             </td>
                            
                         </tr>
@@ -1032,5 +1050,10 @@
     </script>
 </body>
 </html>
+
+
+
+
+
 
 

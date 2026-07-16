@@ -522,8 +522,8 @@ public class JobSeekerController {
         }
         
         // Password validation
-        if (password.length() < 8 || password.length() > 32) {
-            redirectAttributes.addFlashAttribute("error", "Password must be between 8 and 32 characters.");
+        if (password.length() < 6 || password.length() > 32) {
+            redirectAttributes.addFlashAttribute("error", "Password must be between 6 and 32 characters.");
             return "redirect:/jobSeekers/register";
         }
         if (!password.matches(".*[A-Z].*")) {
@@ -633,7 +633,7 @@ public class JobSeekerController {
     
     @RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
     public String forgotPassword(@RequestParam String email, @RequestParam(required = false) String role, Model model) {
-        String response = passwordResetService.createPasswordResetToken(email);
+        String response = passwordResetService.createPasswordResetToken(email, role);
         if (response.startsWith("Failed") || response.equals("Email not found")) {
             model.addAttribute("error", response);
         } else {

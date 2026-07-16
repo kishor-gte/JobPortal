@@ -28,13 +28,25 @@ public class InterviewDAO {
             mi.setStatus(rs.getString("status"));
             mi.setMeetingLink(rs.getString("meeting_link"));
             mi.setNotes(rs.getString("notes"));
-            mi.setCreatedAt(rs.getTimestamp("created_at"));
-            mi.setFeedback(rs.getString("feedback"));
-            mi.setScore((Integer) rs.getObject("score"));
-            mi.setTechnicalScore((Integer) rs.getObject("technical_score"));
-            mi.setCommunicationScore((Integer) rs.getObject("communication_score"));
-            mi.setConfidenceScore((Integer) rs.getObject("confidence_score"));
-            mi.setAiAnalysis(rs.getString("ai_analysis"));
+            try { mi.setCreatedAt(rs.getTimestamp("created_at")); } catch (Exception e) {}
+            try { mi.setFeedback(rs.getString("feedback")); } catch (Exception e) {}
+            try {
+                Object scoreObj = rs.getObject("score");
+                if (scoreObj != null) mi.setScore(((Number) scoreObj).intValue());
+            } catch (Exception e) {}
+            try {
+                Object techObj = rs.getObject("technical_score");
+                if (techObj != null) mi.setTechnicalScore(((Number) techObj).intValue());
+            } catch (Exception e) {}
+            try {
+                Object commObj = rs.getObject("communication_score");
+                if (commObj != null) mi.setCommunicationScore(((Number) commObj).intValue());
+            } catch (Exception e) {}
+            try {
+                Object confObj = rs.getObject("confidence_score");
+                if (confObj != null) mi.setConfidenceScore(((Number) confObj).intValue());
+            } catch (Exception e) {}
+            try { mi.setAiAnalysis(rs.getString("ai_analysis")); } catch (Exception e) {}
             try {
                 mi.setStudentName(rs.getString("student_name"));
             } catch (SQLException e) {

@@ -516,7 +516,7 @@
             <a href="${pageContext.request.contextPath}/admin/edit/${admin.id}" class="btn edit-btn">
                 <i class="fas fa-pen"></i> Edit Profile
             </a>
-            <a href="${pageContext.request.contextPath}/admin/adminDashboard" class="btn back-btn">
+            <a href="${pageContext.request.contextPath}/dashboard" class="btn back-btn">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
             </a>
         </div>

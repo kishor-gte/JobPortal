@@ -13,8 +13,7 @@
         <div class="nav-section">
             <h4>Management</h4>
             <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-users" class="nav-link"><i class="fas fa-users-cog"></i> Manage Users</a>
-            <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-questions" class="nav-link"><i class="fas fa-question-circle"></i> Manage Questions</a>
-            <a href="${pageContext.request.contextPath}/hackerrank/admin/manage-categories" class="nav-link"><i class="fas fa-tags"></i> Manage Categories</a>
+
         </div>
         <div class="nav-section">
             <h4>Evaluation</h4>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageContext="request.getContextPath()" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -138,10 +138,10 @@ body {
 <nav class="navbar-custom">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <a href="${pageContext.request.contextPath}/adminDashboard" class="navbar-brand-custom">
+      <a href="${pageContext.request.contextPath}/dashboard" class="navbar-brand-custom">
         <i class="fas fa-shield-alt me-2"></i> Admin Control
       </a>
-      <a href="${pageContext.request.contextPath}/adminDashboard" class="btn-back">
+      <a href="${pageContext.request.contextPath}/dashboard" class="btn-back">
         <i class="fas fa-arrow-left me-2"></i> Back to Dashboard
       </a>
     </div>
@@ -196,21 +196,18 @@ body {
   <div class="table-responsive table-custom">
     <table class="table table-hover mb-0">
       <thead>
-        <tr>
           <th>Date & Time</th>
           <th>User</th>
           <th>Role</th>
           <th>Activity Type</th>
           <th>Description</th>
-          <th>IP Address</th>
-          <th>Platform</th>
         </tr>
       </thead>
       <tbody>
         <c:choose>
           <c:when test="${empty activities.content}">
             <tr>
-              <td colspan="7" class="text-center py-4 text-muted">No activities found matching your criteria.</td>
+              <td colspan="5" class="text-center py-4 text-muted">No activities found matching your criteria.</td>
             </tr>
           </c:when>
           <c:otherwise>
@@ -240,13 +237,6 @@ body {
                   <span class="badge-type"><c:out value="${log.activityType}" /></span>
                 </td>
                 <td><c:out value="${log.description}" /></td>
-                <td><span class="small text-muted"><c:out value="${log.ipAddress}" /></span></td>
-                <td>
-                  <div class="small">
-                    <i class="fas fa-globe text-muted me-1"></i> <c:out value="${log.browser}" /><br>
-                    <i class="fas fa-laptop text-muted me-1"></i> <c:out value="${log.operatingSystem}" />
-                  </div>
-                </td>
               </tr>
             </c:forEach>
           </c:otherwise>

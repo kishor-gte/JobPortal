@@ -554,7 +554,7 @@ public class CompanyController {
     
     // ================= SPORTS BOOKING METHODS FOR COMPANY =================
     
-    // Explore Corporate Sports
+    // Explore Corporate Events
     @RequestMapping(value = "/sports/explore", method = RequestMethod.GET)
     public String exploreSportsServices(Model model, HttpSession session) {
         Company company = (Company) session.getAttribute("loggedInCompany");

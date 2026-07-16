@@ -496,10 +496,53 @@
             padding-left: 42px; 
         }
     }
+    .back-home-btn {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        z-index: 1000;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(25, 167, 123, 0.2);
+        border-radius: 30px;
+        color: #19A77B;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    .back-home-btn:hover {
+        background: #19A77B;
+        color: white !important;
+        transform: translateX(-4px);
+        box-shadow: 0 6px 18px rgba(25, 167, 123, 0.25);
+        border-color: #19A77B;
+    }
+    @media (max-width: 768px) {
+        .back-home-btn {
+            background: #19A77B;
+            color: white !important;
+            border-color: #19A77B;
+            top: 16px;
+            left: 16px;
+        }
+        .back-home-btn:hover {
+            background: #148F69;
+            color: white !important;
+        }
+    }
     </style>
 
 </head>
 <body>
+    <a href="${pageContext.request.contextPath}/" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
     <div class="main-container">
         <!-- Left Side - Image Section -->
         <div class="image-section">
@@ -554,7 +597,8 @@
                         <label><i class="fas fa-lock"></i> Password</label>
                         <div class="input-wrapper">
                             <span class="input-icon password-icon"></span>
-                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" required style="padding-right: 40px;">
+                            <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
                         </div>
                     </div>
 
@@ -569,7 +613,7 @@
                         New Job Seeker?
                         <a href="${pageContext.request.contextPath}/jobSeekers/register">Register Here <i class="fas fa-arrow-right"></i></a>
                         <span style="margin: 0 8px; color: var(--border-color);">|</span>
-                        <a href="${pageContext.request.contextPath}/auth/forgot-password">Forgot Password?</a>
+                        <a href="${pageContext.request.contextPath}/user/forgot-password">Forgot Password?</a>
                     </p>
                 </div>
 
@@ -579,6 +623,17 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function (e) {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+                this.classList.toggle('fa-eye');
+            });
+        }
+
         const form = document.getElementById('loginForm');
         const submitBtn = document.getElementById('submitBtn');
         

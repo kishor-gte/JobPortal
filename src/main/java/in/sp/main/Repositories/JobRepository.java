@@ -17,6 +17,8 @@ public interface JobRepository extends JpaRepository<Job, Long>{
     List<Job> findByCompany_Id(Long companyId);
 
     List<Job> findByStatus(JobStatus status);
+    
+    List<Job> findTop8ByStatusOrderByPostedDateDesc(JobStatus status);
 
 	List<Job> findByCreatedBy_Id(Long recruiterId);
 
@@ -27,6 +29,7 @@ public interface JobRepository extends JpaRepository<Job, Long>{
 	List<Job> findByLocation(String location);
 
 	List<Job> findByJobCategory(String jobCategory);
+	long countByJobCategoryContaining(String jobCategory);
 
 	@Query("SELECT j FROM Job j WHERE " +
 		       "(:keyword IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
