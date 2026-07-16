@@ -5,18 +5,18 @@
     <div class="comp-banner">
         <c:choose>
             <c:when test="${not empty comp.bannerImage}">
-                <img src="${comp.bannerImage}" alt="Banner">
+                <img src="${comp.bannerImage}" alt="Competition Banner for ${comp.title}">
             </c:when>
             <c:otherwise>
-                <i class="fas fa-laptop-code"></i>
+                <i class="fas fa-laptop-code" aria-hidden="true"></i>
             </c:otherwise>
         </c:choose>
         <!-- Logic for status badge -->
         <c:choose>
-            <c:when test="${isCompleted == true || comp.examStartTime.plusMinutes(comp.examDurationMinutes).isBefore(now)}">
+            <c:when test="${isCompleted == true || comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
                 <div class="comp-status-badge status-completed">Completed</div>
             </c:when>
-            <c:when test="${(comp.examStartTime.isBefore(now) || comp.examStartTime.isEqual(now)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).isAfter(now)}">
+            <c:when test="${(comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
                 <div class="comp-status-badge status-live">Live</div>
             </c:when>
             <c:otherwise>
@@ -26,7 +26,7 @@
     </div>
     <div class="comp-body">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <h3 class="comp-title">${comp.title}</h3>
+            <h2 class="comp-title">${comp.title}</h2>
             <span class="badge ${comp.difficulty eq 'Hard' ? 'bg-danger' : (comp.difficulty eq 'Medium' ? 'bg-warning' : 'bg-success')}" style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">
                 ${comp.difficulty}
             </span>
@@ -54,22 +54,21 @@
                 </c:when>
                 <c:when test="${isRegistered}">
                     <c:choose>
-                        <c:when test="${(comp.examStartTime.isBefore(now) || comp.examStartTime.isEqual(now)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).isAfter(now)}">
-                            <a href="${pageContext.request.contextPath}/student/coding-competitions/${comp.id}/start" class="btn-register" style="background: #f59e0b; color: white; display: block; text-align: center; text-decoration: none;"><i class="fas fa-play"></i> Start Exam</a>
+                        <c:when test="${(comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
+                            <a href="${pageContext.request.contextPath}/student/coding-competitions/${comp.id}/start" class="btn-register" role="button" style="background: #b45309; color: white; display: block; text-align: center; text-decoration: none;"><i class="fas fa-play" aria-hidden="true"></i> Start Exam</a>
                         </c:when>
                         <c:otherwise>
                             <button class="btn-register" style="background: var(--success);" disabled><i class="fas fa-check-circle"></i> Registered</button>
                         </c:otherwise>
                     </c:choose>
                 </c:when>
-                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).isBefore(now)}">
+                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
                     <button class="btn-register" disabled>Competition Closed</button>
                 </c:when>
-                <c:when test="${not empty comp.registrationStartTime and now.isBefore(comp.registrationStartTime)}">
-                    <fmt:parseDate value="${comp.registrationStartTime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegDate" type="both" />
-                    <button class="btn-register" disabled style="font-size: 0.8rem;">Opens: <fmt:formatDate pattern="MMM dd, h:mm a" value="${parsedRegDate}" /></button>
+                <c:when test="${not empty comp.registrationStartTime and now.format(sortFormatter) lt comp.registrationStartTime.format(sortFormatter)}">
+                    <button class="btn-register" disabled style="font-size: 0.8rem;">Opens: ${comp.registrationStartTime.format(shortFormatter)}</button>
                 </c:when>
-                <c:when test="${now.isAfter(comp.registrationEndTime)}">
+                <c:when test="${now.format(sortFormatter) gt comp.registrationEndTime.format(sortFormatter)}">
                     <button class="btn-register" disabled>Registration Closed</button>
                 </c:when>
                 <c:otherwise>
