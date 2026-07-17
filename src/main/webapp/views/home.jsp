@@ -87,14 +87,12 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 0;
-    padding: 0px 30px;
+    padding: 0;
     z-index: 1000;
     transition: all 0.3s ease-in-out;
     border-bottom: 1px solid #E5E7EB;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: block;
     height: 72px;
   }
 
@@ -154,14 +152,11 @@
   }
 
   .navbar-nav .nav-item .nav-link.active {
-    background: linear-gradient(135deg, #19A77B, #3BC49A);
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(25, 167, 123, 0.25);
+    color: black;
   }
 
   .navbar-nav .nav-item .nav-link.active i {
-    color: white !important;
-    opacity: 1;
+    color: black;
   }
 
   .btn-login {
@@ -923,8 +918,8 @@
 <!-- Header -->
 <header class="header">
   <div class="navbar-area" id="navbarSticky">
-    <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg w-100 position-relative">
+    <nav class="navbar navbar-expand-xl w-100 h-100 position-relative p-0">
+      <div class="container-fluid px-3 px-lg-5 h-100">
             
             <!-- Left: Logo -->
             <a class="navbar-brand custom-premium-logo" href="${pageContext.request.contextPath}/" style="display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
@@ -985,8 +980,8 @@
               </div>
               
             </div>
-          </nav>
-    </div>
+      </div>
+    </nav>
   </div>
 </header>
 
@@ -1677,8 +1672,6 @@
     </div>
   </div>
 </footer>
-
-<a href="#" class="scroll-top btn-hover" style="position:fixed;bottom:28px;right:172px;z-index:9998;width:50px;height:50px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 8px 24px rgba(16,185,129,0.4);text-decoration:none;transition:transform 0.2s;"><i class="lni lni-chevron-up"></i></a>
 <a href="https://api.whatsapp.com/send?phone=918660609247&text=Hi%20there!" target="_blank" class="whatsapp-float" style="position:fixed;bottom:28px;right:100px;z-index:9998;width:56px;height:56px;border-radius:50%;background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 24px rgba(34,197,94,0.4);text-decoration:none;transition:transform 0.2s;"><i class="fab fa-whatsapp"></i></a>
 
 <!-- Chat Widget -->

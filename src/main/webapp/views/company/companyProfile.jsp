@@ -423,35 +423,7 @@
             </c:if>
         </div>
 
-        <!-- Job Listings Card -->
-        <div class="job-listings-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="section-title">
-                <i class="fas fa-briefcase"></i> Job Openings
-                <c:if test="${not empty company.jobPosts}">
-                    <span class="badge">${fn:length(company.jobPosts)} positions</span>
-                </c:if>
-            </div>
 
-            <c:choose>
-                <c:when test="${empty company.jobPosts}">
-                    <div class="empty-jobs">
-                        <i class="fas fa-briefcase"></i>
-                        <p>No job openings available at the moment.</p>
-                        <p style="font-size: 0.8rem;">Check back later for opportunities!</p>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <c:forEach var="job" items="${company.jobPosts}">
-                        <div class="job-item">
-                            <a href="${pageContext.request.contextPath}/jobs/view/${job.id}" class="job-link">
-                                <i class="fas fa-arrow-right"></i>
-                                ${job.title}
-                            </a>
-                        </div>
-                    </c:forEach>
-                </c:otherwise>
-            </c:choose>
-        </div>
     </div>
 
     <!-- Scripts -->

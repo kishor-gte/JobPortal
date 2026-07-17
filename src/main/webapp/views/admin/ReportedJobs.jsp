@@ -662,19 +662,21 @@
                             </div>
 
                             <div class="report-actions">
-                                <form action="${pageContext.request.contextPath}/resolve-report/${report.id}" method="post" style="display: inline;">
-                                    <button type="submit" class="btn-action btn-resolve" onclick="return confirm('Mark this report as resolved?');">
-                                        <i class="fas fa-check-circle"></i>
-                                        Mark as Resolved
-                                    </button>
-                                </form>
+                                <a href="${pageContext.request.contextPath}/resolve-report/${report.id}" 
+                                   class="btn-action btn-resolve" 
+                                   onclick="return confirm('Mark this report as resolved?');"
+                                   style="text-decoration: none;">
+                                    <i class="fas fa-check-circle"></i>
+                                    Mark as Resolved
+                                </a>
                                 
-                                <form action="${pageContext.request.contextPath}/delete-report/${report.id}" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this report? This action cannot be undone.');">
-                                    <button type="submit" class="btn-action btn-delete">
-                                        <i class="fas fa-trash-alt"></i>
-                                        Delete Report
-                                    </button>
-                                </form>
+                                <a href="${pageContext.request.contextPath}/delete-report/${report.id}" 
+                                   class="btn-action btn-delete" 
+                                   onclick="return confirm('Are you sure you want to delete this report? This action cannot be undone.');"
+                                   style="text-decoration: none;">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Delete Report
+                                </a>
                             </div>
                         </div>
                     </c:if>
@@ -689,6 +691,12 @@
 <script>
 // Preserved original mobile responsive script
 document.addEventListener('DOMContentLoaded', function() {
+    // Restrict future dates in filter
+    const dateInput = document.getElementById('filterDate');
+    if(dateInput) {
+        dateInput.max = new Date().toISOString().split("T")[0];
+    }
+    
     if (!document.getElementById('mobile-responsive-style')) {
         const style = document.createElement('style');
         style.id = 'mobile-responsive-style';
