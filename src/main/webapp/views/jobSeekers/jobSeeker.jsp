@@ -251,6 +251,8 @@
         height: 18px;
     }
 
+    input[type="text"],
+    input[type="tel"],
     input[type="email"],
     input[type="password"] {
         width: 100%;
@@ -262,6 +264,8 @@
         transition: all 0.3s ease;
     }
 
+    input[type="text"]:focus,
+    input[type="tel"]:focus,
     input[type="email"]:focus,
     input[type="password"]:focus {
         outline: none;
@@ -518,6 +522,8 @@
             width: 18px; 
             height: 18px; 
         }
+        input[type="text"], 
+        input[type="tel"], 
         input[type="email"], 
         input[type="password"] { 
             padding-left: 42px; 
@@ -545,6 +551,9 @@
         <!-- Right Side - Registration Form Section -->
         <div class="login-section">
             <div class="login-container">
+                <a href="${pageContext.request.contextPath}/" style="display: inline-flex; align-items: center; gap: 8px; color: #64748B; text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 24px; transition: color 0.3s;" onmouseover="this.style.color='#19A77B'" onmouseout="this.style.color='#64748B'">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
                 <div class="login-header">
                     <div class="register-icon-wrapper">
                         <div class="register-icon">JS</div>
@@ -567,6 +576,22 @@
                 </c:if>
      
                 <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="registrationForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon" style="font-size: 18px; top: 50%; transform: translateY(-50%); z-index: 5;"></i>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div id="nameError" class="password-match mismatch" style="display: none;"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Mobile Number</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone input-icon" style="font-size: 18px; top: 50%; transform: translateY(-50%); z-index: 5;"></i>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="9876543210" required>
+                        </div>
+                        <div id="phoneError" class="password-match mismatch" style="display: none;"></div>
+                    </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
                         <div class="input-wrapper">
@@ -642,13 +667,54 @@
                     this.classList.toggle('fa-eye');
                 });
             }
+            const name = document.getElementById('name');
+            const phone = document.getElementById('phone');
             const email = document.getElementById('email');
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirmPassword');
+            const nameError = document.getElementById('nameError');
+            const phoneError = document.getElementById('phoneError');
             const emailError = document.getElementById('emailError');
             const passwordError = document.getElementById('passwordError');
             const passwordMatch = document.getElementById('passwordMatch');
             const form = document.getElementById('registrationForm');
+
+            function validateName() {
+                let val = name.value.trim();
+                if (!val) {
+                    nameError.style.display = 'none';
+                    name.style.borderColor = '';
+                    return false;
+                }
+                if (val.length < 3) {
+                    nameError.style.display = 'flex';
+                    nameError.innerHTML = '<i class="fas fa-times-circle"></i> Name must be at least 3 characters';
+                    name.style.borderColor = 'var(--danger)';
+                    return false;
+                }
+                nameError.style.display = 'none';
+                name.style.borderColor = 'var(--success)';
+                return true;
+            }
+
+            function validatePhone() {
+                let val = phone.value.trim();
+                if (!val) {
+                    phoneError.style.display = 'none';
+                    phone.style.borderColor = '';
+                    return false;
+                }
+                const regex = /^[0-9]{10}$/;
+                if (!regex.test(val)) {
+                    phoneError.style.display = 'flex';
+                    phoneError.innerHTML = '<i class="fas fa-times-circle"></i> Please enter a valid 10-digit mobile number';
+                    phone.style.borderColor = 'var(--danger)';
+                    return false;
+                }
+                phoneError.style.display = 'none';
+                phone.style.borderColor = 'var(--success)';
+                return true;
+            }
 
             function validateEmail() {
                 let val = email.value;
@@ -718,6 +784,12 @@
                 }
             }
 
+            name.addEventListener('input', validateName);
+            name.addEventListener('blur', function() { name.value = name.value.trim(); validateName(); });
+
+            phone.addEventListener('input', validatePhone);
+            phone.addEventListener('blur', function() { phone.value = phone.value.trim(); validatePhone(); });
+
             email.addEventListener('input', validateEmail);
             email.addEventListener('blur', function() { email.value = email.value.trim().toLowerCase(); validateEmail(); });
             
@@ -729,18 +801,22 @@
 
             // Form validation before submit
             form.addEventListener('submit', function(e) {
+                let isNameValid = validateName();
+                let isPhoneValid = validatePhone();
                 let isEmailValid = validateEmail();
                 let isPasswordValid = validatePassword();
                 let isMatch = checkPasswordMatch();
                 
-                if (!isEmailValid || !isPasswordValid || !isMatch) {
+                if (!isNameValid || !isPhoneValid || !isEmailValid || !isPasswordValid || !isMatch) {
                     e.preventDefault();
                     if (!isMatch) confirmPassword.focus();
                     else if (!isPasswordValid) password.focus();
                     else if (!isEmailValid) email.focus();
+                    else if (!isPhoneValid) phone.focus();
+                    else if (!isNameValid) name.focus();
                     return false;
                 }
-                alert("Registration successful!");
+                // Registration successful toast/alert could go here
             });
 
             // Keyboard shortcut for submit

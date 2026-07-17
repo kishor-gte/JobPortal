@@ -980,8 +980,8 @@
               
               <!-- Right: Action Buttons -->
               <div class="button-group d-flex align-items-center mt-3 mt-lg-0" style="gap: 15px;">
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signup" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
+                <a href="${pageContext.request.contextPath}/jobSeekers/register" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="${pageContext.request.contextPath}/jobSeekers/login"  class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
               </div>
               
             </div>
@@ -1586,6 +1586,8 @@
     <div class="modal-content login-modal-main" style="pointer-events: auto; border: none;">
       <div class="row no-gutters"><div class="col-12"><div class="row"><div class="heading"><h3>Create Your JobSeeker Account<br> Today</h3><p>Sign up to start your job search,<br> apply for roles, and grow your career.</p></div><div class="social-login"><ul></ul></div><div class="or-devider"></div>
       <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="jobSeekerSignupForm">
+        <div class="form-group"><label for="name" class="label">Full Name</label><input type="text" class="form-control" name="name" placeholder="John Doe" required></div>
+        <div class="form-group"><label for="phone" class="label">Mobile Number</label><input type="tel" class="form-control" name="phone" placeholder="9876543210" required></div>
         <div class="form-group"><label for="email" class="label">E-mail</label><input type="email" class="form-control" name="email" placeholder="example@gmail.com" required></div>
         <div class="form-group"><label for="password" class="label">Password</label><div class="position-relative"><input type="password" class="form-control" name="password" placeholder="Enter password" id="signupPassword" required style="padding-right: 40px;"><i class="far fa-eye" id="toggleSignupPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i></div></div>
         <div class="form-group"><label for="confirmPassword" class="label">Confirm Password</label><div class="position-relative"><input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" id="signupConfirmPassword" required style="padding-right: 40px;"><i class="far fa-eye" id="toggleSignupConfirmPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i></div></div>
