@@ -81,7 +81,7 @@ public class StudentCompetitionController {
         }
         
         // Pre-compute time-based status flags for each competition (avoids EL method invocation issues in JSP)
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata"));
         Map<Long, Boolean> compIsLive = new HashMap<>();
         Map<Long, Boolean> compIsUpcoming = new HashMap<>();
         Map<Long, Boolean> compIsExamEnded = new HashMap<>();
@@ -139,7 +139,7 @@ public class StudentCompetitionController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata"));
         if (now.isBefore(comp.getRegistrationStartTime())) {
             response.put("success", false);
             response.put("message", "Registration has not opened yet.");
@@ -226,7 +226,7 @@ public class StudentCompetitionController {
             return "redirect:/student/coding-competitions";
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata"));
         if (now.isBefore(comp.getExamStartTime())) {
             return "redirect:/student/coding-competitions?error=ExamHasNotStarted";
         }
@@ -313,7 +313,7 @@ public class StudentCompetitionController {
             return ResponseEntity.badRequest().body(Map.of("success", false, "message", "Competition not found"));
         }
         
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata"));
         LocalDateTime examEndTime = comp.getExamStartTime().plusMinutes(comp.getExamDurationMinutes());
         if (now.isAfter(examEndTime)) {
              return ResponseEntity.badRequest().body(Map.of("success", false, "message", "Exam has already ended"));
@@ -375,7 +375,7 @@ public class StudentCompetitionController {
         }
         correctCount = questionStatus.size();
         
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata"));
         
         CompetitionResult result = new CompetitionResult();
         result.setCompetitionId(id);
@@ -424,7 +424,7 @@ public class StudentCompetitionController {
                     historyItem.put("result", myRes);
                 } else {
                     LocalDateTime examEndTime = comp.getExamStartTime().plusMinutes(comp.getExamDurationMinutes());
-                    if (LocalDateTime.now().isAfter(examEndTime)) {
+                    if (LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata")).isAfter(examEndTime)) {
                         historyItem.put("status", "Missed");
                     } else {
                         historyItem.put("status", "Registered");
@@ -541,14 +541,14 @@ public class StudentCompetitionController {
                         java.time.Instant instant = java.time.Instant.parse(startTimeStr);
                         rec.setStartTime(java.time.LocalDateTime.ofInstant(instant, java.time.ZoneId.systemDefault()));
                     } catch (Exception ex) {
-                        rec.setStartTime(java.time.LocalDateTime.now());
+                        rec.setStartTime(java.time.LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata")));
                     }
                 } else {
-                    rec.setStartTime(java.time.LocalDateTime.now());
+                    rec.setStartTime(java.time.LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata")));
                 }
             }
             
-            rec.setEndTime(LocalDateTime.now());
+            rec.setEndTime(LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata")));
             
             if (rec.getStartTime() != null) {
                 long duration = ChronoUnit.SECONDS.between(rec.getStartTime(), rec.getEndTime());
@@ -556,7 +556,7 @@ public class StudentCompetitionController {
             }
 
             rec.setStatus((String) payload.get("status")); // e.g., Completed, Terminated
-            rec.setRecordedAt(LocalDateTime.now());
+            rec.setRecordedAt(LocalDateTime.now(java.time.ZoneId.of("Asia/Kolkata")));
             
             recordingRepository.save(rec);
 

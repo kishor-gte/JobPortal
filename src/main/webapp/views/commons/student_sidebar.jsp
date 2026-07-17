@@ -187,7 +187,7 @@
         <a href="${pageContext.request.contextPath}/company/Alllist" class="nav-link-custom">
             <i class="fas fa-building"></i> Companies
         </a>
-        <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="nav-link-custom">
+        <a href="${pageContext.request.contextPath}/jobs/all" class="nav-link-custom">
             <i class="fas fa-briefcase"></i> Job Listings
         </a>
         <a href="${pageContext.request.contextPath}/seeker/saved-jobs" class="nav-link-custom">

@@ -369,7 +369,7 @@
         .badge-shortlisted { background: #ecfdf5; color: var(--success); border: 1px solid #d1fae5; }
         .badge-interview_scheduled { background: #fff7ed; color: var(--warning); border: 1px solid #ffedd5; }
         .badge-rejected { background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; }
-        .badge-hired { background: #f0fdf4; color: var(--primary); border: 1px solid #bbf7d0; }
+       
 
         /* Suggestions Box */
         .suggestions-box {
@@ -596,19 +596,7 @@
                     <div class="stat-box-label">Interviews</div>
                 </div>
             </div>
-            <div class="stat-box">
-                <div class="stat-box-icon blue"><i class="fas fa-check-double"></i></div>
-                <div>
-                    <c:set var="hiredCount" value="0" />
-                    <c:forEach var="app" items="${applications}">
-                        <c:if test="${app.status == 'SELECTED'}">
-                            <c:set var="hiredCount" value="${hiredCount + 1}" />
-                        </c:if>
-                    </c:forEach>
-                    <div class="stat-box-value">${hiredCount}</div>
-                    <div class="stat-box-label">Hired</div>
-                </div>
-            </div>
+           
         </div>
 
         <c:choose>

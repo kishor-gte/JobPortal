@@ -278,6 +278,7 @@
             border: 2px solid #e2ede7;
             padding: 0.5rem 1rem;
             font-size: 0.85rem;
+			margin-bottom: 5px;
         }
         .btn-filter {
             background: linear-gradient(105deg, var(--primary), var(--primary-dark));
@@ -477,7 +478,10 @@
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="${savedJobIds.contains(job.id)}">
-                                            <button type="button" class="btn-job-action btn-disabled" disabled><i class="fas fa-bookmark me-1"></i> Saved</button>
+                                            <form action="${pageContext.request.contextPath}/jobs/seeker/unsave-job" method="post" class="d-inline">
+                                                <input type="hidden" name="jobId" value="${job.id}">
+                                                <button type="submit" class="btn-job-action btn-save" style="background-color: var(--primary); color: white;"><i class="fas fa-bookmark me-1"></i> Saved</button>
+                                            </form>
                                         </c:when>
                                         <c:otherwise>
                                             <form action="${pageContext.request.contextPath}/jobs/seeker/save-job" method="post" class="d-inline">
