@@ -501,6 +501,16 @@
                     <input type="email" name="email" value="${admin.email}" class="form-control info-value" style="background:transparent; border:1px solid rgba(25,167,123,0.3); border-radius:8px; padding:8px; width:100%;" readonly>
                 </div>
             </div>
+            
+            <div class="info-row">
+                <div class="info-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">New Password</div>
+                    <input type="password" name="password" placeholder="Leave blank to keep current password" class="form-control info-value" style="background:transparent; border:1px solid rgba(25,167,123,0.3); border-radius:8px; padding:8px; width:100%;">
+                </div>
+            </div>
 
             <!-- Action Buttons -->
             <div class="button-group">

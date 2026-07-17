@@ -210,16 +210,26 @@ public class PerformanceDAO {
 
 
     public int countAnswersByStudent(Long studentId) {
-        Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM student_answers WHERE student_id = ?", Integer.class, studentId);
-        return count != null ? count : 0;
+        try {
+            Long count = jdbcTemplate.queryForObject(
+                    "SELECT COUNT(*) FROM student_answers WHERE student_id = ?", Long.class, studentId);
+            return count != null ? count.intValue() : 0;
+        } catch (Exception e) {
+            logger.error("Error counting answers for student {}", studentId, e);
+            return 0;
+        }
     }
 
     public int countCorrectAnswersByStudent(Long studentId) {
-        Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM student_answers WHERE student_id = ? AND is_correct = TRUE", Integer.class,
-                studentId);
-        return count != null ? count : 0;
+        try {
+            Long count = jdbcTemplate.queryForObject(
+                    "SELECT COUNT(*) FROM student_answers WHERE student_id = ? AND is_correct = 1", Long.class,
+                    studentId);
+            return count != null ? count.intValue() : 0;
+        } catch (Exception e) {
+            logger.error("Error counting correct answers for student {}", studentId, e);
+            return 0;
+        }
     }
 
     /**
@@ -228,11 +238,11 @@ public class PerformanceDAO {
      */
     public int countSolvedCodingQuestionsByStudent(Long studentId) {
         try {
-            Integer count = jdbcTemplate.queryForObject(
+            Long count = jdbcTemplate.queryForObject(
                     "SELECT COUNT(DISTINCT question_id) FROM student_answers " +
-                    "WHERE student_id = ? AND question_type = 'CODING' AND is_correct = TRUE",
-                    Integer.class, studentId);
-            return count != null ? count : 0;
+                    "WHERE student_id = ? AND question_type = 'CODING' AND is_correct = 1",
+                    Long.class, studentId);
+            return count != null ? count.intValue() : 0;
         } catch (Exception e) {
             logger.error("Error counting solved coding questions for student {}", studentId, e);
             return 0;
@@ -246,7 +256,7 @@ public class PerformanceDAO {
         try {
             return jdbcTemplate.queryForList(
                     "SELECT DISTINCT question_id FROM student_answers " +
-                    "WHERE student_id = ? AND question_type = 'CODING' AND is_correct = TRUE",
+                    "WHERE student_id = ? AND question_type = 'CODING' AND is_correct = 1",
                     Long.class, studentId);
         } catch (Exception e) {
             logger.error("Error fetching solved coding question IDs for student {}", studentId, e);
@@ -258,10 +268,10 @@ public class PerformanceDAO {
     public void updatePerformanceScore(Long studentId, Long categoryId) {
         // calculate from student_answers
         try {
-            Integer total = jdbcTemplate.queryForObject(
-                    "SELECT COUNT(*) FROM student_answers WHERE student_id = ?", Integer.class, studentId);
-            Integer correct = jdbcTemplate.queryForObject(
-                    "SELECT COUNT(*) FROM student_answers WHERE student_id = ? AND is_correct = TRUE", Integer.class,
+            Long total = jdbcTemplate.queryForObject(
+                    "SELECT COUNT(*) FROM student_answers WHERE student_id = ?", Long.class, studentId);
+            Long correct = jdbcTemplate.queryForObject(
+                    "SELECT COUNT(*) FROM student_answers WHERE student_id = ? AND is_correct = 1", Long.class,
                     studentId);
             double avg = (total != null && total > 0) ? ((correct != null ? correct : 0) * 100.0 / total) : 0;
 

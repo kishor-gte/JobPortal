@@ -188,13 +188,24 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/updateProfile", method = RequestMethod.POST)
-    public String updateAdminProfile(@RequestParam("id") Long id, @RequestParam("name") String name, HttpSession session) {
+    public String updateAdminProfile(@RequestParam("id") Long id, 
+                                     @RequestParam("name") String name, 
+                                     @RequestParam(value = "password", required = false) String password,
+                                     HttpSession session) {
         in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
         if (admin == null || !admin.getId().equals(id)) {
             return "redirect:/loginAdmin";
         }
         
         admin.setName(name);
+        if (password != null && !password.trim().isEmpty()) {
+            String actualPassword = password;
+            if (actualPassword.contains(",")) {
+                actualPassword = actualPassword.split(",")[0];
+            }
+            admin.setPassword(org.mindrot.jbcrypt.BCrypt.hashpw(actualPassword.trim(), org.mindrot.jbcrypt.BCrypt.gensalt()));
+        }
+        
         try {
             if (adminService != null) {
                 adminService.updateAdmin(id.intValue(), admin);
