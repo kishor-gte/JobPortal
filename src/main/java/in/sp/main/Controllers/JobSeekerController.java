@@ -489,13 +489,23 @@ public class JobSeekerController {
         return "redirect:login";
     }
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signupFromIndex(@RequestParam("email") String email,
+    public String signupFromIndex(@RequestParam("name") String name,
+                                   @RequestParam("phone") String phone,
+                                   @RequestParam("email") String email,
                                    @RequestParam("password") String password,
                                    @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
                                    HttpSession session,
                                    RedirectAttributes redirectAttributes) {
                                    
         // Validation - Required fields
+        if (name == null || name.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Name is required.");
+            return "redirect:/jobSeekers/register";
+        }
+        if (phone == null || phone.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Mobile Number is required.");
+            return "redirect:/jobSeekers/register";
+        }
         if (email == null || email.trim().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Email is required.");
             return "redirect:/jobSeekers/register";
@@ -510,9 +520,21 @@ public class JobSeekerController {
         }
 
         // Trim spaces
+        name = name.trim();
+        phone = phone.trim();
         email = email.trim().toLowerCase();
         password = password.trim();
         confirmPassword = confirmPassword.trim();
+        
+        if (name.length() < 3) {
+            redirectAttributes.addFlashAttribute("error", "Name must be at least 3 characters.");
+            return "redirect:/jobSeekers/register";
+        }
+        
+        if (!phone.matches("^[0-9]{10}$")) {
+            redirectAttributes.addFlashAttribute("error", "Please enter a valid 10-digit mobile number.");
+            return "redirect:/jobSeekers/register";
+        }
         
         // Email format validation
         String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
@@ -559,6 +581,8 @@ public class JobSeekerController {
         }
 
         JobSeeker jobSeeker = new JobSeeker();
+        jobSeeker.setName(name);
+        jobSeeker.setPhone(phone);
         jobSeeker.setEmail(email);
         jobSeeker.setPassword(password);
         jobSeeker.setAccountStatus(AccountStatus.ACTIVE);

@@ -927,8 +927,8 @@
             </div>
         </div>
 
-        <div class="content-grid">
-            <div class="card">
+        <div class="content-grid" style="grid-template-columns: 1fr;">
+            <div class="card" style="max-width: 100%;">
                 <div class="card-header">
                     <h3>
                         <i class="fas fa-calendar-alt"></i>

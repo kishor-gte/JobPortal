@@ -458,12 +458,18 @@ public class StudentCompetitionController {
         List<CompetitionResult> leaderboard = resultRepository.findByCompetitionIdOrderByQuestionsSolvedDescSubmittedAtAsc(id);
         
         List<Map<String, Object>> leaderboardDetails = new ArrayList<>();
+        int currentRank = 1;
         for (CompetitionResult res : leaderboard) {
+            res.setRank(currentRank);
+            if (res.getStudentId() != null && student.getId() != null && res.getStudentId().longValue() == student.getId().longValue()) {
+                myResult.setRank(currentRank);
+            }
             JobSeeker js = jobSeekerRepository.findById(res.getStudentId()).orElse(null);
             Map<String, Object> item = new HashMap<>();
             item.put("result", res);
             item.put("studentName", js != null ? js.getName() : "Unknown");
             leaderboardDetails.add(item);
+            currentRank++;
         }
 
         long timeTakenSeconds = ChronoUnit.SECONDS.between(comp.getExamStartTime(), myResult.getSubmittedAt());
