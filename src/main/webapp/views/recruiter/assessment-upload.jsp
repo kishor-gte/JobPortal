@@ -212,7 +212,7 @@
         }
 
         .success-box {
-            background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04));
+            background: linear-gradient(135deg, rgba(25, 167, 123,0.08), rgba(25, 167, 123,0.04));
             border-left-color: var(--success);
         }
         .success-box i {
@@ -372,7 +372,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -577,7 +577,7 @@
             color: var(--primary);
         }
 
-        .badge-status:contains("ACTIVE") { background: rgba(16,185,129,0.12); color: #10b981; }
+        .badge-status:contains("ACTIVE") { background: rgba(25, 167, 123,0.12); color: #19A77B; }
         .badge-status:contains("INACTIVE") { background: rgba(239,68,68,0.12); color: #ef4444; }
 
         /* Card Header */
@@ -849,7 +849,7 @@
         }
 
         .success-box {
-            background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04));
+            background: linear-gradient(135deg, rgba(25, 167, 123,0.08), rgba(25, 167, 123,0.04));
             border-left-color: var(--success);
         }
         .success-box i {

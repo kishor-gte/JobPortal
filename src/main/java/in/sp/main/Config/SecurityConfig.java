@@ -23,7 +23,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 // Static resources and public pages
                 .requestMatchers("/", "/home.html", "/userdashboard.html", "/index.html", "/about-us.html", "/contact.html", "/services.html", "/policy.html", "/faq.html", "/legal-info.html").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/views/**", "/static/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/assets/**", "/views/**", "/static/**", "/uploads/**").permitAll()
                 
                 // Login, Register, Forgot Password
                 .requestMatchers("/loginAdmin", "/admin/login", "/PostloginAdmin", "/admin/adminRegister", "/admin/registerAdmin").permitAll()

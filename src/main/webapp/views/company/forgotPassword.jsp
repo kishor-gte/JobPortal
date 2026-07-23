@@ -19,31 +19,31 @@
     <style>
         /* ============================================
            ENHANCED PREMIUM COLOR SCHEME
-           Primary: #0F172A + #10B981 (Vibrant Mint)
+           Primary: #0F172A + #19A77B (Vibrant Mint)
         ============================================ */
         :root {
             --primary: #0F172A;
             --primary-dark: #020617;
             --primary-light: #1E293B;
-            --accent: #10B981;
-            --accent-dark: #059669;
-            --accent-light: #34D399;
-            --accent-glow: rgba(16, 185, 129, 0.2);
+            --accent: #19A77B;
+            --accent-dark: #148F69;
+            --accent-light: #3BC49A;
+            --accent-glow: rgba(25, 167, 123, 0.2);
             --bg-dark: #0F172A;
             --bg-dark-light: #1E293B;
             --bg-light: #F8FAFE;
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #0F172A;
             --text-muted: #64748B;
-            --success: #10B981;
+            --success: #19A77B;
             --danger: #EF4444;
             --warning: #F59E0B;
             --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 35px -8px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
-            --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+            --shadow-xl: 0 25px 50px -12px rgba(25, 167, 123, 0.25);
+            --shadow-glow: 0 0 20px rgba(25, 167, 123, 0.15);
             --transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             --radius-sm: 12px;
             --radius-md: 20px;
@@ -73,7 +73,7 @@
             left: -10%;
             width: 120%;
             height: 140%;
-            background: radial-gradient(circle at 30% 20%, rgba(16,185,129,0.04) 0%, transparent 50%),
+            background: radial-gradient(circle at 30% 20%, rgba(25, 167, 123,0.04) 0%, transparent 50%),
                         radial-gradient(circle at 85% 70%, rgba(59,130,246,0.03) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
@@ -93,7 +93,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle at 20% 40%, rgba(16,185,129,0.04) 1px, transparent 1px);
+            background-image: radial-gradient(circle at 20% 40%, rgba(25, 167, 123,0.04) 1px, transparent 1px);
             background-size: 40px 40px;
             pointer-events: none;
             animation: particleDrift 25s linear infinite;
@@ -134,7 +134,7 @@
             height: 150%;
             top: -25%;
             left: -25%;
-            background: radial-gradient(circle at 30% 40%, rgba(16,185,129,0.12), transparent 60%);
+            background: radial-gradient(circle at 30% 40%, rgba(25, 167, 123,0.12), transparent 60%);
             animation: slowOrbit 20s ease-in-out infinite;
         }
 
@@ -212,7 +212,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(16,185,129,0.15), transparent);
+            background: radial-gradient(circle at 50% 50%, rgba(25, 167, 123,0.15), transparent);
             animation: softPulse 3s ease-in-out infinite;
         }
 
@@ -223,7 +223,7 @@
 
         .image-placeholder:hover {
             transform: scale(1.02);
-            border-color: rgba(16,185,129,0.4);
+            border-color: rgba(25, 167, 123,0.4);
             box-shadow: 0 30px 55px -15px rgba(0,0,0,0.5);
         }
 
@@ -242,7 +242,7 @@
             backdrop-filter: blur(12px);
             padding: 42px 38px;
             border-radius: 52px;
-            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(16,185,129,0.1);
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(25, 167, 123,0.1);
             width: 100%;
             max-width: 480px;
             text-align: center;
@@ -258,7 +258,7 @@
 
         .login-container:hover {
             transform: translateY(-6px);
-            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(16,185,129,0.2);
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(25, 167, 123,0.2);
         }
 
         .login-header {
@@ -269,7 +269,7 @@
         .forgot-icon-wrapper {
             width: 88px;
             height: 88px;
-            background: linear-gradient(145deg, rgba(16,185,129,0.1), rgba(16,185,129,0.04));
+            background: linear-gradient(145deg, rgba(25, 167, 123,0.1), rgba(25, 167, 123,0.04));
             border-radius: 32px;
             display: flex;
             align-items: center;
@@ -281,8 +281,8 @@
         }
 
         @keyframes gentlePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.2); }
-            50% { box-shadow: 0 0 0 18px rgba(16,185,129,0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(25, 167, 123,0.2); }
+            50% { box-shadow: 0 0 0 18px rgba(25, 167, 123,0); }
         }
 
         .forgot-icon-wrapper::before {
@@ -310,7 +310,7 @@
             color: white;
             font-size: 24px;
             font-weight: 700;
-            box-shadow: 0 10px 22px rgba(16,185,129,0.3);
+            box-shadow: 0 10px 22px rgba(25, 167, 123,0.3);
             transition: var(--transition);
         }
 
@@ -379,7 +379,7 @@
         input[type="email"]:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.12);
+            box-shadow: 0 0 0 5px rgba(25, 167, 123, 0.12);
             background-color: #fff;
         }
 
@@ -401,7 +401,7 @@
             transition: var(--transition);
             letter-spacing: 0.3px;
             cursor: pointer;
-            box-shadow: 0 12px 25px -8px rgba(16, 185, 129, 0.45);
+            box-shadow: 0 12px 25px -8px rgba(25, 167, 123, 0.45);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -409,9 +409,9 @@
         }
 
         button[type="submit"]:hover {
-            background: linear-gradient(105deg, var(--accent-dark), #047857);
+            background: linear-gradient(105deg, var(--accent-dark), #148F69);
             transform: translateY(-3px);
-            box-shadow: 0 20px 35px -12px rgba(16, 185, 129, 0.55);
+            box-shadow: 0 20px 35px -12px rgba(25, 167, 123, 0.55);
         }
 
         button[type="submit"]:active {
@@ -429,9 +429,9 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.12);
-            color: #10b981;
-            border-left: 4px solid #10b981;
+            background: rgba(25, 167, 123, 0.12);
+            color: #19A77B;
+            border-left: 4px solid #19A77B;
         }
 
         .alert-danger {

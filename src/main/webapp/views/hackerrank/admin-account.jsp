@@ -36,7 +36,7 @@
             --accent-light: #6ed4b2;
             --bg-dark: #2E3E41;
             --bg-dark-light: #3d5256;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --info: #3b82f6;
@@ -312,7 +312,7 @@
 
         .stat-icon.orange { background: rgba(25,167,123,0.12); color: var(--accent); }
         .stat-icon.blue { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
-        .stat-icon.green { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+        .stat-icon.green { background: rgba(25, 167, 123, 0.12); color: #3BC49A; }
         .stat-icon.purple { background: rgba(139, 92, 246, 0.12); color: #a78bfa; }
         .stat-icon.cyan { background: rgba(6, 182, 212, 0.12); color: #22d3ee; }
         .stat-icon.pink { background: rgba(236, 72, 153, 0.12); color: #f472b6; }
@@ -415,8 +415,8 @@
 
         .user-avatar.admin { background: linear-gradient(135deg, #f97316, #ef4444); }
         .user-avatar.student { background: linear-gradient(135deg, var(--primary), var(--accent)); }
-        .user-avatar.interviewer { background: linear-gradient(135deg, #22c55e, #16a34a); }
-        .user-avatar.company { background: linear-gradient(135deg, #10b981, #059669); }
+        .user-avatar.interviewer { background: linear-gradient(135deg, #19A77B, #148F69); }
+        .user-avatar.company { background: linear-gradient(135deg, #19A77B, #148F69); }
 
         .user-name {
             font-size: 14px;
@@ -433,8 +433,8 @@
 
         .role-admin { background: rgba(249, 115, 22, 0.12); color: #fb923c; }
         .role-student { background: rgba(25,167,123, 0.12); color: var(--accent); }
-        .role-interviewer { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
-        .role-company { background: rgba(16, 185, 129, 0.12); color: #34d399; }
+        .role-interviewer { background: rgba(25, 167, 123, 0.12); color: #3BC49A; }
+        .role-company { background: rgba(25, 167, 123, 0.12); color: #3BC49A; }
 
         /* ============================================
            LIGHT MODE ENHANCEMENTS

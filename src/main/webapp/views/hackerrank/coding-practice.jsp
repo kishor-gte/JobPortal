@@ -29,7 +29,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -500,9 +500,9 @@
         }
 
         .tag-easy {
-            background: rgba(16, 185, 129, 0.12);
+            background: rgba(25, 167, 123, 0.12);
             color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(25, 167, 123, 0.3);
         }
 
         .tag-medium {
@@ -536,7 +536,7 @@
             justify-content: center;
             color: white;
             font-size: 12px;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 2px 8px rgba(25, 167, 123, 0.3);
         }
 
         .btn-solve {
@@ -594,8 +594,8 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(25, 167, 123, 0.1);
+            border: 1px solid rgba(25, 167, 123, 0.3);
             color: var(--success);
         }
 
@@ -784,7 +784,7 @@
             <span class="filter-divider">|</span>
             <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=EASY<c:if test='${not empty selectedCategory}'>&categoryId=${selectedCategory}</c:if>"
                 class="filter-btn ${selectedDifficulty == 'EASY' ? 'active' : ''}">
-                <i class="fas fa-circle" style="color: #10b981; font-size: 8px;"></i> Easy
+                <i class="fas fa-circle" style="color: #19A77B; font-size: 8px;"></i> Easy
             </a>
             <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice?difficulty=MEDIUM<c:if test='${not empty selectedCategory}'>&categoryId=${selectedCategory}</c:if>"
                 class="filter-btn ${selectedDifficulty == 'MEDIUM' ? 'active' : ''}">

@@ -31,7 +31,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -986,7 +986,7 @@
                     </span>
                     <div class="chart-track">
                         <div class="chart-fill"
-                            style="width: ${totalUsers > 0 ? (totalInterviewers * 100 / totalUsers) : 0}%; background: linear-gradient(90deg, #22c55e, #4ade80);">
+                            style="width: ${totalUsers > 0 ? (totalInterviewers * 100 / totalUsers) : 0}%; background: linear-gradient(90deg, #19A77B, #3BC49A);">
                             ${totalInterviewers}
                         </div>
                     </div>
@@ -1034,7 +1034,7 @@
                     </span>
                     <div class="chart-track">
                         <div class="chart-fill"
-                            style="width: ${totalInterviews > 0 ? (completedInterviews * 100 / totalInterviews) : 0}%; background: linear-gradient(90deg, #14b8a6, #2dd4bf);">
+                            style="width: ${totalInterviews > 0 ? (completedInterviews * 100 / totalInterviews) : 0}%; background: linear-gradient(90deg, #3BC49A, #2dd4bf);">
                             ${completedInterviews}
                         </div>
                     </div>

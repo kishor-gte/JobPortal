@@ -31,7 +31,7 @@
             --white: #ffffff;
             --border: #e2e8f0;
             --warning: #f59e0b;
-            --success: #10b981;
+            --success: #19A77B;
             --gradient: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
             --gradient-dark: linear-gradient(135deg, #1e2f32 0%, #2E3E41 100%);
             --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
@@ -196,7 +196,7 @@
         }
 
         .success-box {
-            background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04));
+            background: linear-gradient(135deg, rgba(25, 167, 123,0.08), rgba(25, 167, 123,0.04));
             border-left-color: var(--success);
         }
         .success-box i {

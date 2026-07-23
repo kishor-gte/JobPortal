@@ -40,7 +40,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -317,7 +317,7 @@
         .job-title { font-size: 1.1rem; font-weight: 800; color: var(--bg-dark); }
         .badge-custom { font-size: 0.7rem; padding: 0.25rem 0.75rem; border-radius: 50px; }
         .badge-primary-custom { background: rgba(25,167,123,0.12); color: var(--primary); }
-        .badge-success-custom { background: rgba(16,185,129,0.12); color: #10b981; }
+        .badge-success-custom { background: rgba(25, 167, 123,0.12); color: #19A77B; }
         .company-logo {
             width: 45px; height: 45px; border-radius: 12px;
             background: linear-gradient(135deg, rgba(25,167,123,0.12), rgba(59,196,154,0.06));

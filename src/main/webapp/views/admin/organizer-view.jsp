@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
@@ -33,7 +33,7 @@
     --card-bg: rgba(255, 255, 255, 0.98);
     --text-dark: #1e2a2e;
     --text-muted: #5b7c6e;
-    --success: #10b981;
+    --success: #19A77B;
     --warning: #f59e0b;
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -298,7 +298,7 @@ body::after {
 }
 
 .status-verified {
-    background: rgba(16, 185, 129, 0.15);
+    background: rgba(25, 167, 123, 0.15);
     color: var(--success);
 }
 

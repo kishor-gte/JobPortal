@@ -34,7 +34,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -427,8 +427,8 @@
                                 <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">${result.totalQuestions}</div>
                                 <div style="font-size: 0.7rem;">Total</div>
                             </div>
-                            <div style="text-align: center; padding: 0.75rem 1.2rem; background: rgba(16,185,129,0.1); border-radius: 12px;">
-                                <div style="font-size: 1.8rem; font-weight: 800; color: #10b981;">${result.correctAnswers}</div>
+                            <div style="text-align: center; padding: 0.75rem 1.2rem; background: rgba(25, 167, 123,0.1); border-radius: 12px;">
+                                <div style="font-size: 1.8rem; font-weight: 800; color: #19A77B;">${result.correctAnswers}</div>
                                 <div style="font-size: 0.7rem;">Correct</div>
                             </div>
                             <div style="text-align: center; padding: 0.75rem 1.2rem; background: rgba(239,68,68,0.1); border-radius: 12px;">

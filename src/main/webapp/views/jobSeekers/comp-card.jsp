@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="comp-card">
     <div class="comp-banner">
         <c:choose>
@@ -13,10 +12,10 @@
         </c:choose>
         <!-- Logic for status badge -->
         <c:choose>
-            <c:when test="${isCompleted == true || comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
+            <c:when test="${isCompleted == true || comp.examEnded}">
                 <div class="comp-status-badge status-completed">Completed</div>
             </c:when>
-            <c:when test="${(comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
+            <c:when test="${comp.examLive}">
                 <div class="comp-status-badge status-live">Live</div>
             </c:when>
             <c:otherwise>
@@ -54,7 +53,7 @@
                 </c:when>
                 <c:when test="${isRegistered}">
                     <c:choose>
-                        <c:when test="${(comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
+                        <c:when test="${comp.examLive}">
                             <a href="${pageContext.request.contextPath}/student/coding-competitions/${comp.id}/start" class="btn-register" role="button" style="background: #b45309; color: white; display: block; text-align: center; text-decoration: none;"><i class="fas fa-play" aria-hidden="true"></i> Start Exam</a>
                         </c:when>
                         <c:otherwise>
@@ -62,13 +61,13 @@
                         </c:otherwise>
                     </c:choose>
                 </c:when>
-                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
+                <c:when test="${comp.examEnded}">
                     <button class="btn-register" disabled>Competition Closed</button>
                 </c:when>
-                <c:when test="${not empty comp.registrationStartTime and now.format(sortFormatter) lt comp.registrationStartTime.format(sortFormatter)}">
-                    <button class="btn-register" disabled style="font-size: 0.8rem;">Opens: ${comp.registrationStartTime.format(shortFormatter)}</button>
+                <c:when test="${comp.registrationNotStarted}">
+                    <button class="btn-register" disabled style="font-size: 0.8rem;">Opens: ${comp.registrationStartTimeShort}</button>
                 </c:when>
-                <c:when test="${now.format(sortFormatter) gt comp.registrationEndTime.format(sortFormatter)}">
+                <c:when test="${comp.registrationClosed}">
                     <button class="btn-register" disabled>Registration Closed</button>
                 </c:when>
                 <c:otherwise>

@@ -29,7 +29,7 @@
          --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
          --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
          --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-         --success: #10b981;
+         --success: #19A77B;
          --warning: #f59e0b;
          --danger: #ef4444;
          --info: #3b82f6;
@@ -371,7 +371,7 @@
          border-radius: 10px;
          font-size: 0.85rem;
          font-weight: 600;
-         box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+         box-shadow: 0 2px 10px rgba(25, 167, 123, 0.3);
          position: relative;
          overflow: hidden;
      }

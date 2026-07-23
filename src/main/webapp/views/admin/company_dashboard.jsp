@@ -32,8 +32,8 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
-            --success-dark: #059669;
+            --success: #19A77B;
+            --success-dark: #148F69;
             --danger: #ef4444;
             --danger-dark: #dc2626;
             --warning: #f59e0b;
@@ -247,7 +247,7 @@
         }
 
         .management-card.verified .card-icon-wrapper {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.05));
+            background: linear-gradient(135deg, rgba(25, 167, 123, 0.12), rgba(25, 167, 123, 0.05));
         }
 
         .management-card.pending .card-icon-wrapper {
@@ -340,12 +340,12 @@
         .management-card.verified .btn-management {
             background: linear-gradient(105deg, var(--success), var(--success-dark));
             color: white;
-            box-shadow: 0 8px 20px -8px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 20px -8px rgba(25, 167, 123, 0.4);
         }
 
         .management-card.verified .btn-management:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 25px -10px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 15px 25px -10px rgba(25, 167, 123, 0.5);
         }
 
         .management-card.pending .btn-management {
@@ -463,8 +463,15 @@
             opacity: 1;
         }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Companies"/>
+  <jsp:param name="pageSubtitle" value="Verify and manage company accounts"/>
+  <jsp:param name="activeNav" value="companies"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -731,5 +738,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

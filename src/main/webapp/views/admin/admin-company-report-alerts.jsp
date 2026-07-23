@@ -297,9 +297,16 @@
       border:1px dashed rgba(15,23,42,0.04);
     }
   </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
-  <div class="wrap">
+  <jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Reported Companies"/>
+  <jsp:param name="pageSubtitle" value="Review company alerts"/>
+  <jsp:param name="activeNav" value="alerts"/>
+</jsp:include>
+
+<div class="wrap">
     <a href="${pageContext.request.contextPath}/dashboard" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600; background: rgba(32,66,227,0.08); padding: 0.5rem 1.2rem; border-radius: 40px; margin-bottom: 1.25rem; transition: all 0.3s ease; border: 1px solid rgba(32,66,227,0.15); margin-top: 10px;" onmouseover="this.style.background='var(--primary)'; this.style.color='white'" onmouseout="this.style.background='rgba(32,66,227,0.08)'; this.style.color='var(--primary)'">
         <i class="fas fa-arrow-left"></i> Back to Dashboard
     </a>
@@ -686,6 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>
 

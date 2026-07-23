@@ -453,8 +453,15 @@
             opacity: 1;
         }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Admin Profile"/>
+  <jsp:param name="pageSubtitle" value="Your account details"/>
+  <jsp:param name="activeNav" value="profile"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -715,5 +722,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

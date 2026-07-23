@@ -199,8 +199,8 @@
             color: #f59e0b;
         }
         .status-completed {
-            background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(16,185,129,0.08));
-            color: #10b981;
+            background: linear-gradient(135deg, rgba(25, 167, 123,0.12), rgba(25, 167, 123,0.08));
+            color: #19A77B;
         }
         .status-cancelled {
             background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.08));

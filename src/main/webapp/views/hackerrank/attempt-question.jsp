@@ -34,7 +34,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -311,9 +311,9 @@
             backdrop-filter: blur(10px);
         }
         .badge-easy { 
-            background: rgba(16, 185, 129, 0.12); 
-            color: #4ade80; 
-            border: 1px solid rgba(16, 185, 129, 0.3); 
+            background: rgba(25, 167, 123, 0.12); 
+            color: #3BC49A; 
+            border: 1px solid rgba(25, 167, 123, 0.3); 
         }
         .badge-medium { 
             background: rgba(245, 158, 11, 0.12); 
@@ -612,7 +612,7 @@
         }
         .status-dot.success { 
             background: var(--success); 
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 8px rgba(25, 167, 123, 0.5);
         }
         .status-dot.error { 
             background: var(--danger); 
@@ -699,9 +699,9 @@
         }
         .exec-result.show { display: flex; }
         .exec-result.pass {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #4ade80;
+            background: rgba(25, 167, 123, 0.1);
+            border: 1px solid rgba(25, 167, 123, 0.3);
+            color: #3BC49A;
         }
         .exec-result.fail {
             background: rgba(239, 68, 68, 0.1);
@@ -1000,9 +1000,9 @@
             <span class="nav-title">${question.title}</span>
             <c:if test="${savedAnswer != null}">
                 <span id="solvedBadge" style="display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:30px; font-size:11px; font-weight:700; letter-spacing:0.5px;
-                      background:${savedAnswer.isCorrect ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.12)'};
-                      color:${savedAnswer.isCorrect ? '#4ade80' : '#f87171'};
-                      border:1px solid ${savedAnswer.isCorrect ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}; text-transform:uppercase;">
+                      background:${savedAnswer.isCorrect ? 'rgba(25, 167, 123,0.15)' : 'rgba(239,68,68,0.12)'};
+                      color:${savedAnswer.isCorrect ? '#3BC49A' : '#f87171'};
+                      border:1px solid ${savedAnswer.isCorrect ? 'rgba(25, 167, 123,0.3)' : 'rgba(239,68,68,0.3)'}; text-transform:uppercase;">
                     <i class="fas ${savedAnswer.isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i>
                     ${savedAnswer.isCorrect ? 'Solved' : 'Attempted'}
                 </span>
@@ -1303,7 +1303,7 @@
                 const outputArea = document.getElementById('outputArea');
                 const isCorrect = document.getElementById('savedAnswerCorrect').value === 'true';
                 outputArea.innerHTML = '<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;margin-bottom:8px;background:' +
-                    (isCorrect ? 'rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:#4ade80' : 'rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171') +
+                    (isCorrect ? 'rgba(25, 167, 123,0.08);border:1px solid rgba(25, 167, 123,0.2);color:#3BC49A' : 'rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171') +
                     '"><i class="fas ' + (isCorrect ? 'fa-check-circle' : 'fa-history') + '"></i><span style="font-size:13px;font-weight:600;">' +
                     (isCorrect ? 'Previous correct solution loaded — you can re-submit or edit.' : 'Previous attempt loaded — keep working on it!') +
                     '</span></div>';

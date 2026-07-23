@@ -27,7 +27,7 @@
             --text-secondary: #64748b;
             --border-color: #e0e6ed;
             --white: #ffffff;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
@@ -374,9 +374,9 @@
         }
 
         .alert-success-custom {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(25, 167, 123, 0.1);
             color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(25, 167, 123, 0.3);
         }
 
         .alert-danger-custom {

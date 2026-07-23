@@ -311,8 +311,15 @@ body::before {
 ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 ::selection { background: var(--primary); color: white; }
 </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Edit Sports Service"/>
+  <jsp:param name="pageSubtitle" value="Update service details"/>
+  <jsp:param name="activeNav" value="sports-list"/>
+</jsp:include>
 
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
 <div class="floating-shape" style="width: 250px; height: 250px; bottom: 60px; left: -60px; opacity: 0.04;"></div>
@@ -609,5 +616,6 @@ document.addEventListener('DOMContentLoaded', function() {
     tables.forEach(table => { const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText); const rows = Array.from(table.querySelectorAll('tbody tr')); rows.forEach(row => { Array.from(row.querySelectorAll('td')).forEach((td, index) => { if(headers[index]) td.setAttribute('data-label', headers[index]); }); }); });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

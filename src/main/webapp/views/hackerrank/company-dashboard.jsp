@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -218,9 +218,9 @@
             to { opacity: 1; transform: translateY(0); } 
         }
         .alert-success { 
-            background: rgba(16, 185, 129, 0.1); 
-            border: 1px solid rgba(16, 185, 129, 0.3); 
-            color: #4ade80; 
+            background: rgba(25, 167, 123, 0.1); 
+            border: 1px solid rgba(25, 167, 123, 0.3); 
+            color: #3BC49A; 
         }
         .alert-error { 
             background: rgba(239, 68, 68, 0.1); 
@@ -341,7 +341,7 @@
             padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;
             text-transform: uppercase; letter-spacing: 0.3px;
         }
-        .badge-active { background: rgba(16, 185, 129, 0.12); color: #4ade80; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-active { background: rgba(25, 167, 123, 0.12); color: #3BC49A; border: 1px solid rgba(25, 167, 123, 0.3); }
         .badge-closed { background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
         .badge-draft { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 
@@ -411,7 +411,7 @@
         .status-shortlisted { background: rgba(25, 167, 123, 0.15); color: var(--primary); border: 1px solid var(--primary); }
         .status-interview { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid #f59e0b; }
         .status-rejected { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid #ef4444; }
-        .status-hired { background: rgba(16, 185, 129, 0.15); color: #4ade80; border: 1px solid #10b981; }
+        .status-hired { background: rgba(25, 167, 123, 0.15); color: #3BC49A; border: 1px solid #19A77B; }
 
         .suggestions-box {
             margin-top: 14px; padding: 16px;

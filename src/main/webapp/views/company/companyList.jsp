@@ -31,7 +31,7 @@
             --text-muted: #5a6e66;
             --white: #ffffff;
             --border: #e2e8f0;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --gradient: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
             --gradient-dark: linear-gradient(135deg, #1e2f32 0%, #2E3E41 100%);

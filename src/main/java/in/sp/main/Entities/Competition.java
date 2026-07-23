@@ -155,4 +155,45 @@ public class Competition {
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    /** Helpers for JSP (avoids EL LocalDateTime method-call issues). */
+    public LocalDateTime getExamEndTime() {
+        if (examStartTime == null) return null;
+        return examStartTime.plusMinutes(examDurationMinutes);
+    }
+
+    public boolean isExamUpcoming() {
+        if (examStartTime == null) return false;
+        return examStartTime.isAfter(LocalDateTime.now());
+    }
+
+    public boolean isExamLive() {
+        if (examStartTime == null) return false;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime end = examStartTime.plusMinutes(examDurationMinutes);
+        return !examStartTime.isAfter(now) && end.isAfter(now);
+    }
+
+    public boolean isExamEnded() {
+        if (examStartTime == null) return false;
+        return !examStartTime.plusMinutes(examDurationMinutes).isAfter(LocalDateTime.now());
+    }
+
+    public boolean isRegistrationNotStarted() {
+        return registrationStartTime != null && LocalDateTime.now().isBefore(registrationStartTime);
+    }
+
+    public boolean isRegistrationClosed() {
+        return registrationEndTime != null && LocalDateTime.now().isAfter(registrationEndTime);
+    }
+
+    public String getExamStartTimeDisplay() {
+        if (examStartTime == null) return "TBA";
+        return examStartTime.format(java.time.format.DateTimeFormatter.ofPattern("MMM dd, yyyy h:mm a"));
+    }
+
+    public String getRegistrationStartTimeShort() {
+        if (registrationStartTime == null) return "";
+        return registrationStartTime.format(java.time.format.DateTimeFormatter.ofPattern("MMM dd, h:mm a"));
+    }
 }

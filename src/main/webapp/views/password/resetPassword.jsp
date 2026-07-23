@@ -15,25 +15,25 @@
             --primary: #0F172A;
             --primary-dark: #020617;
             --primary-light: #1E293B;
-            --accent: #10B981;
-            --accent-dark: #059669;
-            --accent-light: #34D399;
-            --accent-glow: rgba(16, 185, 129, 0.2);
+            --accent: #19A77B;
+            --accent-dark: #148F69;
+            --accent-light: #3BC49A;
+            --accent-glow: rgba(25, 167, 123, 0.2);
             --bg-dark: #0F172A;
             --bg-dark-light: #1E293B;
             --bg-light: #F8FAFE;
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #0F172A;
             --text-muted: #64748B;
-            --success: #10B981;
+            --success: #19A77B;
             --danger: #EF4444;
             --warning: #F59E0B;
             --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 35px -8px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
-            --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+            --shadow-xl: 0 25px 50px -12px rgba(25, 167, 123, 0.25);
+            --shadow-glow: 0 0 20px rgba(25, 167, 123, 0.15);
             --transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             --radius-sm: 12px;
             --radius-md: 20px;
@@ -62,7 +62,7 @@
             left: -10%;
             width: 120%;
             height: 140%;
-            background: radial-gradient(circle at 30% 20%, rgba(16,185,129,0.04) 0%, transparent 50%),
+            background: radial-gradient(circle at 30% 20%, rgba(25, 167, 123,0.04) 0%, transparent 50%),
                         radial-gradient(circle at 85% 70%, rgba(59,130,246,0.03) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
@@ -81,7 +81,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle at 20% 40%, rgba(16,185,129,0.04) 1px, transparent 1px);
+            background-image: radial-gradient(circle at 20% 40%, rgba(25, 167, 123,0.04) 1px, transparent 1px);
             background-size: 40px 40px;
             pointer-events: none;
             animation: particleDrift 25s linear infinite;
@@ -113,7 +113,7 @@
             backdrop-filter: blur(12px);
             padding: 2.8rem;
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(16,185,129,0.1);
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(25, 167, 123,0.1);
             width: 480px;
             max-width: 100%;
             text-align: center;
@@ -142,7 +142,7 @@
         .icon-wrapper {
             width: 88px;
             height: 88px;
-            background: linear-gradient(145deg, rgba(16,185,129,0.1), rgba(16,185,129,0.04));
+            background: linear-gradient(145deg, rgba(25, 167, 123,0.1), rgba(25, 167, 123,0.04));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -154,8 +154,8 @@
         }
 
         @keyframes gentlePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.2); }
-            50% { box-shadow: 0 0 0 18px rgba(16,185,129,0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(25, 167, 123,0.2); }
+            50% { box-shadow: 0 0 0 18px rgba(25, 167, 123,0); }
         }
 
         .icon-wrapper::before {
@@ -198,14 +198,14 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(16,185,129,0.12);
+            background: rgba(25, 167, 123,0.12);
             padding: 0.4rem 1.2rem;
             border-radius: 60px;
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--accent);
             margin-bottom: 1.8rem;
-            border: 1px solid rgba(16,185,129,0.2);
+            border: 1px solid rgba(25, 167, 123,0.2);
             backdrop-filter: blur(4px);
         }
 
@@ -251,7 +251,7 @@
         input[type="password"]:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.12);
+            box-shadow: 0 0 0 5px rgba(25, 167, 123, 0.12);
         }
 
         input::placeholder {
@@ -275,7 +275,7 @@
             padding: 0.5rem;
             border-radius: 50%;
         }
-        .toggle-password:hover { color: var(--accent); background: rgba(16,185,129,0.05); }
+        .toggle-password:hover { color: var(--accent); background: rgba(25, 167, 123,0.05); }
 
         button[type="submit"] {
             background: linear-gradient(105deg, var(--accent), var(--accent-dark));
@@ -292,13 +292,13 @@
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
-            box-shadow: 0 12px 25px -8px rgba(16,185,129,0.45);
+            box-shadow: 0 12px 25px -8px rgba(25, 167, 123,0.45);
             margin-top: 0.5rem;
         }
         button[type="submit"]:hover {
             transform: translateY(-3px);
-            background: linear-gradient(105deg, var(--accent-dark), #047857);
-            box-shadow: 0 18px 35px -12px rgba(16,185,129,0.55);
+            background: linear-gradient(105deg, var(--accent-dark), #148F69);
+            box-shadow: 0 18px 35px -12px rgba(25, 167, 123,0.55);
         }
         button[type="submit"]:active {
             transform: translateY(0);
@@ -313,7 +313,7 @@
             backdrop-filter: blur(4px);
         }
         .message.success { 
-            background: rgba(16,185,129,0.1); 
+            background: rgba(25, 167, 123,0.1); 
             color: var(--success); 
             border-left: 4px solid var(--success);
         }
@@ -477,9 +477,9 @@ function checkPasswordStrength(password) {
     } else if (strength < 60) {
         strengthBar.style.background = '#F59E0B'; // Medium - Orange
     } else if (strength < 80) {
-        strengthBar.style.background = '#10B981'; // Strong - Green
+        strengthBar.style.background = '#19A77B'; // Strong - Green
     } else {
-        strengthBar.style.background = '#059669'; // Very Strong - Dark Green
+        strengthBar.style.background = '#148F69'; // Very Strong - Dark Green
     }
 }
 

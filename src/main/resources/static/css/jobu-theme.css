@@ -1,0 +1,168 @@
+/* ============================================
+   JobU Global Theme — Admin Dashboard palette
+   Sidebar: #2E3E41 → #1f2e30
+   Greens:  #19A77B | #148F69 | #3BC49A
+   ============================================ */
+
+:root {
+  --primary: #19A77B;
+  --primary-dark: #148F69;
+  --primary-light: #3BC49A;
+  --accent: #3BC49A;
+  --accent-light: #6ed4b2;
+  --bg-dark: #2E3E41;
+  --bg-darker: #1f2e30;
+  --bg-dark-light: #3d5256;
+  --bg-light: #f0f7f4;
+  --bg-white: #ffffff;
+  --text-dark: #1e2a2e;
+  --text-muted: #5b7c6e;
+  --border: #e2ede7;
+  --success: #19A77B;
+  --success-dark: #148F69;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #06b6d4;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --gradient-primary: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
+  --gradient-dark: linear-gradient(180deg, #2E3E41 0%, #1f2e30 100%);
+  --sidebar-bg: linear-gradient(180deg, #2E3E41 0%, #1f2e30 100%);
+}
+
+/* Soft Bootstrap primary / success → admin greens */
+.btn-primary,
+.bg-primary,
+.badge.bg-primary,
+.navbar.bg-primary {
+  background-color: #19A77B !important;
+  border-color: #19A77B !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #148F69 !important;
+  border-color: #148F69 !important;
+}
+
+.btn-success,
+.bg-success,
+.badge.bg-success {
+  background-color: #19A77B !important;
+  border-color: #19A77B !important;
+}
+
+.btn-success:hover {
+  background-color: #148F69 !important;
+  border-color: #148F69 !important;
+}
+
+.btn-outline-primary,
+.btn-outline-success {
+  color: #19A77B !important;
+  border-color: #19A77B !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-success:hover {
+  background-color: #19A77B !important;
+  color: #fff !important;
+}
+
+.text-primary,
+.text-success,
+.link-primary {
+  color: #19A77B !important;
+}
+
+.border-primary,
+.border-success {
+  border-color: #19A77B !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #19A77B !important;
+  box-shadow: 0 0 0 0.2rem rgba(25, 167, 123, 0.18) !important;
+}
+
+.page-link { color: #19A77B; }
+.page-item.active .page-link {
+  background-color: #19A77B;
+  border-color: #19A77B;
+}
+
+.progress-bar,
+.progress-bar.bg-success {
+  background-color: #19A77B !important;
+}
+
+/* ========== Sidebars match Admin Dashboard ========== */
+.admin-sidebar,
+.sidebar:not(.chat-sidebar),
+.nav-sidebar,
+.career-sidebar {
+  background: linear-gradient(180deg, #2E3E41 0%, #1f2e30 100%) !important;
+  border-right: 1px solid rgba(25, 167, 123, 0.12) !important;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.nav-sidebar::-webkit-scrollbar-thumb,
+.career-sidebar::-webkit-scrollbar-thumb,
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: #19A77B !important;
+}
+
+/* Common sidebar link hover/active → admin green accents */
+.sidebar a:hover,
+.sidebar .nav-link:hover,
+.nav-sidebar a:hover,
+.nav-sidebar .nav-link:hover,
+.career-sidebar a:hover,
+.career-sidebar .nav-link:hover,
+.sidebar-dashboard-btn:hover,
+.sidebar-link:hover {
+  background: rgba(25, 167, 123, 0.15) !important;
+  color: #3BC49A !important;
+}
+
+.sidebar a.active,
+.sidebar .nav-link.active,
+.sidebar .active,
+.nav-sidebar a.active,
+.nav-sidebar .nav-link.active,
+.career-sidebar a.active,
+.career-sidebar .nav-link.active,
+.sidebar-link.active {
+  background: linear-gradient(135deg, rgba(25,167,123,0.25), rgba(59,196,154,0.12)) !important;
+  color: #3BC49A !important;
+  border-left: 3px solid #19A77B !important;
+}
+
+.jobu-gradient-bg { background: var(--gradient-primary); }
+.jobu-dark-bg { background: var(--gradient-dark); }
+.jobu-soft-bg { background: var(--bg-light); }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

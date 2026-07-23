@@ -33,7 +33,7 @@
     --card-bg: rgba(255, 255, 255, 0.98);
     --text-dark: #1e2a2e;
     --text-muted: #5b7c6e;
-    --success: #10b981;
+    --success: #19A77B;
     --danger: #ef4444;
     --warning: #f59e0b;
     --info: #3b82f6;
@@ -257,9 +257,9 @@ body::after {
 }
 
 .status-ACTIVE {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.08));
+    background: linear-gradient(135deg, rgba(25, 167, 123, 0.15), rgba(25, 167, 123, 0.08));
     color: var(--success);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    border: 1px solid rgba(25, 167, 123, 0.3);
 }
 
 .status-INACTIVE {
@@ -410,8 +410,15 @@ body::after {
 
 ::selection { background: var(--primary); color: white; }
 </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Sports Services"/>
+  <jsp:param name="pageSubtitle" value="View and manage sports services"/>
+  <jsp:param name="activeNav" value="sports-list"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -660,5 +667,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

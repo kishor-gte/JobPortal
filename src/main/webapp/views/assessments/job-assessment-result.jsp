@@ -35,8 +35,8 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
-            --success-dark: #059669;
+            --success: #19A77B;
+            --success-dark: #148F69;
             --danger: #ef4444;
             --danger-dark: #dc2626;
             --warning: #f59e0b;
@@ -206,8 +206,8 @@
         }
 
         .score-circle.excellent {
-            background: linear-gradient(135deg, #10b981, #059669);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, #19A77B, #148F69);
+            box-shadow: 0 15px 35px rgba(25, 167, 123, 0.3);
         }
         .score-circle.good {
             background: linear-gradient(135deg, #3b82f6, #2563eb);
@@ -255,9 +255,9 @@
         }
 
         .result-message.excellent {
-            background: rgba(16, 185, 129, 0.12);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(25, 167, 123, 0.12);
+            color: #19A77B;
+            border: 1px solid rgba(25, 167, 123, 0.3);
         }
         .result-message.good {
             background: rgba(59, 130, 246, 0.12);

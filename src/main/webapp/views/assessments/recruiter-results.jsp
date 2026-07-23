@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -262,7 +262,7 @@
         }
 
         .result-card.high-score::before {
-            background: linear-gradient(90deg, #10b981, #34d399);
+            background: linear-gradient(90deg, #19A77B, #3BC49A);
         }
         .result-card.medium-score::before {
             background: linear-gradient(90deg, #f59e0b, #fbbf24);
@@ -370,8 +370,8 @@
         }
 
         .percent-high {
-            background: rgba(16, 185, 129, 0.12);
-            color: #10b981;
+            background: rgba(25, 167, 123, 0.12);
+            color: #19A77B;
         }
         .percent-medium {
             background: rgba(245, 158, 11, 0.12);
@@ -409,7 +409,7 @@
         }
 
         .progress-fill.high {
-            background: linear-gradient(90deg, #10b981, #34d399);
+            background: linear-gradient(90deg, #19A77B, #3BC49A);
         }
         .progress-fill.medium {
             background: linear-gradient(90deg, #f59e0b, #fbbf24);
