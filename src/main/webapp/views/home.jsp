@@ -77,13 +77,14 @@
   html { scroll-behavior: smooth; }
 
   /* ========== PREMIUM NAVBAR DESIGN ========== */
+  /* ========== PREMIUM NAVBAR DESIGN ========== */
   .navbar-area {
     position: fixed;
     top: 0;
     left: 0;
     transform: none;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 0;
@@ -92,7 +93,8 @@
     transition: all 0.3s ease-in-out;
     border-bottom: 1px solid #E5E7EB;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-    display: block;
+    display: flex;
+    align-items: center;
     height: 72px;
   }
 
@@ -102,16 +104,21 @@
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
   }
 
-  .navbar-brand.logo {
+  .navbar-brand.logo,
+  .custom-premium-logo {
     padding: 0;
-    margin-right: 40px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
   }
 
   .logo1 {
-    height: 48px !important;
+    height: 42px !important;
     width: auto;
+    max-width: 140px;
+    object-fit: contain;
     transition: all 0.3s ease;
   }
 
@@ -120,6 +127,14 @@
     align-items: center;
     gap: 6px;
     height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .navbar-nav .nav-item {
+    flex-shrink: 0;
   }
 
   .navbar-nav .nav-item .nav-link {
@@ -132,19 +147,21 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    transition: all 0.3s ease;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    text-decoration: none;
   }
 
   .navbar-nav .nav-item .nav-link i { 
     font-size: 0.85rem; 
     opacity: 0.7; 
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
   }
 
   .navbar-nav .nav-item .nav-link:hover {
     color: #19A77B !important;
     background: #E6F6F1;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .navbar-nav .nav-item .nav-link:hover i {
@@ -152,32 +169,43 @@
   }
 
   .navbar-nav .nav-item .nav-link.active {
-    color: black;
+    color: #19A77B !important;
+    background: #E6F6F1;
+    font-weight: 700;
   }
 
   .navbar-nav .nav-item .nav-link.active i {
-    color: black;
+    color: #19A77B !important;
+  }
+
+  .button-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
   }
 
   .btn-login {
     background: linear-gradient(135deg, #19A77B, #3BC49A);
     color: white !important;
     font-weight: 600;
-    padding: 10px 24px !important;
+    padding: 10px 20px !important;
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(25, 167, 123, 0.2);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    white-space: nowrap;
     border: none;
   }
 
   .btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(25, 167, 123, 0.45);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(25, 167, 123, 0.35);
     color: white !important;
   }
 
@@ -185,20 +213,22 @@
     background: white;
     color: #19A77B !important;
     font-weight: 600;
-    padding: 10px 24px !important;
+    padding: 10px 20px !important;
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     transition: all 0.3s ease;
     border: 1.5px solid #19A77B;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    white-space: nowrap;
   }
 
   .btn-register:hover {
     background: #19A77B;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     color: white !important;
     box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
   }
@@ -918,12 +948,12 @@
 <!-- Header -->
 <header class="header">
   <div class="navbar-area" id="navbarSticky">
-    <nav class="navbar navbar-expand-xl w-100 h-100 position-relative p-0">
-      <div class="container-fluid px-3 px-lg-5 h-100">
+    <nav class="navbar navbar-expand-lg w-100 position-relative">
+      <div class="container-fluid">
             
             <!-- Left: Logo -->
-            <a class="navbar-brand custom-premium-logo" href="${pageContext.request.contextPath}/" style="display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
-              <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block; opacity: 1 !important; visibility: visible !important; background-color: transparent !important;" />
+            <a class="navbar-brand custom-premium-logo" href="${pageContext.request.contextPath}/"> 
+              <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" class="logo1" />
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -933,7 +963,7 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               
               <!-- Center: Nav Options -->
-              <ul id="nav" class="navbar-nav mx-auto" style="display: flex; gap: 8px; align-items: center; margin-left: auto; margin-right: auto;">
+              <ul id="nav" class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Services</a>
                   <ul class="sub-menu">
@@ -974,9 +1004,9 @@
               </ul>
               
               <!-- Right: Action Buttons -->
-              <div class="button-group d-flex align-items-center mt-3 mt-lg-0" style="gap: 15px;">
-                <a href="${pageContext.request.contextPath}/jobSeekers/register" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
-                <a href="${pageContext.request.contextPath}/jobSeekers/login"  class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
+              <div class="button-group d-flex align-items-center mt-3 mt-lg-0">
+                <a href="${pageContext.request.contextPath}/jobSeekers/register" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="${pageContext.request.contextPath}/jobSeekers/login"  class="btn-login"><i class="lni lni-lock-alt"></i> Login</a>
               </div>
               
             </div>

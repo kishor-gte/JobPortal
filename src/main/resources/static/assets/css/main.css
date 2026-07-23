@@ -5101,3 +5101,483 @@ html body .header .navbar-nav .sub-menu li a.active {
     background-color: #19A77B !important;
     color: #ffffff !important;
 }
+
+/* ==========================================================================
+   PRODUCTION RESPONSIVE NAVBAR SYSTEM (Laptop & All Screen Resolutions)
+   ========================================================================== */
+
+/* Navbar Base Layout */
+.header {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+}
+
+.navbar-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid #E5E7EB;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  height: 72px;
+}
+
+.navbar-area.sticky {
+  height: 64px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-area .container-fluid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Brand Logo */
+.navbar-brand,
+.navbar-brand.logo,
+.custom-premium-logo {
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  margin-right: 20px !important;
+  flex-shrink: 0 !important;
+  text-decoration: none !important;
+  background-color: transparent !important;
+  z-index: 1000;
+}
+
+.navbar-brand img,
+.custom-premium-logo img,
+.logo1 {
+  height: 42px !important;
+  width: auto !important;
+  max-width: 140px !important;
+  object-fit: contain !important;
+  display: block !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Desktop Collapse (>=992px) */
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse,
+  .navbar-expand-xl .navbar-collapse {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-grow: 1 !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .navbar-toggler {
+    display: none !important;
+  }
+}
+
+/* Center Nav Items */
+.navbar-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  margin-bottom: 0 !important;
+  list-style: none !important;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0 !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-weight: 600;
+  color: #374151 !important;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap !important;
+  transition: all 0.25s ease;
+  text-decoration: none !important;
+}
+
+.navbar-nav .nav-item .nav-link i {
+  opacity: 0.75;
+  transition: opacity 0.25s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #19A77B !important;
+  background: #E6F6F1;
+  transform: translateY(-1px);
+}
+
+.navbar-nav .nav-item .nav-link:hover i {
+  opacity: 1;
+}
+
+.navbar-nav .nav-item .nav-link.active {
+  color: #19A77B !important;
+  background: #E6F6F1;
+  font-weight: 700;
+}
+
+/* Right Buttons Group */
+.button-group {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  margin-left: 10px !important;
+  margin-top: 0 !important;
+}
+
+.btn-register {
+  background: white;
+  color: #19A77B !important;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  border: 1.5px solid #19A77B;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  cursor: pointer;
+}
+
+.btn-register:hover {
+  background: #19A77B;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #19A77B, #3BC49A);
+  color: white !important;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(25, 167, 123, 0.2);
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(25, 167, 123, 0.35);
+  color: white !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (LAPTOPS, ZOOM & DESKTOP)
+   ========================================================================== */
+
+/* 1. Medium Laptop Screens / Scaled Display (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar-area .container-fluid {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  
+  .navbar-brand,
+  .navbar-brand.logo {
+    margin-right: 12px !important;
+  }
+  
+  .navbar-brand img,
+  .custom-premium-logo img,
+  .logo1 {
+    height: 36px !important;
+    max-width: 115px !important;
+  }
+  
+  .navbar-nav {
+    gap: 2px !important;
+  }
+  
+  .navbar-nav .nav-item .nav-link {
+    font-size: 0.78rem !important;
+    padding: 5px 7px !important;
+    gap: 3px !important;
+  }
+  
+  .navbar-nav .nav-item .nav-link i {
+    font-size: 0.72rem !important;
+  }
+  
+  .button-group {
+    gap: 6px !important;
+    margin-left: 6px !important;
+  }
+  
+  .btn-register,
+  .btn-login {
+    font-size: 0.78rem !important;
+    padding: 6px 12px !important;
+    gap: 4px !important;
+  }
+}
+
+/* 2. Common Laptop Screens (1200px to 1399px, e.g. 1280, 1366, 1536 at 125% zoom) */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .navbar-area .container-fluid {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  
+  .navbar-brand,
+  .navbar-brand.logo {
+    margin-right: 20px !important;
+  }
+  
+  .navbar-brand img,
+  .custom-premium-logo img,
+  .logo1 {
+    height: 40px !important;
+    max-width: 130px !important;
+  }
+  
+  .navbar-nav {
+    gap: 4px !important;
+  }
+  
+  .navbar-nav .nav-item .nav-link {
+    font-size: 0.83rem !important;
+    padding: 6px 10px !important;
+    gap: 4px !important;
+  }
+  
+  .navbar-nav .nav-item .nav-link i {
+    font-size: 0.78rem !important;
+  }
+  
+  .button-group {
+    gap: 8px !important;
+  }
+  
+  .btn-register,
+  .btn-login {
+    font-size: 0.83rem !important;
+    padding: 7px 15px !important;
+    gap: 5px !important;
+  }
+}
+
+/* 3. HD & Large Laptop Screens (1400px to 1599px, e.g. 1440x900, 1536x864) */
+@media (min-width: 1400px) and (max-width: 1599.98px) {
+  .navbar-area .container-fluid {
+    padding-left: 28px !important;
+    padding-right: 28px !important;
+  }
+  
+  .navbar-brand,
+  .navbar-brand.logo {
+    margin-right: 28px !important;
+  }
+  
+  .navbar-brand img,
+  .custom-premium-logo img,
+  .logo1 {
+    height: 44px !important;
+  }
+  
+  .navbar-nav {
+    gap: 6px !important;
+  }
+  
+  .navbar-nav .nav-item .nav-link {
+    font-size: 0.88rem !important;
+    padding: 7px 12px !important;
+    gap: 5px !important;
+  }
+  
+  .button-group {
+    gap: 10px !important;
+  }
+  
+  .btn-register,
+  .btn-login {
+    font-size: 0.88rem !important;
+    padding: 8px 18px !important;
+    gap: 6px !important;
+  }
+}
+
+/* 4. Full HD Screens & Above (>=1600px, e.g. 1600x900, 1920x1080) */
+@media (min-width: 1600px) {
+  .navbar-area .container-fluid {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+  
+  .navbar-brand,
+  .navbar-brand.logo {
+    margin-right: 35px !important;
+  }
+  
+  .navbar-brand img,
+  .custom-premium-logo img,
+  .logo1 {
+    height: 46px !important;
+  }
+  
+  .navbar-nav {
+    gap: 8px !important;
+  }
+  
+  .navbar-nav .nav-item .nav-link {
+    font-size: 0.9rem !important;
+    padding: 8px 14px !important;
+    gap: 5px !important;
+  }
+  
+  .button-group {
+    gap: 12px !important;
+  }
+  
+  .btn-register,
+  .btn-login {
+    font-size: 0.92rem !important;
+    padding: 9px 20px !important;
+    gap: 6px !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE & TABLET COLLAPSIBLE MENU (<992px)
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  .navbar-area {
+    height: auto !important;
+    padding: 10px 0 !important;
+    position: fixed !important;
+  }
+  
+  .navbar-area .container-fluid {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .navbar {
+    flex-wrap: wrap !important;
+  }
+
+  .navbar-toggler {
+    display: block !important;
+    padding: 6px 10px !important;
+    border: 1px solid rgba(25, 167, 123, 0.2) !important;
+    border-radius: 8px !important;
+    background: #F8FAFC !important;
+  }
+
+  .navbar-collapse {
+    background: #ffffff !important;
+    padding: 20px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+    margin-top: 12px !important;
+    width: 100% !important;
+    max-height: calc(100vh - 90px) !important;
+    overflow-y: auto !important;
+    border: 1px solid #E5E7EB !important;
+  }
+
+  .navbar-nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    gap: 4px !important;
+    margin: 0 !important;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100% !important;
+  }
+
+  .navbar-nav .nav-item .nav-link {
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+  }
+
+  .sub-menu {
+    position: static !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #F8FAFC !important;
+    margin-top: 4px !important;
+    padding: 8px 12px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: none;
+    border-radius: 10px !important;
+    width: 100% !important;
+  }
+
+  .nav-item:hover .sub-menu,
+  .nav-item.active .sub-menu {
+    display: block !important;
+  }
+
+  .button-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+    margin-top: 16px !important;
+    margin-left: 0 !important;
+  }
+
+  .btn-register,
+  .btn-login {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 20px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
