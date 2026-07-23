@@ -29,7 +29,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -227,7 +227,7 @@
         .candidate-info p { margin: 0; font-size: 12px; color: var(--text-tertiary); }
         
         .badge { padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
-        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-success { background: rgba(25, 167, 123, 0.1); color: var(--success); border: 1px solid rgba(25, 167, 123, 0.3); }
         .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
 
         .btn-profile {

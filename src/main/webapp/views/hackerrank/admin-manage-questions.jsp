@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,7 @@
             --accent-light: #6ed4b2;
             --bg-dark: #2E3E41;
             --bg-dark-light: #3d5256;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --info: #3b82f6;

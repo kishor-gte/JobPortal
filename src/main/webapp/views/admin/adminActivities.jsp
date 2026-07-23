@@ -108,8 +108,8 @@ body {
 }
 .role-admin { background: rgba(249, 115, 22, 0.15); color: #f97316; }
 .role-jobseeker { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
-.role-recruiter { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
-.role-company { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.role-recruiter { background: rgba(25, 167, 123, 0.15); color: #19A77B; }
+.role-company { background: rgba(25, 167, 123, 0.15); color: #19A77B; }
 
 .badge-type {
   padding: 5px 10px;
@@ -132,21 +132,15 @@ body {
   color: white;
 }
 </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
 
-<nav class="navbar-custom">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <a href="${pageContext.request.contextPath}/dashboard" class="navbar-brand-custom">
-        <i class="fas fa-shield-alt me-2"></i> Admin Control
-      </a>
-      <a href="${pageContext.request.contextPath}/dashboard" class="btn-back">
-        <i class="fas fa-arrow-left me-2"></i> Back to Dashboard
-      </a>
-    </div>
-  </div>
-</nav>
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Activity Logs"/>
+  <jsp:param name="pageSubtitle" value="Track user actions across the portal"/>
+  <jsp:param name="activeNav" value="activities"/>
+</jsp:include>
 
 <div class="page-header">
   <div class="container">
@@ -266,5 +260,6 @@ body {
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

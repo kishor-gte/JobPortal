@@ -3,9 +3,9 @@
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 
 <style>
-/* Student Sidebar Premium - Green SmartInterview Theme (Bulletproof Overrides) */
+/* Student Sidebar — match Admin Dashboard (dark #2E3E41 + green accents) */
 .career-sidebar, .nav-sidebar, .sidebar {
-    background: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%) !important;
+    background: linear-gradient(180deg, #2E3E41 0%, #1f2e30 100%) !important;
     width: 280px !important;
     height: 100vh !important;
     position: fixed !important;
@@ -13,39 +13,33 @@
     top: 0 !important;
     z-index: 1000 !important;
     padding: 24px 16px !important;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12) !important;
     transition: transform 0.3s ease !important;
-    backdrop-filter: blur(10px) !important;
     overflow-y: auto !important;
-    border-right: none !important;
+    border-right: 1px solid rgba(25, 167, 123, 0.12) !important;
 }
 
-/* Custom scrollbar - premium */
 .career-sidebar::-webkit-scrollbar,
 .nav-sidebar::-webkit-scrollbar,
-.sidebar::-webkit-scrollbar {
-    width: 5px !important;
-}
+.sidebar::-webkit-scrollbar { width: 5px !important; }
+
 .career-sidebar::-webkit-scrollbar-track,
 .nav-sidebar::-webkit-scrollbar-track,
-.sidebar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-radius: 10px !important;
-}
+.sidebar::-webkit-scrollbar-track { background: transparent !important; }
+
 .career-sidebar::-webkit-scrollbar-thumb,
 .nav-sidebar::-webkit-scrollbar-thumb,
 .sidebar::-webkit-scrollbar-thumb {
-    background: #ffffff !important;
+    background: #19A77B !important;
     border-radius: 10px !important;
 }
 
-/* Sidebar Logo Section */
 .sidebar-logo {
     display: flex !important;
     align-items: center !important;
     gap: 14px !important;
     padding: 8px 12px 24px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     margin-bottom: 24px !important;
     justify-content: flex-start !important;
     background: transparent !important;
@@ -56,17 +50,17 @@
 .sidebar-logo .icon {
     width: 48px !important;
     height: 48px !important;
-    background: #ffffff !important;
+    background: linear-gradient(135deg, #19A77B, #3BC49A) !important;
     border-radius: 14px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(25, 167, 123, 0.25) !important;
     flex-shrink: 0 !important;
 }
 
 .sidebar-logo .icon i {
-    color: #19A77B !important;
+    color: #ffffff !important;
     font-size: 24px !important;
 }
 
@@ -80,13 +74,10 @@
     -webkit-text-fill-color: white !important;
 }
 
-/* Navigation Section - Header styling */
-.nav-section {
-    margin-bottom: 24px !important;
-}
+.nav-section { margin-bottom: 24px !important; }
 
 .nav-section h4 {
-    color: rgba(255, 255, 255, 0.65) !important;
+    color: rgba(255, 255, 255, 0.35) !important;
     font-size: 11px !important;
     text-transform: uppercase !important;
     letter-spacing: 1.5px !important;
@@ -95,53 +86,50 @@
     font-weight: 600 !important;
 }
 
-/* Sidebar Link item - Premium styling */
 .nav-link-custom {
     display: flex !important;
     align-items: center !important;
     gap: 14px !important;
     padding: 10px 16px !important;
-    color: #ffffff !important;
+    color: rgba(255, 255, 255, 0.7) !important;
     text-decoration: none !important;
     font-weight: 500 !important;
     font-size: 0.9rem !important;
     transition: all 0.3s ease !important;
     border-left: 3px solid transparent !important;
     margin-bottom: 6px !important;
-    border-radius: 0 12px 12px 0 !important;
+    border-radius: 10px !important;
 }
 
 .nav-link-custom i {
     width: 20px !important;
     text-align: center !important;
     font-size: 16px !important;
-    color: #ffffff !important;
+    color: inherit !important;
 }
 
 .nav-link-custom:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-left-color: #ffffff !important;
-    transform: translateX(4px) !important;
-    color: #ffffff !important;
+    background: rgba(25, 167, 123, 0.15) !important;
+    border-left-color: transparent !important;
+    transform: translateX(3px) !important;
+    color: #3BC49A !important;
 }
 
 .nav-link-custom.active {
-    background: rgba(255, 255, 255, 0.2) !important;
-    color: #ffffff !important;
-    border-left-color: #ffffff !important;
+    background: linear-gradient(135deg, rgba(25,167,123,0.25), rgba(59,196,154,0.12)) !important;
+    color: #3BC49A !important;
+    border-left-color: #19A77B !important;
     font-weight: 600 !important;
-    border-radius: 0 12px 12px 0 !important;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+    box-shadow: none !important;
 }
 
-/* Mobile Toggle and Overlay overrides */
 .sidebar-toggle-btn {
     background: #19A77B !important;
     color: white !important;
     border: none !important;
     padding: 12px 18px !important;
     border-radius: 12px !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 16px rgba(25, 167, 123, 0.3) !important;
 }
 
 @media (max-width: 768px) {
@@ -151,7 +139,6 @@
     }
     .career-sidebar.active, .nav-sidebar.active, .sidebar.active {
         transform: translateX(0) !important;
-        border-radius: 0 20px 20px 0 !important;
     }
 }
 </style>

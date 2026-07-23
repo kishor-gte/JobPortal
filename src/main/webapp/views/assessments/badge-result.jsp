@@ -31,7 +31,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
@@ -660,7 +660,7 @@ function startConfetti() {
     canvas.height = window.innerHeight;
     
     const particles = [];
-    const colors = ['#19A77B', '#3BC49A', '#fbbf24', '#f59e0b', '#10b981'];
+    const colors = ['#19A77B', '#3BC49A', '#fbbf24', '#f59e0b', '#19A77B'];
     
     for (let i = 0; i < 150; i++) {
         particles.push({

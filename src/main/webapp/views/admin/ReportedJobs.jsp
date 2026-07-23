@@ -37,8 +37,8 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
-            --success-dark: #059669;
+            --success: #19A77B;
+            --success-dark: #148F69;
             --danger: #ef4444;
             --danger-dark: #dc2626;
             --warning: #f59e0b;
@@ -422,12 +422,12 @@
         .btn-resolve {
             background: linear-gradient(105deg, var(--success), var(--success-dark));
             color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
         }
 
         .btn-resolve:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 20px rgba(25, 167, 123, 0.4);
             color: white;
         }
 
@@ -506,8 +506,15 @@
 
         ::selection { background: var(--primary); color: white; }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Reported Jobs"/>
+  <jsp:param name="pageSubtitle" value="Review and resolve job reports"/>
+  <jsp:param name="activeNav" value="reported"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -852,5 +859,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

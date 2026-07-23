@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +26,7 @@
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
         }

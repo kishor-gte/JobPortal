@@ -29,7 +29,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -568,8 +568,8 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(25, 167, 123, 0.1);
+            border: 1px solid rgba(25, 167, 123, 0.3);
             color: var(--success);
         }
 

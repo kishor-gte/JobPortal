@@ -34,7 +34,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -289,7 +289,7 @@
 
         .file-upload-label.has-file {
             border-color: var(--success);
-            background: rgba(16, 185, 129, 0.05);
+            background: rgba(25, 167, 123, 0.05);
             color: var(--success);
         }
 
@@ -372,8 +372,15 @@
 
         ::selection { background: var(--primary); color: white; }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Assessment Questions"/>
+  <jsp:param name="pageSubtitle" value="Add and manage assessment questions"/>
+  <jsp:param name="activeNav" value="assessments"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -567,5 +574,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

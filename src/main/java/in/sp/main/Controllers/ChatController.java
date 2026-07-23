@@ -18,10 +18,10 @@ import java.util.ArrayList;
 @RequestMapping("/api")
 public class ChatController {
 
-    @Value("${gemini.api.key:}")
+    @Value("${gemini.api.key:AIzaSyCr_gUF2YzV16dICNphMfnkyjBFurYLKaM}")
     private String geminiApiKey;
 
-    private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+    private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
     @PostMapping("/chat")
     public ResponseEntity<?> chat(@RequestBody Map<String, String> request) {

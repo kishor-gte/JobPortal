@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="in.sp.main.Entities.JobSeeker" %>
 <%
     JobSeeker jobSeeker = (JobSeeker) session.getAttribute("jobSeeker");
@@ -35,7 +35,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
         }

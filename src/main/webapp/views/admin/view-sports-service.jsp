@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -305,8 +305,8 @@
         }
 
         .status-ACTIVE {
-            background: rgba(16, 185, 129, 0.12);
-            color: #10b981;
+            background: rgba(25, 167, 123, 0.12);
+            color: #19A77B;
         }
 
         .status-INACTIVE {
@@ -352,8 +352,15 @@
 
         ::selection { background: var(--primary); color: white; }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="View Sports Service"/>
+  <jsp:param name="pageSubtitle" value="Service details"/>
+  <jsp:param name="activeNav" value="sports-list"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -688,5 +695,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

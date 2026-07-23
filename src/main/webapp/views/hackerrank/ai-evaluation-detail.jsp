@@ -31,7 +31,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -261,7 +261,7 @@
         }
 
         .score-box .value.tech { 
-            background: linear-gradient(135deg, var(--accent), #22c55e);
+            background: linear-gradient(135deg, var(--accent), #19A77B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -380,12 +380,12 @@
 
         .tag-green {
             padding: 8px 18px;
-            background: rgba(16, 185, 129, 0.12);
-            color: #4ade80;
+            background: rgba(25, 167, 123, 0.12);
+            color: #3BC49A;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(25, 167, 123, 0.3);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             animation: tagPop 0.3s ease-out;
@@ -403,9 +403,9 @@
         }
 
         .tag-green:hover {
-            background: rgba(16, 185, 129, 0.2);
+            background: rgba(25, 167, 123, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
         }
 
         .tag-orange {
@@ -443,7 +443,7 @@
         }
 
         .score-progress-bar.comm { background: linear-gradient(90deg, var(--primary), var(--accent)); }
-        .score-progress-bar.tech { background: linear-gradient(90deg, var(--accent), #22c55e); }
+        .score-progress-bar.tech { background: linear-gradient(90deg, var(--accent), #19A77B); }
         .score-progress-bar.conf { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
         .score-progress-bar.overall { background: linear-gradient(90deg, var(--primary-dark), var(--primary)); }
 
@@ -887,7 +887,7 @@
 
         <div class="detail-section">
             <h3>
-                <i class="fas fa-thumbs-up" style="color: #4ade80;"></i>
+                <i class="fas fa-thumbs-up" style="color: #3BC49A;"></i>
                 Strengths
             </h3>
             <div class="tags-container">

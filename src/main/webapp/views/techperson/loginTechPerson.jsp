@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@
         --text-secondary: #64748b;
         --border-color: #e0e6ed;
         --white: #ffffff;
-        --success: #10b981;
+        --success: #19A77B;
         --danger: #ef4444;
         --warning: #f59e0b;
         --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);

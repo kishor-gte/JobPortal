@@ -3,9 +3,9 @@
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 
 <style>
-/* Sidebar Premium - Green SmartInterview Theme (Bulletproof Overrides) */
+/* Sidebar — match Admin Dashboard (dark #2E3E41 + green accents #19A77B/#3BC49A) */
 .career-sidebar {
-    background: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%) !important;
+    background: linear-gradient(180deg, #2E3E41 0%, #1f2e30 100%) !important;
     width: 280px !important;
     height: 100vh !important;
     position: fixed !important;
@@ -13,30 +13,23 @@
     top: 0 !important;
     z-index: 1000 !important;
     padding: 0 !important;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12) !important;
     transition: transform 0.3s ease !important;
-    border-radius: 0 20px 20px 0 !important;
-    backdrop-filter: blur(10px) !important;
+    border-radius: 0 !important;
+    border-right: 1px solid rgba(25, 167, 123, 0.12) !important;
     overflow-y: auto !important;
 }
 
-/* Custom scrollbar - premium */
-.career-sidebar::-webkit-scrollbar {
-    width: 5px !important;
-}
-.career-sidebar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-radius: 10px !important;
-}
+.career-sidebar::-webkit-scrollbar { width: 5px !important; }
+.career-sidebar::-webkit-scrollbar-track { background: transparent !important; }
 .career-sidebar::-webkit-scrollbar-thumb {
-    background: #ffffff !important;
+    background: #19A77B !important;
     border-radius: 10px !important;
 }
 
-/* Sidebar Header - Premium */
 .sidebar-header {
     padding: 16px 20px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -62,14 +55,13 @@
     line-height: 1.2 !important;
 }
 
-/* Dashboard Button - Premium */
 .sidebar-dashboard-btn {
     display: flex !important;
     align-items: center !important;
     gap: 14px !important;
     padding: 10px 20px !important;
     text-decoration: none !important;
-    color: #ffffff !important;
+    color: rgba(255, 255, 255, 0.7) !important;
     border: none !important;
     background: transparent !important;
     justify-content: flex-start !important;
@@ -81,88 +73,75 @@
 .sidebar-dashboard-btn i {
     font-size: 1.1rem !important;
     min-width: 20px !important;
-    color: #ffffff !important;
+    color: inherit !important;
 }
 
 .sidebar-dashboard-btn:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-radius: 0 12px 12px 0 !important;
-    transform: translateX(4px) !important;
-    color: #ffffff !important;
+    background: rgba(25, 167, 123, 0.15) !important;
+    border-radius: 10px !important;
+    transform: translateX(3px) !important;
+    color: #3BC49A !important;
 }
 
-/* Sidebar Navigation - Ultra Premium */
 .sidebar-nav {
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
 }
 
-.sidebar-nav li {
-    margin: 0 !important;
-}
+.sidebar-nav li { margin: 0 !important; }
 
 .sidebar-nav a {
     display: flex !important;
     align-items: center !important;
     gap: 14px !important;
-    padding: 10px 20px !important;
-    color: #ffffff !important;
+    padding: 10px 16px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
     text-decoration: none !important;
     font-weight: 500 !important;
     font-size: 0.9rem !important;
     transition: all 0.3s ease !important;
     border-left: 3px solid transparent !important;
-    margin: 1px 8px !important;
-    border-radius: 0 12px 12px 0 !important;
+    margin: 2px 8px !important;
+    border-radius: 10px !important;
 }
 
 .sidebar-nav a i {
     width: 20px !important;
     text-align: center !important;
     font-size: 1.1rem !important;
-    color: #ffffff !important;
+    color: inherit !important;
 }
 
 .sidebar-nav a:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-left-color: #ffffff !important;
-    transform: translateX(4px) !important;
-    color: #ffffff !important;
+    background: rgba(25, 167, 123, 0.15) !important;
+    border-left-color: transparent !important;
+    transform: translateX(3px) !important;
+    color: #3BC49A !important;
 }
 
 .sidebar-nav a.active {
-    background: rgba(255, 255, 255, 0.2) !important;
-    color: #ffffff !important;
-    border-left-color: #ffffff !important;
+    background: linear-gradient(135deg, rgba(25,167,123,0.25), rgba(59,196,154,0.12)) !important;
+    color: #3BC49A !important;
+    border-left-color: #19A77B !important;
     font-weight: 600 !important;
-    border-radius: 0 12px 12px 0 !important;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+    box-shadow: none !important;
 }
 
-.sidebar-nav a.active i {
-    color: #ffffff !important;
-}
+.sidebar-nav a.active i { color: #3BC49A !important; }
 
-/* Submenu Premium */
 .sidebar-nav .submenu {
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    background: rgba(0, 0, 0, 0.1) !important;
+    background: rgba(0, 0, 0, 0.15) !important;
     max-height: 0 !important;
     overflow: hidden !important;
     transition: max-height 0.3s ease !important;
 }
 
-.sidebar-nav .submenu.show {
-    max-height: 500px !important;
-}
-
-.sidebar-nav .submenu li {
-    margin: 0 !important;
-}
-
+.sidebar-nav .submenu.show { max-height: 500px !important; }
+.sidebar-nav .submenu li { margin: 0 !important; }
 .sidebar-nav .submenu a {
     padding: 8px 20px 8px 52px !important;
     font-size: 0.85rem !important;
@@ -180,7 +159,6 @@
     transform: rotate(180deg) !important;
 }
 
-/* Mobile Toggle Button - Premium */
 .sidebar-toggle-btn {
     display: none !important;
     position: fixed !important;
@@ -194,15 +172,12 @@
     border-radius: 12px !important;
     font-size: 1.2rem !important;
     cursor: pointer !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 16px rgba(25, 167, 123, 0.3) !important;
     transition: all 0.3s ease !important;
 }
 
-.sidebar-toggle-btn:hover {
-    transform: scale(1.08) !important;
-}
+.sidebar-toggle-btn:hover { transform: scale(1.08) !important; }
 
-/* Sidebar Overlay - Premium */
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -215,9 +190,8 @@
     z-index: 999;
 }
 
-.sidebar-overlay.show {
-    display: block;
-}
+.sidebar-overlay.show { display: block; }
+
 
 @media (max-width: 991.98px) {
     .sidebar-toggle-btn {

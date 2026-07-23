@@ -28,7 +28,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -249,7 +249,7 @@
             font-weight: 500;
         }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .alert-success { background: #ecfdf5; border: 1px solid #a7f3d0; color: #059669; }
+        .alert-success { background: #ecfdf5; border: 1px solid #6ed4b2; color: #148F69; }
         .alert-error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
 
         /* Stats Strip */
@@ -309,7 +309,7 @@
 
         .app-card.status-applied::before { background: var(--gradient-primary); }
         .app-card.status-viewed::before { background: linear-gradient(180deg, var(--purple), #c084fc); }
-        .app-card.status-shortlisted::before { background: linear-gradient(180deg, var(--success), #4ade80); }
+        .app-card.status-shortlisted::before { background: linear-gradient(180deg, var(--success), #3BC49A); }
         .app-card.status-interview::before { background: linear-gradient(180deg, var(--warning), #fb923c); }
         .app-card.status-rejected::before { background: linear-gradient(180deg, var(--danger), #f87171); }
         .app-card.status-hired::before { background: linear-gradient(180deg, var(--primary), var(--accent)); }

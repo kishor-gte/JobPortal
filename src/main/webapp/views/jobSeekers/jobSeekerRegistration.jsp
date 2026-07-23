@@ -343,7 +343,7 @@
                 </c:if>
 
                 <c:if test="${not empty message}">
-                    <div class="alert alert-success" style="background: #d1fae5; color: #10b981; border: 1px solid #a7f3d0; border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <div class="alert alert-success" style="background: #d1fae5; color: #19A77B; border: 1px solid #6ed4b2; border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
                         <i class="fas fa-check-circle"></i> ${message}
                     </div>
                 </c:if>
@@ -450,8 +450,8 @@
             
             passwordMatch.style.display = 'block';
             if (password.value === confirmPassword.value) {
-                passwordMatch.innerHTML = '<i class="fas fa-check-circle" style="color: #10b981;"></i> Passwords match';
-                passwordMatch.style.color = '#10b981';
+                passwordMatch.innerHTML = '<i class="fas fa-check-circle" style="color: #19A77B;"></i> Passwords match';
+                passwordMatch.style.color = '#19A77B';
             } else {
                 passwordMatch.innerHTML = '<i class="fas fa-times-circle" style="color: #ef4444;"></i> Passwords do not match';
                 passwordMatch.style.color = '#ef4444';

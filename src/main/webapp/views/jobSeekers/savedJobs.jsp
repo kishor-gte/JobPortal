@@ -33,7 +33,7 @@
             --text-secondary: #64748b;
             --border-color: #e0e6ed;
             --white: #ffffff;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
@@ -213,9 +213,9 @@
         }
 
         .badge-success-custom {
-            background: rgba(16, 185, 129, 0.12);
+            background: rgba(25, 167, 123, 0.12);
             color: var(--success);
-            border-color: rgba(16, 185, 129, 0.3);
+            border-color: rgba(25, 167, 123, 0.3);
         }
 
         .badge-warning-custom {
@@ -339,7 +339,7 @@
             color: white;
             border-color: var(--success);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
         }
 
         .icon-btn.remove:hover {
@@ -386,8 +386,8 @@
         }
 
         .alert-success-custom {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(25, 167, 123, 0.1);
+            border-color: rgba(25, 167, 123, 0.3);
             color: var(--success);
         }
 

@@ -30,7 +30,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -481,13 +481,13 @@
         .strength-tag {
             display: inline-block;
             padding: 5px 12px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(25, 167, 123, 0.1);
             color: #15803d;
             border-radius: 8px;
             font-size: 12px;
             margin: 3px;
             font-weight: 500;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(25, 167, 123, 0.2);
         }
 
         .weakness-tag {

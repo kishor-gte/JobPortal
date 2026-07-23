@@ -28,7 +28,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
             --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -292,7 +292,7 @@
             letter-spacing: 0.5px; white-space: nowrap;
             backdrop-filter: blur(10px);
         }
-        .badge-fulltime { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-fulltime { background: rgba(25, 167, 123, 0.12); color: var(--success); border: 1px solid rgba(25, 167, 123, 0.3); }
         .badge-remote { background: rgba(25, 167, 123, 0.12); color: var(--primary); border: 1px solid rgba(25, 167, 123, 0.3); }
         .badge-internship { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
         .badge-parttime { background: rgba(139, 92, 246, 0.12); color: var(--purple); border: 1px solid rgba(139, 92, 246, 0.3); }
@@ -340,8 +340,8 @@
             background: #94a3b8; cursor: not-allowed; box-shadow: none;
         }
         .btn-applied {
-            padding: 12px 28px; background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3); color: var(--success);
+            padding: 12px 28px; background: rgba(25, 167, 123, 0.15);
+            border: 1px solid rgba(25, 167, 123, 0.3); color: var(--success);
             border-radius: 30px; font-size: 13px; font-weight: 600;
         }
         .btn-view { 
@@ -361,7 +361,7 @@
             animation: slideDown 0.4s ease-out;
         }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .alert-success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--success); }
+        .alert-success { background: rgba(25, 167, 123, 0.1); border: 1px solid rgba(25, 167, 123, 0.3); color: var(--success); }
         .alert-error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--danger); }
 
         .empty-state { 
@@ -384,7 +384,7 @@
         .exp-badge {
             padding: 4px 12px; border-radius: 30px; font-size: 11px; font-weight: 600;
         }
-        .exp-fresher { background: rgba(16, 185, 129, 0.12); color: var(--success); }
+        .exp-fresher { background: rgba(25, 167, 123, 0.12); color: var(--success); }
         .exp-junior { background: rgba(25, 167, 123, 0.12); color: var(--primary); }
         .exp-mid { background: rgba(245, 158, 11, 0.12); color: var(--warning); }
         .exp-senior { background: rgba(139, 92, 246, 0.12); color: var(--purple); }

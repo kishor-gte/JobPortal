@@ -31,7 +31,7 @@
     --primary-light: #3BC49A;
     --primary-soft: rgba(25, 167, 123, 0.08);
     --accent: #06B6D4;
-    --success: #10B981;
+    --success: #19A77B;
     --slate-900: #0f172a;
     --slate-800: #1e293b;
     --slate-700: #334155;
@@ -77,13 +77,14 @@
   html { scroll-behavior: smooth; }
 
   /* ========== PREMIUM NAVBAR DESIGN ========== */
+  /* ========== PREMIUM NAVBAR DESIGN ========== */
   .navbar-area {
     position: fixed;
     top: 0;
     left: 0;
     transform: none;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 0;
@@ -92,7 +93,8 @@
     transition: all 0.3s ease-in-out;
     border-bottom: 1px solid #E5E7EB;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-    display: block;
+    display: flex;
+    align-items: center;
     height: 72px;
   }
 
@@ -102,16 +104,21 @@
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
   }
 
-  .navbar-brand.logo {
+  .navbar-brand.logo,
+  .custom-premium-logo {
     padding: 0;
-    margin-right: 40px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
   }
 
   .logo1 {
-    height: 48px !important;
+    height: 42px !important;
     width: auto;
+    max-width: 140px;
+    object-fit: contain;
     transition: all 0.3s ease;
   }
 
@@ -120,6 +127,14 @@
     align-items: center;
     gap: 6px;
     height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .navbar-nav .nav-item {
+    flex-shrink: 0;
   }
 
   .navbar-nav .nav-item .nav-link {
@@ -132,19 +147,21 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    transition: all 0.3s ease;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    text-decoration: none;
   }
 
   .navbar-nav .nav-item .nav-link i { 
     font-size: 0.85rem; 
     opacity: 0.7; 
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
   }
 
   .navbar-nav .nav-item .nav-link:hover {
     color: #19A77B !important;
     background: #E6F6F1;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .navbar-nav .nav-item .nav-link:hover i {
@@ -152,32 +169,43 @@
   }
 
   .navbar-nav .nav-item .nav-link.active {
-    color: black;
+    color: #19A77B !important;
+    background: #E6F6F1;
+    font-weight: 700;
   }
 
   .navbar-nav .nav-item .nav-link.active i {
-    color: black;
+    color: #19A77B !important;
+  }
+
+  .button-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
   }
 
   .btn-login {
     background: linear-gradient(135deg, #19A77B, #3BC49A);
     color: white !important;
     font-weight: 600;
-    padding: 10px 24px !important;
+    padding: 10px 20px !important;
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(25, 167, 123, 0.2);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    white-space: nowrap;
     border: none;
   }
 
   .btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(25, 167, 123, 0.45);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(25, 167, 123, 0.35);
     color: white !important;
   }
 
@@ -185,20 +213,22 @@
     background: white;
     color: #19A77B !important;
     font-weight: 600;
-    padding: 10px 24px !important;
+    padding: 10px 20px !important;
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     transition: all 0.3s ease;
     border: 1.5px solid #19A77B;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    white-space: nowrap;
   }
 
   .btn-register:hover {
     background: #19A77B;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     color: white !important;
     box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
   }
@@ -291,7 +321,7 @@
     top: -10%; right: -5%; border-radius: 50%; animation: float-blob 20s infinite alternate;
   }
   .premium-blob-2 {
-    position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, rgba(255,255,255,0) 70%);
+    position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(25, 167, 123,0.05) 0%, rgba(255,255,255,0) 70%);
     bottom: -10%; left: -10%; border-radius: 50%; animation: float-blob 15s infinite alternate-reverse;
   }
 
@@ -494,7 +524,7 @@
 
   .feature-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 30px 60px -15px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 30px 60px -15px rgba(25, 167, 123, 0.2);
   }
   
   .btn-feature:hover { gap: 12px; }
@@ -538,7 +568,7 @@
   .footer .quick-links li a:hover { opacity: 1; color: var(--primary); transform: translateX(8px); }
 
   .btn-legal {
-    background: #10b981 !important;
+    background: #19A77B !important;
     padding: 8px 16px !important;
     border-radius: 6px !important;
     display: inline-flex !important;
@@ -548,13 +578,13 @@
     margin-top: 5px;
     transition: var(--transition);
     opacity: 1 !important;
-    color: #10b981 !important; /* text color inside will be different */
+    color: #19A77B !important; /* text color inside will be different */
     font-weight: 900 !important;
   }
 
   .btn-legal {
-    background: #10b981 !important;
-    color: #10b981 !important;
+    background: #19A77B !important;
+    color: #19A77B !important;
     padding: 10px 20px !important;
     border-radius: 8px !important;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -567,7 +597,7 @@
     background: #64b5f6; /* Blueish color from screenshot */
     padding: 4px 12px;
     border-radius: 4px;
-    color: #ffffff; /* Changed from #10b981 to white */
+    color: #ffffff; /* Changed from #19A77B to white */
     font-size: 0.8rem;
     letter-spacing: 1px;
     font-weight: 800;
@@ -608,13 +638,13 @@
 
   /* Floating Widgets */
   .whatsapp-float {
-    background: #22c55e;
-    box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.4);
+    background: #19A77B;
+    box-shadow: 0 10px 25px -5px rgba(25, 167, 123, 0.4);
   }
 
   .scroll-top {
     background: var(--primary);
-    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 10px 25px -5px rgba(25, 167, 123, 0.4);
   }
 
   /* ========== RESPONSIVE ========== */
@@ -883,7 +913,7 @@
     color: #fff;
     font-size: 1.4rem;
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+    box-shadow: 0 8px 24px rgba(25, 167, 123,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -892,7 +922,7 @@
 
   .chat-button:hover {
     transform: scale(1.1);
-    box-shadow: 0 12px 30px rgba(16,185,129,0.5);
+    box-shadow: 0 12px 30px rgba(25, 167, 123,0.5);
   }
 
 </style>
@@ -907,8 +937,8 @@
   transition: opacity 0.4s ease;">
   <div style="
     width: 48px; height: 48px;
-    border: 4px solid rgba(16,185,129,0.15);
-    border-top-color: #10b981;
+    border: 4px solid rgba(25, 167, 123,0.15);
+    border-top-color: #19A77B;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;">
   </div>
@@ -918,12 +948,12 @@
 <!-- Header -->
 <header class="header">
   <div class="navbar-area" id="navbarSticky">
-    <nav class="navbar navbar-expand-xl w-100 h-100 position-relative p-0">
-      <div class="container-fluid px-3 px-lg-5 h-100">
+    <nav class="navbar navbar-expand-lg w-100 position-relative">
+      <div class="container-fluid">
             
             <!-- Left: Logo -->
-            <a class="navbar-brand custom-premium-logo" href="${pageContext.request.contextPath}/" style="display: flex; align-items: center; text-decoration: none; z-index: 1000; background-color: transparent !important;"> 
-              <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" style="height: 45px; width: auto; object-fit: contain; display: block; opacity: 1 !important; visibility: visible !important; background-color: transparent !important;" />
+            <a class="navbar-brand custom-premium-logo" href="${pageContext.request.contextPath}/"> 
+              <img src="${pageContext.request.contextPath}/assets/images/logo/logo.png" alt="JobU Logo" class="logo1" />
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -933,7 +963,7 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               
               <!-- Center: Nav Options -->
-              <ul id="nav" class="navbar-nav mx-auto" style="display: flex; gap: 8px; align-items: center; margin-left: auto; margin-right: auto;">
+              <ul id="nav" class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Services</a>
                   <ul class="sub-menu">
@@ -974,9 +1004,9 @@
               </ul>
               
               <!-- Right: Action Buttons -->
-              <div class="button-group d-flex align-items-center mt-3 mt-lg-0" style="gap: 15px;">
-                <a href="${pageContext.request.contextPath}/jobSeekers/register" class="btn-register" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600;"><i class="fas fa-user-plus"></i> Register</a>
-                <a href="${pageContext.request.contextPath}/jobSeekers/login"  class="btn-login" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 10px 20px; font-weight: 600; background: var(--primary); color: white; border-radius: 8px;"><i class="lni lni-lock-alt"></i> Login</a>
+              <div class="button-group d-flex align-items-center mt-3 mt-lg-0">
+                <a href="${pageContext.request.contextPath}/jobSeekers/register" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
+                <a href="${pageContext.request.contextPath}/jobSeekers/login"  class="btn-login"><i class="lni lni-lock-alt"></i> Login</a>
               </div>
               
             </div>
@@ -1083,7 +1113,7 @@
       </div>
       
       <div class="premium-stat-item">
-        <div class="stat-icon" style="background: linear-gradient(135deg, #10B981, #34D399); box-shadow: 0 10px 20px rgba(16,185,129,0.3);"><i class="fas fa-star"></i></div>
+        <div class="stat-icon" style="background: linear-gradient(135deg, #19A77B, #3BC49A); box-shadow: 0 10px 20px rgba(25, 167, 123,0.3);"><i class="fas fa-star"></i></div>
         <div class="stat-info">
           <h3><span class="premium-counter" data-target="${topCompanies != null ? topCompanies : 0}">0</span>+</h3>
           <p>Top Companies</p>
@@ -1358,7 +1388,7 @@
       <!-- Card 2 -->
       <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.2s;">
         <a href="${pageContext.request.contextPath}/jobs/category/FINANCE" class="premium-cat-card">
-          <div class="icon-wrapper" style="background: #ECFDF5; color: #10B981;"><i class="fas fa-chart-line"></i></div>
+          <div class="icon-wrapper" style="background: #ECFDF5; color: #19A77B;"><i class="fas fa-chart-line"></i></div>
           <h3>Finance & Banking</h3>
           <p>Investment banking, accounting, and financial planning careers.</p>
           <div><span class="premium-cat-job-count">${countFinance != null ? countFinance : 0} Openings</span></div>
@@ -1418,7 +1448,7 @@
       <!-- Card 8 -->
       <div class="col-lg-3 col-md-6 animate-fade-up" style="animation-delay: 0.4s;">
         <a href="${pageContext.request.contextPath}/jobs/category/LOCAL_JOBS" class="premium-cat-card">
-          <div class="icon-wrapper" style="background: #F0FDF4; color: #22C55E;"><i class="fas fa-store"></i></div>
+          <div class="icon-wrapper" style="background: #F0FDF4; color: #19A77B;"><i class="fas fa-store"></i></div>
           <h3>Local Jobs</h3>
           <p>Retail, hospitality, and local business opportunities.</p>
           <div><span class="premium-cat-job-count">${countLocal != null ? countLocal : 0} Openings</span></div>
@@ -1537,7 +1567,7 @@
                       <span class="premium-tag">${job.employmentType}</span>
                     </c:if>
                     <c:if test="${not empty job.workMode}">
-                      <span class="premium-tag" style="background: #ECFDF5; color: #10B981; border-color: rgba(16,185,129,0.2);">${job.workMode}</span>
+                      <span class="premium-tag" style="background: #ECFDF5; color: #19A77B; border-color: rgba(25, 167, 123,0.2);">${job.workMode}</span>
                     </c:if>
                   </div>
                   <span class="time-ago">${job.postedDate}</span>
@@ -1674,7 +1704,7 @@
     </div>
   </div>
 </footer>
-<a href="https://api.whatsapp.com/send?phone=918660609247&text=Hi%20there!" target="_blank" class="whatsapp-float" style="position:fixed;bottom:28px;right:100px;z-index:9998;width:56px;height:56px;border-radius:50%;background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 24px rgba(34,197,94,0.4);text-decoration:none;transition:transform 0.2s;"><i class="fab fa-whatsapp"></i></a>
+<a href="https://api.whatsapp.com/send?phone=918660609247&text=Hi%20there!" target="_blank" class="whatsapp-float" style="position:fixed;bottom:28px;right:100px;z-index:9998;width:56px;height:56px;border-radius:50%;background:#19A77B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 24px rgba(25, 167, 123,0.4);text-decoration:none;transition:transform 0.2s;"><i class="fab fa-whatsapp"></i></a>
 
 <!-- Chat Widget -->
 <div class="chat-widget">
@@ -1864,7 +1894,7 @@
                         "email": email
                     },
                     "theme": {
-                        "color": "#10b981"
+                        "color": "#19A77B"
                     },
                     "modal": {
                         "ondismiss": function() {

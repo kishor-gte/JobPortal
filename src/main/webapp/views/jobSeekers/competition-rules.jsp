@@ -53,7 +53,7 @@
         .security-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
         .security-item { background: rgba(0,0,0,0.2); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
         .security-item i { color: #ef4444; }
-        .security-item i.fa-check-circle { color: #10b981; }
+        .security-item i.fa-check-circle { color: #19A77B; }
 
         .agreement { margin-top: 40px; padding: 20px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; display: flex; align-items: center; gap: 12px; }
         .agreement input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer; }

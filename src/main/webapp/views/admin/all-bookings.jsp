@@ -367,8 +367,15 @@
         .table tbody tr:nth-child(9) { animation-delay: 0.45s; }
         .table tbody tr:nth-child(10) { animation-delay: 0.5s; }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="All Bookings"/>
+  <jsp:param name="pageSubtitle" value="Sports service bookings"/>
+  <jsp:param name="activeNav" value="bookings"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -661,5 +668,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

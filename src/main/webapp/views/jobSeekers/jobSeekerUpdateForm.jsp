@@ -376,9 +376,9 @@
                     }
 
                     .status-active {
-                        background: rgba(16, 185, 129, 0.12);
-                        color: #10b981;
-                        border: 1px solid rgba(16, 185, 129, 0.3);
+                        background: rgba(25, 167, 123, 0.12);
+                        color: #19A77B;
+                        border: 1px solid rgba(25, 167, 123, 0.3);
                     }
 
                     .status-inactive {

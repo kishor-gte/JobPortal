@@ -204,8 +204,15 @@ body{
 }
 
 </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Alert Detail"/>
+  <jsp:param name="pageSubtitle" value="Company report details"/>
+  <jsp:param name="activeNav" value="alerts"/>
+</jsp:include>
+
 <div class="wrapper">
   <!-- Top -->
   <div class="topbar">
@@ -465,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>
 

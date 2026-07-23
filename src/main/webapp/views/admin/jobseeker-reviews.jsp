@@ -479,8 +479,15 @@ body::after {
 
 ::selection { background: var(--primary); color: white; }
 </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Job Seeker Reviews"/>
+  <jsp:param name="pageSubtitle" value="Reviews overview"/>
+  <jsp:param name="activeNav" value="jobseekers"/>
+</jsp:include>
 
 <!-- decorative floating elements -->
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
@@ -737,5 +744,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

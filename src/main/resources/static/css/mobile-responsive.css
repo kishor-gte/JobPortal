@@ -1,244 +1,211 @@
 /**
  * Mobile Responsive Styles for Job Portal
- * Include this CSS file in all JSP pages for mobile responsiveness
+ * JobU theme greens + safer responsive rules (won't break login layouts)
  */
+
+:root {
+  --primary: #19A77B;
+  --primary-dark: #148F69;
+  --accent: #3BC49A;
+  --bg-dark: #2E3E41;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* Mobile First Base Styles */
 @media (max-width: 768px) {
-    /* Container adjustments */
-    .container {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-    }
-    
-    /* Typography */
-    h1 { font-size: 1.5rem !important; }
-    h2 { font-size: 1.3rem !important; }
-    h3 { font-size: 1.1rem !important; }
-    
-    /* Tables - Card layout */
-    table, thead, tbody, th, td, tr {
-        display: block !important;
-    }
-    
-    thead tr {
-        position: absolute !important;
-        top: -9999px !important;
-        left: -9999px !important;
-    }
-    
-    tr {
-        margin-bottom: 15px !important;
-        border: 1px solid #ddd !important;
-        border-radius: 8px !important;
-        padding: 10px !important;
-        background: #fff !important;
-    }
-    
-    td {
-        border: none !important;
-        position: relative !important;
-        padding-left: 50% !important;
-        text-align: right !important;
-        border-bottom: 1px solid #eee !important;
-    }
-    
-    td:before {
-        content: attr(data-label) !important;
-        position: absolute !important;
-        left: 12px !important;
-        width: 45% !important;
-        text-align: left !important;
-        font-weight: bold !important;
-        color: #2042e3 !important;
-    }
-    
-    td:last-child {
-        border-bottom: none !important;
-    }
-    
-    /* Forms */
-    .form-control {
-        font-size: 16px !important; /* Prevent zoom on iOS */
-    }
-    
-    /* Buttons */
-    .btn {
-        width: 100% !important;
-        margin-bottom: 10px !important;
-    }
-    
-    /* Sidebar/Navigation */
-    .sidebar, .nav-sidebar {
-        position: fixed !important;
-        left: -100% !important;
-        top: 0 !important;
-        width: 280px !important;
-        height: 100vh !important;
-        z-index: 1000 !important;
-        transition: left 0.3s ease !important;
-        background: #fff !important;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1) !important;
-    }
-    
-    .sidebar.active, .nav-sidebar.active {
-        left: 0 !important;
-    }
-    
-    /* Overlay for sidebar */
-    .sidebar-overlay {
-        display: none !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        background: rgba(0,0,0,0.5) !important;
-        z-index: 999 !important;
-    }
-    
-    .sidebar-overlay.active {
-        display: block !important;
-    }
-    
-    /* Main content area */
-    .main-content {
-        margin-left: 0 !important;
-        width: 100% !important;
-        padding: 15px !important;
-    }
-    
-    /* Cards */
-    .card {
-        margin-bottom: 15px !important;
-    }
-    
-    /* Grid layouts */
-    .row > [class*="col-"] {
-        margin-bottom: 15px !important;
-    }
-    
-    /* Header */
-    .page-header h1 {
-        font-size: 1.3rem !important;
-    }
-    
-    /* Mobile menu toggle button */
-    .mobile-menu-toggle {
-        display: block !important;
-        position: fixed !important;
-        top: 15px !important;
-        left: 15px !important;
-        z-index: 1001 !important;
-        background: #2042e3 !important;
-        color: white !important;
-        border: none !important;
-        padding: 10px 15px !important;
-        border-radius: 8px !important;
-        font-size: 1.2rem !important;
-        cursor: pointer !important;
-    }
-    
-    /* Footer adjustments */
-    .footer {
-        text-align: center !important;
-    }
-    
-    .footer .col-md-4, .footer .col-lg-4 {
-        margin-bottom: 20px !important;
-    }
-}
+  .container,
+  .container-fluid {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
 
-/* Tablet adjustments */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .sidebar {
-        width: 220px !important;
-    }
-    
-    .main-content {
-        margin-left: 220px !important;
-    }
-}
+  h1 { font-size: 1.45rem !important; }
+  h2 { font-size: 1.25rem !important; }
+  h3 { font-size: 1.1rem !important; }
 
-/* Hide mobile toggle on desktop */
-.mobile-menu-toggle {
+  /* Tables — only when marked responsive or with data-label cards */
+  .table-responsive-stack table,
+  table.table-stack {
+    width: 100%;
+  }
+
+  .table-responsive-stack thead,
+  table.table-stack thead {
     display: none;
+  }
+
+  .table-responsive-stack tr,
+  table.table-stack tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #e2ede7;
+    border-radius: 10px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .table-responsive-stack td,
+  table.table-stack td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border: none;
+    border-bottom: 1px solid #eef3f0;
+    padding: 8px 4px;
+    text-align: right;
+  }
+
+  .table-responsive-stack td:before,
+  table.table-stack td:before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--primary);
+    text-align: left;
+  }
+
+  .table-responsive-stack td:last-child,
+  table.table-stack td:last-child {
+    border-bottom: none;
+  }
+
+  /* Forms — prevent iOS zoom */
+  .form-control,
+  .form-select,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Buttons: full width only in stacked action areas, NOT all global buttons */
+  .btn-block,
+  .d-grid .btn,
+  .action-stack .btn,
+  .form-actions .btn {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Sidebars */
+  .sidebar,
+  .nav-sidebar,
+  .career-sidebar,
+  .admin-sidebar {
+    max-width: min(300px, 86vw);
+  }
+
+  .main-content,
+  .admin-main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+  }
+
+  .page-header h1,
+  .admin-welcome-block h1 {
+    font-size: 1.2rem !important;
+  }
+
+  .row > [class*="col-"] {
+    margin-bottom: 12px;
+  }
+
+  .card,
+  .hr-card,
+  .premium-card,
+  .comp-card {
+    margin-bottom: 12px;
+  }
+
+  /* Touch targets — skip tiny icon-only controls that set explicit sizes */
+  a.btn,
+  button.btn,
+  input[type="submit"],
+  .btn-register {
+    min-height: 42px;
+  }
+
+  .navbar-nav {
+    flex-direction: column !important;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
+  }
+
+  .badge { font-size: 0.75rem; }
+  .alert { padding: 12px; font-size: 0.9rem; }
+
+  /* Login / auth pages: keep centered cards readable */
+  .login-container,
+  .main-container,
+  .auth-card,
+  .profile-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar,
+  .nav-sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
 }
 
-/* Touch-friendly tap targets */
-@media (max-width: 768px) {
-    a, button, .btn, input[type="submit"] {
-        min-height: 44px !important;
-        min-width: 44px !important;
-    }
-    
-    /* Improve form usability */
-    input, select, textarea {
-        font-size: 16px !important; /* Prevents zoom on iOS */
-    }
-    
-    /* Image responsiveness */
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-    
-    /* Navigation improvements */
-    .navbar-nav {
-        flex-direction: column !important;
-    }
-    
-    .navbar-nav .nav-item {
-        width: 100% !important;
-    }
-    
-    /* Badge and notification adjustments */
-    .badge {
-        font-size: 0.75rem !important;
-    }
-    
-    /* Alerts */
-    .alert {
-        padding: 12px !important;
-        font-size: 0.9rem !important;
-    }
+/* Extra small phones */
+@media (max-width: 480px) {
+  h1 { font-size: 1.25rem !important; }
+
+  .stats-row,
+  .hr-stats-grid,
+  .competitions-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-top-bar,
+  .top-bar {
+    padding: 0.65rem 0.75rem !important;
+  }
 }
 
-/* Animation classes */
-.fade-in {
-    animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.slide-in-left {
-    animation: slideInLeft 0.3s ease-out;
-}
-
-@keyframes slideInLeft {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
-}
-
-/* Loading spinner for async operations */
+/* Loading spinner — JobU green */
 .loading-spinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(32, 66, 227, 0.3);
-    border-radius: 50%;
-    border-top-color: #2042e3;
-    animation: spin 1s ease-in-out infinite;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(25, 167, 123, 0.25);
+  border-radius: 50%;
+  border-top-color: #19A77B;
+  animation: jobu-spin 1s ease-in-out infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+@keyframes jobu-spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: jobu-fadeIn 0.3s ease-in;
+}
+
+@keyframes jobu-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

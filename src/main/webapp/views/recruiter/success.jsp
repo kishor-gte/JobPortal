@@ -26,7 +26,7 @@
             --text-primary: #1e293b;
             --text-secondary: #64748b;
             --white: #ffffff;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
@@ -111,9 +111,9 @@
         }
 
         .status-icon.success {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(25, 167, 123, 0.1);
             color: var(--success);
-            border: 2px solid rgba(16, 185, 129, 0.3);
+            border: 2px solid rgba(25, 167, 123, 0.3);
             animation: successPulse 2s ease-in-out infinite;
         }
 
@@ -125,10 +125,10 @@
 
         @keyframes successPulse {
             0%, 100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3);
+                box-shadow: 0 0 0 0 rgba(25, 167, 123, 0.3);
             }
             50% {
-                box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+                box-shadow: 0 0 0 15px rgba(25, 167, 123, 0);
             }
         }
 
@@ -158,8 +158,8 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(25, 167, 123, 0.1);
+            border: 1px solid rgba(25, 167, 123, 0.3);
             color: var(--success);
         }
 

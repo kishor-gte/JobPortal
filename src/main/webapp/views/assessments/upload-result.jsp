@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --warning: #f59e0b;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -199,9 +199,9 @@
         }
 
         .message.success {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(25, 167, 123, 0.1);
             color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(25, 167, 123, 0.3);
         }
 
         .message.error {
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function startSuccessAnimation() {
         // Simple confetti effect
-        const colors = ['#19A77B', '#3BC49A', '#10b981', '#34d399'];
+        const colors = ['#19A77B', '#3BC49A', '#19A77B', '#3BC49A'];
         for (let i = 0; i < 50; i++) {
             createParticle(colors[Math.floor(Math.random() * colors.length)]);
         }

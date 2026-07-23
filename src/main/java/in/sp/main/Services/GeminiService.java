@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 public class GeminiService {
 
-    @Value("${gemini.api.key:}")
+    @Value("${gemini.api.key:AIzaSyCr_gUF2YzV16dICNphMfnkyjBFurYLKaM}")
     private String geminiApiKey;
 
     @Autowired

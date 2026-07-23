@@ -35,7 +35,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
@@ -498,8 +498,15 @@
 
         ::selection { background: var(--primary); color: white; }
     </style>
+<jsp:include page="/views/commons/admin_shell_head.jsp" />
 </head>
 <body>
+
+<jsp:include page="/views/commons/admin_shell_start.jsp">
+  <jsp:param name="pageTitle" value="Job Seeker Profile"/>
+  <jsp:param name="pageSubtitle" value="Profile details"/>
+  <jsp:param name="activeNav" value="jobseekers"/>
+</jsp:include>
 
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
 <div class="floating-shape" style="width: 250px; height: 250px; bottom: 60px; left: -60px; opacity: 0.04;"></div>
@@ -737,5 +744,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/admin_shell_end.jsp" />
 </body>
 </html>

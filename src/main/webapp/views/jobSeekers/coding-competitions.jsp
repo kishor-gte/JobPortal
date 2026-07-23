@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -381,23 +378,12 @@
             <button class="tab-btn" id="tab-my-competitions" role="tab" aria-selected="false" aria-controls="my-competitions" data-tab="my-competitions">My Competitions</button>
         </div>
 
-        <%
-            LocalDateTime currentNow = LocalDateTime.now();
-            request.setAttribute("now", currentNow);
-            DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy h:mm a");
-            request.setAttribute("dtFormatter", dtFormatter);
-            DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MMM dd, h:mm a");
-            request.setAttribute("shortFormatter", shortFormatter);
-            DateTimeFormatter sortFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-            request.setAttribute("sortFormatter", sortFormatter);
-        %>
-
         <!-- Upcoming Tab -->
         <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="tab-upcoming">
             <div class="competitions-grid">
                 <c:set var="upcomingCount" value="0"/>
                 <c:forEach var="comp" items="${allCompetitions}">
-                    <c:if test="${comp.examStartTime.format(sortFormatter) gt now.format(sortFormatter)}">
+                    <c:if test="${comp.examUpcoming}">
                         <c:set var="upcomingCount" value="${upcomingCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -419,7 +405,7 @@
                             <c:set var="isCompleted" value="true"/>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${!isCompleted && (comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
+                    <c:if test="${!isCompleted && comp.examLive}">
                         <c:set var="liveCount" value="${liveCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -441,7 +427,7 @@
                             <c:set var="isCompleted" value="true"/>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${isCompleted || comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
+                    <c:if test="${isCompleted || comp.examEnded}">
                         <c:set var="compCount" value="${compCount + 1}"/>
                         <%@ include file="comp-card.jsp" %>
                     </c:if>
@@ -491,16 +477,7 @@
                                     <div class="comp-body">
                                         <h2 class="comp-title">${comp.title}</h2>
                                         <div class="comp-details" style="grid-template-columns: 1fr;">
-                                            <div class="detail-item"><i class="fas fa-calendar-alt"></i> Exam: 
-                                                <c:choose>
-                                                    <c:when test="${not empty comp.examStartTime}">
-                                                        ${comp.examStartTime.format(dtFormatter)}
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        TBA
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </div>
+                                            <div class="detail-item"><i class="fas fa-calendar-alt"></i> Exam: ${comp.examStartTimeDisplay}</div>
                                             <div class="detail-item"><i class="fas fa-stopwatch"></i> Duration: ${comp.examDurationMinutes} Mins</div>
                                             <div class="detail-item"><i class="fas fa-language"></i> Lang: ${comp.allowedLanguages}</div>
                                         </div>
@@ -511,10 +488,10 @@
                                                 <c:when test="${isCompleted}">
                                                     <button class="btn-register" disabled style="background: var(--text-muted); color: white;"><i class="fas fa-check-circle"></i> Exam Submitted</button>
                                                 </c:when>
-                                                <c:when test="${comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) lt now.format(sortFormatter)}">
+                                                <c:when test="${comp.examEnded}">
                                                     <button class="btn-register" disabled>Competition Closed</button>
                                                 </c:when>
-                                                <c:when test="${(comp.examStartTime.format(sortFormatter) le now.format(sortFormatter)) && comp.examStartTime.plusMinutes(comp.examDurationMinutes).format(sortFormatter) gt now.format(sortFormatter)}">
+                                                <c:when test="${comp.examLive}">
                                                     <a href="${pageContext.request.contextPath}/student/coding-competitions/rules/${comp.id}" class="btn-start" role="button"><i class="fas fa-play" aria-hidden="true"></i> Start Exam</a>
                                                 </c:when>
                                                 <c:otherwise>
@@ -588,7 +565,7 @@
                 if (diff <= 0) {
                     el.innerText = "Exam is Live! Please refresh.";
                     el.style.color = "var(--success)";
-                    el.style.background = "rgba(16, 185, 129, 0.1)";
+                    el.style.background = "rgba(25, 167, 123, 0.1)";
                     return;
                 }
                 

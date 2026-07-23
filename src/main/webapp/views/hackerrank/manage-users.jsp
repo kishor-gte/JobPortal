@@ -30,7 +30,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -612,9 +612,9 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #4ade80;
+            background: rgba(25, 167, 123, 0.1);
+            border: 1px solid rgba(25, 167, 123, 0.3);
+            color: #3BC49A;
         }
 
         .empty-state {

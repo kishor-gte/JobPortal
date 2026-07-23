@@ -40,7 +40,7 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
             --glow-primary: 0 0 30px rgba(25, 167, 123, 0.2);
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
@@ -488,7 +488,7 @@
 
         .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
         .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        .stat-icon.green { background: rgba(25, 167, 123, 0.1); color: #19A77B; }
         .stat-icon.purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
         .stat-icon.cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
         .stat-icon.pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
@@ -598,7 +598,7 @@
 
         .user-avatar.admin { background: linear-gradient(135deg, #ef4444, #b91c1c); }
         .user-avatar.student { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .user-avatar.interviewer { background: linear-gradient(135deg, #10b981, #047857); }
+        .user-avatar.interviewer { background: linear-gradient(135deg, #19A77B, #148F69); }
         .user-avatar.company { background: linear-gradient(135deg, #f59e0b, #b45309); }
 
         .user-name {
@@ -618,7 +618,7 @@
 
         .role-admin { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
         .role-student { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .role-interviewer { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .role-interviewer { background: rgba(25, 167, 123, 0.15); color: #19A77B; border: 1px solid rgba(25, 167, 123, 0.3); }
         .role-company { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
 
         .main-content {

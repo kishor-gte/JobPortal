@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --warning: #f59e0b;
             --danger: #ef4444;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -215,7 +215,7 @@
 
         .result-card:hover::before { transform: scaleX(1); }
 
-        .result-card.high-score::before { background: linear-gradient(90deg, #10b981, #34d399); }
+        .result-card.high-score::before { background: linear-gradient(90deg, #19A77B, #3BC49A); }
         .result-card.medium-score::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
         .result-card.low-score::before { background: linear-gradient(90deg, #ef4444, #f87171); }
 
@@ -289,7 +289,7 @@
         .score-number { font-size: 1.6rem; font-weight: 800; color: var(--primary); line-height: 1; }
         .score-total { font-size: 0.7rem; color: var(--text-muted); }
         .score-percent { font-size: 1rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 40px; }
-        .percent-high { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+        .percent-high { background: rgba(25, 167, 123, 0.12); color: #19A77B; }
         .percent-medium { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
         .percent-low { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
 
@@ -297,7 +297,7 @@
         .progress-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.25rem; }
         .progress-bar-container { background: #e2ede7; border-radius: 10px; height: 8px; overflow: hidden; }
         .progress-fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
-        .progress-fill.high { background: linear-gradient(90deg, #10b981, #34d399); }
+        .progress-fill.high { background: linear-gradient(90deg, #19A77B, #3BC49A); }
         .progress-fill.medium { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
         .progress-fill.low { background: linear-gradient(90deg, #ef4444, #f87171); }
 

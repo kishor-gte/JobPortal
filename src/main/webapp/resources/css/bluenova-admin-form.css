@@ -1,14 +1,14 @@
 /* ================= BLUENOVA THEME ================= */
 :root {
-    --primary: #2042e3;
-    --primary-dark: #081828;
-    --light-bg: #f6f9fc;
+    --primary: #19A77B;
+    --primary-dark: #148F69;
+    --light-bg: #f0f7f4;
     --card-bg: #ffffff;
-    --text-dark: #081828;
-    --text-muted: #7E8890;
-    --border-color: #e0e6ed;
+    --text-dark: #1e2a2e;
+    --text-muted: #5b7c6e;
+    --border-color: #e2ede7;
     --radius: 12px;
-    --shadow: 0 8px 24px rgba(35, 38, 45, 0.15);
+    --shadow: 0 8px 24px rgba(30, 42, 46, 0.12);
     --font: "Inter", sans-serif;
 }
 
@@ -80,7 +80,7 @@ label {
 .form-control:focus,
 .form-select:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(32, 66, 227, 0.15);
+    box-shadow: 0 0 0 2px rgba(25, 167, 123, 0.15);
 }
 
 /* ================= TEXTAREA ================= */

@@ -31,7 +31,7 @@
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
     --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-    --success: #10b981;
+    --success: #19A77B;
     --warning: #f59e0b;
     --info: #3b82f6;
 }

@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +24,7 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --text-dark: #1e2a2e;
             --text-muted: #5b7c6e;
-            --success: #10b981;
+            --success: #19A77B;
             --danger: #ef4444;
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function startSuccessConfetti() {
-    const colors = ['#19A77B', '#3BC49A', '#10b981', '#34d399', '#fbbf24'];
+    const colors = ['#19A77B', '#3BC49A', '#19A77B', '#3BC49A', '#fbbf24'];
     for (let i = 0; i < 60; i++) {
         createParticle(colors[Math.floor(Math.random() * colors.length)]);
     }

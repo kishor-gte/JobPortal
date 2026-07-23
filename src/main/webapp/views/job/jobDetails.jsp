@@ -47,7 +47,7 @@
  --muted:#7E8890;
  --text:#081828;
  --border:#e7ecf3;
- --success:#10b981;
+ --success:#19A77B;
 }
 
 *{box-sizing:border-box;}
