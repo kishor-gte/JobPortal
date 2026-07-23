@@ -727,7 +727,7 @@
                     <i class="fas fa-folder-open"></i> Choose File
                 </button>
                 <input type="file" name="file" id="fileInput" class="file-input" accept=".pdf,.doc,.docx"
-                    onchange="document.getElementById('uploadForm').submit();">
+                    onchange="validateAndSubmit(this.files);">
             </div>
         </form>
 
@@ -799,11 +799,23 @@
         uploadArea.addEventListener('dragleave', function () { 
             this.classList.remove('dragover'); 
         });
+        function validateAndSubmit(files) {
+            if (files.length === 0) return;
+            const file = files[0];
+            const name = file.name.toLowerCase();
+            if (!(name.endsWith('.pdf') || name.endsWith('.doc') || name.endsWith('.docx'))) {
+                alert('Invalid file type. Only PDF, DOC, and DOCX files are allowed.');
+                return;
+            }
+            document.getElementById('uploadForm').submit();
+        }
+
         uploadArea.addEventListener('drop', function (e) {
             e.preventDefault(); 
             this.classList.remove('dragover');
-            document.getElementById('fileInput').files = e.dataTransfer.files;
-            document.getElementById('uploadForm').submit();
+            const files = e.dataTransfer.files;
+            document.getElementById('fileInput').files = files;
+            validateAndSubmit(files);
         });
 
         function toggleTheme() {

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Contact Us - JobU | Get In Touch</title>
+    <meta name="description" content="Contact JobU support team for any inquiries, career guidance, or assistance. We're here 24/7 to help you." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- External CSS (preserved for backend compatibility) -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <!-- ========== PREMIUM CONTACT PAGE STYLING - WOW EFFECT ========== -->
+    <style>
+        :root {
+            --primary: #19A77B;
+            --primary-dark: #148F69;
+            --primary-light: #3BC49A;
+            --primary-glow: rgba(25,167,123,0.2);
+            --accent: #3BC49A;
+            --dark-bg: #1a2c2f;
+            --gradient-primary: linear-gradient(135deg, #19A77B 0%, #3BC49A 100%);
+            --gradient-dark: linear-gradient(135deg, #1e2f32 0%, #2E3E41 100%);
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --shadow-md: 0 20px 30px -12px rgba(25,167,123,0.15);
+            --shadow-lg: 0 30px 50px -15px rgba(0,0,0,0.2);
+            --transition: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #e6f4ef; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* Header Navbar - Home Page Premium Style */
+        .navbar-area {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            padding: 5px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-area.sticky {
+            height: 64px;
+        }
+
+        .navbar-brand.logo {
+            padding: 0;
+            margin-right: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo1 {
+            height: 48px !important;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            height: 100%;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #374151 !important;
+            padding: 8px 14px !important;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-item .nav-link i { 
+            font-size: 0.85rem; 
+            opacity: 0.7; 
+            transition: opacity 0.3s ease;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #19A77B !important;
+            background: #E6F6F1;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-item .nav-link:hover i {
+            opacity: 1;
+        }
+
+        .navbar-nav .nav-item .nav-link.active {
+            background: linear-gradient(135deg, #19A77B, #3BC49A);
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(25, 167, 123, 0.25);
+        }
+
+        .navbar-nav .nav-item .nav-link.active i {
+            color: white !important;
+            opacity: 1;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #19A77B, #3BC49A);
+            color: white !important;
+            font-weight: 600;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(25, 167, 123, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(25, 167, 123, 0.45);
+            color: white !important;
+        }
+
+        .btn-register {
+            background: white;
+            color: #19A77B !important;
+            font-weight: 600;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1.5px solid #19A77B;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-register:hover {
+            background: #19A77B;
+            transform: translateY(-2px);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
+        }
+
+        /* Dropdown Menu Glass Effect */
+        .sub-menu {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 18px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px;
+            min-width: 240px;
+            transform: translateY(15px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 100%;
+            margin-top: 5px;
+            list-style: none;
+        }
+
+        .nav-item:hover .sub-menu {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sub-menu li {
+            margin-bottom: 2px;
+        }
+
+        .sub-menu li a {
+            padding: 14px 18px !important;
+            border-radius: 12px;
+            font-weight: 500;
+            color: #4B5563 !important;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .sub-menu li a:hover {
+            background: #E6F6F1 !important;
+            color: #19A77B !important;
+        }
+
+        .sub-menu li a i {
+            color: inherit;
+        }
+
+        /* ========== BREADCRUMBS - PREMIUM HERO SECTION ========== */
+        .breadcrumbs {
+            position: relative;
+            min-height: 60vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(25,167,123,0.55) 100%), 
+                        url('assets/images/breadcrumb/contact.jpeg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: white;
+            padding: 100px 0 80px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .breadcrumbs-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .breadcrumbs-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .breadcrumbs-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.95);
+            animation: fadeSlideUp 0.8s ease;
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .breadcrumb-nav li a { color: #3BC49A; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .breadcrumb-nav li a:hover { color: white; text-shadow: 0 0 10px rgba(59,196,154,0.8); }
+        .breadcrumb-nav li:not(:last-child):after { content: '➜'; margin-left: 10px; color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+
+        /* ========== CONTACT SECTION PREMIUM ========== */
+        .contact-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(25,167,123,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 32px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            gap: 60px;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(25,167,123,0.1);
+            transition: var(--transition);
+        }
+        .contact-container:hover {
+            box-shadow: 0 40px 60px -20px rgba(25,167,123,0.2);
+        }
+
+        .contact-left, .contact-right {
+            flex: 1 1 50%;
+        }
+
+        /* Left Side Features */
+        .contact-left h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a2c2f, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .contact-left > p {
+            color: #000000;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .feature-box {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 28px;
+            align-items: flex-start;
+            transition: var(--transition);
+            padding: 10px;
+            border-radius: 20px;
+        }
+        .feature-box:hover {
+            transform: translateX(8px);
+            background: rgba(25,167,123,0.05);
+        }
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #e6f4ef, #d0ebe2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .feature-box:hover .feature-icon {
+            background: var(--gradient-primary);
+            transform: scale(1.05);
+        }
+        .feature-icon i {
+            font-size: 26px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .feature-box:hover .feature-icon i {
+            color: white;
+        }
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a2c2f;
+            margin-bottom: 5px;
+        }
+        .feature-text {
+            color: #000000;
+            font-size: 0.9rem;
+        }
+
+        /* Right Side Form */
+        .contact-right h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a2c2f, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 25px;
+        }
+        .contact-form-box {
+            background: #f9fdfb;
+            padding: 35px;
+            border-radius: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(25,167,123,0.1);
+            transition: var(--transition);
+        }
+        .contact-form-box:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .contact-form-box input,
+        .contact-form-box textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .contact-form-box input:focus,
+        .contact-form-box textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25,167,123,0.1);
+            outline: none;
+        }
+        .contact-form-box label {
+            font-weight: 600;
+            color: #1a2c2f;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .contact-submit-btn {
+            background: var(--gradient-primary);
+            color: #fff;
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        .contact-submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .contact-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(25,167,123,0.4);
+        }
+
+        /* Footer Premium */
+        .footer {
+            background: var(--gradient-dark) !important;
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(25,167,123,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: footerGlow 15s infinite alternate;
+        }
+        @keyframes footerGlow {
+            0% { transform: translate(0,0) scale(1); opacity: 0.3; }
+            100% { transform: translate(-50px, 30px) scale(1.2); opacity: 0.6; }
+        }
+        .footer .logo img { height: 70px; width: auto; }
+        .footer .btn {
+            background: var(--gradient-primary);
+            border: none;
+            transition: var(--transition);
+            font-weight: 600;
+            color: white;
+        }
+        .footer .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 20px rgba(25,167,123,0.5); }
+        .footer-social a {
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            transform: translateY(-5px) rotate(8deg);
+            background-color: var(--primary) !important;
+        }
+
+        /* Animations */
+        .wow { visibility: hidden; }
+
+        @media (max-width: 992px) {
+            .contact-container { flex-direction: column; padding: 30px; gap: 40px; }
+            .breadcrumbs { min-height: 50vh; background-attachment: scroll; }
+            .breadcrumbs-content h1 { font-size: 2.5rem; }
+            .contact-left h2, .contact-right h2 { font-size: 2rem; }
+        }
+        @media (max-width: 768px) {
+            .contact-container { padding: 25px; }
+            .contact-form-box { padding: 25px; }
+            .feature-box { margin-bottom: 20px; }
+            .navbar-brand img.logo1 { height: 55px; }
+            .funky-orb-1, .funky-orb-2, .funky-orb-3 { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Start Header Area -->
+    <header class="header">
+        <div class="navbar-area" id="navbarSticky">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg w-100 position-relative">
+                        
+                        <!-- Left: Logo -->
+                        <a class="navbar-brand custom-premium-logo" href="/"> 
+                            <img src="assets/images/logo/logo.png" alt="JobU Logo" class="logo1" />
+                        </a>
+                        
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            
+                            <!-- Center: Nav Options -->
+                            <ul id="nav" class="navbar-nav mx-auto">
+                                <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-home"></i> Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Services</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/services.html">Services</a></li>
+                                        <li><a href="/faq.html">FAQ</a></li>
+                                        <li><a href="/contact.html">Contact</a></li>
+                                        <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
+                                        <li><a href="/policy.html">Privacy Policy</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> JobSeekers</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/jobSeekers/profile">Create/Update Profile</a></li>
+                                        <li><a href="/company/Alllist">Companies</a></li>
+                                        <li><a href="/applications/track">Track applications</a></li>
+                                        <li><a href="/jobseeker/videos">Upload Video Resume</a></li>
+                                        <li><a href="/assessment/available-badges">Your Badges</a></li>
+                                        <li><a href="/qna">Ask or View Questions</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building"></i> Employers</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/company/register">Register Company</a></li>
+                                        <li><a href="/company/login">Company Login</a></li>
+                                        <li><a href="/recruiter/login">Recruiters Login</a></li>
+                                        <li><a href="/tech/login">Tech Persons Login</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search"></i> Jobs</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/jobs/all">Browse Jobs</a></li>
+                                        <li><a href="/seeker/saved-jobs">Saved Jobs</a></li>
+                                        <li><a href="/seeker/reported-jobs">Reported Jobs</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/assessment/my-invites"><i class="fas fa-trophy"></i> Assessments</a></li>
+                            </ul>
+                            
+                            <!-- Right: Action Buttons -->
+                            <div class="button-group d-flex align-items-center mt-3 mt-lg-0">
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signup" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login" class="btn-login"><i class="lni lni-lock-alt"></i> Login</a>
+                            </div>
+                            
+                        </div>
+                    </nav>
+    </div>
+  </div>
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-content wow fadeInUp" data-wow-delay=".2s">
+                        <h1 class="page-title">Contact Us</h1>
+                        <p>We are here to assist you. Feel free to reach out for any inquiries or support.</p>
+                    </div>
+                    <ul class="breadcrumb-nav wow fadeInUp" data-wow-delay=".3s">
+                        <li><a href="/">Home</a></li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Start Contact Section - PREMIUM -->
+    <section class="contact-section">
+        <div class="container-fluid">
+            <div class="contact-container">
+                <!-- LEFT SECTION - Features -->
+                <div class="contact-left wow fadeInLeft" data-wow-delay=".2s">
+                    <h2>Why Contact Us?</h2>
+                    <p>Whether you're facing an issue, need career guidance, or simply want help navigating JobU, our team is always ready to assist you with quick and reliable support.</p>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="lni lni-headphone"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">24/7 Support Team</h4>
+                            <p class="feature-text">You can reach out to us anytime — day or night.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="lni lni-shield"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Secure & Verified Jobs</h4>
+                            <p class="feature-text">We verify all employers and listings for your safety.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="lni lni-bolt"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Fast Response</h4>
+                            <p class="feature-text">We respond within 24 hours for all inquiries.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="lni lni-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Dedicated Support Email</h4>
+                            <p class="feature-text">Write to us anytime at <strong>fightthefireapp123@gmail.com</strong>.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="lni lni-users"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Career Guidance Help</h4>
+                            <p class="feature-text">Our career team can help you find the right opportunities.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SECTION - Contact Form -->
+                <div class="contact-right wow fadeInRight" data-wow-delay=".4s">
+                    <h2>Get In Touch</h2>
+                    <div class="contact-form-box">
+                        <form action="submit-contact" method="POST" id="contactForm" onsubmit="return validateContactForm(event)">
+                            <div style="margin-bottom: 20px;">
+                                <label>Your Name</label>
+                                <input type="text" name="name" id="contactName" required placeholder="John Doe">
+                                <small class="error-msg text-danger" id="nameError" style="display: none; color: #dc3545; font-size: 0.85rem; margin-top: 5px;">Please enter your name.</small>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <label>Your Email</label>
+                                <input type="email" name="email" id="contactEmail" required pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$" placeholder="john@example.com" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a valid email address (e.g., name@example.com)')">
+                                <small class="error-msg text-danger" id="emailError" style="display: none; color: #dc3545; font-size: 0.85rem; margin-top: 5px;">Please enter a valid email address (e.g., name@example.com).</small>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <label>Message</label>
+                                <textarea name="message" id="contactMessage" rows="5" required placeholder="How can we help you?"></textarea>
+                                <small class="error-msg text-danger" id="messageError" style="display: none; color: #dc3545; font-size: 0.85rem; margin-top: 5px;">Please enter a message.</small>
+                            </div>
+                            <button type="submit" class="contact-submit-btn">
+                                Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
+                            </button>
+                        </form>
+                        
+                        <script>
+                            function validateContactForm(e) {
+                                let isValid = true;
+                                const name = document.getElementById('contactName').value.trim();
+                                const email = document.getElementById('contactEmail').value.trim();
+                                const message = document.getElementById('contactMessage').value.trim();
+                                
+                                document.getElementById('nameError').style.display = 'none';
+                                document.getElementById('emailError').style.display = 'none';
+                                document.getElementById('messageError').style.display = 'none';
+                                
+                                if (!name) {
+                                    document.getElementById('nameError').style.display = 'block';
+                                    isValid = false;
+                                }
+                                
+                                // Proper regex to ensure TLD is between 2 and 6 characters
+                                const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$/;
+                                if (!email || !emailRegex.test(email)) {
+                                    document.getElementById('emailError').style.display = 'block';
+                                    isValid = false;
+                                }
+                                
+                                if (!message) {
+                                    document.getElementById('messageError').style.display = 'block';
+                                    isValid = false;
+                                }
+                                
+                                if (!isValid) {
+                                    e.preventDefault();
+                                }
+                                return isValid;
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Contact Section -->
+
+    <!-- Start Footer - PREMIUM -->
+    <footer class="footer" style="font-family: 'Inter', sans-serif;">
+        <div class="container-fluid">
+            <div class="row py-5">
+                <div class="col-lg-6 col-md-6 col-12 mb-4">
+                    <div class="single-footer">
+                        <div class="logo mb-3">
+                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+                        </div>
+                        <p style="color: #cbd5e1;">Turn your ambitions into achievements — explore jobs that fit your future.</p>
+                        <ul class="contact-address mt-3" style="list-style: none; padding-left: 0; color: #cbd5e1;">
+                            <li><strong>Email:</strong> fightthefireapp123@gmail.com</li>
+                        </ul>
+                        <div class="footer-social mt-3">
+                            <ul style="padding-left: 0; list-style: none; display: flex; gap: 15px;">
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-facebook-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-twitter-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-linkedin-original" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                                <li><a href="#" style="background: #334155; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s;"><i class="lni lni-pinterest" style="font-size: 18px; color: #ffffff;"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="single-footer newsletter">
+                        <h3 style="color: #ffffff;">Join Our Newsletter</h3>
+                        <p style="color: #cbd5e1;">Subscribe to get the latest jobs, alerts, and updates directly in your inbox.</p>
+                        <form action="/subscribe" method="post" class="newsletter-inner mt-3" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <input name="email" type="email" required placeholder="Your email address"
+                                class="common-input"
+                                style="padding: 12px; flex: 1; border: 1px solid #475569; border-radius: 50px; background-color: rgba(255,255,255,0.1); color: #ffffff;">
+                            <button class="btn" style="background: var(--gradient-primary); color: white; border: none; padding: 12px 28px; border-radius: 50px; font-weight: 600;">Subscribe Now!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom pt-4 pb-3 border-top" style="border-color: rgba(255,255,255,0.2);">
+                <div class="row">
+                    <div class="col-md-6 col-12 text-start">
+                        <p style="margin: 0;">&copy; JobU. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 col-12 text-end">
+                        <ul style="list-style: none; display: flex; gap: 20px; justify-content: end; padding-left: 0; margin: 0;">
+                            <li><a href="terms-conditions.html" style="color: #cbd5e1;">Terms</a></li>
+                            <li><a href="policy.html" style="color: #cbd5e1;">Privacy</a></li>
+                            <li><a href="faq.html" style="color: #cbd5e1;">FAQ</a></li>
+                            <li><a href="contact.html" style="color: #cbd5e1;">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- ========================= JS ========================= -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/animate.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Initialize WOW.js for scroll animations
+        new WOW().init();
+        
+        // Alert message handling (preserved backend functionality)
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            if (message) {
+                alert(decodeURIComponent(message));
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+
+</html>
+

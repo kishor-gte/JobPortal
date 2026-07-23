@@ -841,7 +841,7 @@
                     <div class="message ${isOutgoing ? 'message-outgoing' : 'message-incoming'}">
                         <div class="message-bubble">${msg.content}</div>
                         <div class="message-time">
-                            <fmt:formatDate value="${msg.timestamp}" pattern="hh:mm a" />
+                            <span class="chat-time" data-epoch="${msg.timestamp != null ? msg.timestamp.time : ''}"><fmt:formatDate value="${msg.timestamp}" pattern="hh:mm a" /></span>
                             <c:if test="${isOutgoing}">
                                 <span class="message-status">
                                     <i class="fas fa-check-circle"></i>
@@ -937,12 +937,21 @@
                 e.preventDefault();
             });
             
-            // Ctrl+Enter to submit
+            // Format all static chat-time spans
+            document.querySelectorAll('.chat-time').forEach(el => {
+                const epoch = parseInt(el.getAttribute('data-epoch'));
+                if (epoch) {
+                    const date = new Date(epoch);
+                    el.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                }
+            });
+
+            // Enter to submit (Shift+Enter for newline)
             const textarea = document.getElementById('messageInput');
             const form = document.getElementById('chatForm');
             if (textarea && form) {
                 textarea.addEventListener('keydown', function(e) {
-                    if (e.ctrlKey && e.key === 'Enter') {
+                    if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
                         if (this.value.trim() !== '') {
                             // Show sending state
@@ -1039,13 +1048,22 @@
                             const msgDiv = document.createElement('div');
                             msgDiv.className = `message ${isOutgoing ? 'message-outgoing' : 'message-incoming'}`;
                             
-                            let timeStr = msg.timestamp;
+                            let timeStr = '';
                             try {
-                                const date = new Date(msg.timestamp);
-                                if (!isNaN(date)) {
-                                    timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                let date;
+                                if (typeof msg.timestamp === 'number') {
+                                    date = new Date(msg.timestamp);
+                                } else if (msg.timestamp) {
+                                    date = new Date(msg.timestamp);
                                 }
-                            } catch (e) {}
+                                if (date && !isNaN(date)) {
+                                    timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                } else {
+                                    timeStr = msg.timestamp;
+                                }
+                            } catch (e) {
+                                timeStr = msg.timestamp;
+                            }
 
                             const statusHtml = isOutgoing ? '<span class="message-status"><i class="fas fa-check-circle"></i></span>' : '';
                             
