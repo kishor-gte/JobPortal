@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -447,6 +447,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
         const rows = Array.from(table.querySelectorAll('tbody tr'));
         rows.forEach(row => { Array.from(row.querySelectorAll('td')).forEach((td, index) => { if(headers[index]) td.setAttribute('data-label', headers[index]); }); });
+    });
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(textarea => {
+        textarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (this.value.trim() !== '') {
+                    this.closest('form').submit();
+                }
+            }
+        });
     });
 });
 </script>

@@ -39,7 +39,7 @@ public class JobSeeker {
     private String resumeUploaded;  // file path
     private String videoResumeUrl;
     private String identityDocument; 
-    private Integer experience; 
+    private Double experience; 
     @Enumerated(EnumType.STRING) // Ensures the gender is stored as a string in DB
     private Gender gender; 
     
@@ -239,11 +239,11 @@ public class JobSeeker {
 		this.gender = gender;
 	}
 
-	public Integer getExperience() {
+	public Double getExperience() {
 		return experience;
 	}
 
-	public void setExperience(Integer experience) {
+	public void setExperience(Double experience) {
 		this.experience = experience;
 	}
 

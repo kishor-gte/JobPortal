@@ -202,7 +202,7 @@ public class JobSeekerController {
     }
     
     private int calculateCompletionPercentage(JobSeeker jobSeeker) {
-        int totalFields = 38;
+        int totalFields = 26; // Base fields without UG, PG, Doctorate (38 - 12 = 26)
         int filledFields = 0;
 
         if (jobSeeker.getName() != null && !jobSeeker.getName().isEmpty()) filledFields++;
@@ -228,29 +228,40 @@ public class JobSeekerController {
         if (jobSeeker.getNoticePeriod() != null && !jobSeeker.getNoticePeriod().isEmpty()) filledFields++;
         if (jobSeeker.getResumeHeadline() != null && !jobSeeker.getResumeHeadline().isEmpty()) filledFields++;
 
-        // UG
-        if (jobSeeker.getUgDegree() != null && !jobSeeker.getUgDegree().isEmpty()) filledFields++;
-        if (jobSeeker.getUgSpecialization() != null && !jobSeeker.getUgSpecialization().isEmpty()) filledFields++;
-        if (jobSeeker.getUgUniversity() != null && !jobSeeker.getUgUniversity().isEmpty()) filledFields++;
-        if (jobSeeker.getUgGraduationYear() != null) filledFields++;
-
-        // PG
-        if (jobSeeker.getPgDegree() != null && !jobSeeker.getPgDegree().isEmpty()) filledFields++;
-        if (jobSeeker.getPgSpecialization() != null && !jobSeeker.getPgSpecialization().isEmpty()) filledFields++;
-        if (jobSeeker.getPgUniversity() != null && !jobSeeker.getPgUniversity().isEmpty()) filledFields++;
-        if (jobSeeker.getPgGraduationYear() != null) filledFields++;
-
-        // Doctorate
-        if (jobSeeker.getDoctorateDegree() != null && !jobSeeker.getDoctorateDegree().isEmpty()) filledFields++;
-        if (jobSeeker.getDoctorateSpecialization() != null && !jobSeeker.getDoctorateSpecialization().isEmpty()) filledFields++;
-        if (jobSeeker.getDoctorateUniversity() != null && !jobSeeker.getDoctorateUniversity().isEmpty()) filledFields++;
-        if (jobSeeker.getDoctorateGraduationYear() != null) filledFields++;
-
-        // Others
+        // Others (Marital, Pin, DOB, Address) - 4 fields
         if (jobSeeker.getMaritalStatus() != null && !jobSeeker.getMaritalStatus().isEmpty()) filledFields++;
         if (jobSeeker.getPinCode() != null && !jobSeeker.getPinCode().isEmpty()) filledFields++;
         if (jobSeeker.getDateOfBirth() != null) filledFields++;
         if (jobSeeker.getPermanentAddress() != null && !jobSeeker.getPermanentAddress().isEmpty()) filledFields++;
+
+        // Determine education fields dynamically
+        Education edu = jobSeeker.getEducation();
+        if (edu != null) {
+            if (edu == Education.BACHELORS || edu == Education.MASTERS || edu == Education.DOCTORATE || edu == Education.PHD) {
+                // UG required
+                totalFields += 4;
+                if (jobSeeker.getUgDegree() != null && !jobSeeker.getUgDegree().isEmpty()) filledFields++;
+                if (jobSeeker.getUgSpecialization() != null && !jobSeeker.getUgSpecialization().isEmpty()) filledFields++;
+                if (jobSeeker.getUgUniversity() != null && !jobSeeker.getUgUniversity().isEmpty()) filledFields++;
+                if (jobSeeker.getUgGraduationYear() != null) filledFields++;
+            }
+            if (edu == Education.MASTERS || edu == Education.DOCTORATE || edu == Education.PHD) {
+                // PG required
+                totalFields += 4;
+                if (jobSeeker.getPgDegree() != null && !jobSeeker.getPgDegree().isEmpty()) filledFields++;
+                if (jobSeeker.getPgSpecialization() != null && !jobSeeker.getPgSpecialization().isEmpty()) filledFields++;
+                if (jobSeeker.getPgUniversity() != null && !jobSeeker.getPgUniversity().isEmpty()) filledFields++;
+                if (jobSeeker.getPgGraduationYear() != null) filledFields++;
+            }
+            if (edu == Education.DOCTORATE || edu == Education.PHD) {
+                // Doctorate required
+                totalFields += 4;
+                if (jobSeeker.getDoctorateDegree() != null && !jobSeeker.getDoctorateDegree().isEmpty()) filledFields++;
+                if (jobSeeker.getDoctorateSpecialization() != null && !jobSeeker.getDoctorateSpecialization().isEmpty()) filledFields++;
+                if (jobSeeker.getDoctorateUniversity() != null && !jobSeeker.getDoctorateUniversity().isEmpty()) filledFields++;
+                if (jobSeeker.getDoctorateGraduationYear() != null) filledFields++;
+            }
+        }
 
         return (filledFields * 100) / totalFields;
     }
@@ -292,7 +303,7 @@ public class JobSeekerController {
                                   @RequestParam(value = "email", required = false) String email,
                                   @RequestParam(value = "phone", required = false) String phone,
                                   @RequestParam(value = "age", required = false) Integer age,
-                                  @RequestParam(value = "experience", required = false) Integer experience,
+                                  @RequestParam(value = "experience", required = false) Double experience,
                                   @RequestParam(value = "location", required = false) Location location,
                                   @RequestParam(value = "languagesKnown", required = false) String languagesKnown,
                                   @RequestParam(value = "skills", required = false) String skillsString,

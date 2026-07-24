@@ -106,9 +106,10 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
 
 /* SIDEBAR */
 .job-sidebar{background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:24px;font-size:15px;}
-.job-sidebar h4{margin:0 0 14px;font-size:18px;color:var(--text);}
-.job-sidebar .item{margin-bottom:12px;display:flex;gap:8px;color:var(--muted);}
-.job-sidebar .item span{font-weight:600;color:var(--text);}
+.job-sidebar h4{margin:0 0 14px;font-size:18px;color:var(--text);border-bottom:2px solid var(--border);padding-bottom:10px;}
+.job-sidebar .item{margin-bottom:16px;display:flex;gap:8px;color:var(--text);align-items:center;}
+.job-sidebar .item i{color:var(--primary);width:20px;text-align:center;font-size:16px;}
+.job-sidebar .item span{font-weight:600;color:var(--muted);margin-right:2px;}
 
 /* SHARE */
 .share{margin-top:20px;display:flex;gap:12px;}

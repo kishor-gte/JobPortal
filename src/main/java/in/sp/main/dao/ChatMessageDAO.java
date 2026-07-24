@@ -63,9 +63,12 @@ public class ChatMessageDAO {
     };
 
     public int save(ChatMessage message) {
+        if (message.getTimestamp() == null) {
+            message.setTimestamp(new java.sql.Timestamp(System.currentTimeMillis()));
+        }
         return jdbcTemplate.update(
-                "INSERT INTO chat_messages (sender_id, sender_type, receiver_id, receiver_type, content) VALUES (?, ?, ?, ?, ?)",
-                message.getSenderId(), message.getSenderType(), message.getReceiverId(), message.getReceiverType(), message.getContent());
+                "INSERT INTO chat_messages (sender_id, sender_type, receiver_id, receiver_type, content, timestamp) VALUES (?, ?, ?, ?, ?, ?)",
+                message.getSenderId(), message.getSenderType(), message.getReceiverId(), message.getReceiverType(), message.getContent(), message.getTimestamp());
     }
 
     public List<ChatMessage> getConversation(Long userId1, String type1, Long userId2, String type2) {
