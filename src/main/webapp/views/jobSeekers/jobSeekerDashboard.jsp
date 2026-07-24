@@ -579,7 +579,7 @@
 </div>
 
 <footer>
-    &copy; 2025 SmartInterview. All rights reserved.
+    &copy; 2026 SmartInterview. All rights reserved.
 </footer>
 
 <script>

@@ -308,7 +308,7 @@ public class RecruiterController {
         }
         String recruiterEmail = loggedInRecruiter.getEmail();
         Recruiter recruiter = recruiterService.findByEmail(recruiterEmail);
-        List<Job> jobs = jobService.findJobsByRecruiter(recruiter.getId());
+        List<Job> jobs = jobService.getJobsByCompany(recruiter.getCompany().getId());
         for (Job job : jobs) {
             job.setApplicantCount((int) applicationService.countByJobId(job.getId()));
         }

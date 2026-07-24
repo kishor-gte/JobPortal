@@ -432,7 +432,7 @@
     $(document).ready(function () {
         $('#skillRequirement').select2({
             tags: true,
-            tokenSeparators: [',', ' '],
+            tokenSeparators: [','],
             placeholder: "e.g., Java, Python, React"
         });
         $('#location').select2({

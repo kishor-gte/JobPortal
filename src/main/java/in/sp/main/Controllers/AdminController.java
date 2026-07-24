@@ -148,8 +148,8 @@ public class AdminController {
     }
 
     // Admin verification
-    @RequestMapping(value = "/admin/verify/{id}", method = RequestMethod.GET)
-    public String verifyCompany(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {    	
+    @RequestMapping(value = "/admin/verify/{id}", method = RequestMethod.POST)
+    public String verifyCompany(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
         // Check if admin is logged in
         in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
         if (admin == null) {
@@ -282,6 +282,13 @@ public class AdminController {
                 if (jobService != null && jobService.getAllActiveJobs() != null) {
                     activeJobsList = jobService.getAllActiveJobs();
                     activeJobsCount = activeJobsList.size();
+                    for (in.sp.main.Entities.Job activeJob : activeJobsList) {
+                        try {
+                            activeJob.setApplicantCount((int) jobApplicationRepository.findByJob_Id(activeJob.getId()).size());
+                        } catch (Exception e) {
+                            activeJob.setApplicantCount(0);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 System.err.println("Error fetching active jobs: " + e.getMessage());
@@ -346,6 +353,32 @@ public class AdminController {
                 System.err.println("Error fetching performances: " + e.getMessage());
             }
 
+            List<JobSeeker> recentUsers = new java.util.ArrayList<>();
+            try {
+                if (jobSeekerService != null && jobSeekerService.getAllJobSeekers() != null) {
+                    recentUsers = jobSeekerService.getAllJobSeekers();
+                    recentUsers.sort((u1, u2) -> Long.compare(u2.getId(), u1.getId()));
+                    if (recentUsers.size() > 8) {
+                        recentUsers = recentUsers.subList(0, 8);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error fetching recent users: " + e.getMessage());
+            }
+
+            List<in.sp.main.Entities.JobApplication> recentApplications = new java.util.ArrayList<>();
+            try {
+                if (jobApplicationRepository != null) {
+                    recentApplications = jobApplicationRepository.findAll();
+                    recentApplications.sort((a1, a2) -> Long.compare(a2.getId(), a1.getId()));
+                    if (recentApplications.size() > 8) {
+                        recentApplications = recentApplications.subList(0, 8);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error fetching recent applications: " + e.getMessage());
+            }
+
             model.addAttribute("totalUsers", totalUsers);
             model.addAttribute("totalCompanies", totalCompanies);
             model.addAttribute("pendingCompanies", pendingCompanies);
@@ -361,7 +394,9 @@ public class AdminController {
             model.addAttribute("completedInterviews", completedInterviews);
             model.addAttribute("totalApplications", totalApplications);
             model.addAttribute("performances", performancesList);
-            
+            model.addAttribute("recentUsers", recentUsers);
+            model.addAttribute("recentApplications", recentApplications);
+
             // Add admin name to display on dashboard
             model.addAttribute("adminName", admin.getName() != null ? admin.getName() : admin.getEmail());
             model.addAttribute("admin", admin);
@@ -405,7 +440,7 @@ public class AdminController {
    
 
     // Delete Company
-    @RequestMapping(value = "/delete-company/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete-company/{id}", method = RequestMethod.POST)
     public String deleteCompany(@PathVariable Long id, HttpSession session) {
         // Check if admin is logged in
         in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
@@ -416,34 +451,6 @@ public class AdminController {
         companyService.deleteCompany(id);
         return "redirect:/admin/pending";
     }
-    // ð¼ Show Public Register Page - Anyone can register as admin
-    @RequestMapping(value = "/getregisterAdmin", method = RequestMethod.GET)
-    public String showPublicRegisterPage() {
-        return "admin/adminRegister";
-    }
-
-    // ð¼ Public Register Admin - Anyone can register
-    @RequestMapping(value = "/registerAdmin", method = RequestMethod.POST)
-    public String publicRegisterAdmin(@RequestParam String name, @RequestParam String email, 
-                                @RequestParam String password, Model model) {
-        try {
-            Admin admin = new Admin(name, email, password);
-            
-            if (adminService.registerAdmin(admin)) {
-                System.out.println("admin registered");
-                model.addAttribute("msg", "Admin registered successfully! Please login.");
-                return "admin/adminLogin";
-            } else {
-                model.addAttribute("error", "Email already exists!");
-                return "admin/adminRegister";
-            }
-        } catch (Exception e) {
-            System.err.println("Error during admin registration: " + e.getMessage());
-            model.addAttribute("error", "Registration failed: " + e.getMessage());
-            return "admin/adminRegister";
-        }
-    }
-
     // ð¼ Show Register Page - PROTECTED: Only existing admins can register new admins (admin panel)
     @RequestMapping(value = "/admin/getregisterAdmin", method = RequestMethod.GET)
     public String showAdminRegisterPage(HttpSession session) {

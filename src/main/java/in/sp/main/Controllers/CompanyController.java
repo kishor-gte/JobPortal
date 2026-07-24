@@ -118,13 +118,16 @@ public class CompanyController {
     @RequestMapping(value = "/register1", method = RequestMethod.POST)
     public String registerCompany(@ModelAttribute Company company,
                                   @RequestParam("logofile") MultipartFile logoFile, Model model) {
+        if (logoFile == null || logoFile.isEmpty()) {
+            model.addAttribute("error", "Company logo is required.");
+            model.addAttribute("company", company);
+            return "company/registerCompany";
+        }
         try {
             System.out.println("DEBUG: Registering company - Name: " + company.getName() + ", Email: " + company.getEmail());
-            if (!logoFile.isEmpty()) {
-                String logoPath = fileUploadService.saveLogo(logoFile);
-                company.setLogo(logoPath);
-                System.out.println("DEBUG: Logo saved at: " + logoPath);
-            }
+            String logoPath = fileUploadService.saveLogo(logoFile);
+            company.setLogo(logoPath);
+            System.out.println("DEBUG: Logo saved at: " + logoPath);
             Company savedCompany = companyService.registerCompany(company);
             System.out.println("DEBUG: Company saved - ID: " + savedCompany.getId() + ", Verified: " + savedCompany.isVerified());
             activityLogger.log(savedCompany.getId(), savedCompany.getName(), savedCompany.getEmail(), "COMPANY", ActivityType.USER_REGISTRATION, "Company registered successfully");
@@ -133,9 +136,10 @@ public class CompanyController {
         } catch (Exception e) {
             System.err.println("ERROR: Failed to register company: " + e.getMessage());
             e.printStackTrace();
-            model.addAttribute("error", "Failed to upload logo: " + e.getMessage());
+            model.addAttribute("error", "Failed to register company: " + e.getMessage());
+            model.addAttribute("company", company);
+            return "company/registerCompany";
         }
-		return razorpayKeyId;
     }
     // Show company profile
     @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)

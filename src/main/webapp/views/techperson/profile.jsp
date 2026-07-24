@@ -863,7 +863,7 @@
             <a href="${pageContext.request.contextPath}/tech/profile" class="nav-link active">
                 <i class="fas fa-user"></i> Profile
             </a>
-            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>

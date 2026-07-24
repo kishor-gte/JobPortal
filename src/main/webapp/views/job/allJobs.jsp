@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ page import="in.sp.main.Entities.JobSeeker" %>
 <%
     JobSeeker jobSeeker = (JobSeeker) session.getAttribute("jobSeeker");
@@ -459,7 +460,7 @@
                                 <div class="d-flex flex-wrap gap-3 mb-2">
                                     <c:if test="${not empty job.location}"><span><i class="fas fa-map-marker-alt text-primary me-1"></i> ${job.location}</span></c:if>
                                     <c:if test="${not empty job.experienceRequired}"><span><i class="fas fa-user-tie text-primary me-1"></i> ${job.experienceRequired} years</span></c:if>
-                                    <c:if test="${not empty job.salaryMin}"><span><i class="fas fa-rupee-sign text-primary me-1"></i> ₹${job.salaryMin} - ₹${job.salaryMax}</span></c:if>
+                                    <c:if test="${not empty job.salaryMin}"><span><i class="fas fa-rupee-sign text-primary me-1"></i> ₹<fmt:formatNumber value="${job.salaryMin}" maxFractionDigits="0"/> - ₹<fmt:formatNumber value="${job.salaryMax}" maxFractionDigits="0"/></span></c:if>
                                 </div>
                                 <div class="d-flex flex-wrap gap-2 mt-2">
                                     <form action="${pageContext.request.contextPath}/jobs/details/${job.id}" method="get" class="d-inline">

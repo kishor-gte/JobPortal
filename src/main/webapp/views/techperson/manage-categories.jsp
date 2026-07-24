@@ -818,7 +818,7 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>

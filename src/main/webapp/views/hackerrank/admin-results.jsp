@@ -1175,10 +1175,6 @@
                         <c:if test="${empty studentAnswers}">0</c:if>
                     </div>
                     <div class="stat-label">Active Jobseekers</div>
-                    <div class="stat-trend positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>+8% this week</span>
-                    </div>
                 </div>
                 
                 <div class="stat-card">
@@ -1189,10 +1185,6 @@
                         <c:out value="${studentAnswers != null ? studentAnswers.size() : '0'}"/>
                     </div>
                     <div class="stat-label">Total Submissions</div>
-                    <div class="stat-trend positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>+12% vs last month</span>
-                    </div>
                 </div>
                 
                 <div class="stat-card">
@@ -1220,22 +1212,29 @@
                         </c:choose>
                     </div>
                     <div class="stat-label">Avg. Completion Time</div>
-                    <div class="stat-trend neutral">
-                        <i class="fas fa-minus"></i>
-                        <span>Consistent</span>
-                    </div>
                 </div>
-                
+
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-star"></i>
                     </div>
-                    <div class="stat-value">86%</div>
-                    <div class="stat-label">Avg. Score</div>
-                    <div class="stat-trend positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>+5% improvement</span>
+                    <div class="stat-value">
+                        <c:set var="correctCount" value="0"/>
+                        <c:if test="${not empty studentAnswers}">
+                            <c:forEach var="ans" items="${studentAnswers}">
+                                <c:if test="${ans.isCorrect}">
+                                    <c:set var="correctCount" value="${correctCount + 1}"/>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+                        <c:choose>
+                            <c:when test="${not empty studentAnswers and studentAnswers.size() > 0}">
+                                <fmt:formatNumber value="${(correctCount / studentAnswers.size()) * 100}" maxFractionDigits="0"/>%
+                            </c:when>
+                            <c:otherwise>0%</c:otherwise>
+                        </c:choose>
                     </div>
+                    <div class="stat-label">Avg. Score</div>
                 </div>
             </div>
             

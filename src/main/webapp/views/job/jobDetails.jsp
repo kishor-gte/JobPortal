@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ page import="in.sp.main.Entities.Job" %>
 <%@ page import="java.time.LocalDate, java.util.Date, java.time.ZoneId, java.text.SimpleDateFormat" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
@@ -104,10 +105,10 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
 .btn-apply{background:linear-gradient(135deg,var(--primary),var(--dark));color:#fff;}
 
 /* SIDEBAR */
-.sidebar{background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:24px;font-size:15px;}
-.sidebar h4{margin:0 0 14px;font-size:18px;color:var(--text);}
-.sidebar .item{margin-bottom:12px;display:flex;gap:8px;color:var(--muted);}
-.sidebar .item span{font-weight:600;color:var(--text);}
+.job-sidebar{background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:24px;font-size:15px;}
+.job-sidebar h4{margin:0 0 14px;font-size:18px;color:var(--text);}
+.job-sidebar .item{margin-bottom:12px;display:flex;gap:8px;color:var(--muted);}
+.job-sidebar .item span{font-weight:600;color:var(--text);}
 
 /* SHARE */
 .share{margin-top:20px;display:flex;gap:12px;}
@@ -246,7 +247,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
 
 /* Optional: sticky sidebar actions */
 @media (min-width: 900px) {
-    .sidebar {
+    .job-sidebar {
         position: sticky;
         top: 24px;
     }
@@ -351,15 +352,14 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
       <span>
         <c:choose>
           <c:when test="${job.salaryMin != null && job.salaryMax != null}">
-            <c:set var="salaryRange" value="${job.salaryMin} - ${job.salaryMax}" />
-            <c:out value="${salaryRange}"/>
+            &#8377;<fmt:formatNumber value="${job.salaryMin}" maxFractionDigits="0"/> - &#8377;<fmt:formatNumber value="${job.salaryMax}" maxFractionDigits="0"/>
           </c:when>
           <c:otherwise>Not specified</c:otherwise>
         </c:choose>
       </span>
     </div>
     <div class="box"><label>Education</label><span><c:out value="${job.education}" default="Not specified"/></span></div>
-    <div class="box"><label>Skills</label><span><c:out value="${job.skillRequirement}" default="Not specified"/></span></div>
+    <div class="box"><label>Skills</label><span><c:out value="${not empty job.skillRequirement ? fn:replace(job.skillRequirement, ',', ', ') : 'Not specified'}"/></span></div>
     <div class="box"><label>Job Category</label><span><c:out value="${job.jobCategory}" default="Not specified"/></span></div>
     <div class="box"><label>Job Sector</label><span><c:out value="${job.jobSector}" default="Not specified"/></span></div>
   </div>
@@ -393,7 +393,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
 </div>
 
 <!-- SIDEBAR -->
-<div class="sidebar">
+<div class="job-sidebar">
 
     <!-- JOB SUMMARY -->
     <h4>Job Summary</h4>

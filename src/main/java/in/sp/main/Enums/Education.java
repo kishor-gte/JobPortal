@@ -7,6 +7,5 @@ public enum Education {
 	    BACHELORS,
 	    MASTERS,
 	    DOCTORATE,
-	    PHD,
 	    OTHER
 	}

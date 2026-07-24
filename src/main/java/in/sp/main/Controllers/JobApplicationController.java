@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import in.sp.main.Entities.Company;
 import in.sp.main.Entities.Job;
 import in.sp.main.Entities.JobApplication;
 import in.sp.main.Entities.JobSeeker;
+import in.sp.main.Entities.Recruiter;
 import in.sp.main.Repositories.JobApplicationRepository;
 import in.sp.main.Services.JobApplicationService;
 import in.sp.main.Services.JobServices;
@@ -85,7 +87,24 @@ public class JobApplicationController {
         return "redirect:/jobSeekers/login";
     }
     @RequestMapping(value = "/recruiter/download-applicants/{jobId}", method = RequestMethod.GET)
-    public void downloadApplicantsExcel(@PathVariable Long jobId, HttpServletResponse response) throws IOException {
+    public void downloadApplicantsExcel(@PathVariable Long jobId, HttpSession session, HttpServletResponse response) throws IOException {
+        Job job = jobService.getJobById(jobId);
+        if (job == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        Recruiter recruiter = (Recruiter) session.getAttribute("loggedInRecruiter");
+        Company company = (Company) session.getAttribute("loggedInCompany");
+        Long sessionCompanyId = recruiter != null ? recruiter.getCompany().getId()
+                : (company != null ? company.getId() : null);
+
+        if (sessionCompanyId == null || job.getCompany() == null
+                || !sessionCompanyId.equals(job.getCompany().getId())) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not authorized to access applicants for this job");
+            return;
+        }
+
         List<JobApplication> applications = jobApplicationRepository.findByJob_Id(jobId);
 
         // Set Excel response
@@ -127,7 +146,7 @@ public class JobApplicationController {
             row.createCell(5).setCellValue(seeker.getLanguagesKnown() != null ? seeker.getLanguagesKnown() : "-");
             row.createCell(6).setCellValue(seeker.getGender() != null ? seeker.getGender().toString() : "-");
             row.createCell(7).setCellValue(seeker.getMaritalStatus() != null ? seeker.getMaritalStatus() : "-");
-            row.createCell(8).setCellValue(seeker.getLocation().toString());
+            row.createCell(8).setCellValue(seeker.getLocation() != null ? seeker.getLocation().toString() : "-");
             row.createCell(9).setCellValue(seeker.getPinCode() != null ? seeker.getPinCode() : "-");
            
             row.createCell(10).setCellValue(seeker.getPermanentAddress() != null ? seeker.getPermanentAddress() : "-");
