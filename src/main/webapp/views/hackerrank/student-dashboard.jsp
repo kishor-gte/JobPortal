@@ -812,7 +812,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <i class="fas fa-hand-wave"></i>
-                Welcome, ${jobSeeker.name}!
+                Welcome, ${not empty jobSeeker.name ? jobSeeker.name : jobSeeker.email}!
             </h1>
             <div class="user-info">
                 <div class="theme-toggle-wrapper">

@@ -40,12 +40,12 @@ public class MatchingService {
         }
 
         // ===== EXPERIENCE (30%) =====
-        int seekerExp = seeker.getExperience() != null ? seeker.getExperience() : 0;
+        double seekerExp = seeker.getExperience() != null ? seeker.getExperience() : 0.0;
         int jobExpRequired = job.getExperienceRequired();
         if (seekerExp >= jobExpRequired) {
             score += 30;
         } else if (jobExpRequired > 0) {
-            double ratio = (double) seekerExp / jobExpRequired;
+            double ratio = seekerExp / jobExpRequired;
             score += (int) (ratio * 30);
         }
 

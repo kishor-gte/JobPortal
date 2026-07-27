@@ -631,19 +631,18 @@
                             <h6 class="subsection-title"><i class="fas fa-university"></i> Undergraduate (UG)</h6>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label for="ugDegree">UG Degree</label>
                                     <input type="text" class="form-control" id="ugDegree" name="ugDegree"
-                                        value="${jobSeeker.ugDegree}">
+                                        value="${jobSeeker.ugDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="ugSpecialization">Specialization</label>
                                     <input type="text" class="form-control" id="ugSpecialization"
-                                        name="ugSpecialization" value="${jobSeeker.ugSpecialization}">
+                                        name="ugSpecialization" value="${jobSeeker.ugSpecialization}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="ugUniversity">University</label>
                                     <input type="text" class="form-control" id="ugUniversity" name="ugUniversity"
-                                        value="${jobSeeker.ugUniversity}">
+                                        value="${jobSeeker.ugUniversity}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="ugGraduationYear">Graduation Year</label>
@@ -659,17 +658,17 @@
                                 <div class="form-group col-md-3">
                                     <label for="pgDegree">PG Degree</label>
                                     <input type="text" class="form-control" id="pgDegree" name="pgDegree"
-                                        value="${jobSeeker.pgDegree}">
+                                        value="${jobSeeker.pgDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="pgSpecialization">Specialization</label>
                                     <input type="text" class="form-control" id="pgSpecialization"
-                                        name="pgSpecialization" value="${jobSeeker.pgSpecialization}">
+                                        name="pgSpecialization" value="${jobSeeker.pgSpecialization}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="pgUniversity">University</label>
                                     <input type="text" class="form-control" id="pgUniversity" name="pgUniversity"
-                                        value="${jobSeeker.pgUniversity}">
+                                        value="${jobSeeker.pgUniversity}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="pgGraduationYear">Graduation Year</label>
@@ -685,17 +684,17 @@
                                 <div class="form-group col-md-3">
                                     <label for="doctorateDegree">Doctorate Degree</label>
                                     <input type="text" class="form-control" id="doctorateDegree" name="doctorateDegree"
-                                        value="${jobSeeker.doctorateDegree}">
+                                        value="${jobSeeker.doctorateDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="doctorateSpecialization">Specialization</label>
                                     <input type="text" class="form-control" id="doctorateSpecialization"
-                                        name="doctorateSpecialization" value="${jobSeeker.doctorateSpecialization}">
+                                        name="doctorateSpecialization" value="${jobSeeker.doctorateSpecialization}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="doctorateUniversity">University</label>
                                     <input type="text" class="form-control" id="doctorateUniversity"
-                                        name="doctorateUniversity" value="${jobSeeker.doctorateUniversity}">
+                                        name="doctorateUniversity" value="${jobSeeker.doctorateUniversity}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="doctorateGraduationYear">Graduation Year</label>
@@ -713,9 +712,9 @@
                                 <div class="form-group col-md-4">
                                     <label for="experience"><i class="fas fa-chart-line"></i> Experience (Years) <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="experience" name="experience"
-                                        value="${jobSeeker.experience}" min="0" max="99"
-                                        title="Experience must be between 0 and 99 years" required
-                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                        value="${jobSeeker.experience}" min="0" max="99.9" step="0.1"
+                                        title="Experience must be between 0 and 99.9 years" required
+                                        oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4); if(parseFloat(this.value) > 99.9) this.value = '99.9';">
                                 </div>
 
                                 <!-- SKILLS FIX APPLIED HERE -->

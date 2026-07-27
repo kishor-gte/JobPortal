@@ -1624,6 +1624,49 @@
   </div>
 </div>
 
+<!-- Pricing Modal -->
+<div class="modal fade form-modal" id="pricingModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog max-width-px-840 position-relative">
+    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-bs-dismiss="modal" style="border: none; background: transparent; font-size: 20px; color: #64748B;"><i class="fas fa-times"></i></button>
+    <div class="modal-content login-modal-main" style="pointer-events: auto; border: none; padding: 40px; background: #FFFFFF; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);">
+      <div class="text-center mb-4">
+        <h2 style="font-weight: 800; color: #0F172A; font-size: 2rem; margin-bottom: 8px;">Simple, Transparent Pricing</h2>
+        <p style="color: #64748B; font-size: 1rem;">Choose the plan that fits your career goals</p>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <!-- Basic Plan -->
+        <div class="col-md-5">
+          <div style="border: 1px solid #E2E8F0; border-radius: 16px; padding: 24px; text-align: center; background: #F8FAFC; height: 100%; display: flex; flex-direction: column;">
+            <h4 style="font-weight: 700; color: #0F172A; font-size: 1.25rem;">Free Plan</h4>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #0F172A; margin: 15px 0;">$0 <span style="font-size: 1rem; font-weight: 400; color: #64748B;">/month</span></div>
+            <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 25px; font-size: 0.9rem; color: #475569; line-height: 1.8; flex-grow: 1;">
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> Apply to 10 jobs/month</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> Standard resume analyzer</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> Access to community Q&A</li>
+            </ul>
+            <button class="btn w-100" data-bs-dismiss="modal" style="border-radius: 30px; border: 1px solid #19A77B; color: #19A77B; background: transparent; font-weight: 600; padding: 10px;">Get Started</button>
+          </div>
+        </div>
+        <!-- Premium Plan -->
+        <div class="col-md-5">
+          <div style="border: 2px solid #19A77B; border-radius: 16px; padding: 24px; text-align: center; background: #FFFFFF; position: relative; box-shadow: 0 10px 25px rgba(25, 167, 123, 0.1); height: 100%; display: flex; flex-direction: column;">
+            <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #19A77B; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;">POPULAR</span>
+            <h4 style="font-weight: 700; color: #0F172A; font-size: 1.25rem;">Pro Plan</h4>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #19A77B; margin: 15px 0;">$9.99 <span style="font-size: 1rem; font-weight: 400; color: #64748B;">/month</span></div>
+            <ul style="list-style: none; padding: 0; text-align: left; margin-bottom: 25px; font-size: 0.9rem; color: #475569; line-height: 1.8; flex-grow: 1;">
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> Unlimited job applications</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> AI Resume feedback & score</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> Unlimited mock interviews</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-check text-success mr-2" style="margin-right: 8px; color: #19A77B;"></i> Featured candidate badge</li>
+            </ul>
+            <button class="btn w-100" data-bs-dismiss="modal" style="background: linear-gradient(135deg, #19A77B, #3BC49A); border: none; color: white; border-radius: 30px; font-weight: 600; padding: 10px; box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);">Upgrade Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Footer - Premium Design -->
 <style>
   .modal-backdrop { z-index: 1040 !important; }
@@ -1671,7 +1714,7 @@
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Browse Jobs</a></li>
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Companies</a></li>
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Candidates</a></li>
-          <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Pricing</a></li>
+          <li style="margin-bottom: 15px;"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#pricingModal">Pricing</a></li>
         </ul>
       </div>
       <div class="col-lg-2 col-md-6">

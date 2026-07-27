@@ -401,9 +401,6 @@
                 <p><a href="${pageContext.request.contextPath}/admin/forgot-password"><i class="fas fa-key" style="margin-right: 8px; color: var(--primary);"></i> Forgot Password?</a></p>
             </div>
 
-            <div class="register-link">
-                <p><i class="fas fa-user-plus" style="margin-right: 8px; color: var(--primary);"></i> New admin? <a href="${pageContext.request.contextPath}/getregisterAdmin">Register here</a></p>
-            </div>
         </div>
     </div>
 </div>

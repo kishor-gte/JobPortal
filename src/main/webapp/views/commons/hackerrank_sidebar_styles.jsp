@@ -64,4 +64,8 @@
 .nav-link::before {
     display: none !important;
 }
+
+.btn-logout {
+    display: none !important;
+}
 </style>

@@ -30,7 +30,7 @@ public enum Location {
     MADURAI,
     PATNA,
     RAIPUR,
-    Bhopal,
+    BHOPAL,
     AMRITSAR,
     LUDHIANA,
     KOLHAPUR,

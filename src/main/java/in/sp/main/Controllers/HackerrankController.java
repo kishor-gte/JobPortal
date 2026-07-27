@@ -616,6 +616,20 @@ public class HackerrankController {
             return "redirect:/hackerrank/student/upload-resume";
         }
 
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !(originalFilename.toLowerCase().endsWith(".pdf") || originalFilename.toLowerCase().endsWith(".doc") || originalFilename.toLowerCase().endsWith(".docx"))) {
+            redirectAttrs.addFlashAttribute("error", "Invalid file type. Only PDF, DOC, and DOCX files are allowed.");
+            return "redirect:/hackerrank/student/upload-resume";
+        }
+        
+        String contentType = file.getContentType();
+        if (contentType != null && !(contentType.equalsIgnoreCase("application/pdf") || 
+                                     contentType.equalsIgnoreCase("application/msword") || 
+                                     contentType.equalsIgnoreCase("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))) {
+            redirectAttrs.addFlashAttribute("error", "Invalid file type. Only PDF, DOC, and DOCX files are allowed.");
+            return "redirect:/hackerrank/student/upload-resume";
+        }
+
         try {
             // Ensure uploads directory exists
             String uploadDir = System.getProperty("user.dir") + "/uploads/";

@@ -509,6 +509,11 @@
             <i class="fas fa-check-circle"></i> ${message}
         </div>
     </c:if>
+    <c:if test="${empty message and not empty param.message}">
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle"></i> ${param.message}
+        </div>
+    </c:if>
     <c:if test="${not empty error}">
         <div class="alert alert-danger">
             <i class="fas fa-exclamation-circle"></i> ${error}
@@ -565,7 +570,7 @@
              <div class="col-md-6 info-block"><span class="info-label">Location:</span> <div>${jobSeeker.location}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Pin Code:</span> <div>${jobSeeker.pinCode}</div></div>
              <div class="col-md-12 info-block"><span class="info-label">Permanent Address:</span> <div>${jobSeeker.permanentAddress}</div></div>
-             <div class="col-md-12 info-block"><span class="info-label">Languages Known:</span> <div>${jobSeeker.languagesKnown}</div></div>
+             <div class="col-md-12 info-block"><span class="info-label">Languages Known:</span> <div>${not empty jobSeeker.languagesKnown ? fn:replace(jobSeeker.languagesKnown, ',', ', ') : ''}</div></div>
          </div>
        
          <!-- Education Details -->
@@ -624,14 +629,25 @@
                  <span class="info-label">Account Status:</span>
                  <div>
                      <c:choose>
-                         <c:when test="${not empty jobSeeker.accountStatus && jobSeeker.accountStatus == 'ACTIVE'}">
+                         <c:when test="${not empty jobSeeker.accountStatus && (jobSeeker.accountStatus == 'ACTIVE' || jobSeeker.accountStatus == 'OPEN_TO_WORK' || jobSeeker.accountStatus == 'ACTIVELY_APPLYING' || jobSeeker.accountStatus == 'EMPLOYED_OPEN_TO_OPPORTUNITY')}">
                              <span class="status-badge status-active">
-                                 <i class="fas fa-check-circle"></i> Active
+                                 <i class="fas fa-check-circle"></i> 
+                                 <c:choose>
+                                     <c:when test="${jobSeeker.accountStatus == 'ACTIVE'}">Active</c:when>
+                                     <c:when test="${jobSeeker.accountStatus == 'OPEN_TO_WORK'}">Open to Work</c:when>
+                                     <c:when test="${jobSeeker.accountStatus == 'ACTIVELY_APPLYING'}">Actively Applying</c:when>
+                                     <c:when test="${jobSeeker.accountStatus == 'EMPLOYED_OPEN_TO_OPPORTUNITY'}">Employed but Open</c:when>
+                                 </c:choose>
                              </span>
                          </c:when>
                          <c:otherwise>
                              <span class="status-badge status-inactive">
-                                 <i class="fas fa-times-circle"></i> Inactive
+                                 <i class="fas fa-times-circle"></i> 
+                                 <c:choose>
+                                     <c:when test="${jobSeeker.accountStatus == 'DEACTIVATED'}">Deactivated</c:when>
+                                     <c:when test="${jobSeeker.accountStatus == 'NOT_OPEN_TO_WORK'}">Not Looking</c:when>
+                                     <c:otherwise>Inactive</c:otherwise>
+                                 </c:choose>
                              </span>
                          </c:otherwise>
                      </c:choose>

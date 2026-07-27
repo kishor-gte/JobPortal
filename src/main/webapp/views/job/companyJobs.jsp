@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -475,7 +477,7 @@
                         <div class="row job-details">
                             <div class="col-md-4 field"><i class="fas fa-building"></i> <strong>Sector:</strong> ${job.jobSector}</div>
                             <div class="col-md-4 field"><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${job.location}</div>
-                            <div class="col-md-4 field"><i class="fas fa-money-bill-wave"></i> <strong>Salary:</strong> ${job.salaryMin} - ${job.salaryMax}</div>
+                            <div class="col-md-4 field"><i class="fas fa-money-bill-wave"></i> <strong>Salary:</strong> &#8377;<fmt:formatNumber value="${job.salaryMin}" maxFractionDigits="0"/> - &#8377;<fmt:formatNumber value="${job.salaryMax}" maxFractionDigits="0"/></div>
                         </div>
                         <div class="row job-details">
                             <div class="col-md-4 field"><i class="fas fa-user-clock"></i> <strong>Experience:</strong> ${job.experienceRequired} years</div>
@@ -485,7 +487,7 @@
                         <div class="row job-details">
                             <div class="col-md-4 field"><i class="fas fa-briefcase-medical"></i> <strong>Type:</strong> ${job.employmentType}</div>
                             <div class="col-md-4 field"><i class="fas fa-percent"></i> <strong>Equity Offered:</strong> ${job.equityOffered ? 'Yes' : 'No'}</div>
-                            <div class="col-md-4 field"><i class="fas fa-tools"></i> <strong>Skills:</strong> ${job.skillRequirement}</div>
+                            <div class="col-md-4 field"><i class="fas fa-tools"></i> <strong>Skills:</strong> ${not empty job.skillRequirement ? fn:replace(job.skillRequirement, ',', ', ') : ''}</div>
                         </div>
                         <div class="row job-details">
                             <div class="col-md-12 field"><i class="fas fa-align-left"></i> <strong>Description:</strong> ${job.description}</div>

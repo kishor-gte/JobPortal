@@ -846,11 +846,11 @@
                             <span class="applicant-detail"><i class="fas fa-clock"></i> ${app.appliedAt}</span>
                             <c:choose>
                                 <c:when test="${app.status == 'APPLIED'}"><span class="status-badge status-applied">Applied</span></c:when>
-                                <c:when test="${app.status == 'VIEWED'}"><span class="status-badge status-viewed">Viewed</span></c:when>
+                                <c:when test="${app.status == 'VIEWED_BY_RECRUITER'}"><span class="status-badge status-viewed">Viewed</span></c:when>
                                 <c:when test="${app.status == 'SHORTLISTED'}"><span class="status-badge status-shortlisted">Shortlisted</span></c:when>
                                 <c:when test="${app.status == 'INTERVIEW_SCHEDULED'}"><span class="status-badge status-interview">Interview Scheduled</span></c:when>
                                 <c:when test="${app.status == 'REJECTED'}"><span class="status-badge status-rejected">Rejected</span></c:when>
-                                <c:when test="${app.status == 'HIRED'}"><span class="status-badge status-hired">Hired</span></c:when>
+                                <c:when test="${app.status == 'SELECTED'}"><span class="status-badge status-hired">Hired</span></c:when>
                             </c:choose>
                         </div>
 
@@ -879,7 +879,7 @@
                             </button>
                             <form action="${pageContext.request.contextPath}/company/update-application-status/${app.id}" method="post" style="display:inline;">
                                 <input type="hidden" name="jobId" value="${app.jobId}">
-                                <input type="hidden" name="status" value="HIRED">
+                                <input type="hidden" name="status" value="SELECTED">
                                 <button type="submit" class="btn-sm btn-sm-green"><i class="fas fa-check-double"></i> Hire</button>
                             </form>
                             <form action="${pageContext.request.contextPath}/company/update-application-status/${app.id}" method="post" style="display:inline;">

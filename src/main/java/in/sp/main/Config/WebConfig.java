@@ -31,7 +31,6 @@ public class WebConfig implements WebMvcConfigurer {
         // Define paths that require a premium subscription
         registry.addInterceptor(premiumFeatureInterceptor)
                 .addPathPatterns(
-                    "/jobseeker/videos",
                     "/jobseeker/premium/**"
                 );
     }
