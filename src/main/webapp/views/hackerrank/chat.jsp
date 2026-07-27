@@ -711,45 +711,13 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Navigation Sidebar -->
-    <div class="nav-sidebar" id="navSidebar">
-        <div class="sidebar-logo">
-            <div class="icon"><i class="fas fa-brain"></i></div>
-            <h2>SmartInterview</h2>
-        </div>
-        <div class="nav-section">
-            <h4>Main</h4>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/dashboard" class="nav-link">
-                <i class="fas fa-th-large"></i> Dashboard
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice" class="nav-link">
-                <i class="fas fa-code"></i> Coding Practice
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/mock-interview" class="nav-link">
-                <i class="fas fa-video"></i> Mock Interview
-            </a>
-        </div>
-        <div class="nav-section">
-            <h4>Tools</h4>
-            <a href="${pageContext.request.contextPath}/hackerrank/chat" class="nav-link active">
-                <i class="fas fa-comments"></i> Messages
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/upload-resume" class="nav-link">
-                <i class="fas fa-file-upload"></i> Upload Resume
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/performance" class="nav-link">
-                <i class="fas fa-chart-line"></i> Performance
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link">
-                <i class="fas fa-robot"></i> AI Feedback
-            </a>
-        </div>
-        <div class="nav-section">
-            <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/hackerrank/logout" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
-    </div>
+    <jsp:include page="/views/commons/student_sidebar.jsp" />
+    <div style="width: 280px; flex-shrink: 0; display: none;" class="sidebar-spacer-desktop"></div>
+    <style>
+        @media (min-width: 769px) {
+            .sidebar-spacer-desktop { display: block !important; }
+        }
+    </style>
 
     <!-- Chat Contacts Sidebar -->
     <div class="chat-sidebar" id="chatSidebar">

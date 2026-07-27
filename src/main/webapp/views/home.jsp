@@ -1542,7 +1542,7 @@
         <c:otherwise>
           <c:forEach var="job" items="${featuredJobs}">
             <div class="col-lg-3 col-md-6 mb-4">
-              <a href="${pageContext.request.contextPath}/jobs/details?id=${job.id}" class="premium-job-card">
+              <a href="${pageContext.request.contextPath}/jobs/details/${job.id}" class="premium-job-card">
                 <div class="company-header">
                   <div style="display: flex; align-items: center; gap: 15px;">
                     <div class="company-logo">
