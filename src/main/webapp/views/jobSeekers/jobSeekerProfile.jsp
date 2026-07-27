@@ -509,6 +509,11 @@
             <i class="fas fa-check-circle"></i> ${message}
         </div>
     </c:if>
+    <c:if test="${empty message and not empty param.message}">
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle"></i> ${param.message}
+        </div>
+    </c:if>
     <c:if test="${not empty error}">
         <div class="alert alert-danger">
             <i class="fas fa-exclamation-circle"></i> ${error}
@@ -565,7 +570,7 @@
              <div class="col-md-6 info-block"><span class="info-label">Location:</span> <div>${jobSeeker.location}</div></div>
              <div class="col-md-6 info-block"><span class="info-label">Pin Code:</span> <div>${jobSeeker.pinCode}</div></div>
              <div class="col-md-12 info-block"><span class="info-label">Permanent Address:</span> <div>${jobSeeker.permanentAddress}</div></div>
-             <div class="col-md-12 info-block"><span class="info-label">Languages Known:</span> <div>${jobSeeker.languagesKnown}</div></div>
+             <div class="col-md-12 info-block"><span class="info-label">Languages Known:</span> <div>${not empty jobSeeker.languagesKnown ? fn:replace(jobSeeker.languagesKnown, ',', ', ') : ''}</div></div>
          </div>
        
          <!-- Education Details -->

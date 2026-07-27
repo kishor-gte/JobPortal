@@ -738,7 +738,7 @@
                 </div>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/registerAdmin" method="post" id="registerForm">
+            <form action="${pageContext.request.contextPath}/admin/registerAdmin" method="post" id="registerForm">
                 <div class="form-group">
                     <div class="input-wrapper">
                         <i class="fas fa-user input-icon"></i>

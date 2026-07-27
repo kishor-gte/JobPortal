@@ -339,9 +339,9 @@ body {
           <c:forEach var="u" items="${recentUsers}" end="7">
             <div class="hr-user-item">
               <div class="hr-user-info">
-                <div class="hr-user-avatar ${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">${u.name.substring(0,1)}</div>
+                <div class="hr-user-avatar ${u.role == 'ADMIN' ? 'admin' : u.role == 'STUDENT' ? 'student' : u.role == 'COMPANY' ? 'company' : 'interviewer'}">${not empty u.name ? u.name.substring(0,1) : 'U'}</div>
                 <div class="hr-user-details">
-                  <span class="hr-user-name">${u.name}</span>
+                  <span class="hr-user-name">${not empty u.name ? u.name : u.email}</span>
                   <div class="hr-user-meta">
                     <i class="fas fa-envelope"></i> ${u.email}
                   </div>
@@ -425,7 +425,7 @@ body {
       <div class="hr-card">
         <div class="hr-card-header">
           <h3><i class="fas fa-file-alt" style="color: #19A77B;"></i> Recent Job Applications</h3>
-          <a href="${pageContext.request.contextPath}/applications/track">Track All <i class="fas fa-arrow-right ms-1"></i></a>
+          <a href="${pageContext.request.contextPath}/company_dashboard">Track All <i class="fas fa-arrow-right ms-1"></i></a>
         </div>
         <div class="hr-card-content">
           <c:forEach var="a" items="${recentApplications}" end="7">
@@ -439,8 +439,8 @@ body {
                   </div>
                 </div>
               </div>
-              <span class="status-badge status-${a.status == 'APPLIED' ? 'applied' : a.status == 'HIRED' ? 'hired' : 'rejected'}">
-                <i class="fas fa-${a.status == 'APPLIED' ? 'clock' : a.status == 'HIRED' ? 'check-circle' : 'times-circle'} me-1"></i>
+              <span class="status-badge status-${a.status == 'APPLIED' ? 'applied' : a.status == 'SELECTED' ? 'hired' : 'rejected'}">
+                <i class="fas fa-${a.status == 'APPLIED' ? 'clock' : a.status == 'SELECTED' ? 'check-circle' : 'times-circle'} me-1"></i>
                 ${a.status}
               </span>
             </div>

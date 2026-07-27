@@ -601,7 +601,7 @@
             <div class="footer-bottom pt-4 pb-3 border-top" style="border-color: rgba(255,255,255,0.3); color: #ffffff;">
                 <div class="row align-items-center">
                     <div class="col-md-6 col-12 text-start">
-                        <p style="margin: 0;">&copy; 2025 <strong>SmartInterview</strong>. All rights reserved.</p>
+                        <p style="margin: 0;">&copy; 2026 <strong>SmartInterview</strong>. All rights reserved.</p>
                     </div>
                     <div class="col-md-6 col-12 text-end">
                         <ul style="list-style: none; display: flex; gap: 15px; justify-content: end; padding-left: 0; margin: 0;">

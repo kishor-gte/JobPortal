@@ -845,7 +845,7 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/logout" class="nav-link">
+            <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -915,10 +915,10 @@
                             <td>
                                 <div class="user-cell">
                                     <div class="user-avatar">
-                                        ${u.name.substring(0,1)}
+                                        ${not empty u.name ? u.name.substring(0,1) : 'U'}
                                     </div>
                                     <div>
-                                        <div style="font-weight: 600; color: var(--text-primary);">${u.name}</div>
+                                        <div style="font-weight: 600; color: var(--text-primary);">${not empty u.name ? u.name : u.email}</div>
                                         <div style="font-size: 12px; color: var(--text-tertiary);">
                                             <i class="fas fa-at"></i> ${u.email}
                                         </div>

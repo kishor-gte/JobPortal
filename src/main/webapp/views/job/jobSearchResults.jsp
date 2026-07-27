@@ -515,7 +515,7 @@
 
 <!-- Footer Section -->
 <div class="footer">
-    <p>&copy; 2025 JobU | All Rights Reserved</p>
+    <p>&copy; 2026 JobU | All Rights Reserved</p>
 </div>
 
 <script>

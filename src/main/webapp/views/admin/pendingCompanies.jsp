@@ -617,18 +617,20 @@
                     </div>
 
                     <div class="company-actions">
-                        <a href="${pageContext.request.contextPath}/admin/verify/${company.id}" 
-                           class="btn-action btn-approve"
-                           onclick="return confirm('Are you sure you want to approve ${company.name}? They will gain full access to the platform.');">
-                            <i class="fas fa-check-circle"></i>
-                            Approve Company
-                        </a>
-                        <a href="${pageContext.request.contextPath}/delete-company/${company.id}" 
-                           class="btn-action btn-reject"
-                           onclick="return confirm('Are you sure you want to reject ${company.name}? This action cannot be undone.');">
-                            <i class="fas fa-times-circle"></i>
-                            Reject Company
-                        </a>
+                        <form method="post" action="${pageContext.request.contextPath}/admin/verify/${company.id}" style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to approve ${company.name}? They will gain full access to the platform.');">
+                            <button type="submit" class="btn-action btn-approve">
+                                <i class="fas fa-check-circle"></i>
+                                Approve Company
+                            </button>
+                        </form>
+                        <form method="post" action="${pageContext.request.contextPath}/delete-company/${company.id}" style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to reject ${company.name}? This action cannot be undone.');">
+                            <button type="submit" class="btn-action btn-reject">
+                                <i class="fas fa-times-circle"></i>
+                                Reject Company
+                            </button>
+                        </form>
                     </div>
                 </div>
             </c:forEach>

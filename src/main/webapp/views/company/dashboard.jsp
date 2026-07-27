@@ -487,7 +487,7 @@
 <!-- Footer -->
 <footer>
     <div class="footer-content">
-        &copy; 2025 JobU | 
+        &copy; 2026 JobU | 
         <a href="${pageContext.request.contextPath}/policy.html">Privacy Policy</a> | 
         <a href="${pageContext.request.contextPath}/terms-conditions.html">Terms of Service</a>
     </div>

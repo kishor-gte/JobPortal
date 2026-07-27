@@ -571,7 +571,7 @@
                         <div class="techperson-icon">R</div>
                     </div>
                     <h3>Tech Person Login</h3>
-                    <p class="login-subtitle">Sign in to manage job postings and candidates</p>
+                    <p class="login-subtitle">Sign in to manage assessments and interviews</p>
                 </div>
      
                 <!-- Display error message if login fails -->
