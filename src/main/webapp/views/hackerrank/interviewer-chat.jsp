@@ -655,6 +655,15 @@
             .message {
                 max-width: 85%;
             }
+
+            .mobile-menu-btn {
+                display: inline-block !important;
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: var(--text-primary);
+                cursor: pointer;
+            }
         }
 
         .mobile-menu-btn {
@@ -784,9 +793,6 @@
             </c:if>
             
             <div class="header-actions">
-                <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="btn-back-dashboard">
-                    <i class="fas fa-arrow-left"></i> Dashboard
-                </a>
             </div>
         </div>
 

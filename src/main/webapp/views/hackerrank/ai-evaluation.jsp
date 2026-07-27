@@ -48,6 +48,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -862,9 +863,6 @@
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
-            <a href="javascript:history.back()" class="back-link" style="margin-bottom: 0;">
-                <i class="fas fa-arrow-left"></i> Back
-            </a>
         </div>
 
         <div class="page-header">

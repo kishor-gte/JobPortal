@@ -45,13 +45,13 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: var(--bg-color);
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
-        }
-
-        @keyframes backgroundPulse {
+            transition: all 0.3s ease;
+            overflow-x: clip;
+        }@keyframes backgroundPulse {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.4; }
         }
@@ -822,9 +822,6 @@
                     </div>
                 </div>
                 <div class="user-avatar">${jobSeeker.name.substring(0,1)}</div>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
             </div>
         </div>
 

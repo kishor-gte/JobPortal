@@ -48,6 +48,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -845,6 +846,9 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
+            <a href="${pageContext.request.contextPath}/company/dashboard" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Back to Company
+            </a>
             <a href="${pageContext.request.contextPath}/hackerrank/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
@@ -864,12 +868,6 @@
                 <button id="theme-toggle" class="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
                 </button>
-                <a href="${pageContext.request.contextPath}/company/dashboard" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Back to Company
-                </a>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
             </div>
         </div>
 

@@ -77,6 +77,7 @@ body {
   margin: 0;
   min-height: 100vh;
   position: relative;
+  overflow-x: clip;
 }
 
 /* Animated background pattern */
@@ -674,11 +675,7 @@ body::before {
           <div class="alert alert-info">
               <i class="fas fa-briefcase"></i>
               <strong style="color: var(--heading-text);">You haven't applied for any jobs yet.</strong><br>
-              <span style="font-size: 14px;">Browse available jobs and start applying today!</span>
-              <br><br>
-              <a href="${pageContext.request.contextPath}/jobs/all" class="btn-primary-custom">
-                <i class="fas fa-search"></i> Browse Jobs
-              </a>
+              <span style="font-size: 14px;">Browse available jobs from the sidebar and start applying today!</span>
           </div>
       </c:when>
       <c:otherwise>

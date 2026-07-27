@@ -38,6 +38,7 @@
             color: var(--text-primary);
             height: 100vh;
             overflow: hidden;
+            overflow-x: clip;
             display: flex;
             position: relative;
         }
@@ -682,6 +683,15 @@
             .message {
                 max-width: 85%;
             }
+
+            .mobile-menu-btn {
+                display: inline-block !important;
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: var(--text-primary);
+                cursor: pointer;
+            }
         }
 
         .mobile-menu-btn {
@@ -781,9 +791,6 @@
             </c:if>
             
             <div class="header-actions">
-                <a href="${pageContext.request.contextPath}/hackerrank/student/dashboard" class="btn-back-dashboard">
-                    <i class="fas fa-arrow-left"></i> Dashboard
-                </a>
             </div>
         </div>
 

@@ -62,7 +62,7 @@
             color: var(--text-dark);
             min-height: 100vh;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
 
         /* animated background mesh */
@@ -200,6 +200,16 @@
             margin-left: 280px;
             padding: 1.5rem;
             transition: margin-left 0.3s ease;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scrollable-jobs {
+            overflow-y: auto;
+            max-height: calc(100vh - 130px);
+            padding-right: 10px;
         }
 
         /* Page Header Slim (White Style) */
@@ -279,7 +289,13 @@
             border: 2px solid #e2ede7;
             padding: 0.5rem 1rem;
             font-size: 0.85rem;
-			margin-bottom: 5px;
+            margin-bottom: 5px;
+            background-color: var(--white);
+            color: var(--text-dark);
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(25,167,123,0.12);
         }
         .btn-filter {
             background: linear-gradient(105deg, var(--primary), var(--primary-dark));
@@ -344,6 +360,10 @@
                 width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;
             }
             .sidebar-overlay.show { display: block; }
+            .main-content-wrapper { height: auto; overflow: visible; display: block; }
+            .scrollable-jobs { max-height: none; overflow-y: visible; }
+            .filter-sidebar { margin-bottom: 20px; }
+            .col-lg-3 { position: static !important; max-height: none !important; overflow-y: visible !important; }
         }
 
         ::-webkit-scrollbar { width: 5px; }
@@ -368,7 +388,7 @@
     <div class="container-fluid px-0">
         <div class="row g-3">
             <!-- Filter Sidebar -->
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="max-height: calc(100vh - 130px); overflow-y: auto;">
                 <div class="filter-sidebar">
                     <h3><i class="fas fa-filter me-2"></i> Filter Jobs</h3>
                     <form method="get" action="${pageContext.request.contextPath}/jobs/all">
@@ -414,7 +434,7 @@
             </div>
 
             <!-- Main Content -->
-            <div class="col-lg-9">
+            <div class="col-lg-9 scrollable-jobs">
                 <div class="search-section">
                     <form method="get" action="${pageContext.request.contextPath}/jobs/all">
                         <input type="hidden" name="category" value="${param.category}">

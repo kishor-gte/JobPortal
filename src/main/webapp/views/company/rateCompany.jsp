@@ -1,4 +1,4 @@
-﻿<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -80,9 +80,9 @@
         .review-container {
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Fixes container moving/cutting off */
             justify-content: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
         }
         .review-box {
             background: var(--white);
@@ -154,8 +154,9 @@
 
         /* ===== STAR RATING SYSTEM ===== */
         .star-rating {
-            direction: rtl;
             display: inline-flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
             gap: 10px;
             font-size: 2.2rem;
         }
@@ -173,20 +174,20 @@
             transform: scale(1.15);
         }
         #star1:checked ~ label,
-        #star1:hover,
-        #star1:hover ~ label { color: var(--star-1); }
+        label[for="star1"]:hover,
+        label[for="star1"]:hover ~ label { color: var(--star-1); }
         #star2:checked ~ label,
-        #star2:hover,
-        #star2:hover ~ label { color: var(--star-2); }
+        label[for="star2"]:hover,
+        label[for="star2"]:hover ~ label { color: var(--star-2); }
         #star3:checked ~ label,
-        #star3:hover,
-        #star3:hover ~ label { color: var(--star-3); }
+        label[for="star3"]:hover,
+        label[for="star3"]:hover ~ label { color: var(--star-3); }
         #star4:checked ~ label,
-        #star4:hover,
-        #star4:hover ~ label { color: var(--star-4); }
+        label[for="star4"]:hover,
+        label[for="star4"]:hover ~ label { color: var(--star-4); }
         #star5:checked ~ label,
-        #star5:hover,
-        #star5:hover ~ label { color: var(--star-5); }
+        label[for="star5"]:hover,
+        label[for="star5"]:hover ~ label { color: var(--star-5); }
 
         /* Textarea */
         textarea {
@@ -257,9 +258,33 @@
             .star-rating { font-size: 1.8rem; gap: 6px; }
             .star-rating label { font-size: 1.6rem; }
         }
+        .btn-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--white);
+            color: var(--text-dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .btn-back:hover {
+            background: var(--bg-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
+<a href="${pageContext.request.contextPath}/company/details/${company.id}" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Company</a>
 
 <div class="review-container">
     <div class="review-box" data-aos="fade-up" data-aos-duration="800">
@@ -286,8 +311,9 @@
             </div>
 
             <div class="form-group">
-                <label><i class="fas fa-pen-fancy"></i> Your Review</label>
-                <textarea name="comment" placeholder="Share your experience working with this company... What did you like? What could be improved?" required></textarea>
+                <label><i class="fas fa-pen-fancy"></i> Your Review (Max 500 characters)</label>
+                <textarea name="comment" placeholder="Share your experience working with this company... What did you like? What could be improved?" maxlength="500" required></textarea>
+                <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;" id="charCount">0 / 500</div>
             </div>
 
             <button type="submit" class="submit-btn">
@@ -301,6 +327,12 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true, offset: 50 });
+    
+    const textarea = document.querySelector('textarea[name="comment"]');
+    const charCount = document.getElementById('charCount');
+    textarea.addEventListener('input', function() {
+        charCount.textContent = this.value.length + " / 500";
+    });
 </script>
 </body>
 </html>

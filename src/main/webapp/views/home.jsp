@@ -1050,11 +1050,11 @@
             </a>
           </div>
           
-          <form action="${pageContext.request.contextPath}/jobs/search" method="get">
+          <form action="${pageContext.request.contextPath}/jobs/all" method="get">
             <div class="premium-search-panel">
               <div class="premium-search-field">
                 <i class="fas fa-search"></i>
-                <input type="text" name="keyword" placeholder="Job title, keyword, or company">
+                <input type="text" name="searchQuery" placeholder="Job title, keyword, or company">
               </div>
               <div class="premium-search-field">
                 <i class="fas fa-map-marker-alt"></i>
@@ -1068,10 +1068,10 @@
           
           <div class="premium-popular-searches">
             <span>Popular:</span>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Developer" class="premium-popular-pill">Developer</a>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Java" class="premium-popular-pill">Java</a>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Python" class="premium-popular-pill">Python</a>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=React" class="premium-popular-pill">React</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=Developer" class="premium-popular-pill">Developer</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=Java" class="premium-popular-pill">Java</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=Python" class="premium-popular-pill">Python</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=React" class="premium-popular-pill">React</a>
           </div>
           
         </div>

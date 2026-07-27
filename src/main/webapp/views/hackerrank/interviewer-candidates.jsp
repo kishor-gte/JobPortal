@@ -348,10 +348,31 @@
         .table-360 tr:last-child td { border-bottom: none; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .filter-section { flex-direction: column; align-items: stretch; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; z-index: 1000; }
+            .sidebar.active { transform: translateX(0); box-shadow: var(--shadow-lg); }
+            .main-content { margin-left: 0 !important; padding: 20px !important; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .top-bar { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .mobile-menu-btn { display: inline-block !important; background: none; border: none; font-size: 24px; color: var(--text-primary); cursor: pointer; margin-right: 12px; }
+            .mobile-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 999; }
+            .mobile-overlay.active { display: block; }
+        }
+        
+        .mobile-menu-btn { display: none; }
     </style>
 </head>
 
 <body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
     <div class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
@@ -395,7 +416,12 @@
     <div class="main-content">
         <div class="top-bar">
             <div>
-                <h1><i class="fas fa-users"></i> Candidate Management</h1>
+                <h1>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <i class="fas fa-users"></i> Candidate Management
+                </h1>
                 <p>View all registered candidates and manage their information.</p>
             </div>
         </div>
@@ -912,6 +938,19 @@
             if (event.target == profileModal) closeModal('profileModal');
             if (event.target == activityModal) closeModal('activityModal');
         }
+    </script>
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('mobileOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        document.getElementById('mobileOverlay').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('active');
+            this.classList.remove('active');
+            document.body.style.overflow = '';
+        });
     </script>
 </body>
 </html>

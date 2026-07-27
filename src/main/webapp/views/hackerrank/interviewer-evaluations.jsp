@@ -44,6 +44,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -677,9 +678,6 @@
     </div>
 
     <div class="main-content">
-        <a href="${pageContext.request.contextPath}/hackerrank/interviewer/dashboard" class="back-link">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
         
         <div class="page-header">
             <div>

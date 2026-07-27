@@ -156,7 +156,7 @@
             <i class="fas fa-home"></i> Back to Home
         </a>
         <a href="${pageContext.request.contextPath}/hackerrank/student/dashboard" class="nav-link-custom">
-            <i class="fas fa-th-large"></i> Dashboard
+            <i class="fas fa-th-large"></i> Student Dashboard
         </a>
         <a href="${pageContext.request.contextPath}/jobSeekers/profile" class="nav-link-custom">
             <i class="fas fa-user"></i> Profile

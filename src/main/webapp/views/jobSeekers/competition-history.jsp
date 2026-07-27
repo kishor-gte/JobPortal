@@ -39,6 +39,7 @@
             color: var(--text-dark);
             display: flex;
             min-height: 100vh;
+            overflow-x: clip;
         }
 
         .main-content {

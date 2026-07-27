@@ -50,6 +50,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -680,15 +681,12 @@
                 Mock Interviews
             </h1>
             <div class="top-bar-actions">
-                <div class="theme-toggle-wrapper">
-                    <span class="theme-toggle-label">Theme</span>
+                <div class="user-info">
                     <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">
                         <div class="toggle-thumb"><i class="fas fa-moon"></i></div>
                     </div>
+                    <div class="user-avatar">${jobSeeker.name.substring(0,1)}</div>
                 </div>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
             </div>
         </div>
 

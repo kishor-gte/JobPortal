@@ -54,6 +54,7 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: var(--text-primary);
+            overflow-x: clip;
             min-height: 100vh;
             position: relative;
         }

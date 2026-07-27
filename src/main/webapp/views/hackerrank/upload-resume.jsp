@@ -44,10 +44,11 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             color: var(--text-primary);
             min-height: 100vh;
-            position: relative;
+            display: flex;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -768,15 +769,7 @@
                         </div>
                     </c:if>
                     
-                    <form action="${pageContext.request.contextPath}/hackerrank/student/analyze-resume/${resume.id}" method="post" class="analyze-form" style="margin-top: 16px;">
-                        <button type="submit" class="btn-choose analyze-btn" style="width: 100%; justify-content: center; background: var(--gradient-primary);" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Analyzing... Please wait (this can take up to 20s)'; this.style.pointerEvents='none'; this.style.opacity='0.7';">
-                            <i class="fas fa-magic"></i> 
-                            <c:choose>
-                                <c:when test="${resume.aiScore == 0}">Analyze Resume with AI</c:when>
-                                <c:otherwise>Re-Analyze Resume</c:otherwise>
-                            </c:choose>
-                        </button>
-                    </form>
+
                 </div>
             </c:forEach>
             

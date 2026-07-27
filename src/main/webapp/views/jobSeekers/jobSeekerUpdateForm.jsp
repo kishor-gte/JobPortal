@@ -632,7 +632,7 @@
 
                             <!-- UG -->
                             <h6 class="subsection-title"><i class="fas fa-university"></i> Undergraduate (UG)</h6>
-                            <div class="form-row">
+                            <div class="form-row" style="align-items: flex-end;">
                                 <div class="form-group col-md-3">
                                     <label for="ugDegree">Degree</label>
                                     <input type="text" class="form-control" id="ugDegree" name="ugDegree"
@@ -658,9 +658,9 @@
 
                             <!-- PG -->
                             <h6 class="subsection-title"><i class="fas fa-user-graduate"></i> Postgraduate (PG)</h6>
-                            <div class="form-row">
+                            <div class="form-row" style="align-items: flex-end;">
                                 <div class="form-group col-md-3">
-                                    <label for="pgDegree">PG Degree</label>
+                                    <label for="pgDegree" style="white-space: nowrap;">PG Degree</label>
                                     <input type="text" class="form-control" id="pgDegree" name="pgDegree"
                                         value="${jobSeeker.pgDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
@@ -853,7 +853,12 @@
                             },
                             allowClear: true,
                             width: '100%',
-                            tags: true
+                            tags: true,
+                            createTag: function (params) {
+                                var term = $.trim(params.term);
+                                if (term === '') { return null; }
+                                return { id: term, text: term, newTag: true };
+                            }
                         });
 
                         const $form = $('#updateProfileForm');
