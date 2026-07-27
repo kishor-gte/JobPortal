@@ -23,12 +23,12 @@
   ====================================================== */
 :root {
    /* Brand Colors - Updated */
-   --primary: #19A77B;
-   --primary-dark: #148F69;
-   --accent: #3BC49A;
-   --bg-dark: #2E3E41;
-   --bg-darker: #1a2a2c;
-   --bg-lighter: #3a4e51;
+   --primary: #0B8260;
+   --primary-dark: #086147;
+   --accent: #0eb082;
+   --bg-dark: #1f3c33;
+   --bg-darker: #0f231e;
+   --bg-lighter: #2d5548;
    
    /* Backgrounds */
    --bg-light: #f6f9fc;
@@ -39,9 +39,9 @@
    --body-text: #475569;
    
    /* Shadows & Borders */
-   --box-shadow-color: rgba(25, 167, 123, 0.15);
+   --box-shadow-color: rgba(11, 130, 96, 0.15);
    --border-dashed: #cbd5e1;
-   --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
+   --glow-primary: 0 0 20px rgba(11, 130, 96, 0.15);
    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
    
@@ -52,7 +52,7 @@
    
    /* Icons */
    --icon-color: var(--primary);
-   --icon-bg-light: rgba(25, 167, 123, 0.1);
+   --icon-bg-light: rgba(11, 130, 96, 0.1);
    
    /* Typography */
    --font-family-base: 'Inter', sans-serif;
@@ -88,8 +88,8 @@ body::before {
   right: 0;
   bottom: 0;
   background: 
-      radial-gradient(circle at 20% 80%, rgba(25, 167, 123, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(59, 196, 154, 0.03) 0%, transparent 50%);
+      radial-gradient(circle at 20% 80%, rgba(11, 130, 96, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(14, 176, 130, 0.03) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
   animation: backgroundPulse 15s ease-in-out infinite;
@@ -337,7 +337,7 @@ body::before {
 
 .stat-pill {
    background: var(--bg-white);
-   border: 1px solid rgba(25, 167, 123, 0.15);
+   border: 1px solid rgba(11, 130, 96, 0.15);
    border-radius: 40px;
    padding: 12px 24px;
    display: flex;
@@ -373,7 +373,7 @@ body::before {
    padding: 24px;
    margin-bottom: 16px;
    background: var(--bg-white);
-   border: 1px solid rgba(25, 167, 123, 0.1);
+   border: 1px solid rgba(11, 130, 96, 0.1);
    border-radius: 20px;
    display: flex;
    justify-content: space-between;
@@ -430,7 +430,7 @@ body::before {
    border-radius: 14px;
    object-fit: cover;
    background: #f4f4f4;
-   border: 1px solid rgba(25, 167, 123, 0.15);
+    border: 1px solid rgba(11, 130, 96, 0.15);
 }
 
 .job-logo .company-logo-fallback {
@@ -444,7 +444,7 @@ body::before {
    display: flex;
    align-items: center;
    justify-content: center;
-   border: 1px solid rgba(25, 167, 123, 0.15);
+   border: 1px solid rgba(11, 130, 96, 0.15);
    box-shadow: var(--glow-primary);
 }
 
@@ -476,11 +476,11 @@ body::before {
    gap: 6px;
    padding: 6px 16px;
    border-radius: 30px;
-   background: rgba(25, 167, 123, 0.1);
+   background: rgba(11, 130, 96, 0.1);
    color: var(--primary);
    font-size: 13px;
    font-weight: 600;
-   border: 1px solid rgba(25, 167, 123, 0.2);
+   border: 1px solid rgba(11, 130, 96, 0.2);
 }
 
 .status-chip i {
@@ -536,7 +536,7 @@ body::before {
 /* Empty State */
 .alert-info {
    background: var(--bg-white);
-   border: 1px solid rgba(25, 167, 123, 0.15);
+   border: 1px solid rgba(11, 130, 96, 0.15);
    border-radius: 20px;
    padding: 48px 24px;
    text-align: center;
@@ -566,12 +566,12 @@ body::before {
    border-radius: 30px;
    transition: all 0.3s ease;
    text-decoration: none;
-   box-shadow: 0 4px 12px rgba(25, 167, 123, 0.2);
+   box-shadow: 0 4px 12px rgba(11, 130, 96, 0.2);
 }
 
 .btn-primary-custom:hover {
    transform: translateY(-2px);
-   box-shadow: 0 6px 20px rgba(25, 167, 123, 0.35);
+   box-shadow: 0 6px 20px rgba(11, 130, 96, 0.35);
    color: #ffffff !important;
 }
 
