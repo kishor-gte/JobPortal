@@ -701,6 +701,12 @@
 </head>
 <body>
 
+    <!-- Mobile Toggle Button & Overlay -->
+    <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
 <jsp:include page="/views/commons/student_sidebar.jsp" />
 
 <!-- Main Content -->
@@ -867,15 +873,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+                sidebar.classList.toggle('active');
+            }
+            if (overlay) overlay.classList.toggle('show');
+        }
 
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                const sidebar = document.getElementById('careerSidebar');
+                const sidebar = document.getElementById('sidebar');
                 const overlay = document.querySelector('.sidebar-overlay');
-                sidebar.classList.remove('show');
-                overlay.classList.remove('show');
+                if (sidebar) {
+                    sidebar.classList.remove('show');
+                    sidebar.classList.remove('active');
+                }
+                if (overlay) overlay.classList.remove('show');
             }
         });
     </script>

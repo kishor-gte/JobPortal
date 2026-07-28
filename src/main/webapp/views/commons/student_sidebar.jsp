@@ -99,6 +99,8 @@
     border-left: 3px solid transparent !important;
     margin-bottom: 6px !important;
     border-radius: 10px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
 }
 
 .nav-link-custom i {

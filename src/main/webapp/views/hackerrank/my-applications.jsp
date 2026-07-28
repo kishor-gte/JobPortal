@@ -359,7 +359,12 @@
 	<jsp:include page="/views/commons/hackerrank_sidebar_styles.jsp" />
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Mobile Toggle Button -->
+    <button class="sidebar-toggle-btn" id="mobileMenuBtn" onclick="toggleSidebar()" style="display: none; position: fixed; top: 15px; left: 15px; z-index: 1001; background: var(--primary); color: white; border: none; padding: 12px 18px; border-radius: 12px; font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-md);">
+        <i class="fas fa-bars"></i>
+    </button>
 
     <jsp:include page="/views/commons/student_sidebar.jsp" />
 
@@ -572,7 +577,7 @@
                     </div>
                     <h3>No Applications Yet</h3>
                     <p>You haven't applied to any jobs yet. Browse available positions and start applying to kickstart your career!</p>
-                    <a href="${pageContext.request.contextPath}/jobs/all" class="btn-browse-jobs">
+                    <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="btn-browse-jobs">
                         <i class="fas fa-search"></i> Browse Job Listings
                     </a>
                 </div>
@@ -593,21 +598,10 @@
 
             // Mobile Menu Logic
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobileOverlay');
 
             if (mobileMenuBtn) {
                 mobileMenuBtn.style.display = window.innerWidth <= 768 ? 'inline-block' : 'none';
-                mobileMenuBtn.addEventListener('click', function() {
-                    sidebar.classList.add('active');
-                    overlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-                overlay.addEventListener('click', function() {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
             }
 
             window.addEventListener('resize', function() {
@@ -615,12 +609,26 @@
                     mobileMenuBtn.style.display = window.innerWidth <= 768 ? 'inline-block' : 'none';
                 }
                 if (window.innerWidth > 768) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar) sidebar.classList.remove('active');
+                    if (overlay) overlay.classList.remove('active');
                     document.body.style.overflow = '';
                 }
             });
         });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+                sidebar.classList.toggle('active');
+            }
+            if (overlay) {
+                overlay.classList.toggle('show');
+                overlay.classList.toggle('active');
+            }
+        }
     </script>
 </body>
 </html>
