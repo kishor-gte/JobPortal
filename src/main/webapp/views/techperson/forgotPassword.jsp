@@ -619,6 +619,24 @@
             background: white;
             color: var(--accent);
         }
+    /* --- MAIN THEME OVERRIDES --- */
+    body { background: url('${pageContext.request.contextPath}/assets/images/job_portal_bg.jpg') no-repeat center center fixed !important; background-size: cover !important; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.15); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); z-index: 0; pointer-events: none; animation: none; }
+    .image-section { display: none !important; }
+    .login-section { background: transparent !important; }
+    .login-container { background: linear-gradient(135deg, rgba(7, 82, 61, 0.95) 0%, rgba(11, 130, 96, 0.95) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.25) !important; border-radius: 35px !important; padding: 50px 30px 30px 30px !important; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important; position: relative; margin: 40px auto; max-width: 480px; }
+    .forgot-icon-wrapper { position: absolute !important; top: -42px !important; left: 50% !important; transform: translateX(-50%) !important; width: 84px !important; height: 84px !important; background: white !important; border-radius: 50% !important; border: none !important; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important; margin: 0 !important; animation: none !important; }
+    .forgot-icon-wrapper::before { display: none !important; }
+    .forgot-icon { background: transparent !important; color: var(--primary) !important; box-shadow: none !important; font-size: 2.2rem !important; }
+    h3, .login-subtitle, label, .register-link p, .register-link a { color: white !important; }
+    button[type="submit"] { background: white !important; color: var(--primary) !important; border-radius: 30px !important; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important; height: 48px; }
+    button[type="submit"]:hover { background: #e6f6ee !important; transform: translateY(-2px) !important; }
+    input[type="email"], input[type="password"], input[type="text"] { background: rgba(0, 0, 0, 0.18) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; color: white !important; height: 46px; border-radius: 30px !important; }
+    input[type="email"]::placeholder, input[type="password"]::placeholder, input[type="text"]::placeholder { color: rgba(255, 255, 255, 0.65) !important; }
+    input:focus { background: rgba(0, 0, 0, 0.25) !important; border-color: rgba(255, 255, 255, 0.45) !important; box-shadow: 0 0 15px rgba(255, 255, 255, 0.15) !important; }
+    .input-icon { color: rgba(255, 255, 255, 0.95) !important; }
+    .back-to-home { background: rgba(255, 255, 255, 0.2) !important; border-color: rgba(255, 255, 255, 0.3) !important; color: white !important; }
+    .back-to-home:hover { background: white !important; color: var(--primary) !important; }
     </style>
 </head>
 <body>

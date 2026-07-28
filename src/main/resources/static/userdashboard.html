@@ -776,88 +776,32 @@
         }
 
         /* ===== FOOTER ===== */
-        .footer {
-            background: #0B8260 !important;
-            padding: 80px 0 0;
-            color: #f1f5f9;
+        .footer-premium {
+            background: #0B0F19; /* Extremely deep dark blue */
+            padding: 80px 0 20px;
+            color: #94A3B8;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
-
-        .footer h3 {
-            color: var(--white);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 25px;
+        .footer-premium::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, #19A77B, #06B6D4, #8B5CF6);
         }
-
-        .footer .quick-links li a {
-            color: #cbd5e1;
-            transition: var(--transition);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
+        .footer-premium h3 { color: white; font-size: 1.25rem; font-weight: 800; margin-bottom: 25px; }
+        .footer-premium a { color: #94A3B8; text-decoration: none; transition: color 0.3s; font-size: 0.95rem; }
+        .footer-premium a:hover { color: #3BC49A; }
+        .footer-social-icons { display: flex; gap: 15px; list-style: none; padding: 0; margin-top: 30px; }
+        .footer-social-icons a { 
+            background: rgba(255,255,255,0.05); width: 45px; height: 45px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+            border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;
         }
-
-        .footer .quick-links li a:hover {
-            color: var(--primary-light);
-            transform: translateX(5px);
-        }
-
-        .social-icons-box a {
-            width: 38px;
-            height: 38px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .social-icons-box a:hover {
-            background: var(--primary-light);
-            transform: translateY(-3px);
-        }
-
-        .newsletter-form-container input {
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .newsletter-form-container input::placeholder {
-            color: #94a3b8;
-        }
-
-        .newsletter-form-container button {
-            background: #0B8260;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            border: none;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .newsletter-form-container button:hover {
-            background: #086147;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 25px 0;
-            margin-top: 50px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.85rem;
+        .footer-social-icons a:hover { background: #19A77B; color: white; transform: translateY(-3px); border-color: transparent; box-shadow: 0 10px 20px rgba(25, 167, 123,0.3); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-top: 30px; font-size: 0.9rem; }
+        
+        @media (max-width: 991px) {
+            .footer-premium { padding: 40px 0 20px !important; }
+            .footer-bottom { margin-top: 20px !important; padding-top: 20px !important; }
         }
 
         /* Preloader */
@@ -1240,69 +1184,52 @@
 
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-                    <div class="single-footer pe-lg-5">
-                        <a href="/userdashboard.html" style="text-decoration: none;">
-                            <span style="font-size: 1.8rem; font-weight: 800; color: #fff; display: block;" class="mb-4">JobU</span>
-                        </a>
-                        <p class="mb-4" style="opacity: 0.7; line-height: 1.8; font-size: 0.95rem;">
-                            JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.
-                        </p>
-                        <div class="social-icons-box d-flex gap-3">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
+    <footer class="footer-premium">
+        <div class="container-fluid">
+            <div class="row g-3 g-lg-5">
+                <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                    <p style="line-height: 1.8; color: #64748B;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>
+                    <ul class="footer-social-icons">
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                    <div class="single-footer">
-                        <h3>Platform</h3>
-                        <ul class="quick-links" style="list-style: none; padding-left: 0;">
-                            <li><a href="/jobs/all">Browse Jobs</a></li>
-                            <li><a href="/company/Alllist">Companies</a></li>
-                            <li><a href="/jobSeekers/profile">Candidates</a></li>
-                            <li><a href="#">Pricing</a></li>
-                        </ul>
-                    </div>
+                <div class="col-lg-2 col-md-6 col-6 mb-4 mb-lg-0">
+                    <h3>Platform</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><a href="/jobs/all">Browse Jobs</a></li>
+                        <li style="margin-bottom: 15px;"><a href="/company/Alllist">Companies</a></li>
+                        <li style="margin-bottom: 15px;"><a href="/jobSeekers/profile">Candidates</a></li>
+                        <li style="margin-bottom: 15px;"><a href="#">Pricing</a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                    <div class="single-footer">
-                        <h3>Support</h3>
-                        <ul class="quick-links" style="list-style: none; padding-left: 0;">
-                            <li><a href="/about-us.html">About Us</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="/terms-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="/legal-info.html">Legal info</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                        </ul>
-                    </div>
+                <div class="col-lg-2 col-md-6 col-6 mb-4 mb-lg-0">
+                    <h3>Support</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px;"><a href="/about-us.html">About Us</a></li>
+                        <li style="margin-bottom: 15px;"><a href="/contact.html">Help Center</a></li>
+                        <li style="margin-bottom: 15px;"><a href="/terms-conditions.html">Terms & Conditions</a></li>
+                        <li style="margin-bottom: 15px;"><a href="/policy.html">Privacy Policy</a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-footer">
-                        <h3>Stay Updated</h3>
-                        <p class="mb-4" style="opacity: 0.7; font-size:0.95rem;">Subscribe to our newsletter for the latest career tips and job alerts.</p>
-                        <form action="/subscribe" method="post" class="newsletter-form">
-                            <div class="newsletter-form-container d-flex flex-column" style="width: 100%;">
-                                <input name="email" type="email" required placeholder="Email address">
-                                <button class="btn" type="submit" style="margin-top: 10px;">Subscribe Now</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                    <h3>Stay Updated</h3>
+                    <p style="margin-bottom: 25px; color: #64748B;">Subscribe to our newsletter for the latest career tips and job alerts.</p>
+                    <form action="/subscribe" method="post" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input name="email" type="email" required placeholder="Email address" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 20px; border-radius: 12px; flex: 1; min-width: 200px; outline: none;">
+                        <button type="submit" style="background: linear-gradient(135deg, #19A77B, #3BC49A); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s; flex-shrink: 0;">Join</button>
+                    </form>
                 </div>
             </div>
-            <div class="footer-bottom mt-5 pt-4">
+            <div class="footer-bottom">
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center text-md-start">
-                        <p class="mb-0">&copy; 2026 JobU. All Rights Reserved.</p>
+                        <p class="mb-0 text-white">&copy; 2026 JobU. Built for the future of work.</p>
                     </div>
                     <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                        <p class="mb-0" style="font-size: 0.85rem; color: #475569; font-weight: 600;">OWNED BY UI PLATFORM</p>
+                        <p class="mb-0 text-white">Designed with <i class="fas fa-heart text-danger"></i> by JobU Platform</p>
                     </div>
                 </div>
             </div>

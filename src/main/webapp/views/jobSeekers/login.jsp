@@ -46,7 +46,7 @@
             position: relative;
         }
 
-        /* Dark green glossy overlay on top of the background image */
+        /* Blur overlay on top of the background image */
         body::before {
             content: '';
             position: fixed;
@@ -54,7 +54,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(7, 82, 61, 0.82) 0%, rgba(11, 130, 96, 0.72) 50%, rgba(7, 82, 61, 0.85) 100%);
+            background: rgba(0, 0, 0, 0.15); /* Slight dark tint to make green pop */
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             z-index: 0;
             pointer-events: none;
         }
@@ -68,10 +70,8 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: var(--primary);
+            border: 1px solid var(--primary-dark);
             border-radius: 30px;
             color: white !important;
             font-size: 14px;
@@ -82,8 +82,8 @@
         }
 
         .back-home-btn:hover {
-            background: white;
-            color: var(--primary) !important;
+            background: var(--primary-dark);
+            color: white !important;
             transform: translateX(-4px);
         }
 
@@ -96,7 +96,7 @@
 
         /* Glassmorphism single box */
         .glass-login-box {
-            background: rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, rgba(7, 82, 61, 0.95) 0%, rgba(11, 130, 96, 0.95) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.25);
