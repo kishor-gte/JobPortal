@@ -71,7 +71,7 @@
         /* Sidebar (Same as Dashboard) */
         .sidebar {
             position: fixed;
-            left: 0; top: 0;
+            left: 0; top: 0; bottom: 0;
             width: 280px;
             height: 100vh;
             background: rgba(255, 255, 255, 0.95);
@@ -81,6 +81,7 @@
             padding: 24px 16px;
             z-index: 100;
             overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .sidebar::-webkit-scrollbar { width: 6px; }
@@ -156,28 +157,7 @@
             }
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 8px 18px;
-            border-radius: 30px;
-            background: var(--hover-bg);
-            border: 1px solid rgba(25, 167, 123, 0.15);
-        }
 
-        .back-link:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateX(-6px);
-            box-shadow: var(--glow-primary);
-        }
 
         .page-header { 
             margin-bottom: 30px; 

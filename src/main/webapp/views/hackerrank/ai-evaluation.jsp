@@ -782,6 +782,7 @@
             position: relative;
             z-index: 1;
             animation: fadeInUp 0.6s ease-out;
+            min-height: 100vh;
         }
 
         .top-bar {
@@ -818,18 +819,19 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                z-index: 1000;
+            .sidebar, .career-sidebar, .nav-sidebar {
+                transform: translateX(-100%) !important;
+                z-index: 1050 !important;
+                transition: transform 0.3s ease !important;
             }
 
-            .sidebar.active {
-                transform: translateX(0);
+            .sidebar.active, .career-sidebar.active, .nav-sidebar.active {
+                transform: translateX(0) !important;
             }
 
             .main-content {
-                margin-left: 0;
-                padding: 20px;
+                margin-left: 0 !important;
+                padding: 20px !important;
             }
 
             .mobile-menu-btn {
@@ -1061,7 +1063,7 @@
 
             // Sidebar and Mobile Menu logic
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const sidebar = document.getElementById('sidebar');
+            const sidebar = document.querySelector('.sidebar, .career-sidebar, .nav-sidebar');
             const overlay = document.getElementById('mobileOverlay');
 
             if (mobileMenuBtn && sidebar && overlay) {
@@ -1096,7 +1098,7 @@
             // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const sidebar = document.getElementById('sidebar');
+                    const sidebar = document.querySelector('.sidebar, .career-sidebar, .nav-sidebar');
                     const overlay = document.getElementById('mobileOverlay');
                     if (sidebar && sidebar.classList.contains('active')) {
                         sidebar.classList.remove('active');

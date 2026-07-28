@@ -51,9 +51,9 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden; /* Fix page moving while scrolling */
         }
 
         /* Premium Background with Overlay */
@@ -61,28 +61,21 @@
             content: "";
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(135deg, rgba(244,251,249,0.92) 0%, rgba(248,250,252,0.96) 100%),
-                              url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2070&auto=format");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: radial-gradient(circle at top right, rgba(25,167,123,0.1), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(59,196,154,0.1), transparent 40%),
+                        var(--bg-light);
             z-index: -2;
-            transition: transform 0.6s ease, filter 0.6s ease;
-        }
-        @media (hover: hover) {
-            body:hover::before {
-                transform: scale(1.02);
-                filter: brightness(1.02);
-            }
         }
 
         /* ========== REVIEW CARD ========== */
         .review-container {
-            min-height: 100vh;
+            height: 100%;
+            width: 100%;
             display: flex;
-            align-items: flex-start; /* Fixes container moving/cutting off */
+            align-items: center; 
             justify-content: center;
             padding: 80px 20px;
+            overflow-y: auto; /* Fix page moving while scrolling */
         }
         .review-box {
             background: var(--white);
@@ -93,52 +86,52 @@
             box-shadow: var(--shadow-lg);
             border: 1px solid rgba(25,167,123,0.1);
             transition: var(--transition);
-            backdrop-filter: blur(4px);
+            margin: auto; /* Centering */
         }
         .review-box:hover {
-            transform: translateY(-6px);
             box-shadow: 0 30px 50px -20px rgba(25,167,123,0.3);
             border-color: rgba(25,167,123,0.2);
         }
 
         /* Header */
-		.review-header {
-		    text-align: center;
-		    margin-bottom: 32px;
-		}
+        .review-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
 
-		.company-icon {
-		    width: 70px;
-		    height: 70px;
-		    background: #2EB38A; /* Solid Green */
-		    border-radius: 50%;
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		    margin: 0 auto 16px;
-		}
+        .company-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 16px var(--primary-glow);
+        }
 
-		.company-icon i {
-		    font-size: 32px;
-		    color: #fff; /* White Icon */
-		}
+        .company-icon i {
+            font-size: 32px;
+            color: var(--white);
+        }
 
-		.review-header h2 {
-		    font-size: 1.8rem;
-		    font-weight: 800;
-		    color: #2EB38A; /* Solid Green */
-		    margin-bottom: 8px;
-		}
+        .review-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
 
-		.review-header p {
-		    font-size: 0.85rem;
-		    color: #6B7280; /* Gray text */
-		    opacity: 1;
-		}
+        .review-header p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
 
         /* Form Labels */
         .form-group {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         label {
             font-size: 0.85rem;
@@ -253,13 +246,14 @@
 
         /* Responsive */
         @media (max-width: 576px) {
-            .review-box { padding: 28px 24px; margin: 20px; }
+            .review-box { padding: 28px 24px; margin: 10px; width: 100%; }
             .review-header h2 { font-size: 1.4rem; }
             .star-rating { font-size: 1.8rem; gap: 6px; }
             .star-rating label { font-size: 1.6rem; }
+            .review-container { padding: 60px 15px 20px; }
         }
         .btn-back {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 20px;
             display: inline-flex;
@@ -330,8 +324,22 @@
     
     const textarea = document.querySelector('textarea[name="comment"]');
     const charCount = document.getElementById('charCount');
+    const form = document.querySelector('form');
+    
     textarea.addEventListener('input', function() {
         charCount.textContent = this.value.length + " / 500";
+    });
+    
+    form.addEventListener('submit', function(e) {
+        if (textarea.value.trim().length === 0) {
+            e.preventDefault();
+            alert("Your review cannot be empty or consist only of spaces.");
+            textarea.focus();
+        } else if (textarea.value.length > 500) {
+            e.preventDefault();
+            alert("Your review exceeds the 500 character limit.");
+            textarea.focus();
+        }
     });
 </script>
 </body>

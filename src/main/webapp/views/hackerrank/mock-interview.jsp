@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Interview - SmartInterview</title>
+    <title>Mock Interview</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -272,27 +272,7 @@
             gap: 16px;
         }
 
-        .btn-logout {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
 
-        .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
 
         .content-grid {
             display: grid;
@@ -606,13 +586,13 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
+            .career-sidebar, .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
                 z-index: 1000;
             }
 
-            .sidebar.active {
+            .career-sidebar.active, .sidebar.active {
                 transform: translateX(0);
                 box-shadow: var(--shadow-lg);
             }

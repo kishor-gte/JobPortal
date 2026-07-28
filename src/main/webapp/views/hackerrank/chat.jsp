@@ -388,22 +388,22 @@
             gap: 16px;
         }
 
-        .btn-back-dashboard {
-            padding: 10px 18px;
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
             background: var(--hover-bg);
-            border: 1px solid var(--primary);
+            border: 1px solid rgba(25, 167, 123, 0.2);
             border-radius: 30px;
             color: var(--primary);
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .btn-back-dashboard:hover {
+        .btn-back:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
@@ -766,8 +766,11 @@
         <div class="chat-header">
             <c:if test="${not empty partner}">
                 <div class="chat-header-info">
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleChatSidebar()">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleNavSidebar()" style="margin-right: 8px;">
                         <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtnChat" onclick="toggleChatSidebar()">
+                        <i class="fas fa-users"></i>
                     </button>
                     <div class="contact-avatar" style="width: 42px; height: 42px; font-size: 16px;">
                         ${partner.fullName.substring(0,1).toUpperCase()}
@@ -783,8 +786,11 @@
             </c:if>
             <c:if test="${empty partner}">
                 <div style="color: var(--text-tertiary); display: flex; align-items: center; gap: 12px;">
-                    <button class="mobile-menu-btn" id="mobileMenuBtn2" onclick="toggleChatSidebar()">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn2" onclick="toggleNavSidebar()" style="margin-right: 8px;">
                         <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtnChat2" onclick="toggleChatSidebar()">
+                        <i class="fas fa-users"></i>
                     </button>
                     <span>Select a conversation</span>
                 </div>
@@ -861,11 +867,11 @@
         }
 
         function toggleNavSidebar() {
-            const sidebar = document.getElementById('navSidebar');
+            const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobileOverlay');
-            sidebar.classList.toggle('active');
+            if (sidebar) sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            if (sidebar) document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
         }
 
         function requestNotificationPermission() {
@@ -891,23 +897,13 @@
             if (overlay) {
                 overlay.addEventListener('click', function() {
                     document.getElementById('chatSidebar').classList.remove('active');
-                    document.getElementById('navSidebar').classList.remove('active');
+                    if (document.getElementById('sidebar')) document.getElementById('sidebar').classList.remove('active');
                     overlay.classList.remove('active');
                     document.body.style.overflow = '';
                 });
             }
             
-            // Setup mobile menu buttons
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenuBtn2 = document.getElementById('mobileMenuBtn2');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', toggleChatSidebar);
-            }
-            if (mobileMenuBtn2) {
-                mobileMenuBtn2.addEventListener('click', toggleChatSidebar);
-            }
-            
-            // Long press for nav sidebar
+
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
             });
@@ -958,7 +954,7 @@
                 if (touchEndX < touchStartX - 50) {
                     // Swipe left - close sidebar
                     document.getElementById('chatSidebar').classList.remove('active');
-                    document.getElementById('navSidebar').classList.remove('active');
+                    if (document.getElementById('sidebar')) document.getElementById('sidebar').classList.remove('active');
                     overlay.classList.remove('active');
                     document.body.style.overflow = '';
                 }
@@ -1147,7 +1143,7 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 document.getElementById('chatSidebar').classList.remove('active');
-                document.getElementById('navSidebar').classList.remove('active');
+                if (document.getElementById('sidebar')) document.getElementById('sidebar').classList.remove('active');
                 document.getElementById('mobileOverlay').classList.remove('active');
                 document.body.style.overflow = '';
             }

@@ -298,27 +298,7 @@
             color: var(--text-primary);
         }
 
-        .btn-logout {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
 
-        .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
 
         .upload-area {
             background: var(--card-bg);
@@ -606,13 +586,13 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .sidebar {
+            .career-sidebar, .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
                 z-index: 1000;
             }
 
-            .sidebar.active {
+            .career-sidebar.active, .sidebar.active {
                 transform: translateX(0);
                 box-shadow: var(--shadow-lg);
             }
@@ -701,9 +681,7 @@
                         <div class="toggle-thumb"><i class="fas fa-moon"></i></div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
+
             </div>
         </div>
 

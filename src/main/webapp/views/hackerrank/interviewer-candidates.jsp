@@ -70,7 +70,9 @@
         /* Sidebar (Same as Dashboard) */
         .sidebar {
             position: fixed;
-            left: 0; top: 0;
+            left: 0;
+            top: 0;
+            bottom: 0;
             width: 280px;
             height: 100vh;
             background: rgba(255, 255, 255, 0.95);
@@ -80,6 +82,7 @@
             padding: 24px 16px;
             z-index: 100;
             overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .sidebar::-webkit-scrollbar { width: 6px; }
