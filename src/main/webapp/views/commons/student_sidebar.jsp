@@ -12,7 +12,7 @@
     left: 0 !important;
     top: 0 !important;
     z-index: 1000 !important;
-    padding: 24px 16px !important;
+    padding: 24px 16px 80px 16px !important;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12) !important;
     transition: transform 0.3s ease !important;
     overflow-y: auto !important;
@@ -146,8 +146,8 @@
 <!-- Left Sidebar Navigation - Ultra Premium -->
 <div class="career-sidebar" id="sidebar">
     <div class="sidebar-logo">
-        <div class="icon"><i class="fas fa-brain"></i></div>
-        <h2>SmartInterview</h2>
+        <div class="icon"><i class="fas fa-user-graduate"></i></div>
+        <h2>Student Dashboard</h2>
     </div>
     
     <div class="nav-section">

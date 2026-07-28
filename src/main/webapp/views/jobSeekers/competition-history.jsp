@@ -169,6 +169,25 @@
             border-radius: var(--radius-lg);
             border: 1px dashed var(--border);
         }
+
+        @media (max-width: 768px) {
+            .career-sidebar, .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+
+            .career-sidebar.active, .sidebar.active {
+                transform: translateX(0);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                width: 100% !important;
+                padding: 80px 20px 32px !important;
+            }
+        }
     </style>
 </head>
 <body>
