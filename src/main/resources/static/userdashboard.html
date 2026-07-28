@@ -831,6 +831,25 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        /* Mobile Navbar Toggler Fix */
+        .navbar-toggler {
+            border: 2px solid var(--primary-light) !important;
+            padding: 6px 10px !important;
+            border-radius: 8px !important;
+            background: rgba(11, 130, 96, 0.05) !important;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .navbar-toggler .toggler-icon {
+            display: block !important;
+            width: 25px !important;
+            height: 3px !important;
+            background-color: var(--primary) !important;
+            margin: 5px 0 !important;
+            border-radius: 2px !important;
+            transition: var(--transition) !important;
+        }
     </style>
 </head>
 

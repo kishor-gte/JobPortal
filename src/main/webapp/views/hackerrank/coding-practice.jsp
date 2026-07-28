@@ -609,8 +609,82 @@
             margin-bottom: 8px;
         }
 
+        /* Theme toggle */
         .theme-toggle-wrapper {
             display: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(25, 167, 123, 0.2);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: rgba(25, 167, 123, 0.2);
+            border: 1px solid rgba(25, 167, 123, 0.3);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            align-items: center;
+            padding: 0 3px;
+        }
+
+        .theme-toggle:hover { 
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .theme-toggle .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(25, 167, 123, 0.4);
+        }
+
+        .theme-toggle .toggle-thumb i { 
+            font-size: 10px; 
+            color: #fff; 
+            transition: transform 0.4s ease; 
+        }
+
+        .theme-toggle.light .toggle-thumb {
+            transform: translateX(22px);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            box-shadow: 0 2px 8px rgba(245,158,11,0.4);
+        }
+
+        .theme-toggle.light .toggle-thumb i { 
+            transform: rotate(180deg); 
+        }
+
+        .theme-toggle.light {
+            background: rgba(245,158,11,0.15);
+            border-color: rgba(245,158,11,0.4);
         }
 
         /* Mobile Responsive */
@@ -702,6 +776,24 @@
 
         .mobile-menu-btn {
             display: none;
+        }
+
+        /* Dark Mode Overrides */
+        body:not(.light-mode) {
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.12);
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --hover-bg: rgba(25, 167, 123, 0.2);
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%) !important;
+            color: var(--text-primary);
+        }
+        
+        body:not(.light-mode)::before {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(25, 167, 123, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(59, 196, 154, 0.08) 0%, transparent 40%);
         }
     </style>
     <jsp:include page="/views/commons/hackerrank_sidebar_styles.jsp" />

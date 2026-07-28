@@ -51,6 +51,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
 
         /* Animated background pattern */
@@ -561,6 +562,9 @@
 
         /* Chart Container */
         .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
             margin-top: 20px;
             padding: 20px;
             background: var(--hover-bg);
@@ -577,33 +581,54 @@
 
         @media (max-width: 768px) {
             .career-sidebar, .sidebar {
-                transform: translateX(-100%);
+                transform: translateX(-100%) !important;
                 transition: transform 0.3s ease;
                 z-index: 1000;
             }
 
             .career-sidebar.active, .sidebar.active {
-                transform: translateX(0);
+                transform: translateX(0) !important;
                 box-shadow: var(--shadow-lg);
             }
 
             .main-content {
                 margin-left: 0 !important;
-                padding: 20px !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                padding: 16px !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .content-grid, .stats-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 16px !important;
+            }
+
+            .card, .stat-card {
+                width: 100% !important;
+                padding: 16px !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
+            }
+
+            .chart-container {
+                width: 100% !important;
+                padding: 10px !important;
+                box-sizing: border-box !important;
             }
 
             .top-bar {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 16px;
+                width: 100%;
             }
 
             .top-bar h1 {
-                font-size: 26px;
+                font-size: 24px;
             }
 
             .daily-item {

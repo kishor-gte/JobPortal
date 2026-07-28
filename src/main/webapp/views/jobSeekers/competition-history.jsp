@@ -37,7 +37,7 @@
         body {
             background: #f8fafc;
             color: var(--text-dark);
-            display: flex;
+            display: block;
             min-height: 100vh;
             overflow-x: clip;
         }
@@ -185,8 +185,22 @@
             .main-content {
                 margin-left: 0 !important;
                 width: 100% !important;
-                padding: 80px 20px 32px !important;
+                padding: 100px 20px 32px !important;
             }
+
+            .mobile-menu-btn {
+                display: inline-block !important;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding-right: 15px;
         }
     </style>
 </head>
@@ -195,7 +209,12 @@
 
     <div class="main-content">
         <div class="header">
-            <h1><i class="fas fa-history"></i> My Competition History</h1>
+            <h1>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <i class="fas fa-history"></i> My Competition History
+            </h1>
         </div>
 
         <div class="history-grid">
@@ -250,5 +269,16 @@
             </c:choose>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
