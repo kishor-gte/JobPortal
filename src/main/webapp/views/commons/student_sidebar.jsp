@@ -217,7 +217,7 @@
             <i class="fas fa-chart-line"></i> Performance
         </a>
         <a href="${pageContext.request.contextPath}/qna" class="nav-link-custom">
-            <i class="fas fa-question-circle"></i> Ask Your Question
+            <i class="fas fa-question-circle"></i> Q&A Forum
         </a>
         <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link-custom">
             <i class="fas fa-robot"></i> AI Feedback

@@ -340,22 +340,27 @@ body {
 }
 
 .btn-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
+    padding: 10px 20px;
     background: var(--white);
     color: var(--text-dark);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 20px;
     transition: var(--transition);
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
 }
 .btn-back:hover {
-    background: var(--bg-body);
+    background: var(--bg-light);
     border-color: var(--primary);
     color: var(--primary);
 }
@@ -376,10 +381,10 @@ body {
 </head>
 <body>
 
-<div class="page">
-    <a href="javascript:history.back()" class="btn-back">
-        <i class="fas fa-arrow-left"></i> Back
-    </a>
+<a href="javascript:history.back()" class="btn-back">
+    <i class="fas fa-arrow-left"></i> Back
+</a>
+<div class="page" style="margin-top: 40px;">
 
     <!-- Hero Section -->
     <div class="hero" data-aos="fade-down">
