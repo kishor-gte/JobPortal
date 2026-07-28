@@ -375,6 +375,29 @@
             box-shadow: 0 12px 28px rgba(25,167,123,0.5);
         }
 
+        .register-btn {
+            display: block;
+            text-align: center;
+            width: 100%;
+            background: transparent;
+            color: var(--primary);
+            padding: 14px 24px;
+            font-size: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 60px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: var(--transition);
+        }
+        
+        .register-btn:hover {
+            background: var(--gradient);
+            color: #fff !important;
+            box-shadow: 0 8px 20px rgba(25,167,123,0.35);
+            transform: translateY(-3px);
+        }
+
         .forgot {
             text-align: center;
             margin-top: 25px;
@@ -585,7 +608,7 @@
                         </a>
                     </div>
 
-                    <a href="${pageContext.request.contextPath}/company/register" style="display: block; text-align: center; width: 100%; background: transparent; color: var(--primary); padding: 14px 24px; font-size: 1rem; border: 2px solid var(--primary); border-radius: 60px; font-weight: 700; text-decoration: none; margin-top: 15px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(25,167,123,0.1)'" onmouseout="this.style.background='transparent'">
+                    <a href="${pageContext.request.contextPath}/company/register" class="register-btn">
                         <i class="fas fa-user-plus me-2"></i> Register
                     </a>
                 </form>
