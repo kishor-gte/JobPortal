@@ -47,7 +47,11 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            padding: 2rem;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         /* animated background mesh */
@@ -109,8 +113,9 @@
             backdrop-filter: blur(8px);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-xl), 0 0 0 1px rgba(25,167,123,0.1);
-            padding: 2.5rem;
+            padding: 2rem;
             position: relative;
+            width: 100%;
             z-index: 2;
             animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -339,6 +344,10 @@
 <div class="floating-shape" style="width: 250px; height: 250px; bottom: 60px; left: -60px; opacity: 0.04;"></div>
 <div class="floating-shape" style="width: 180px; height: 180px; bottom: 20%; right: 5%; opacity: 0.05;"></div>
 
+<div style="width: 100%; max-width: 1100px; margin-bottom: 20px;">
+    <a href="${pageContext.request.contextPath}/qna" class="btn" style="background: white; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 8px; padding: 10px 15px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm);"><i class="fas fa-arrow-left"></i> Back to Forum</a>
+</div>
+
 <div class="thread-container">
     <!-- Question Section -->
     <div class="question-content">
@@ -415,32 +424,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    if (!document.getElementById('mobile-responsive-style')) {
-        const style = document.createElement('style');
-        style.id = 'mobile-responsive-style';
-        style.innerHTML = `@media (max-width: 768px) { .sidebar, .nav-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; position: fixed !important; z-index: 1001 !important; height: 100vh; } .sidebar.active, .nav-sidebar.active { transform: translateX(0); box-shadow: 2px 0 20px rgba(0,0,0,0.2) !important; } .main-content { margin-left: 0 !important; padding: 16px !important; width: 100% !important; max-width: 100% !important; } } .mobile-menu-btn { display: none; }`;
-        document.head.appendChild(style);
-    }
-    
-    const sidebar = document.querySelector('.sidebar') || document.querySelector('.nav-sidebar');
-    if (sidebar) {
-        const topBar = document.querySelector('.top-bar') || document.querySelector('.chat-header') || document.querySelector('.dashboard-header') || document.body;
-        let heading = null;
-        if (topBar && topBar !== document.body) heading = topBar.querySelector('h1') || topBar.querySelector('.chat-header-info') || topBar.querySelector('h2');
-        if (!heading && !document.querySelector('.mobile-menu-btn')) { heading = document.createElement('div'); heading.style.padding = '10px'; document.body.insertBefore(heading, document.body.firstChild); }
-        if (heading && !document.querySelector('.mobile-menu-btn')) {
-            heading.style.display = 'flex'; heading.style.alignItems = 'center';
-            const toggleBtn = document.createElement('button'); toggleBtn.className = 'mobile-menu-btn'; toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            heading.insertBefore(toggleBtn, heading.firstChild);
-            const overlay = document.createElement('div'); overlay.className = 'mobile-overlay'; document.body.appendChild(overlay);
-            let touchstartX = 0, touchendX = 0;
-            document.body.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive: true});
-            document.body.addEventListener('touchend', e => { touchendX = e.changedTouches[0].screenX; if (touchendX < touchstartX - 50) closeSidebar(); if (touchendX > touchstartX + 50 && touchstartX < 30) openSidebar(); }, {passive: true});
-            function openSidebar() { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            function closeSidebar() { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
-            toggleBtn.addEventListener('click', openSidebar); overlay.addEventListener('click', closeSidebar);
-        }
-    }
     
     const tables = document.querySelectorAll('table:not(.table-responsive)');
     tables.forEach(table => {

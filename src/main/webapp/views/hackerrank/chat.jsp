@@ -38,6 +38,7 @@
             color: var(--text-primary);
             height: 100vh;
             overflow: hidden;
+            overflow-x: clip;
             display: flex;
             position: relative;
         }
@@ -387,22 +388,22 @@
             gap: 16px;
         }
 
-        .btn-back-dashboard {
-            padding: 10px 18px;
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
             background: var(--hover-bg);
-            border: 1px solid var(--primary);
+            border: 1px solid rgba(25, 167, 123, 0.2);
             border-radius: 30px;
             color: var(--primary);
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .btn-back-dashboard:hover {
+        .btn-back:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
@@ -682,6 +683,15 @@
             .message {
                 max-width: 85%;
             }
+
+            .mobile-menu-btn {
+                display: inline-block !important;
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: var(--text-primary);
+                cursor: pointer;
+            }
         }
 
         .mobile-menu-btn {
@@ -711,45 +721,13 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Navigation Sidebar -->
-    <div class="nav-sidebar" id="navSidebar">
-        <div class="sidebar-logo">
-            <div class="icon"><i class="fas fa-brain"></i></div>
-            <h2>SmartInterview</h2>
-        </div>
-        <div class="nav-section">
-            <h4>Main</h4>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/dashboard" class="nav-link">
-                <i class="fas fa-th-large"></i> Dashboard
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/coding-practice" class="nav-link">
-                <i class="fas fa-code"></i> Coding Practice
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/mock-interview" class="nav-link">
-                <i class="fas fa-video"></i> Mock Interview
-            </a>
-        </div>
-        <div class="nav-section">
-            <h4>Tools</h4>
-            <a href="${pageContext.request.contextPath}/hackerrank/chat" class="nav-link active">
-                <i class="fas fa-comments"></i> Messages
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/upload-resume" class="nav-link">
-                <i class="fas fa-file-upload"></i> Upload Resume
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/student/performance" class="nav-link">
-                <i class="fas fa-chart-line"></i> Performance
-            </a>
-            <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link">
-                <i class="fas fa-robot"></i> AI Feedback
-            </a>
-        </div>
-        <div class="nav-section">
-            <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/hackerrank/logout" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
-    </div>
+    <jsp:include page="/views/commons/student_sidebar.jsp" />
+    <div style="width: 280px; flex-shrink: 0; display: none;" class="sidebar-spacer-desktop"></div>
+    <style>
+        @media (min-width: 769px) {
+            .sidebar-spacer-desktop { display: block !important; }
+        }
+    </style>
 
     <!-- Chat Contacts Sidebar -->
     <div class="chat-sidebar" id="chatSidebar">
@@ -788,8 +766,11 @@
         <div class="chat-header">
             <c:if test="${not empty partner}">
                 <div class="chat-header-info">
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleChatSidebar()">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleNavSidebar()" style="margin-right: 8px;">
                         <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtnChat" onclick="toggleChatSidebar()">
+                        <i class="fas fa-users"></i>
                     </button>
                     <div class="contact-avatar" style="width: 42px; height: 42px; font-size: 16px;">
                         ${partner.fullName.substring(0,1).toUpperCase()}
@@ -805,17 +786,17 @@
             </c:if>
             <c:if test="${empty partner}">
                 <div style="color: var(--text-tertiary); display: flex; align-items: center; gap: 12px;">
-                    <button class="mobile-menu-btn" id="mobileMenuBtn2" onclick="toggleChatSidebar()">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn2" onclick="toggleNavSidebar()" style="margin-right: 8px;">
                         <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtnChat2" onclick="toggleChatSidebar()">
+                        <i class="fas fa-users"></i>
                     </button>
                     <span>Select a conversation</span>
                 </div>
             </c:if>
             
             <div class="header-actions">
-                <a href="${pageContext.request.contextPath}/hackerrank/student/dashboard" class="btn-back-dashboard">
-                    <i class="fas fa-arrow-left"></i> Dashboard
-                </a>
             </div>
         </div>
 
@@ -886,11 +867,11 @@
         }
 
         function toggleNavSidebar() {
-            const sidebar = document.getElementById('navSidebar');
+            const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobileOverlay');
-            sidebar.classList.toggle('active');
+            if (sidebar) sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            if (sidebar) document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
         }
 
         function requestNotificationPermission() {
@@ -916,23 +897,13 @@
             if (overlay) {
                 overlay.addEventListener('click', function() {
                     document.getElementById('chatSidebar').classList.remove('active');
-                    document.getElementById('navSidebar').classList.remove('active');
+                    if (document.getElementById('sidebar')) document.getElementById('sidebar').classList.remove('active');
                     overlay.classList.remove('active');
                     document.body.style.overflow = '';
                 });
             }
             
-            // Setup mobile menu buttons
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenuBtn2 = document.getElementById('mobileMenuBtn2');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', toggleChatSidebar);
-            }
-            if (mobileMenuBtn2) {
-                mobileMenuBtn2.addEventListener('click', toggleChatSidebar);
-            }
-            
-            // Long press for nav sidebar
+
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
             });
@@ -983,7 +954,7 @@
                 if (touchEndX < touchStartX - 50) {
                     // Swipe left - close sidebar
                     document.getElementById('chatSidebar').classList.remove('active');
-                    document.getElementById('navSidebar').classList.remove('active');
+                    if (document.getElementById('sidebar')) document.getElementById('sidebar').classList.remove('active');
                     overlay.classList.remove('active');
                     document.body.style.overflow = '';
                 }
@@ -1172,7 +1143,7 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 document.getElementById('chatSidebar').classList.remove('active');
-                document.getElementById('navSidebar').classList.remove('active');
+                if (document.getElementById('sidebar')) document.getElementById('sidebar').classList.remove('active');
                 document.getElementById('mobileOverlay').classList.remove('active');
                 document.body.style.overflow = '';
             }

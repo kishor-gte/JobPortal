@@ -586,6 +586,9 @@
                                         <option value="Spanish"
                                             ${jobSeeker.languagesKnown.contains('Spanish')?'selected':''}>Spanish
                                         </option>
+                                        <option value="Others"
+                                            ${jobSeeker.languagesKnown.contains('Others')?'selected':''}>Others
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -629,8 +632,9 @@
 
                             <!-- UG -->
                             <h6 class="subsection-title"><i class="fas fa-university"></i> Undergraduate (UG)</h6>
-                            <div class="form-row">
+                            <div class="form-row" style="align-items: flex-end;">
                                 <div class="form-group col-md-3">
+                                    <label for="ugDegree">Degree</label>
                                     <input type="text" class="form-control" id="ugDegree" name="ugDegree"
                                         value="${jobSeeker.ugDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
@@ -654,9 +658,9 @@
 
                             <!-- PG -->
                             <h6 class="subsection-title"><i class="fas fa-user-graduate"></i> Postgraduate (PG)</h6>
-                            <div class="form-row">
+                            <div class="form-row" style="align-items: flex-end;">
                                 <div class="form-group col-md-3">
-                                    <label for="pgDegree">PG Degree</label>
+                                    <label for="pgDegree" style="white-space: nowrap;">PG Degree</label>
                                     <input type="text" class="form-control" id="pgDegree" name="pgDegree"
                                         value="${jobSeeker.pgDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
                                 </div>
@@ -678,31 +682,7 @@
                                 </div>
                             </div>
 
-                            <!-- Doctorate -->
-                            <h6 class="subsection-title"><i class="fas fa-flask"></i> Doctorate</h6>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="doctorateDegree">Doctorate Degree</label>
-                                    <input type="text" class="form-control" id="doctorateDegree" name="doctorateDegree"
-                                        value="${jobSeeker.doctorateDegree}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="doctorateSpecialization">Specialization</label>
-                                    <input type="text" class="form-control" id="doctorateSpecialization"
-                                        name="doctorateSpecialization" value="${jobSeeker.doctorateSpecialization}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="doctorateUniversity">University</label>
-                                    <input type="text" class="form-control" id="doctorateUniversity"
-                                        name="doctorateUniversity" value="${jobSeeker.doctorateUniversity}" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g, '')">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="doctorateGraduationYear">Graduation Year</label>
-                                    <input type="number" class="form-control" id="doctorateGraduationYear"
-                                        name="doctorateGraduationYear" value="${jobSeeker.doctorateGraduationYear}"
-                                        min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                                </div>
-                            </div>
+
                         </div>
 
                         <!-- SECTION: EXPERIENCE -->
@@ -886,12 +866,26 @@
                 <script>
                     $(document).ready(function () {
                         // Initialize Select2
-                        $('.searchable-dropdown').select2({
+                        $('.searchable-dropdown').not('#languagesKnown').select2({
                             placeholder: function () {
                                 return $(this).data('placeholder');
                             },
                             allowClear: true,
                             width: '100%'
+                        });
+
+                        $('#languagesKnown').select2({
+                            placeholder: function () {
+                                return $(this).data('placeholder');
+                            },
+                            allowClear: true,
+                            width: '100%',
+                            tags: true,
+                            createTag: function (params) {
+                                var term = $.trim(params.term);
+                                if (term === '') { return null; }
+                                return { id: term, text: term, newTag: true };
+                            }
                         });
 
                         const $form = $('#updateProfileForm');

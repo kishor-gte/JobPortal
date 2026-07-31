@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -61,6 +62,43 @@ public class JobSeekerController {
 
     @Autowired
     private ActivityLogger activityLogger;
+
+    @Autowired
+    private in.sp.main.Repositories.JobApplicationRepository jobApplicationRepository;
+
+    @RequestMapping(value = "/api/dashboard-data", method = RequestMethod.GET)
+    @ResponseBody
+    public java.util.Map<String, Object> getDashboardData(HttpSession session) {
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        JobSeeker sessionUser = (JobSeeker) session.getAttribute("jobSeeker");
+        if (sessionUser == null) {
+            data.put("loggedIn", false);
+            return data;
+        }
+        JobSeeker seeker = jobSeekerService.getJobSeekerById(sessionUser.getId());
+        if (seeker == null) {
+            data.put("loggedIn", false);
+            return data;
+        }
+
+        data.put("loggedIn", true);
+        data.put("name", seeker.getName());
+        data.put("email", seeker.getEmail());
+        data.put("profilePicture", seeker.getProfilePicture());
+
+        List<in.sp.main.Entities.JobApplication> apps = jobApplicationRepository.findByJobSeeker(seeker);
+        long applicationsCount = apps.size();
+        long shortlistedCount = apps.stream().filter(a -> a.getStatus() == in.sp.main.Enums.ApplicationStatus.SHORTLISTED).count();
+        long interviewsCount = apps.stream().filter(a -> a.getStatus() == in.sp.main.Enums.ApplicationStatus.SCHEDULED_INTERVIEW || a.getStatus() == in.sp.main.Enums.ApplicationStatus.INTERVIEW_SCHEDULED).count();
+        long offersCount = apps.stream().filter(a -> a.getStatus() == in.sp.main.Enums.ApplicationStatus.SELECTED).count();
+
+        data.put("applicationsCount", applicationsCount);
+        data.put("shortlistedCount", shortlistedCount);
+        data.put("interviewsCount", interviewsCount);
+        data.put("offersCount", offersCount);
+
+        return data;
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {

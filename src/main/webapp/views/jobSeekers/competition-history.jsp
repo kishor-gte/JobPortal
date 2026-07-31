@@ -37,8 +37,9 @@
         body {
             background: #f8fafc;
             color: var(--text-dark);
-            display: flex;
+            display: block;
             min-height: 100vh;
+            overflow-x: clip;
         }
 
         .main-content {
@@ -168,6 +169,39 @@
             border-radius: var(--radius-lg);
             border: 1px dashed var(--border);
         }
+
+        @media (max-width: 768px) {
+            .career-sidebar, .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+
+            .career-sidebar.active, .sidebar.active {
+                transform: translateX(0);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                width: 100% !important;
+                padding: 100px 20px 32px !important;
+            }
+
+            .mobile-menu-btn {
+                display: inline-block !important;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding-right: 15px;
+        }
     </style>
 </head>
 <body>
@@ -175,7 +209,12 @@
 
     <div class="main-content">
         <div class="header">
-            <h1><i class="fas fa-history"></i> My Competition History</h1>
+            <h1>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <i class="fas fa-history"></i> My Competition History
+            </h1>
         </div>
 
         <div class="history-grid">
@@ -230,6 +269,20 @@
             </c:choose>
         </div>
     </div>
+<<<<<<< HEAD
 <jsp:include page="/views/commons/chatbot.jsp" />
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+>>>>>>> d2a582581066ede991445ac5b90dfc6d09963da0
 </body>
 </html>

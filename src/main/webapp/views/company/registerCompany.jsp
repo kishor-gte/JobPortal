@@ -274,6 +274,25 @@
             .form-row { grid-template-columns: 1fr; gap: 0; }
             .form-group { margin-bottom: 18px; }
         }
+    /* --- MAIN THEME OVERRIDES --- */
+    body { background: url('${pageContext.request.contextPath}/assets/images/job_portal_bg.jpg') no-repeat center center fixed !important; background-size: cover !important; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.15); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); z-index: 0; pointer-events: none; animation: none; }
+    .page-header { display: none !important; }
+    .form-container { margin: 15px auto !important; max-width: 950px !important; }
+    .register-card { background: linear-gradient(135deg, rgba(7, 82, 61, 0.95) 0%, rgba(11, 130, 96, 0.95) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.25) !important; border-radius: 25px !important; padding: 25px 35px 25px 35px !important; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important; }
+    .form-group { margin-bottom: 14px !important; }
+    label { color: white !important; margin-bottom: 5px !important; font-size: 0.82rem !important; }
+    label i { color: rgba(255, 255, 255, 0.9) !important; }
+    .reminder { background: rgba(255, 255, 255, 0.1) !important; border-left-color: white !important; }
+    .reminder p, .reminder strong, .reminder i { color: white !important; }
+    input, textarea, select { background: rgba(0, 0, 0, 0.18) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; color: white !important; padding: 7px 12px !important; font-size: 0.85rem !important; height: auto !important; }
+    input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.65) !important; }
+    input:focus, textarea:focus, select:focus { background: rgba(0, 0, 0, 0.25) !important; border-color: rgba(255, 255, 255, 0.45) !important; box-shadow: 0 0 15px rgba(255, 255, 255, 0.15) !important; }
+    .btn-submit { background: white !important; color: var(--primary) !important; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important; padding: 10px 20px !important; font-size: 0.9rem !important; }
+    .btn-submit:hover { background: #e6f6ee !important; }
+    .text-muted { color: rgba(255, 255, 255, 0.7) !important; }
+    ul#pwdChecklist li { color: rgba(255, 255, 255, 0.8) !important; }
+    select option { color: #1a2c2f; }
     </style>
 </head>
 <body>
@@ -296,100 +315,94 @@
 
             <!-- Registration Form -->
             <form action="${pageContext.request.contextPath}/company/register1" method="post" enctype="multipart/form-data">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-building"></i> Company Name<span class="required-star">*</span></label>
-                        <input type="text" id="name" name="name" required placeholder="e.g., Tech Solutions Inc.">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-industry"></i> Industry<span class="required-star">*</span></label>
-                        <input type="text" id="industry" name="industry" required placeholder="e.g., Information Technology">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-map-marker-alt"></i> Location<span class="required-star">*</span></label>
-                        <input type="text" id="location" name="location" required placeholder="e.g., New York, NY">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Company Email<span class="required-star">*</span></label>
-                        <input type="email" id="email" name="email" required placeholder="contact@company.com">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-phone"></i> Phone Number<span class="required-star">*</span></label>
-                        <input type="text" id="phone" name="phone" required placeholder="+1 234 567 8900" pattern="^\+?[0-9\s\-\(\)]+$" title="Please enter a valid phone number">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-calendar-alt"></i> Founded Year<span class="required-star">*</span></label>
-                        <input type="number" id="foundedYear" name="foundedYear" required placeholder="e.g., 2010" min="1800" max="2099">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-users"></i> Company Size<span class="required-star">*</span></label>
-                        <select id="companySize" name="companySize" required>
-                            <option value="" disabled selected>Select company size</option>
-                            <option value="1-10 employees">1-10 employees</option>
-                            <option value="11-50 employees">11-50 employees</option>
-                            <option value="51-200 employees">51-200 employees</option>
-                            <option value="201-500 employees">201-500 employees</option>
-                            <option value="501-1000 employees">501-1000 employees</option>
-                            <option value="1000+ employees">1000+ employees</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-lock"></i> Password<span class="required-star">*</span></label>
-                        <div style="position: relative;">
-                            <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="6" style="padding-right: 48px;">
-                            <span onclick="togglePwd('password', this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                    
+                    <!-- LEFT COLUMN -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="fas fa-building"></i> Company Name<span class="required-star">*</span></label>
+                            <input type="text" id="name" name="name" required placeholder="e.g., Tech Solutions Inc.">
                         </div>
-                        <!-- Live Strength Indicator -->
-                        <div id="pwdStrengthBar" style="display:none;margin-top:8px;">
-                            <div style="height:5px;border-radius:10px;background:#e2e8f0;overflow:hidden;">
-                                <div id="pwdStrengthFill" style="height:100%;width:0;border-radius:10px;transition:width 0.4s,background 0.4s;"></div>
+                        <div class="form-group">
+                            <label><i class="fas fa-industry"></i> Industry<span class="required-star">*</span></label>
+                            <input type="text" id="industry" name="industry" required placeholder="e.g., Information Technology">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Location<span class="required-star">*</span></label>
+                            <input type="text" id="location" name="location" required placeholder="e.g., New York, NY">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Company Email<span class="required-star">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="contact@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone Number<span class="required-star">*</span></label>
+                            <input type="text" id="phone" name="phone" required placeholder="+1 234 567 8900" pattern="^\+?[0-9\s\-\(\)]+$" title="Please enter a valid phone number">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> Founded Year<span class="required-star">*</span></label>
+                            <input type="number" id="foundedYear" name="foundedYear" required placeholder="e.g., 2010" min="1800" max="2099">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-users"></i> Company Size<span class="required-star">*</span></label>
+                            <select id="companySize" name="companySize" required>
+                                <option value="" disabled selected>Select company size</option>
+                                <option value="1-10 employees">1-10 employees</option>
+                                <option value="11-50 employees">11-50 employees</option>
+                                <option value="51-200 employees">51-200 employees</option>
+                                <option value="201-500 employees">201-500 employees</option>
+                                <option value="501-1000 employees">501-1000 employees</option>
+                                <option value="1000+ employees">1000+ employees</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN -->
+                    <div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password<span class="required-star">*</span></label>
+                            <div style="position: relative;">
+                                <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="6" style="padding-right: 48px;">
+                                <span onclick="togglePwd('password', this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:#19A77B;font-size:1.1rem;z-index:3;"><i class="fas fa-eye"></i></span>
                             </div>
-                            <small id="pwdStrengthText" style="font-size:0.75rem;margin-top:4px;display:block;"></small>
+                            <!-- Live Strength Indicator -->
+                            <div id="pwdStrengthBar" style="display:none;margin-top:5px;">
+                                <div style="height:5px;border-radius:10px;background:#e2e8f0;overflow:hidden;">
+                                    <div id="pwdStrengthFill" style="height:100%;width:0;border-radius:10px;transition:width 0.4s,background 0.4s;"></div>
+                                </div>
+                                <small id="pwdStrengthText" style="font-size:0.7rem;margin-top:2px;display:block;"></small>
+                            </div>
+                            <!-- Requirements Checklist -->
+                            <ul id="pwdChecklist" style="display:none;list-style:none;padding:0;margin:5px 0 0;font-size:0.7rem;">
+                                <li id="chk-len" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.4rem;margin-right:6px;"></i>Minimum 6 characters</li>
+                                <li id="chk-upper" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.4rem;margin-right:6px;"></i>At least 1 uppercase letter (A-Z)</li>
+                                <li id="chk-lower" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.4rem;margin-right:6px;"></i>At least 1 lowercase letter (a-z)</li>
+                                <li id="chk-special" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.4rem;margin-right:6px;"></i>At least 1 special character (!@#$...)</li>
+                            </ul>
                         </div>
-                        <!-- Requirements Checklist -->
-                        <ul id="pwdChecklist" style="display:none;list-style:none;padding:0;margin:8px 0 0;font-size:0.78rem;">
-                            <li id="chk-len" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>Minimum 6 characters</li>
-                            <li id="chk-upper" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 uppercase letter (A-Z)</li>
-                            <li id="chk-lower" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 lowercase letter (a-z)</li>
-                            <li id="chk-special" style="color:#94a3b8;"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;"></i>At least 1 special character (!@#$...)</li>
-                        </ul>
+                        <div class="form-group">
+                            <label><i class="fas fa-align-left"></i> About Company<span class="required-star">*</span></label>
+                            <textarea id="about" name="about" rows="2" required minlength="20" placeholder="Tell us about your company, mission, values, and culture..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-globe"></i> Website</label>
+                            <input type="url" id="website" name="website" placeholder="https://www.yourcompany.com">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-linkedin"></i> LinkedIn Profile</label>
+                            <input type="url" id="linkedInUrl" name="linkedInUrl" placeholder="https://linkedin.com/company/...">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-image"></i> Company Logo<span class="required-star">*</span></label>
+                            <input type="file" id="logofile" name="logofile" accept="image/*" required style="padding: 6px;">
+                            <small class="text-muted" style="display: block; margin-top: 4px; font-size: 0.65rem;">Recommended: Square image, max 2MB</small>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit" style="margin-top: 15px;">
+                            <i class="fas fa-check-circle"></i> Register Company
+                        </button>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-align-left"></i> About Company<span class="required-star">*</span></label>
-                    <textarea id="about" name="about" rows="4" required minlength="20" placeholder="Tell us about your company, mission, values, and culture..."></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-globe"></i> Website</label>
-                        <input type="url" id="website" name="website" placeholder="https://www.yourcompany.com">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fab fa-linkedin"></i> LinkedIn Profile</label>
-                        <input type="url" id="linkedInUrl" name="linkedInUrl" placeholder="https://linkedin.com/company/...">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-image"></i> Company Logo<span class="required-star">*</span></label>
-                    <input type="file" id="logofile" name="logofile" accept="image/*" required>
-                    <small class="text-muted" style="display: block; margin-top: 8px; font-size: 0.7rem;">Recommended: Square image, PNG or JPG, max 2MB</small>
-                </div>
-
-                <button type="submit" class="btn-submit">
-                    <i class="fas fa-check-circle"></i> Register Company
-                </button>
             </form>
         </div>
     </div>

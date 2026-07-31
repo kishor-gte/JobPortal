@@ -51,6 +51,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
 
         /* Animated background pattern */
@@ -272,27 +273,7 @@
             gap: 16px;
         }
 
-        .btn-logout {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
 
-        .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
 
         .stats-grid {
             display: grid;
@@ -581,6 +562,9 @@
 
         /* Chart Container */
         .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
             margin-top: 20px;
             padding: 20px;
             background: var(--hover-bg);
@@ -596,34 +580,55 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
+            .career-sidebar, .sidebar {
+                transform: translateX(-100%) !important;
                 transition: transform 0.3s ease;
                 z-index: 1000;
             }
 
-            .sidebar.active {
-                transform: translateX(0);
+            .career-sidebar.active, .sidebar.active {
+                transform: translateX(0) !important;
                 box-shadow: var(--shadow-lg);
             }
 
             .main-content {
                 margin-left: 0 !important;
-                padding: 20px !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                padding: 16px !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .content-grid, .stats-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 16px !important;
+            }
+
+            .card, .stat-card {
+                width: 100% !important;
+                padding: 16px !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
+            }
+
+            .chart-container {
+                width: 100% !important;
+                padding: 10px !important;
+                box-sizing: border-box !important;
             }
 
             .top-bar {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 16px;
+                width: 100%;
             }
 
             .top-bar h1 {
-                font-size: 26px;
+                font-size: 24px;
             }
 
             .daily-item {
@@ -686,9 +691,7 @@
                         <div class="toggle-thumb"><i class="fas fa-moon"></i></div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
+
             </div>
         </div>
 

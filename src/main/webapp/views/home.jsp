@@ -724,9 +724,24 @@
     .premium-hero-buttons a { width: 100%; justify-content: center; text-align: center; }
     .premium-stats-bar { margin-top: 30px; }
     .scroll-top { right: 20px !important; bottom: 80px !important; }
-    .whatsapp-float { right: 20px !important; bottom: 20px !important; }
-    .chat-widget { right: 20px !important; bottom: 140px !important; }
-    .chat-container { width: 300px; height: 400px; right: 0; }
+    .whatsapp-float { right: 85px !important; bottom: 20px !important; z-index: 9999 !important; }
+    .chat-widget { right: 20px !important; bottom: 20px !important; z-index: 9999 !important; }
+    .chat-container { width: 300px; height: 400px; right: 0; bottom: 70px; position: absolute; }
+    
+    .premium-stats-container { padding: 15px 10px !important; gap: 5px !important; flex-wrap: nowrap !important; }
+    .premium-stat-item { flex-direction: column; text-align: center; width: 25%; gap: 8px !important; padding: 0 !important; }
+    .stat-icon { width: 36px !important; height: 36px !important; font-size: 1rem !important; margin: 0 auto; }
+    .stat-info { text-align: center; }
+    .stat-info h3 { font-size: 1rem !important; }
+    .stat-info p { font-size: 0.65rem !important; }
+    
+    .footer-premium { padding: 40px 0 20px !important; }
+    .footer-bottom { margin-top: 20px !important; padding-top: 20px !important; }
+    
+    .features-section { padding: 10px 0 !important; }
+    .premium-explore-section { padding: 20px 0 !important; }
+    .featured-jobs { padding-top: 30px !important; padding-bottom: 30px !important; }
+    .premium-btn-view-all { margin-top: 20px !important; }
   }
 
   @keyframes float {
@@ -858,11 +873,11 @@
             </a>
           </div>
           
-          <form action="${pageContext.request.contextPath}/jobs/search" method="get">
+          <form action="${pageContext.request.contextPath}/jobs/all" method="get">
             <div class="premium-search-panel">
               <div class="premium-search-field">
                 <i class="fas fa-search"></i>
-                <input type="text" name="keyword" placeholder="Job title, keyword, or company">
+                <input type="text" name="searchQuery" placeholder="Job title, keyword, or company">
               </div>
               <div class="premium-search-field">
                 <i class="fas fa-map-marker-alt"></i>
@@ -876,10 +891,10 @@
           
           <div class="premium-popular-searches">
             <span>Popular:</span>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Developer" class="premium-popular-pill">Developer</a>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Java" class="premium-popular-pill">Java</a>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=Python" class="premium-popular-pill">Python</a>
-            <a href="${pageContext.request.contextPath}/jobs/search?keyword=React" class="premium-popular-pill">React</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=Developer" class="premium-popular-pill">Developer</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=Java" class="premium-popular-pill">Java</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=Python" class="premium-popular-pill">Python</a>
+            <a href="${pageContext.request.contextPath}/jobs/all?searchQuery=React" class="premium-popular-pill">React</a>
           </div>
           
         </div>
@@ -1343,14 +1358,14 @@
     <div class="row g-4">
       <c:choose>
         <c:when test="${empty featuredJobs}">
-          <div class="col-12 text-center py-5">
+          <div class="col-12 text-center py-3 py-lg-5">
             <h4 style="color: #475569; font-weight: 600;">No featured jobs are available right now. Please check back later.</h4>
           </div>
         </c:when>
         <c:otherwise>
           <c:forEach var="job" items="${featuredJobs}">
             <div class="col-lg-3 col-md-6 mb-4">
-              <a href="${pageContext.request.contextPath}/jobs/details?id=${job.id}" class="premium-job-card">
+              <a href="${pageContext.request.contextPath}/jobs/details/${job.id}" class="premium-job-card">
                 <div class="company-header">
                   <div style="display: flex; align-items: center; gap: 15px;">
                     <div class="company-logo">
@@ -1386,7 +1401,7 @@
         </c:otherwise>
       </c:choose>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-3 mt-lg-5">
       <div class="col-12 text-center">
         <a href="${pageContext.request.contextPath}/jobs/all" class="premium-pill-btn">View All Jobs <i class="fas fa-arrow-right"></i></a>
       </div>
@@ -1482,7 +1497,7 @@
   
   .footer-premium {
     background: #0B0F19; /* Extremely deep dark blue */
-    padding: 100px 0 40px;
+    padding: 80px 0 20px;
     color: #94A3B8;
     position: relative;
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -1501,13 +1516,13 @@
     border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;
   }
   .footer-social-icons a:hover { background: #19A77B; color: white; transform: translateY(-3px); border-color: transparent; box-shadow: 0 10px 20px rgba(25, 167, 123,0.3); }
-  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 60px; font-size: 0.9rem; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-top: 30px; font-size: 0.9rem; }
 </style>
 
 <footer class="footer-premium">
   <div class="container-fluid">
-    <div class="row g-5">
-      <div class="col-lg-4 col-md-6">
+    <div class="row g-3 g-lg-5">
+      <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
         <p style="line-height: 1.8; color: #64748B;">JobU is the world's leading job search platform, dedicated to connecting ambitious talent with the most innovative companies on the planet.</p>
         <ul class="footer-social-icons">
           <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
@@ -1516,7 +1531,7 @@
           <li><a href="#"><i class="fab fa-instagram"></i></a></li>
         </ul>
       </div>
-      <div class="col-lg-2 col-md-6">
+      <div class="col-lg-2 col-md-6 col-6 mb-4 mb-lg-0">
         <h3>Platform</h3>
         <ul style="list-style: none; padding: 0;">
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/jobSeekers/login">Browse Jobs</a></li>
@@ -1525,7 +1540,7 @@
           <li style="margin-bottom: 15px;"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#pricingModal">Pricing</a></li>
         </ul>
       </div>
-      <div class="col-lg-2 col-md-6">
+      <div class="col-lg-2 col-md-6 col-6 mb-4 mb-lg-0">
         <h3>Support</h3>
         <ul style="list-style: none; padding: 0;">
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/about-us.html">About Us</a></li>
@@ -1534,12 +1549,12 @@
           <li style="margin-bottom: 15px;"><a href="${pageContext.request.contextPath}/policy.html">Privacy Policy</a></li>
         </ul>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
         <h3>Stay Updated</h3>
         <p style="margin-bottom: 25px; color: #64748B;">Subscribe to our newsletter for the latest career tips and job alerts.</p>
-        <form action="${pageContext.request.contextPath}/subscribe" method="post" style="display: flex; gap: 10px;">
-          <input name="email" type="email" required placeholder="Email address" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 20px; border-radius: 12px; width: 100%; outline: none;">
-          <button type="submit" style="background: linear-gradient(135deg, #19A77B, #3BC49A); color: white; border: none; padding: 0 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s;">Join</button>
+        <form action="${pageContext.request.contextPath}/subscribe" method="post" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input name="email" type="email" required placeholder="Email address" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 20px; border-radius: 12px; flex: 1; min-width: 200px; outline: none;">
+          <button type="submit" style="background: linear-gradient(135deg, #19A77B, #3BC49A); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s; flex-shrink: 0;">Join</button>
         </form>
       </div>
     </div>

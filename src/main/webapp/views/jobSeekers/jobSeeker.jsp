@@ -10,663 +10,449 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-    :root {
-        --primary: #19A77B;
-        --primary-dark: #148F69;
-        --accent: #3BC49A;
-        --bg-dark: #2E3E41;
-        --bg-darker: #1a2a2c;
-        --bg-lighter: #3a4e51;
-        --text-primary: #1e293b;
-        --text-secondary: #475569;
-        --text-tertiary: #64748b;
-        --border-color: #e0e6ed;
-        --card-bg: #ffffff;
-        --hover-bg: rgba(25, 167, 123, 0.08);
-        --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-        --glow-primary: 0 0 20px rgba(25, 167, 123, 0.15);
-        --success: #19A77B;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f6f9fc;
-        min-height: 100vh;
-        overflow-x: hidden;
-        position: relative;
-    }
-
-    /* Animated background pattern */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 80%, rgba(25, 167, 123, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(59, 196, 154, 0.03) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 0;
-        animation: backgroundPulse 15s ease-in-out infinite;
-    }
-
-    @keyframes backgroundPulse {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 1; }
-    }
-
-    .main-container {
-        display: flex;
-        min-height: 100vh;
-        width: 100%;
-        position: relative;
-        z-index: 1;
-    }
-
-    /* LEFT SECTION */
-    .image-section {
-        flex: 1;
-        background: var(--gradient-primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px 30px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .image-section::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background:
-            radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 50%);
-        opacity: 0.6;
-    }
-
-    .image-content {
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        color: white;
-        max-width: 420px;
-        animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .image-content h1 {
-        font-size: 36px;
-        font-weight: 800;
-        margin-bottom: 16px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .image-content p {
-        font-size: 16px;
-        margin-bottom: 24px;
-        opacity: 0.95;
-    }
-
-    .image-placeholder {
-        width: 100%;
-        max-width: 320px;
-        height: 240px;
-        background: rgba(255,255,255,0.15);
-        border-radius: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(255,255,255,0.2);
-        box-shadow: var(--shadow-lg);
-        margin: 0 auto;
-        background-image: url('${pageContext.request.contextPath}/assets/images/logo/logo.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    .image-placeholder svg {
-        width: 90px;
-        height: 90px;
-        opacity: 0.8;
-    }
-
-    /* FORM SECTION */
-    .login-section {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 25px;
-        background-color: #f6f9fc;
-        overflow-y: auto;
-    }
-
-    .login-container {
-        background-color: white;
-        padding: 36px 32px;
-        border-radius: 24px;
-        box-shadow: var(--shadow-lg);
-        width: 100%;
-        max-width: 440px;
-        text-align: center;
-        animation: slideUp 0.6s ease-out;
-        border: 1px solid rgba(25, 167, 123, 0.1);
-    }
-
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .login-header {
-        margin-bottom: 24px;
-    }
-
-    .register-icon-wrapper {
-        width: 64px;
-        height: 64px;
-        background: var(--hover-bg);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 18px;
-        border: 1px solid rgba(25, 167, 123, 0.15);
-    }
-
-    .register-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        background: var(--gradient-primary);
-        border-radius: 14px;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        box-shadow: var(--glow-primary);
-    }
-
-    h3 {
-        color: var(--text-primary);
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .login-subtitle {
-        color: var(--text-tertiary);
-        font-size: 14px;
-    }
-
-    label {
-        font-size: 14px;
-        color: var(--text-secondary);
-        margin-bottom: 6px;
-        text-align: left;
-        display: block;
-        font-weight: 500;
-    }
-
-    .input-wrapper {
-        position: relative;
-        margin-bottom: 16px;
-    }
-
-    .input-icon {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--primary);
-        width: 18px;
-        height: 18px;
-    }
-
-    input[type="text"],
-    input[type="tel"],
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 14px 16px 14px 46px;
-        border: 2px solid var(--border-color);
-        border-radius: 14px;
-        background-color: #f8f9fb;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-
-    input[type="text"]:focus,
-    input[type="tel"]:focus,
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-        outline: none;
-        border-color: var(--primary);
-        background-color: white;
-        box-shadow: var(--glow-primary);
-    }
-
-    button[type="submit"] {
-        background: var(--gradient-primary);
-        color: white;
-        border: none;
-        padding: 14px 20px;
-        width: 100%;
-        border-radius: 14px;
-        font-size: 16px;
-        font-weight: 600;
-        margin-top: 8px;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
-    }
-
-    button[type="submit"]:hover {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(25, 167, 123, 0.4);
-    }
-
-    .register-link {
-        margin-top: 24px;
-        padding-top: 20px;
-        border-top: 1px solid var(--border-color);
-    }
-
-    .register-link p {
-        font-size: 14px;
-        color: var(--text-tertiary);
-    }
-
-    .register-link a {
-        color: var(--primary);
-        font-weight: 600;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .register-link a:hover {
-        color: var(--primary-dark);
-        text-decoration: underline;
-    }
-
-    /* Checkbox styling */
-    .form-check {
-        text-align: left;
-        margin-top: 18px;
-        margin-bottom: 22px;
-    }
-
-    .form-check-input {
-        margin-top: 0.25rem;
-        margin-right: 10px;
-        width: 18px;
-        height: 18px;
-        border: 2px solid var(--border-color);
-        border-radius: 6px;
-        cursor: pointer;
-    }
-
-    .form-check-input:checked {
-        background-color: var(--primary);
-        border-color: var(--primary);
-    }
-
-    .form-check-input:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 0.2rem rgba(25, 167, 123, 0.25);
-    }
-
-    .form-check-label {
-        font-size: 13px;
-        color: var(--text-tertiary);
-        cursor: pointer;
-    }
-
-    .form-check-label a {
-        color: var(--primary);
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .form-check-label a:hover {
-        text-decoration: underline;
-    }
-
-    /* ICONS + INPUT FOCUS */
-    .input-icon {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%) scale(1);
-        width: 20px;
-        height: 20px;
-        pointer-events: none;
-        transition: transform 0.22s ease, opacity 0.22s ease;
-        color: var(--primary);
-        opacity: 0.95;
-        display: block;
-    }
-
-    /* EMAIL icon - envelope */
-    .input-icon.email-icon::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 2px;
-        width: 18px;
-        height: 12px;
-        border: 2px solid var(--primary);
-        border-radius: 3px;
-        box-sizing: border-box;
-        background: transparent;
-        transition: border-color 0.22s ease, transform 0.22s ease;
-    }
-
-    .input-icon.email-icon::after {
-        content: '';
-        position: absolute;
-        left: 3px;
-        top: 9px;
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 5px solid var(--primary);
-        transition: border-top-color 0.22s ease;
-    }
-
-    /* PASSWORD icon - lock */
-    .input-icon.password-icon::before {
-        content: '';
-        position: absolute;
-        left: 3px;
-        top: 7px;
-        width: 14px;
-        height: 10px;
-        border: 2px solid var(--primary);
-        border-radius: 3px;
-        box-sizing: border-box;
-        transition: border-color 0.22s ease;
-    }
-
-    .input-icon.password-icon::after {
-        content: '';
-        position: absolute;
-        left: 6px;
-        top: 0;
-        width: 8px;
-        height: 7px;
-        border: 2px solid var(--primary);
-        border-bottom: none;
-        border-radius: 8px 8px 0 0;
-        box-sizing: border-box;
-        transition: border-color 0.22s ease;
-    }
-
-    .input-wrapper:focus-within .input-icon {
-        transform: translateY(-50%) scale(1.1);
-        opacity: 1;
-    }
-
-    .input-wrapper:focus-within .input-icon.email-icon::before,
-    .input-wrapper:focus-within .input-icon.email-icon::after,
-    .input-wrapper:focus-within .input-icon.password-icon::before,
-    .input-wrapper:focus-within .input-icon.password-icon::after {
-        border-color: var(--primary-dark);
-    }
-
-    .input-wrapper:focus-within .input-icon.email-icon::after {
-        border-top-color: var(--primary-dark);
-    }
-
-    .alert-danger {
-        background-color: var(--danger);
-        color: white;
-        padding: 14px 16px;
-        border-radius: 12px;
-        margin-bottom: 18px;
-        font-size: 14px;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .alert-success {
-        background-color: var(--success);
-        color: white;
-        padding: 14px 16px;
-        border-radius: 12px;
-        margin-bottom: 18px;
-        font-size: 14px;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    /* Password match indicator */
-    .password-match {
-        font-size: 12px;
-        margin-top: 6px;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .password-match.match {
-        color: var(--success);
-    }
-
-    .password-match.mismatch {
-        color: var(--danger);
-    }
-
-    @media (max-width: 768px) {
-        .main-container {
-            flex-direction: column;
+        :root {
+            --primary: #0B8260;
+            --primary-dark: #086147;
+            --accent: #0eb082;
+            --white: #ffffff;
+            --danger: #ff4d4d;
+            --success: #0eb082;
+            --transition: all 0.3s ease;
         }
 
-        .image-section {
-            min-height: 220px;
-            padding: 30px 20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .image-content h1 {
-            font-size: 26px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('${pageContext.request.contextPath}/assets/images/job_portal_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .image-placeholder {
-            max-width: 200px;
-            height: 160px;
+        /* Blur overlay on top of the background image */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.15); /* Slight dark tint to make green pop */
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .login-container {
-            padding: 28px 20px;
+        .back-home-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--primary);
+            border: 1px solid var(--primary-dark);
+            border-radius: 30px;
+            color: white !important;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
-    }
 
-    @media (max-width: 420px) {
-        .input-icon { 
-            left: 12px; 
-            width: 18px; 
-            height: 18px; 
+        .back-home-btn:hover {
+            background: var(--primary-dark);
+            color: white !important;
+            transform: translateX(-4px);
         }
-        input[type="text"], 
-        input[type="tel"], 
-        input[type="email"], 
-        input[type="password"] { 
-            padding-left: 42px; 
+
+        .register-card-wrapper {
+            width: 100%;
+            max-width: 460px;
+            position: relative;
+            z-index: 10;
         }
-        
-        h3 {
-            font-size: 24px;
+
+        /* Glassmorphism single box */
+        .glass-register-box {
+            background: linear-gradient(135deg, rgba(7, 82, 61, 0.95) 0%, rgba(11, 130, 96, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 35px;
+            padding: 40px 30px 30px 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            margin-top: 30px; /* Offset to accommodate the circular icon badge */
         }
-    }
+
+        /* Top circular white badge */
+        .top-circular-badge {
+            width: 84px;
+            height: 84px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            position: absolute;
+            top: -42px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 11;
+        }
+
+        .top-circular-badge i {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .register-title-head {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .register-subtitle-head {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        /* Form Inputs */
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 2px;
+        }
+
+        .input-icon-custom {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.15rem;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .field-input-custom {
+            width: 100%;
+            height: 46px;
+            padding: 8px 20px 8px 50px;
+            background: rgba(0, 0, 0, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            font-size: 14px;
+            color: white;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .field-input-custom::placeholder {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .field-input-custom:focus {
+            background: rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Checkbox */
+        .options-row-custom {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: left;
+        }
+
+        .terms-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .terms-checkbox-label input {
+            cursor: pointer;
+            accent-color: var(--primary);
+            width: 15px;
+            height: 15px;
+        }
+
+        .terms-checkbox-label a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .btn-submit-white {
+            width: 100%;
+            height: 48px;
+            background: white;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-submit-white:hover {
+            background: #e6f6ee;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Bottom Links */
+        .bottom-links-box {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .bottom-links-box a {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .bottom-links-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Validation Alerts */
+        .password-match {
+            font-size: 0.8rem;
+            margin-top: 2px;
+            margin-bottom: 8px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        .password-match.mismatch {
+            color: #ffcccc;
+        }
+
+        .password-match.match {
+            color: #ccffdd;
+        }
+
+        /* Alerts design */
+        .alert-custom {
+            padding: 12px 18px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .alert-custom-danger {
+            background: rgba(239, 68, 68, 0.25);
+        }
+
+        .alert-custom-success {
+            background: rgba(11, 130, 96, 0.3);
+        }
+
+        @media (max-width: 576px) {
+            .back-home-btn {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                display: inline-flex;
+            }
+            body {
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 40px;
+            }
+            .glass-register-box {
+                padding: 45px 20px 30px 20px;
+            }
+        }
     </style>
-
 </head>
 <body>
-    <div class="main-container">
-        <!-- Left Side - Image Section -->
-        <div class="image-section">
-            <div class="image-content">
-                <h1>Welcome to SmartInterview</h1>
-                <p>Job Seeker Portal</p>
-                <div class="image-placeholder">
-                </div>
+
+    <a href="${pageContext.request.contextPath}/" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="register-card-wrapper">
+        <div class="glass-register-box">
+            <!-- Circular Top Badge -->
+            <div class="top-circular-badge">
+                <i class="fas fa-user-plus"></i>
             </div>
-        </div>
 
-        <!-- Right Side - Registration Form Section -->
-        <div class="login-section">
-            <div class="login-container">
-                <a href="${pageContext.request.contextPath}/" style="display: inline-flex; align-items: center; gap: 8px; color: #64748B; text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 24px; transition: color 0.3s;" onmouseover="this.style.color='#19A77B'" onmouseout="this.style.color='#64748B'">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </a>
-                <div class="login-header">
-                    <div class="register-icon-wrapper">
-                        <div class="register-icon">JS</div>
-                    </div>
-                    <h3>Create Your Account</h3>
-                    <p class="login-subtitle">Sign up to start your job search and grow your career</p>
+            <h3 class="register-title-head">Sign Up</h3>
+            <p class="register-subtitle-head">Create your Job Seeker account</p>
+
+            <!-- Display error message if registration fails -->
+            <c:if test="${not empty error}">
+                <div class="alert-custom alert-custom-danger">
+                    <i class="fas fa-exclamation-circle"></i> ${error}
                 </div>
-     
-                <!-- Display error message if registration fails -->
-                <c:if test="${not empty error}">
-                    <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-circle"></i> ${error}
-                    </div>
-                </c:if>
+            </c:if>
 
-                <c:if test="${not empty message}">
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i> ${message}
-                    </div>
-                </c:if>
-     
-                <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="registrationForm">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Full Name</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user input-icon" style="font-size: 18px; top: 50%; transform: translateY(-50%); z-index: 5;"></i>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
-                        </div>
-                        <div id="nameError" class="password-match mismatch" style="display: none;"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Mobile Number</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-phone input-icon" style="font-size: 18px; top: 50%; transform: translateY(-50%); z-index: 5;"></i>
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="9876543210" required>
-                        </div>
-                        <div id="phoneError" class="password-match mismatch" style="display: none;"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon email-icon"></span>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com" required>
-                        </div>
-                        <div id="emailError" class="password-match mismatch" style="display: none;"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon password-icon"></span>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required style="padding-right: 40px;">
-                            <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
-                        </div>
-                        <div id="passwordError" class="password-match mismatch" style="display: none;"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon password-icon"></span>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required style="padding-right: 40px;">
-                            <i class="far fa-eye" id="toggleConfirmPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; z-index: 10;"></i>
-                        </div>
-                        <div id="passwordMatch" class="password-match" style="display: none;"></div>
-                    </div>
-
-                    <!-- Terms & Conditions -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            I agree to the <a href="${pageContext.request.contextPath}/terms-conditions.html">Terms & Conditions</a>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn-primary">
-                        <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Sign Up
-                    </button>
-                </form>
-     
-                <div class="register-link">
-                    <p>Already have an account? <a href="${pageContext.request.contextPath}/jobSeekers/login">Login Here <i class="fas fa-arrow-right"></i></a></p>
+            <c:if test="${not empty message}">
+                <div class="alert-custom alert-custom-success">
+                    <i class="fas fa-check-circle"></i> ${message}
                 </div>
+            </c:if>
+
+            <!-- Form -->
+            <form action="${pageContext.request.contextPath}/jobSeekers/signup" method="post" id="registrationForm">
+                
+                <!-- Full Name -->
+                <div class="mb-3">
+                    <div class="input-group-custom">
+                        <i class="fas fa-user input-icon-custom"></i>
+                        <input type="text" class="field-input-custom" id="name" name="name" placeholder="Full Name" required autocomplete="off">
+                    </div>
+                    <div id="nameError" class="password-match mismatch"></div>
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="mb-3">
+                    <div class="input-group-custom">
+                        <i class="fas fa-phone input-icon-custom"></i>
+                        <input type="tel" class="field-input-custom" id="phone" name="phone" placeholder="Mobile Number" required autocomplete="off">
+                    </div>
+                    <div id="phoneError" class="password-match mismatch"></div>
+                </div>
+
+                <!-- Email Address -->
+                <div class="mb-3">
+                    <div class="input-group-custom">
+                        <i class="fas fa-envelope input-icon-custom"></i>
+                        <input type="email" class="field-input-custom" id="email" name="email" placeholder="Email Address" required autocomplete="off">
+                    </div>
+                    <div id="emailError" class="password-match mismatch"></div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <div class="input-group-custom">
+                        <i class="fas fa-lock input-icon-custom"></i>
+                        <input type="password" class="field-input-custom" id="password" name="password" placeholder="Password" required style="padding-right: 50px;">
+                        <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: rgba(255, 255, 255, 0.7); z-index: 10;"></i>
+                    </div>
+                    <div id="passwordError" class="password-match mismatch"></div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    <div class="input-group-custom">
+                        <i class="fas fa-lock input-icon-custom"></i>
+                        <input type="password" class="field-input-custom" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required style="padding-right: 50px;">
+                        <i class="far fa-eye" id="toggleConfirmPassword" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: rgba(255, 255, 255, 0.7); z-index: 10;"></i>
+                    </div>
+                    <div id="passwordMatch" class="password-match"></div>
+                </div>
+
+                <!-- Terms and Conditions Checkbox -->
+                <div class="options-row-custom">
+                    <label class="terms-checkbox-label">
+                        <input type="checkbox" id="flexCheckDefault" required>
+                        I agree to the <a href="${pageContext.request.contextPath}/terms-conditions.html" target="_blank">Terms & Conditions</a>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit-white" id="submitBtn">
+                    SIGN UP
+                </button>
+            </form>
+
+            <!-- Bottom Links -->
+            <div class="bottom-links-box">
+                <p>
+                    Already have an account? 
+                    <a href="${pageContext.request.contextPath}/jobSeekers/login">Login Here</a>
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <!-- Script validation logic matching original rules -->
     <script>
-        // Password match validation
         document.addEventListener('DOMContentLoaded', function() {
             const togglePassword = document.querySelector('#togglePassword');
             const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
             
-            if (togglePassword) {
+            if (togglePassword && passwordInput) {
                 togglePassword.addEventListener('click', function (e) {
-                    const pwd = document.getElementById('password');
-                    const type = pwd.getAttribute('type') === 'password' ? 'text' : 'password';
-                    pwd.setAttribute('type', type);
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
                     this.classList.toggle('fa-eye-slash');
                     this.classList.toggle('fa-eye');
                 });
             }
 
-            if (toggleConfirmPassword) {
+            if (toggleConfirmPassword && confirmPasswordInput) {
                 toggleConfirmPassword.addEventListener('click', function (e) {
-                    const confirmPwd = document.getElementById('confirmPassword');
-                    const type = confirmPwd.getAttribute('type') === 'password' ? 'text' : 'password';
-                    confirmPwd.setAttribute('type', type);
+                    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    confirmPasswordInput.setAttribute('type', type);
                     this.classList.toggle('fa-eye-slash');
                     this.classList.toggle('fa-eye');
                 });
             }
+
             const name = document.getElementById('name');
             const phone = document.getElementById('phone');
             const email = document.getElementById('email');
@@ -689,11 +475,9 @@
                 if (val.length < 3) {
                     nameError.style.display = 'flex';
                     nameError.innerHTML = '<i class="fas fa-times-circle"></i> Name must be at least 3 characters';
-                    name.style.borderColor = 'var(--danger)';
                     return false;
                 }
                 nameError.style.display = 'none';
-                name.style.borderColor = 'var(--success)';
                 return true;
             }
 
@@ -707,12 +491,10 @@
                 const regex = /^[0-9]{10}$/;
                 if (!regex.test(val)) {
                     phoneError.style.display = 'flex';
-                    phoneError.innerHTML = '<i class="fas fa-times-circle"></i> Please enter a valid 10-digit mobile number';
-                    phone.style.borderColor = 'var(--danger)';
+                    phoneError.innerHTML = '<i class="fas fa-times-circle"></i> Please enter a valid 10-digit number';
                     return false;
                 }
                 phoneError.style.display = 'none';
-                phone.style.borderColor = 'var(--success)';
                 return true;
             }
 
@@ -727,11 +509,9 @@
                 if (!regex.test(val)) {
                     emailError.style.display = 'flex';
                     emailError.innerHTML = '<i class="fas fa-times-circle"></i> Please enter a valid email address';
-                    email.style.borderColor = 'var(--danger)';
                     return false;
                 } else {
                     emailError.style.display = 'none';
-                    email.style.borderColor = 'var(--success)';
                     return true;
                 }
             }
@@ -754,11 +534,9 @@
                 if (errorMsg) {
                     passwordError.style.display = 'flex';
                     passwordError.innerHTML = '<i class="fas fa-times-circle"></i> ' + errorMsg;
-                    password.style.borderColor = 'var(--danger)';
                     return false;
                 } else {
                     passwordError.style.display = 'none';
-                    password.style.borderColor = 'var(--success)';
                     return true;
                 }
             }
@@ -766,7 +544,6 @@
             function checkPasswordMatch() {
                 if (confirmPassword.value === '') {
                     passwordMatch.style.display = 'none';
-                    confirmPassword.style.borderColor = '';
                     return false;
                 }
                 
@@ -774,12 +551,10 @@
                 if (password.value === confirmPassword.value) {
                     passwordMatch.innerHTML = '<i class="fas fa-check-circle"></i> Passwords match';
                     passwordMatch.className = 'password-match match';
-                    confirmPassword.style.borderColor = 'var(--success)';
                     return true;
                 } else {
                     passwordMatch.innerHTML = '<i class="fas fa-times-circle"></i> Passwords do not match';
                     passwordMatch.className = 'password-match mismatch';
-                    confirmPassword.style.borderColor = 'var(--danger)';
                     return false;
                 }
             }
@@ -799,7 +574,6 @@
             confirmPassword.addEventListener('input', checkPasswordMatch);
             confirmPassword.addEventListener('blur', function() { confirmPassword.value = confirmPassword.value.trim(); checkPasswordMatch(); });
 
-            // Form validation before submit
             form.addEventListener('submit', function(e) {
                 let isNameValid = validateName();
                 let isPhoneValid = validatePhone();
@@ -816,196 +590,8 @@
                     else if (!isNameValid) name.focus();
                     return false;
                 }
-                // Registration successful toast/alert could go here
-            });
-
-            // Keyboard shortcut for submit
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.key === 'Enter') {
-                    const submitBtn = form.querySelector('button[type="submit"]');
-                    if (submitBtn) {
-                        form.dispatchEvent(new Event('submit'));
-                    }
-                }
             });
         });
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    if (!document.getElementById('mobile-responsive-style')) {
-        const style = document.createElement('style');
-        style.id = 'mobile-responsive-style';
-        style.innerHTML = `
-            @media (max-width: 768px) {
-                .sidebar, .nav-sidebar {
-                    transform: translateX(-100%);
-                    transition: transform 0.3s ease;
-                    position: fixed !important;
-                    z-index: 1001 !important;
-                    height: 100vh;
-                }
-                .sidebar.active, .nav-sidebar.active {
-                    transform: translateX(0);
-                    box-shadow: 2px 0 20px rgba(0,0,0,0.2) !important;
-                }
-                .main-content {
-                    margin-left: 0 !important;
-                    padding: 16px !important;
-                    width: 100% !important;
-                    max-width: 100% !important;
-                }
-                .stats-grid, .content-grid, .grid, .hr-stats-grid, .hr-content-grid, .profile-grid, .dashboard-grid {
-                    grid-template-columns: 1fr !important;
-                    display: grid !important; 
-                }
-                .top-bar {
-                    flex-direction: column !important;
-                    align-items: flex-start !important;
-                    gap: 16px;
-                }
-                .chat-header {
-                    flex-wrap: wrap;
-                    gap: 12px;
-                }
-                .top-bar h1, .chat-header h3 {
-                    font-size: 22px !important;
-                    display: flex;
-                    align-items: center;
-                }
-                .mobile-menu-btn {
-                    display: inline-block !important;
-                    background: none;
-                    border: none;
-                    font-size: 24px;
-                    color: inherit;
-                    cursor: pointer;
-                    margin-right: 12px;
-                }
-                .mobile-overlay {
-                    display: none;
-                    position: fixed;
-                    top: 0; left: 0; right: 0; bottom: 0;
-                    background: rgba(0,0,0,0.5);
-                    z-index: 1000;
-                }
-                .mobile-overlay.active {
-                    display: block;
-                }
-                .chat-sidebar {
-                    position: fixed !important;
-                    transform: translateX(-100%);
-                    transition: transform 0.3s;
-                    z-index: 1000;
-                }
-                .chat-sidebar.active {
-                    transform: translateX(0);
-                }
-                table:not(.table-responsive), table:not(.table-responsive) thead, table:not(.table-responsive) tbody, table:not(.table-responsive) th, table:not(.table-responsive) td, table:not(.table-responsive) tr { 
-                    display: block; 
-                }
-                table:not(.table-responsive) thead tr { 
-                    position: absolute;
-                    top: -9999px;
-                    left: -9999px;
-                }
-                table:not(.table-responsive) tr { border: 1px solid #e2e8f0; margin-bottom: 12px; border-radius: 8px; overflow:hidden; }
-                table:not(.table-responsive) td { 
-                    border: none;
-                    border-bottom: 1px solid #f1f5f9; 
-                    position: relative;
-                    padding-left: 50% !important; 
-                    text-align: right;
-                    font-size: 14px;
-                }
-                table:not(.table-responsive) td:last-child {
-                    border-bottom: none;
-                }
-                table:not(.table-responsive) td:before { 
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    left: 12px;
-                    width: 45%; 
-                    padding-right: 10px; 
-                    white-space: nowrap;
-                    content: attr(data-label);
-                    font-weight: 600;
-                    text-align: left;
-                    color: #64748b;
-                }
-            }
-            .mobile-menu-btn { display: none; }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    const sidebar = document.querySelector('.sidebar') || document.querySelector('.nav-sidebar');
-    if (sidebar) {
-        const topBar = document.querySelector('.top-bar') || document.querySelector('.chat-header') || document.querySelector('.dashboard-header') || document.body;
-        
-        let heading = null;
-        if (topBar && topBar !== document.body) {
-            heading = topBar.querySelector('h1') || topBar.querySelector('.chat-header-info') || topBar.querySelector('h2');
-            if (!heading) heading = topBar;
-        } else if (!document.querySelector('.mobile-menu-btn')) {
-            heading = document.createElement('div');
-            heading.style.padding = '10px';
-            document.body.insertBefore(heading, document.body.firstChild);
-        }
-        
-        if (heading && !document.querySelector('.mobile-menu-btn')) {
-            heading.style.display = 'flex';
-            heading.style.alignItems = 'center';
-
-            const toggleBtn = document.createElement('button');
-            toggleBtn.className = 'mobile-menu-btn';
-            toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            heading.insertBefore(toggleBtn, heading.firstChild);
-            
-            const overlay = document.createElement('div');
-            overlay.className = 'mobile-overlay';
-            document.body.appendChild(overlay);
-
-            let touchstartX = 0;
-            let touchendX = 0;
-            document.body.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive: true});
-            document.body.addEventListener('touchend', e => { 
-                touchendX = e.changedTouches[0].screenX; 
-                if (touchendX < touchstartX - 50) closeSidebar(); 
-                if (touchendX > touchstartX + 50 && touchstartX < 30) openSidebar(); 
-            }, {passive: true});
-            
-            function openSidebar() {
-                sidebar.classList.add('active');
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeSidebar() {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-            
-            toggleBtn.addEventListener('click', openSidebar);
-            overlay.addEventListener('click', closeSidebar);
-        }
-    }
-    
-    const tables = document.querySelectorAll('table:not(.table-responsive)');
-    tables.forEach(table => {
-        const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
-        const rows = Array.from(table.querySelectorAll('tbody tr'));
-        rows.forEach(row => {
-            Array.from(row.querySelectorAll('td')).forEach((td, index) => {
-                if(headers[index]) {
-                    td.setAttribute('data-label', headers[index]);
-                }
-            });
-        });
-    });
-});
-</script>
-<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

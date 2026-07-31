@@ -44,10 +44,11 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             color: var(--text-primary);
             min-height: 100vh;
-            position: relative;
+            display: flex;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -297,27 +298,7 @@
             color: var(--text-primary);
         }
 
-        .btn-logout {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
 
-        .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
 
         .upload-area {
             background: var(--card-bg);
@@ -605,13 +586,13 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .sidebar {
+            .career-sidebar, .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
                 z-index: 1000;
             }
 
-            .sidebar.active {
+            .career-sidebar.active, .sidebar.active {
                 transform: translateX(0);
                 box-shadow: var(--shadow-lg);
             }
@@ -700,9 +681,7 @@
                         <div class="toggle-thumb"><i class="fas fa-moon"></i></div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
+
             </div>
         </div>
 
@@ -768,15 +747,7 @@
                         </div>
                     </c:if>
                     
-                    <form action="${pageContext.request.contextPath}/hackerrank/student/analyze-resume/${resume.id}" method="post" class="analyze-form" style="margin-top: 16px;">
-                        <button type="submit" class="btn-choose analyze-btn" style="width: 100%; justify-content: center; background: var(--gradient-primary);" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Analyzing... Please wait (this can take up to 20s)'; this.style.pointerEvents='none'; this.style.opacity='0.7';">
-                            <i class="fas fa-magic"></i> 
-                            <c:choose>
-                                <c:when test="${resume.aiScore == 0}">Analyze Resume with AI</c:when>
-                                <c:otherwise>Re-Analyze Resume</c:otherwise>
-                            </c:choose>
-                        </button>
-                    </form>
+
                 </div>
             </c:forEach>
             

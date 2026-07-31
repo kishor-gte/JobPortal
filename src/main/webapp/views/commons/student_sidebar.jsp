@@ -12,7 +12,7 @@
     left: 0 !important;
     top: 0 !important;
     z-index: 1000 !important;
-    padding: 24px 16px !important;
+    padding: 24px 16px 80px 16px !important;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12) !important;
     transition: transform 0.3s ease !important;
     overflow-y: auto !important;
@@ -99,6 +99,8 @@
     border-left: 3px solid transparent !important;
     margin-bottom: 6px !important;
     border-radius: 10px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
 }
 
 .nav-link-custom i {
@@ -146,8 +148,8 @@
 <!-- Left Sidebar Navigation - Ultra Premium -->
 <div class="career-sidebar" id="sidebar">
     <div class="sidebar-logo">
-        <div class="icon"><i class="fas fa-brain"></i></div>
-        <h2>SmartInterview</h2>
+        <div class="icon"><i class="fas fa-user-graduate"></i></div>
+        <h2>Student Dashboard</h2>
     </div>
     
     <div class="nav-section">
@@ -156,7 +158,7 @@
             <i class="fas fa-home"></i> Back to Home
         </a>
         <a href="${pageContext.request.contextPath}/hackerrank/student/dashboard" class="nav-link-custom">
-            <i class="fas fa-th-large"></i> Dashboard
+            <i class="fas fa-th-large"></i> Student Dashboard
         </a>
         <a href="${pageContext.request.contextPath}/jobSeekers/profile" class="nav-link-custom">
             <i class="fas fa-user"></i> Profile
@@ -215,7 +217,7 @@
             <i class="fas fa-chart-line"></i> Performance
         </a>
         <a href="${pageContext.request.contextPath}/qna" class="nav-link-custom">
-            <i class="fas fa-question-circle"></i> Ask Your Question
+            <i class="fas fa-question-circle"></i> Q&A Forum
         </a>
         <a href="${pageContext.request.contextPath}/hackerrank/ai-evaluation/dashboard" class="nav-link-custom">
             <i class="fas fa-robot"></i> AI Feedback

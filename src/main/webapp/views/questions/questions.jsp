@@ -403,12 +403,27 @@
     </div>
 
     <div class="ask-form" id="askForm">
-        <form action="${pageContext.request.contextPath}/qna/ask" method="post">
-            <textarea name="content" required placeholder="Type your question here..." rows="4"></textarea>
-            <input type="text" name="displayName" placeholder="Your name (optional)">
+        <form action="${pageContext.request.contextPath}/qna/ask" method="post" onsubmit="return validateQuestionForm()">
+            <textarea name="content" id="questionContent" required placeholder="Type your question here (max 500 characters)..." rows="4" maxlength="500"></textarea>
+            <input type="text" name="displayName" id="displayName" placeholder="Your name (optional, max 50 characters)" maxlength="50">
             <button type="submit"><i class="fas fa-paper-plane"></i> Submit Question</button>
         </form>
     </div>
+
+    <script>
+        function validateQuestionForm() {
+            const content = document.getElementById('questionContent').value.trim();
+            if (content.length < 10) {
+                alert('Your question must be at least 10 characters long.');
+                return false;
+            }
+            if (!/[a-zA-Z]/.test(content)) {
+                alert('Your question must contain valid characters.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <div class="section-title">
         <i class="fas fa-list"></i> Recent Questions
@@ -433,20 +448,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!document.getElementById('mobile-responsive-style')) {
         const style = document.createElement('style');
         style.id = 'mobile-responsive-style';
-        style.innerHTML = `@media (max-width: 768px) { .sidebar, .nav-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; position: fixed !important; z-index: 1001 !important; height: 100vh; } .sidebar.active, .nav-sidebar.active { transform: translateX(0); box-shadow: 2px 0 20px rgba(0,0,0,0.2) !important; } .main-content { margin-left: 0 !important; padding: 16px !important; width: 100% !important; max-width: 100% !important; } } .mobile-menu-btn { display: none; }`;
+        style.innerHTML = `@media (max-width: 992px) { .sidebar, .nav-sidebar, .career-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; position: fixed !important; z-index: 1050 !important; height: 100vh; } .sidebar.active, .nav-sidebar.active, .career-sidebar.active { transform: translateX(0) !important; box-shadow: 2px 0 20px rgba(0,0,0,0.2) !important; } .main-content-wrapper, .main-content { margin-left: 0 !important; padding: 16px !important; width: 100% !important; max-width: 100% !important; } .mobile-menu-btn { display: inline-block !important; } } .mobile-menu-btn { display: none; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); margin-right: 15px; } .mobile-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; } .mobile-overlay.active { display: block; }`;
         document.head.appendChild(style);
     }
     
-    const sidebar = document.querySelector('.sidebar') || document.querySelector('.nav-sidebar');
+    const sidebar = document.querySelector('.sidebar, .nav-sidebar, .career-sidebar');
     if (sidebar) {
-        const topBar = document.querySelector('.top-bar') || document.querySelector('.chat-header') || document.querySelector('.dashboard-header') || document.body;
+        const topBar = document.querySelector('.top-bar') || document.querySelector('.chat-header') || document.querySelector('.dashboard-header') || document.querySelector('.page-header') || document.body;
         let heading = null;
         if (topBar && topBar !== document.body) heading = topBar.querySelector('h1') || topBar.querySelector('.chat-header-info') || topBar.querySelector('h2');
         if (!heading && !document.querySelector('.mobile-menu-btn')) { heading = document.createElement('div'); heading.style.padding = '10px'; document.body.insertBefore(heading, document.body.firstChild); }
         if (heading && !document.querySelector('.mobile-menu-btn')) {
             heading.style.display = 'flex'; heading.style.alignItems = 'center';
             const toggleBtn = document.createElement('button'); toggleBtn.className = 'mobile-menu-btn'; toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            heading.insertBefore(toggleBtn, heading.firstChild);
+            heading.parentNode.insertBefore(toggleBtn, heading);
+            toggleBtn.style.display = 'none';
             const overlay = document.createElement('div'); overlay.className = 'mobile-overlay'; document.body.appendChild(overlay);
             let touchstartX = 0, touchendX = 0;
             document.body.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive: true});

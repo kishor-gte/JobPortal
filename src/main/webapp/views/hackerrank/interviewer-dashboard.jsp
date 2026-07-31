@@ -48,6 +48,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -75,6 +76,7 @@
             position: fixed;
             left: 0;
             top: 0;
+            bottom: 0;
             width: 280px;
             height: 100vh;
             background: rgba(255, 255, 255, 0.95);
@@ -84,6 +86,7 @@
             padding: 24px 16px;
             z-index: 100;
             overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -267,50 +270,6 @@
             display: flex;
             align-items: center;
             gap: 16px;
-        }
-
-        .btn-logout {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-back {
-            padding: 10px 20px;
-            background: rgba(25, 167, 123, 0.08);
-            border: 1px solid rgba(25, 167, 123, 0.2);
-            color: var(--primary);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-back:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(25, 167, 123, 0.3);
         }
 
         .stats-grid {
@@ -845,6 +804,9 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
+            <a href="${pageContext.request.contextPath}/company/dashboard" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Back to Company
+            </a>
             <a href="${pageContext.request.contextPath}/hackerrank/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
@@ -864,12 +826,6 @@
                 <button id="theme-toggle" class="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
                     <i class="fas fa-moon"></i>
                 </button>
-                <a href="${pageContext.request.contextPath}/company/dashboard" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Back to Company
-                </a>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
             </div>
         </div>
 

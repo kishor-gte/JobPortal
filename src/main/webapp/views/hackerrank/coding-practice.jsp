@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding Practice - SmartInterview</title>
+    <title>Coding Practice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -47,6 +47,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             position: relative;
+            overflow-x: clip;
         }
 
         /* Animated background pattern */
@@ -296,27 +297,7 @@
             color: var(--text-primary);
         }
 
-        .btn-logout {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
 
-        .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
 
         .filters {
             display: flex;
@@ -628,8 +609,82 @@
             margin-bottom: 8px;
         }
 
+        /* Theme toggle */
         .theme-toggle-wrapper {
             display: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(25, 167, 123, 0.2);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: rgba(25, 167, 123, 0.2);
+            border: 1px solid rgba(25, 167, 123, 0.3);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            align-items: center;
+            padding: 0 3px;
+        }
+
+        .theme-toggle:hover { 
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .theme-toggle .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(25, 167, 123, 0.4);
+        }
+
+        .theme-toggle .toggle-thumb i { 
+            font-size: 10px; 
+            color: #fff; 
+            transition: transform 0.4s ease; 
+        }
+
+        .theme-toggle.light .toggle-thumb {
+            transform: translateX(22px);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            box-shadow: 0 2px 8px rgba(245,158,11,0.4);
+        }
+
+        .theme-toggle.light .toggle-thumb i { 
+            transform: rotate(180deg); 
+        }
+
+        .theme-toggle.light {
+            background: rgba(245,158,11,0.15);
+            border-color: rgba(245,158,11,0.4);
         }
 
         /* Mobile Responsive */
@@ -640,13 +695,13 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
+            .career-sidebar, .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
                 z-index: 1000;
             }
 
-            .sidebar.active {
+            .career-sidebar.active, .sidebar.active {
                 transform: translateX(0);
                 box-shadow: var(--shadow-lg);
             }
@@ -722,6 +777,24 @@
         .mobile-menu-btn {
             display: none;
         }
+
+        /* Dark Mode Overrides */
+        body:not(.light-mode) {
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.12);
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --hover-bg: rgba(25, 167, 123, 0.2);
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%) !important;
+            color: var(--text-primary);
+        }
+        
+        body:not(.light-mode)::before {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(25, 167, 123, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(59, 196, 154, 0.08) 0%, transparent 40%);
+        }
     </style>
     <jsp:include page="/views/commons/hackerrank_sidebar_styles.jsp" />
 </head>
@@ -753,13 +826,13 @@
                 </div>
                 <div class="theme-toggle-wrapper">
                     <span class="theme-toggle-label">Theme</span>
+                </div>
+                <div class="user-info">
                     <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">
                         <div class="toggle-thumb"><i class="fas fa-moon"></i></div>
                     </div>
+                    <div class="user-avatar">${jobSeeker.name.substring(0,1)}</div>
                 </div>
-                <a href="${pageContext.request.contextPath}/logout" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
             </div>
         </div>
 

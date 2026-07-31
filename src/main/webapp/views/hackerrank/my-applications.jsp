@@ -44,157 +44,9 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: #f8fafc;
             color: var(--text-primary);
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            padding: 24px 16px;
-            z-index: 100;
-            overflow-y: auto;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        .sidebar-logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 8px 12px 24px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 24px;
-        }
-
-        .sidebar-logo .icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient-primary);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--glow-primary);
-            animation: logoGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(25, 167, 123, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(25, 167, 123, 0.4); }
-        }
-
-        .sidebar-logo .icon i {
-            color: #fff;
-            font-size: 24px;
-        }
-
-        .sidebar-logo h2 {
-            font-size: 20px;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-section {
-            margin-bottom: 28px;
-        }
-
-        .nav-section h4 {
-            color: var(--text-tertiary);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 0 12px;
-            margin-bottom: 14px;
-            font-weight: 600;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 14px;
-            border-radius: 12px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 4px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link i {
-            width: 20px;
-            text-align: center;
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--gradient-primary);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: var(--hover-bg);
-            color: var(--primary);
-            transform: translateX(4px);
-        }
-
-        .nav-link:hover i {
-            transform: scale(1.1);
-        }
-
-        .nav-link:hover::before {
-            transform: translateX(0);
-        }
-
-        .nav-link.active {
-            background: var(--hover-bg);
-            color: var(--primary);
-            box-shadow: inset 0 0 20px rgba(25, 167, 123, 0.05);
-        }
-
-        .nav-link.active::before {
-            transform: translateX(0);
-        }
-
-        .nav-link.active i {
-            color: var(--primary);
+            overflow-x: clip;
         }
 
         /* Main Content */
@@ -221,26 +73,6 @@
             color: var(--primary); font-size: 30px;
         }
         
-        .user-info { display: flex; align-items: center; gap: 16px; }
-        .user-avatar {
-            width: 44px; height: 44px;
-            background: var(--gradient-primary);
-            border-radius: 14px; display: flex; align-items: center; justify-content: center;
-            color: #fff; font-weight: 700; font-size: 18px;
-            box-shadow: var(--glow-primary);
-        }
-        .btn-logout {
-            padding: 10px 20px; background: #fef2f2;
-            border: 1px solid #fecaca; color: var(--danger);
-            border-radius: 30px; text-decoration: none; font-size: 13px;
-            font-weight: 600; transition: all 0.3s ease;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .btn-logout:hover { 
-            background: #fee2e2; 
-            border-color: #fca5a5; transform: translateY(-2px);
-        }
-
         /* Alert */
         .alert {
             padding: 16px 20px; border-radius: 16px; margin-bottom: 20px;
@@ -489,14 +321,14 @@
         .empty-icon i { font-size: 36px; color: var(--primary); }
         .empty-state h3 { font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; }
         .empty-state p { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;}
-        .btn-browse-lg {
+        .btn-browse-jobs {
             padding: 14px 36px; background: var(--gradient-primary);
             color: #fff; border: none; border-radius: 30px; font-size: 15px;
             font-weight: 700; cursor: pointer; text-decoration: none;
             transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px;
             box-shadow: 0 4px 16px rgba(25, 167, 123, 0.3);
         }
-        .btn-browse-lg:hover { 
+        .btn-browse-jobs:hover { 
             transform: translateY(-3px); 
             box-shadow: 0 8px 28px rgba(25, 167, 123, 0.4); 
         }
@@ -518,42 +350,31 @@
             .stat-box { min-width: calc(50% - 10px); }
         }
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
-            .sidebar.active { transform: translateX(0); }
             .main-content { margin-left: 0 !important; padding: 20px !important; }
             .stats-strip { flex-direction: column; }
             .app-card-header { flex-direction: column; gap: 20px; }
             .top-bar { flex-direction: column; align-items: flex-start; gap: 16px; }
             .top-bar h1 { font-size: 26px; }
         }
-
-        .mobile-menu-btn { display: none; }
-        .mobile-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 90; display: none;
-        }
-        .mobile-overlay.active { display: block; }
     </style>
 	<jsp:include page="/views/commons/hackerrank_sidebar_styles.jsp" />
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Mobile Toggle Button -->
+    <button class="sidebar-toggle-btn" id="mobileMenuBtn" onclick="toggleSidebar()" style="display: none; position: fixed; top: 15px; left: 15px; z-index: 1001; background: var(--primary); color: white; border: none; padding: 12px 18px; border-radius: 12px; font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-md);">
+        <i class="fas fa-bars"></i>
+    </button>
 
     <jsp:include page="/views/commons/student_sidebar.jsp" />
 
     <div class="main-content">
         <div class="top-bar">
             <h1>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" style="background: none; border: none; font-size: 24px; color: var(--text-primary); cursor: pointer; margin-right: 15px;">
-                    <i class="fas fa-bars"></i>
-                </button>
                 <i class="fas fa-file-alt"></i>
                 My Applications
             </h1>
-            <div class="user-info">
-                <div class="user-avatar">${user.name.substring(0,1)}</div>
-                <a href="${pageContext.request.contextPath}/hackerrank/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
         </div>
 
         <c:if test="${not empty success}">
@@ -764,7 +585,7 @@
                     </div>
                     <h3>No Applications Yet</h3>
                     <p>You haven't applied to any jobs yet. Browse available positions and start applying to kickstart your career!</p>
-                    <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="btn-browse-lg">
+                    <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="btn-browse-jobs">
                         <i class="fas fa-search"></i> Browse Job Listings
                     </a>
                 </div>
@@ -785,21 +606,10 @@
 
             // Mobile Menu Logic
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobileOverlay');
 
             if (mobileMenuBtn) {
                 mobileMenuBtn.style.display = window.innerWidth <= 768 ? 'inline-block' : 'none';
-                mobileMenuBtn.addEventListener('click', function() {
-                    sidebar.classList.add('active');
-                    overlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-                overlay.addEventListener('click', function() {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
             }
 
             window.addEventListener('resize', function() {
@@ -807,12 +617,26 @@
                     mobileMenuBtn.style.display = window.innerWidth <= 768 ? 'inline-block' : 'none';
                 }
                 if (window.innerWidth > 768) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar) sidebar.classList.remove('active');
+                    if (overlay) overlay.classList.remove('active');
                     document.body.style.overflow = '';
                 }
             });
         });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+                sidebar.classList.toggle('active');
+            }
+            if (overlay) {
+                overlay.classList.toggle('show');
+                overlay.classList.toggle('active');
+            }
+        }
     </script>
 <jsp:include page="/views/commons/chatbot.jsp" />
 </body>

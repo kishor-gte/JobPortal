@@ -52,6 +52,7 @@
             --radius-sm: 12px;
             --radius-md: 16px;
             --radius-lg: 24px;
+            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -60,9 +61,9 @@
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: radial-gradient(ellipse at 20% 30%, #eef7f2 0%, #e0ece6 100%);
             color: var(--text-dark);
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         /* animated background mesh */
@@ -200,6 +201,16 @@
             margin-left: 280px;
             padding: 1.5rem;
             transition: margin-left 0.3s ease;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scrollable-jobs {
+            overflow-y: auto;
+            max-height: calc(100vh - 130px);
+            padding-right: 10px;
         }
 
         /* Page Header Slim (White Style) */
@@ -279,7 +290,29 @@
             border: 2px solid #e2ede7;
             padding: 0.5rem 1rem;
             font-size: 0.85rem;
-			margin-bottom: 5px;
+            margin-bottom: 5px;
+            background-color: var(--white) !important;
+            color: var(--text-dark) !important;
+        }
+        .form-select {
+            max-width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 16px 12px;
+        }
+        .form-select option {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 10px;
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(25,167,123,0.12);
         }
         .btn-filter {
             background: linear-gradient(105deg, var(--primary), var(--primary-dark));
@@ -330,20 +363,26 @@
         .btn-disabled { background: #e2ede7; color: var(--text-muted); }
 
         /* Responsive */
+        /* Responsive */
         @media (max-width: 992px) {
-            .career-sidebar { transform: translateX(-100%); }
-            .career-sidebar.show { transform: translateX(0); }
-            .main-content-wrapper { margin-left: 0; }
+            body { overflow: auto !important; height: auto; }
+            .career-sidebar { transform: translateX(-100%); z-index: 1050; }
+            .career-sidebar.active { transform: translateX(0); }
+            .main-content-wrapper { margin-left: 0; padding: 15px; height: auto; overflow: visible; display: block; }
             .sidebar-toggle-btn {
-                display: block; position: fixed; top: 15px; left: 15px; z-index: 1001;
+                display: flex !important; position: fixed; top: 15px; left: 15px; z-index: 1001;
                 background: var(--primary); color: white; border: none; padding: 10px 15px;
-                border-radius: 12px; cursor: pointer;
+                border-radius: 12px; cursor: pointer; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
             }
             .sidebar-overlay {
                 display: none; position: fixed; top: 0; left: 0;
-                width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;
+                width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1049;
             }
-            .sidebar-overlay.show { display: block; }
+            .sidebar-overlay.active { display: block; }
+            .scrollable-jobs { max-height: none !important; overflow-y: visible !important; padding-right: 0; }
+            .filter-sidebar { margin-bottom: 20px; }
+            .col-lg-3 { position: static !important; max-height: none !important; overflow-y: visible !important; }
+            .page-header { padding-left: 60px !important; margin-bottom: 1rem !important; }
         }
 
         ::-webkit-scrollbar { width: 5px; }
@@ -357,9 +396,11 @@
 <div class="floating-shape" style="width: 350px; height: 350px; top: -120px; right: -80px;"></div>
 <div class="floating-shape" style="width: 250px; height: 250px; bottom: 60px; left: -60px; opacity: 0.04;"></div>
 
+<div class="sidebar-overlay"></div>
 <jsp:include page="/views/commons/student_sidebar.jsp" />
 
 <div class="main-content-wrapper">
+    <button class="sidebar-toggle-btn d-none d-lg-none" id="mobileToggleBtn"><i class="fas fa-bars"></i></button>
     <div class="page-header">
         <h1><i class="fas fa-briefcase me-2" style="color: var(--accent);"></i>Browse Jobs</h1>
         <p>Find your dream job from thousands of opportunities</p>
@@ -368,7 +409,7 @@
     <div class="container-fluid px-0">
         <div class="row g-3">
             <!-- Filter Sidebar -->
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="max-height: calc(100vh - 130px); overflow-y: auto;">
                 <div class="filter-sidebar">
                     <h3><i class="fas fa-filter me-2"></i> Filter Jobs</h3>
                     <form method="get" action="${pageContext.request.contextPath}/jobs/all">
@@ -414,7 +455,7 @@
             </div>
 
             <!-- Main Content -->
-            <div class="col-lg-9">
+            <div class="col-lg-9 scrollable-jobs">
                 <div class="search-section">
                     <form method="get" action="${pageContext.request.contextPath}/jobs/all">
                         <input type="hidden" name="category" value="${param.category}">
@@ -520,29 +561,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     if (!document.getElementById('mobile-responsive-style')) {
-        const style = document.createElement('style');
-        style.id = 'mobile-responsive-style';
-        style.innerHTML = `@media (max-width: 768px) { .sidebar, .nav-sidebar { transform: translateX(-100%); transition: transform 0.3s ease; position: fixed !important; z-index: 1001 !important; height: 100vh; } .sidebar.active, .nav-sidebar.active { transform: translateX(0); box-shadow: 2px 0 20px rgba(0,0,0,0.2) !important; } .main-content { margin-left: 0 !important; padding: 16px !important; width: 100% !important; max-width: 100% !important; } } .mobile-menu-btn { display: none; }`;
-        document.head.appendChild(style);
+        // Mobile layout is already handled by CSS block above
     }
-    const sidebar = document.querySelector('.sidebar') || document.querySelector('.nav-sidebar');
-    if (sidebar) {
-        const topBar = document.querySelector('.top-bar') || document.querySelector('.chat-header') || document.querySelector('.dashboard-header') || document.body;
-        let heading = null;
-        if (topBar && topBar !== document.body) heading = topBar.querySelector('h1') || topBar.querySelector('.chat-header-info') || topBar.querySelector('h2');
-        if (!heading && !document.querySelector('.mobile-menu-btn')) { heading = document.createElement('div'); heading.style.padding = '10px'; document.body.insertBefore(heading, document.body.firstChild); }
-        if (heading && !document.querySelector('.mobile-menu-btn')) {
-            heading.style.display = 'flex'; heading.style.alignItems = 'center';
-            const toggleBtn = document.createElement('button'); toggleBtn.className = 'mobile-menu-btn'; toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            heading.insertBefore(toggleBtn, heading.firstChild);
-            const overlay = document.createElement('div'); overlay.className = 'mobile-overlay'; document.body.appendChild(overlay);
-            let touchstartX = 0, touchendX = 0;
-            document.body.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive: true});
-            document.body.addEventListener('touchend', e => { touchendX = e.changedTouches[0].screenX; if (touchendX < touchstartX - 50) closeSidebar(); if (touchendX > touchstartX + 50 && touchstartX < 30) openSidebar(); }, {passive: true});
-            function openSidebar() { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            function closeSidebar() { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
-            toggleBtn.addEventListener('click', openSidebar); overlay.addEventListener('click', closeSidebar);
-        }
+    const sidebar = document.querySelector('.career-sidebar') || document.querySelector('.sidebar') || document.querySelector('.nav-sidebar');
+    const toggleBtn = document.getElementById('mobileToggleBtn');
+    const overlay = document.querySelector('.sidebar-overlay');
+    
+    if (sidebar && toggleBtn && overlay) {
+        function openSidebar() { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeSidebar() { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+        
+        toggleBtn.addEventListener('click', openSidebar);
+        overlay.addEventListener('click', closeSidebar);
+        
+        let touchstartX = 0, touchendX = 0;
+        document.body.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, {passive: true});
+        document.body.addEventListener('touchend', e => { 
+            touchendX = e.changedTouches[0].screenX; 
+            if (touchendX < touchstartX - 50) closeSidebar(); 
+            if (touchendX > touchstartX + 50 && touchstartX < 30) openSidebar(); 
+        }, {passive: true});
     }
     const tables = document.querySelectorAll('table:not(.table-responsive)');
     tables.forEach(table => {

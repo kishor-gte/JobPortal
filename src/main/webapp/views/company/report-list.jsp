@@ -110,10 +110,15 @@ body{
 
 /* Responsive */
 @media (max-width:520px){ .alerts-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px; } .company-name { font-size:13px; } .preview { -webkit-line-clamp:5; } }
+/* Sidebar integration */
+.main-content-wrapper { margin-left: 280px; transition: margin-left 0.3s ease; }
+@media (max-width: 768px) { .main-content-wrapper { margin-left: 0; padding-top: 60px; } }
 </style>
 </head>
 
 <body>
+<jsp:include page="/views/commons/student_sidebar.jsp" />
+<div class="main-content-wrapper">
 <div class="container">
   <div class="header">
     <div class="header-left">
@@ -280,6 +285,8 @@ body{
     </c:forEach>
   </div>
 </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     if (!document.getElementById('mobile-responsive-style')) {
