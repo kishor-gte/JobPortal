@@ -548,8 +548,9 @@
             <option value="SELECTED">Select</option>
             <option value="REJECTED">Reject</option>
           </select>
-          <div id="interviewDateContainer-${app.id}" style="display:none;">
+          <div id="interviewDateContainer-${app.id}" style="display:none; gap: 0.5rem; flex-direction: column;">
             <input type="datetime-local" name="interviewDate" class="form-control form-control-sm" />
+            <input type="url" name="hrLink" class="form-control form-control-sm" placeholder="Meeting Link (optional)" />
           </div>
           <button type="submit" class="btn btn-sm btn-primary">
             <i class="bi bi-check2-circle"></i> Update
@@ -568,7 +569,7 @@
 <script>
     function handleStatusChange(select, id) {
         const container = document.getElementById('interviewDateContainer-' + id);
-        container.style.display = select.value === 'INTERVIEW_SCHEDULED' ? 'block' : 'none';
+        container.style.display = select.value === 'INTERVIEW_SCHEDULED' ? 'flex' : 'none';
     }
 
     function validateForm(form) {
@@ -764,5 +765,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

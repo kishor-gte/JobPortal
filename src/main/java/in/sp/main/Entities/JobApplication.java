@@ -30,7 +30,7 @@ public class JobApplication {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
 
-    private LocalDate appliedDate;
+    private LocalDateTime appliedDate;
     private LocalDateTime lastUpdated;
 
     private LocalDateTime interviewDate; // only for INTERVIEW_SCHEDULED
@@ -103,11 +103,11 @@ public class JobApplication {
 		this.status = status;
 	}
 
-	public LocalDate getAppliedDate() {
+	public LocalDateTime getAppliedDate() {
 		return appliedDate;
 	}
 
-	public void setAppliedDate(LocalDate appliedDate) {
+	public void setAppliedDate(LocalDateTime appliedDate) {
 		this.appliedDate = appliedDate;
 	}
 
@@ -229,7 +229,7 @@ public class JobApplication {
             return appliedAt;
         }
         if (appliedDate != null) {
-            return Timestamp.valueOf(appliedDate.atStartOfDay());
+            return Timestamp.valueOf(appliedDate);
         }
         return null;
     }
@@ -237,7 +237,7 @@ public class JobApplication {
     public void setAppliedAt(Timestamp appliedAt) {
         this.appliedAt = appliedAt;
         if (appliedAt != null) {
-            this.appliedDate = appliedAt.toLocalDateTime().toLocalDate();
+            this.appliedDate = appliedAt.toLocalDateTime();
         }
     }
 

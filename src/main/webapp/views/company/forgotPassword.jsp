@@ -444,6 +444,8 @@
             margin-top: 32px;
             padding-top: 28px;
             border-top: 2px solid #E2E8F0;
+            position: relative;
+            z-index: 10;
         }
 
         .register-link p {
@@ -461,6 +463,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            z-index: 11;
         }
 
         .register-link a::after {
@@ -692,6 +695,7 @@
     </div>
 </div>
 
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
 

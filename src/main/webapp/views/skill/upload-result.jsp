@@ -332,5 +332,6 @@ function createParticle(color) {
     setTimeout(() => particle.remove(), 3000);
 }
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

@@ -35,7 +35,7 @@ public class JobSeekerService {
 
     // Get all JobSeekers
     public List<JobSeeker> getAllJobSeekers() {
-        return jobSeekerRepository.findAll();
+        return jobSeekerRepository.findAll().stream().distinct().collect(java.util.stream.Collectors.toList());
     }
 
     // Get JobSeeker by ID
@@ -110,7 +110,7 @@ public class JobSeekerService {
     }
 
 	public List<JobSeeker> findAll() {
-		return jobSeekerRepository.findAll();
+		return jobSeekerRepository.findAll().stream().distinct().collect(java.util.stream.Collectors.toList());
 	}
 
 	public Optional<JobSeeker> findById(long id) {

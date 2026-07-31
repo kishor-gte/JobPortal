@@ -412,7 +412,7 @@
         .chat-area {
             flex: 1;
             padding: 28px;
-            overflow-y: auto;
+            overflow-y: scroll;
             display: flex;
             flex-direction: column;
             gap: 18px;
@@ -1179,5 +1179,6 @@
         });
     </script>
 
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

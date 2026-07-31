@@ -59,6 +59,44 @@ public class TechPersonController {
         return "techperson/techPersonList";
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editTechPersonForm(@PathVariable Long id, Model model, HttpSession session) {
+        Company company = (Company) session.getAttribute("loggedInCompany");
+        if (company == null) {
+            return "redirect:/company/login";
+        }
+        TechPerson techperson = techPersonServices.findTechPersonById(id);
+        if (techperson != null && techperson.getCompany().getId().equals(company.getId())) {
+            model.addAttribute("techperson", techperson);
+            model.addAttribute("company", company);
+            return "techperson/editTechPerson";
+        }
+        return "redirect:/techperson/list";
+    }
+
+    @RequestMapping(value = "/edit-save/{id}", method = RequestMethod.POST)
+    public String editTechPersonSave(@PathVariable Long id,
+                                     @RequestParam("name") String name,
+                                     @RequestParam("email") String email,
+                                     @RequestParam(value = "password", required = false) String password,
+                                     RedirectAttributes redirectAttributes, HttpSession session) {
+        Company company = (Company) session.getAttribute("loggedInCompany");
+        if (company == null) {
+            return "redirect:/company/login";
+        }
+        TechPerson techperson = techPersonServices.findTechPersonById(id);
+        if (techperson != null && techperson.getCompany().getId().equals(company.getId())) {
+            techperson.setName(name);
+            techperson.setEmail(email);
+            if (password != null && !password.trim().isEmpty()) {
+                techperson.setPassword(password);
+            }
+            techPersonServices.updateTechPerson(techperson);
+            redirectAttributes.addFlashAttribute("message", "Tech Person updated successfully!");
+        }
+        return "redirect:/techperson/list";
+    }
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteTechPerson(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         TechPerson techperson = techPersonServices.findTechPersonById(id);

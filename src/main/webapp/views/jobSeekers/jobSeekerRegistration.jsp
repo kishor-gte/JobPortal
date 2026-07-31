@@ -609,5 +609,6 @@
         document.head.appendChild(style);
     }
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

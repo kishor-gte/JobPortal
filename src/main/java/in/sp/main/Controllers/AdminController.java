@@ -581,8 +581,18 @@ public class AdminController {
         return "redirect:/reported-jobs";
     }
 
+    @RequestMapping(value = "/admin/delete-jobseeker/{id}", method = RequestMethod.GET)
+    public String deleteJobSeekerByAdmin(@PathVariable Long id, HttpSession session, org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttrs) {
+        in.sp.main.Entities.Admin admin = (in.sp.main.Entities.Admin) session.getAttribute("loggedInAdmin");
+        if (admin == null) {
+            return "redirect:/loginAdmin";
+        }
+        jobSeekerService.deleteJobSeeker(id);
+        redirectAttrs.addFlashAttribute("success", "Job Seeker deleted successfully.");
+        return "redirect:/allJobSeekers";
+    }
     
-    
+
     // 1. Show all job seekers
     @RequestMapping(value = "/allJobSeekers", method = RequestMethod.GET)
     public String viewAllJobSeekers(Model model) {

@@ -296,12 +296,17 @@
         <!-- Notification List -->
         <c:if test="${not empty notifications}">
             <c:forEach items="${notifications}" var="n" varStatus="status">
-                <div class="notif-card" data-aos="fade-up" data-aos-delay="${50 + status.index * 20}">
+                <div class="notif-card ${n.seen ? 'seen' : 'unseen'}" data-aos="fade-up" data-aos-delay="${50 + status.index * 20}" onclick="markAsRead('${n.id}', this)">
                     <div class="notif-message">
                         <div class="notif-icon">
                             <i class="fas fa-bell"></i>
                         </div>
-                        <div class="notif-text">${n.message}</div>
+                        <div class="notif-text">
+                            ${n.message}
+                            <c:if test="${!n.seen}">
+                                <span class="unread-dot"></span>
+                            </c:if>
+                        </div>
                     </div>
                     <div class="notif-date">
                         <i class="far fa-clock"></i>
@@ -318,6 +323,17 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true, offset: 50 });
+
+        function markAsRead(notificationId, element) {
+            if (element.classList.contains('seen')) return;
+            element.classList.remove('unseen');
+            element.classList.add('seen');
+            const dot = element.querySelector('.unread-dot');
+            if (dot) dot.remove();
+            
+            fetch('${pageContext.request.contextPath}/seen/' + notificationId, { method: 'GET' });
+        }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

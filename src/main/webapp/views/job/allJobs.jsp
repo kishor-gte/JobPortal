@@ -402,9 +402,9 @@
                             </c:forEach>
                         </select>
                         <label class="form-label">Min Salary</label>
-                        <input type="number" name="salaryMin" class="form-control mb-2" placeholder="Min Salary" value="${param.salaryMin}">
+                        <input type="number" min="0" name="salaryMin" class="form-control mb-2" placeholder="Min Salary" value="${param.salaryMin}">
                         <label class="form-label">Max Salary</label>
-                        <input type="number" name="salaryMax" class="form-control mb-2" placeholder="Max Salary" value="${param.salaryMax}">
+                        <input type="number" min="0" name="salaryMax" class="form-control mb-2" placeholder="Max Salary" value="${param.salaryMax}">
                         <button type="submit" class="btn-filter w-100"><i class="fas fa-check me-2"></i>Apply Filters</button>
                     </form>
                     <form method="get" action="${pageContext.request.contextPath}/jobs/all">
@@ -467,6 +467,9 @@
                                         <button type="submit" class="btn-job-action btn-view"><i class="fas fa-eye me-1"></i> View</button>
                                     </form>
                                     <c:choose>
+                                        <c:when test="${withdrawnJobIds.contains(job.id)}">
+                                            <button type="button" class="btn-job-action btn-disabled" style="background-color: #6b7280; color: white;" disabled><i class="fas fa-times-circle me-1"></i> Withdrawn</button>
+                                        </c:when>
                                         <c:when test="${appliedJobIds.contains(job.id)}">
                                             <button type="button" class="btn-job-action btn-disabled" disabled><i class="fas fa-check-circle me-1"></i> Applied</button>
                                         </c:when>
@@ -549,5 +552,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

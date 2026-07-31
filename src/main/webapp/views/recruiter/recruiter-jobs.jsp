@@ -708,6 +708,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
 

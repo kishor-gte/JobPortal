@@ -1,7 +1,7 @@
 import os
 import re
 
-directory = r"c:\Users\NEHA\OneDrive\Desktop\jp\JobPortal\src\main\webapp\views\techperson"
+directory = r"c:\Users\kisho\OneDrive\Desktop\jip\JobPortal\src\main\webapp\views\techperson"
 
 sidebar_html = """    <div class="sidebar" id="mainSidebar">
         <div class="sidebar-logo">
@@ -60,7 +60,7 @@ sidebar_html = """    <div class="sidebar" id="mainSidebar">
 
 # Find <div class="sidebar" id="mainSidebar"> ... </div>
 # which is followed by <div class="main-content">
-pattern = re.compile(r'<div class="sidebar"\s+id="mainSidebar">.*?(?=</div>\s*<div class="main-content">)</div>', re.DOTALL)
+pattern = re.compile(r'<div class="sidebar"\s+id="(?:mainSidebar|sidebar)">.*?(?=</div>\s*<div class="main-content">)</div>', re.DOTALL)
 
 for filename in os.listdir(directory):
     if filename.endswith(".jsp"):

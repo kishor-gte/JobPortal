@@ -370,9 +370,30 @@
             width: 300px;
             height: 300px;
         }
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(25,167,123,0.5);
+        form button:active, .btn-register:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(25,167,123,0.2);
+        }
+        .btn-register {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: transparent;
+            color: var(--primary);
+            padding: 14px 24px;
+            font-size: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 60px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        .btn-register:hover {
+            background: rgba(25,167,123,0.1);
+            transform: translateY(-2px);
+            color: var(--primary);
         }
 
         .forgot {
@@ -585,7 +606,7 @@
                         </a>
                     </div>
 
-                    <a href="${pageContext.request.contextPath}/company/register" style="display: block; text-align: center; width: 100%; background: transparent; color: var(--primary); padding: 14px 24px; font-size: 1rem; border: 2px solid var(--primary); border-radius: 60px; font-weight: 700; text-decoration: none; margin-top: 15px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(25,167,123,0.1)'" onmouseout="this.style.background='transparent'">
+                    <a href="${pageContext.request.contextPath}/company/register" class="btn-register">
                         <i class="fas fa-user-plus me-2"></i> Register
                     </a>
                 </form>
@@ -604,5 +625,6 @@
             icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

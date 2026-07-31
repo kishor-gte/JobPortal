@@ -913,5 +913,6 @@
             if (event.target == activityModal) closeModal('activityModal');
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

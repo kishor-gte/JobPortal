@@ -1,6 +1,7 @@
 package in.sp.main.Repositories;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,9 +24,13 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 	  List<JobApplication> findByJobSeekerWithJobAndCompany(@Param("seeker") JobSeeker seeker);
 	  
 	    boolean existsByJobAndJobSeeker(Job job, JobSeeker jobSeeker);
+	    JobApplication findByJobAndJobSeeker(Job job, JobSeeker jobSeeker);
 	    
 	    @Query("SELECT a.job.id FROM JobApplication a WHERE a.jobSeeker = :seeker")
 	    List<Long> findJobIdsBySeeker(@Param("seeker") JobSeeker seeker);
+	    
+	    @Query("SELECT a.job.id FROM JobApplication a WHERE a.jobSeeker = :seeker AND a.status = 'WITHDRAWN'")
+	    List<Long> findWithdrawnJobIdsBySeeker(@Param("seeker") JobSeeker seeker);
 		List<JobApplication> findByJob_IdAndStatus(Long jobId, ApplicationStatus valueOf);
 		List<JobApplication> findByJob_Id(Long jobId);
 		long countByJob_Id(Long jobId);
@@ -67,8 +72,8 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 			           "WHERE a.status = 'SELECTED' " +
 			           "AND a.appliedDate BETWEEN :startDate AND :endDate")
 			    long countHiredThisMonth(
-			            @Param("startDate") LocalDate startDate,
-			            @Param("endDate") LocalDate endDate
+			            @Param("startDate") LocalDateTime startDate,
+			            @Param("endDate") LocalDateTime endDate
 			    );
 
 }

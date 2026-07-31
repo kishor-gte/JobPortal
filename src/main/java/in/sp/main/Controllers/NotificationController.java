@@ -33,9 +33,6 @@ public class NotificationController {
     	{
     		return "redirect:/jobSeekers/login";
     	}
-        // Automatically mark all notifications as seen
-        notificationService.markAllAsSeen(jobSeeker.getId());
-
         // Fetch all notifications for this user
         List<Notification> notifications = notificationService.getNotificationsForUser(jobSeeker.getId());
         model.addAttribute("notifications", notifications);

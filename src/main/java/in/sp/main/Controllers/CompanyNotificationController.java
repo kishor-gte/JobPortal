@@ -35,9 +35,6 @@ public class CompanyNotificationController {
             return "redirect:/company/login";
         }
 
-        // Automatically mark all notifications as seen
-        notificationRepo.markAllAsSeenByCompanyId(company.getId());
-
         // Fetch all notifications for this company
         List<CompanyNotification> notifications = notificationRepo.findByCompanyIdOrderByCreatedAtDesc(company.getId());
         model.addAttribute("notifications", notifications);

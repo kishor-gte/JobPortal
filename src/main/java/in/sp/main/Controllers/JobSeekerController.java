@@ -334,6 +334,9 @@ public class JobSeekerController {
                                   @RequestParam(value = "pinCode", required = false) String pinCode,
                                   @RequestParam(value = "dateOfBirth", required = false) String dateOfBirthString,
                                   @RequestParam(value = "permanentAddress", required = false) String permanentAddress,
+                                  @RequestParam(value = "removeIdentityDoc", required = false, defaultValue = "false") boolean removeIdentityDoc,
+                                  @RequestParam(value = "removeResume", required = false, defaultValue = "false") boolean removeResume,
+                                  @RequestParam(value = "removeVideoResume", required = false, defaultValue = "false") boolean removeVideoResume,
                                   Model model) throws IOException {
 
         JobSeeker existingJobSeeker = jobSeekerService.getJobSeekerById(id);
@@ -401,6 +404,8 @@ public class JobSeekerController {
         if (resume != null && !resume.isEmpty()) {
             String resumePath = fileUploadService.saveDocument(resume);
             existingJobSeeker.setResumeUploaded(resumePath);
+        } else if (removeResume) {
+            existingJobSeeker.setResumeUploaded(null);
         }
 
         // Update identity document if a new file is provided
@@ -413,12 +418,16 @@ public class JobSeekerController {
                 identityPath = fileUploadService.saveDocument(identityDoc);
             }
             existingJobSeeker.setIdentityDocument(identityPath);
+        } else if (removeIdentityDoc) {
+            existingJobSeeker.setIdentityDocument(null);
         }
 
         // Update video resume if a new file is provided
         if (videoResume != null && !videoResume.isEmpty()) {
             String videoPath = fileUploadService.saveVideo(videoResume);
             existingJobSeeker.setVideoResumeUrl(videoPath);
+        } else if (removeVideoResume) {
+            existingJobSeeker.setVideoResumeUrl(null);
         }
 
         // Update the Job Seeker in the database

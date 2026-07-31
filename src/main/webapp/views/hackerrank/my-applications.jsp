@@ -369,6 +369,7 @@
         .badge-shortlisted { background: #ecfdf5; color: var(--success); border: 1px solid #d1fae5; }
         .badge-interview_scheduled { background: #fff7ed; color: var(--warning); border: 1px solid #ffedd5; }
         .badge-rejected { background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; }
+        .badge-withdrawn { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
        
 
         /* Suggestions Box */
@@ -650,6 +651,9 @@
                                         <c:when test="${app.status == 'SELECTED'}">
                                             <span class="status-badge badge-hired"><span class="timeline-dot dot-hired"></span> Selected</span>
                                         </c:when>
+                                        <c:when test="${app.status == 'WITHDRAWN'}">
+                                            <span class="status-badge badge-withdrawn"><span class="timeline-dot dot-applied"></span> Withdrawn</span>
+                                        </c:when>
                                         <c:otherwise>
                                             <span class="status-badge badge-applied"><span class="timeline-dot dot-applied"></span> ${app.status}</span>
                                         </c:otherwise>
@@ -658,10 +662,6 @@
                             </div>
 
                             <div class="app-meta">
-                                <div class="app-meta-item">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Applied: ${app.appliedAt}
-                                </div>
                                 <c:if test="${not empty app.resumeFileName}">
                                     <div class="app-meta-item">
                                         <i class="fas fa-file-pdf"></i>
@@ -744,6 +744,14 @@
                                 <a href="${pageContext.request.contextPath}/hackerrank/jobs" class="btn-browse">
                                     <i class="fas fa-search"></i> Browse More Jobs
                                 </a>
+                                <c:if test="${app.status != 'WITHDRAWN' and app.status != 'REJECTED' and app.status != 'SELECTED'}">
+                                    <form action="${pageContext.request.contextPath}/hackerrank/withdraw-application" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to withdraw this application?');">
+                                        <input type="hidden" name="applicationId" value="${app.id}" />
+                                        <button type="submit" class="btn-browse" style="background-color: #ef4444; border-color: #ef4444; color: white;">
+                                            <i class="fas fa-times"></i> Withdraw
+                                        </button>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>
@@ -806,5 +814,6 @@
             });
         });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Technicians Company-wise | JobU Admin</title>
+    <title>Tech Persons Company-wise | JobU Admin</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -240,8 +240,8 @@
 <body>
 
 <jsp:include page="/views/commons/admin_shell_start.jsp">
-  <jsp:param name="pageTitle" value="Technicians"/>
-  <jsp:param name="pageSubtitle" value="Technicians grouped by company"/>
+  <jsp:param name="pageTitle" value="Tech Persons"/>
+  <jsp:param name="pageSubtitle" value="Tech Persons grouped by company"/>
   <jsp:param name="activeNav" value="technicians"/>
 </jsp:include>
 
@@ -254,8 +254,8 @@
         <a href="${pageContext.request.contextPath}/dashboard" style="display: inline-flex; align-items: center; gap: 0.5rem; color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); padding: 0.4rem 1rem; border-radius: 40px; margin-bottom: 0.75rem; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);">
             <i class="fas fa-arrow-left"></i> Back to Dashboard
         </a>
-        <h1><i class="fas fa-tools me-2" style="color: var(--accent);"></i>Technicians Company-wise</h1>
-        <p>List of all technicians grouped by their respective companies</p>
+        <h1><i class="fas fa-tools me-2" style="color: var(--accent);"></i>Tech Persons Company-wise</h1>
+        <p>List of all tech persons grouped by their respective companies</p>
     </div>
 </div>
 
@@ -264,7 +264,7 @@
     <div class="search-section">
         <div class="search-input-group">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="form-control" placeholder="Search by company name or technician details...">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by company name or tech person details...">
         </div>
     </div>
     
@@ -296,7 +296,7 @@
                     <div class="company-title">
                         <i class="fas fa-building"></i> ${company.name}
                         <div class="ms-auto d-flex align-items-center gap-2">
-                            <span class="badge bg-success" style="font-size: 0.75rem;">${fn:length(technicians)} Technician(s)</span>
+                            <span class="badge bg-success" style="font-size: 0.75rem;">${fn:length(technicians)} Tech Person(s)</span>
                             <button type="button" class="btn btn-sm btn-outline-danger" title="Delete Company" onclick="openDeleteModal('company', ${company.id}, '${fn:escapeXml(company.name)}')">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -306,7 +306,7 @@
                     <c:choose>
                         <c:when test="${empty technicians}">
                             <div class="no-records">
-                                <i class="fas fa-info-circle me-1"></i> No technicians registered under this company yet.
+                                <i class="fas fa-info-circle me-1"></i> No tech persons registered under this company yet.
                             </div>
                         </c:when>
                         <c:otherwise>
@@ -327,7 +327,7 @@
                                                 <td><strong>${t.name}</strong></td>
                                                 <td><a href="mailto:${t.email}" class="text-success text-decoration-none"><i class="fas fa-envelope me-1"></i>${t.email}</a></td>
                                                 <td class="text-end">
-                                                    <button type="button" class="btn btn-sm btn-outline-danger" title="Delete Technician" onclick="openDeleteModal('techperson', ${t.id}, '${fn:escapeXml(t.name)}')">
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" title="Delete Tech Person" onclick="openDeleteModal('techperson', ${t.id}, '${fn:escapeXml(t.name)}')">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </td>
@@ -436,5 +436,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <jsp:include page="/views/commons/admin_shell_end.jsp" />
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

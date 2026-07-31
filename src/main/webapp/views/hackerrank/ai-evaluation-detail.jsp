@@ -1023,7 +1023,9 @@
             }, 500);
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

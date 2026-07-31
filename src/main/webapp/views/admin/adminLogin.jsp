@@ -372,6 +372,11 @@
                 <p class="login-subtitle">Sign in to access the admin dashboard</p>
             </div>
 
+            <c:if test="${not empty error}">
+                <div style="color: #dc3545; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; font-size: 0.9rem;">
+                    ${error}
+                </div>
+            </c:if>
             <form action="${pageContext.request.contextPath}/PostloginAdmin" method="post" id="loginForm">
                 <div class="form-group">
                     <div class="input-wrapper">
@@ -427,5 +432,6 @@ function toggleAdminLoginPwd() {
     icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
 }
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

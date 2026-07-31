@@ -268,7 +268,7 @@
                             <c:otherwise>
                                 <div class="carousel-item active bg-secondary text-white d-flex align-items-center justify-content-center"
                                      style="height: 300px;">
-                                    <h3><i class="fas fa-image me-2"></i>No Images Available</h3>
+                                    <h3><i class="fas fa-image me-2"></i> No Images Available</h3>
                                 </div>
                             </c:otherwise>
                         </c:choose>
@@ -308,10 +308,10 @@
                         <!-- LEFT -->
                         <div class="col-md-8">
 
-                            <h5><i class="fas fa-align-left icon-primary me-2"></i>Description</h5>
+                            <h5><i class="fas fa-align-left icon-primary me-2"></i> Description</h5>
                             <p>${service.description}</p>
 
-                            <h5 class="mt-4"><i class="fas fa-calendar-check icon-primary me-2"></i>Availability & Capacity</h5>
+                            <h5 class="mt-4"><i class="fas fa-calendar-check icon-primary me-2"></i> Availability & Capacity</h5>
                             <div class="row small">
                                 <div class="col-6"><b>Max Participants:</b> ${service.maxParticipants}</div>
                                 <div class="col-6"><b>Duration:</b> ${service.durationInHours} Hours</div>
@@ -320,7 +320,7 @@
                                 <div class="col-12"><b>Time:</b> ${service.availableFrom} - ${service.availableTo}</div>
                             </div>
 
-                            <h5 class="mt-4"><i class="fas fa-check-circle icon-primary me-2"></i>Inclusions</h5>
+                            <h5 class="mt-4"><i class="fas fa-check-circle icon-primary me-2"></i> Inclusions</h5>
                             <div class="row small">
                                 <div class="col-6"><i class="fas fa-check-circle icon-primary me-2"></i>Referee</div>
                                 <div class="col-6"><i class="fas fa-check-circle icon-primary me-2"></i>Equipment</div>
@@ -339,7 +339,7 @@
                                 </div>
                             </c:if>
 
-                            <h5 class="mt-4"><i class="fas fa-map-pin icon-primary me-2"></i>Location</h5>
+                            <h5 class="mt-4"><i class="fas fa-map-pin icon-primary me-2"></i> Location</h5>
                             <p>${service.venueAddress}</p>
 
                             <c:if test="${not empty service.googleMapUrl}">
@@ -349,7 +349,7 @@
                                 </a>
                             </c:if>
 
-                            <h5 class="mt-4"><i class="fas fa-clipboard-list icon-primary me-2"></i>Rules</h5>
+                            <h5 class="mt-4"><i class="fas fa-clipboard-list icon-primary me-2"></i> Rules</h5>
                             <ul class="small">
                                 <li>${service.rulesAndGuidelines}</li>
                             </ul>
@@ -360,7 +360,7 @@
                         <div class="col-md-4">
                             <div class="booking-card p-4">
 
-                                <h6><i class="fas fa-shopping-cart me-2"></i>Booking Summary</h6>
+                                <h6><i class="fas fa-shopping-cart me-2"></i> Booking Summary</h6>
 
                                 <p class="d-flex justify-content-between">
                                     <span>Base Price</span>
@@ -475,5 +475,6 @@ document.getElementById('rzp-button1').onclick = function(e){
 };
 </script>
 
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

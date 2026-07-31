@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
@@ -885,7 +885,7 @@
 <body>
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <div class="sidebar" id="sidebar">
+        <div class="sidebar" id="mainSidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -917,7 +917,7 @@
                 <i class="fas fa-robot"></i> AI Evaluation
             </a>
         </div>
-                <div class="nav-section">
+        <div class="nav-section">
             <h4>Competitions</h4>
             <a href="${pageContext.request.contextPath}/tech/conduct-competition" class="nav-link">
                 <i class="fas fa-trophy"></i> Conduct Competition
@@ -926,7 +926,7 @@
                 <i class="fas fa-tasks"></i> Manage Competitions
             </a>
             <a href="${pageContext.request.contextPath}/tech/competition-results" class="nav-link">
-                <i class="fas fa-medal"></i> Competition Results
+                <i class="fas fa-chart-bar"></i> Competition Results
             </a>
             <a href="${pageContext.request.contextPath}/tech/competition-recordings" class="nav-link">
                 <i class="fas fa-video"></i> Competition Recordings
@@ -1146,7 +1146,7 @@
 
             // Sidebar and Mobile Menu logic
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const sidebar = document.getElementById('sidebar');
+            const sidebar = document.getElementById('mainSidebar');
             const overlay = document.getElementById('mobileOverlay');
 
             if (mobileMenuBtn && sidebar && overlay) {
@@ -1181,7 +1181,7 @@
             // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const sidebar = document.getElementById('sidebar');
+                    const sidebar = document.getElementById('mainSidebar');
                     const overlay = document.getElementById('mobileOverlay');
                     if (sidebar && sidebar.classList.contains('active')) {
                         sidebar.classList.remove('active');
@@ -1192,5 +1192,7 @@
             });
         });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
+

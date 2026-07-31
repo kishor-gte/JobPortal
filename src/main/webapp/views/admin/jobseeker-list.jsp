@@ -452,6 +452,23 @@
             .btn-action { width: 100%; }
         }
 
+        /* Delete Button Styles */
+        .btn-delete {
+            background-color: #fee2e2;
+            color: #ef4444;
+            border: 1px solid #fecaca;
+        }
+        
+        .btn-delete:hover {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+        
+        .btn-delete i {
+            color: inherit;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #e0ece6; }
@@ -570,6 +587,12 @@
                                     <i class="fas fa-eye"></i>
                                     View Profile
                                 </a>
+                                <a href="${pageContext.request.contextPath}/admin/delete-jobseeker/${js.id}" 
+                                   class="btn-action btn-delete"
+                                   onclick="return confirm('Are you sure you want to delete this job seeker?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Delete
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -669,5 +692,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <jsp:include page="/views/commons/admin_shell_end.jsp" />
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

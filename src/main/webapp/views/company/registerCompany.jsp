@@ -261,6 +261,10 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(25,167,123,0.4);
         }
+        .btn-submit:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(25,167,123,0.3);
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -454,5 +458,6 @@
             }
         });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

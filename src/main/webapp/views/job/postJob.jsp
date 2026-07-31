@@ -393,11 +393,11 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label class="form-label" for="salaryMin"><i class="fas fa-rupee-sign"></i> Minimum Salary</label>
-                <input type="number" id="salaryMin" name="salaryMin" step="0.01" class="form-control" placeholder="e.g., 30000" />
+                <input type="number" min="0" id="salaryMin" name="salaryMin" step="0.01" class="form-control" placeholder="e.g., 30000" />
             </div>
             <div class="col-md-4 mb-3">
                 <label class="form-label" for="salaryMax"><i class="fas fa-rupee-sign"></i> Maximum Salary</label>
-                <input type="number" id="salaryMax" name="salaryMax" step="0.01" class="form-control" placeholder="e.g., 50000" />
+                <input type="number" min="0" id="salaryMax" name="salaryMax" step="0.01" class="form-control" placeholder="e.g., 50000" />
             </div>
             <div class="col-md-4 mb-3">
                 <label class="form-label" for="experienceRequired"><i class="fas fa-user-clock"></i> Experience (Years)</label>
@@ -490,5 +490,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

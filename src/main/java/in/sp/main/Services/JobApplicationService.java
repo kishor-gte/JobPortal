@@ -48,15 +48,18 @@ public class JobApplicationService {
 	  private MatchingService matchingService;
 	  
 	  public void apply(Job job, JobSeeker seeker) {
-		    boolean alreadyApplied = hasApplied(job, seeker);
-		    if (alreadyApplied) {
+		    JobApplication existingApp = applicationRepository.findByJobAndJobSeeker(job, seeker);
+		    if (existingApp != null) {
+		        if (existingApp.getStatus() == ApplicationStatus.WITHDRAWN) {
+		            throw new IllegalStateException("You have already withdrawn your application for this job and cannot apply again.");
+		        }
 		        throw new IllegalStateException("Already applied to this job.");
 		    }
 
 		    JobApplication application = new JobApplication();
 		    application.setJob(job);
 		    application.setJobSeeker(seeker);
-		    application.setAppliedDate(LocalDate.now());
+		    application.setAppliedDate(LocalDateTime.now());
 		    application.setStatus(ApplicationStatus.APPLIED);
 		    application.setResumeScore(matchingService.calculateMatch(job, seeker));
 		    applicationRepository.save(application);
@@ -64,6 +67,11 @@ public class JobApplicationService {
 
 	  public boolean hasApplied(Job job, JobSeeker seeker) {
 		  return applicationRepository.existsByJobAndJobSeeker(job, seeker);
+	  }
+
+	  public boolean hasWithdrawn(Job job, JobSeeker seeker) {
+	      JobApplication app = applicationRepository.findByJobAndJobSeeker(job, seeker);
+	      return app != null && app.getStatus() == ApplicationStatus.WITHDRAWN;
 	  }
 
 	    public List<JobApplication> getApplicationsBySeeker(JobSeeker seeker) {
@@ -82,6 +90,12 @@ public class JobApplicationService {
 	            return Collections.emptyList();
 	        }
 	        return applicationRepository.findJobIdsBySeeker(seeker);
+	    }
+	    public List<Long> getWithdrawnJobIdsBySeeker(JobSeeker seeker) {
+	        if (seeker == null) {
+	            return Collections.emptyList();
+	        }
+	        return applicationRepository.findWithdrawnJobIdsBySeeker(seeker);
 	    }
 	    public List<JobApplication> findByJobIdAndStatus(Long jobId, String status) {
 	        if (status != null && !status.isEmpty()) {
@@ -132,7 +146,7 @@ public class JobApplicationService {
 				        );
 
 				        return applicationRepository.countHiredThisMonth(
-				                startOfMonth, endOfMonth
+				                startOfMonth.atStartOfDay(), endOfMonth.atTime(23, 59, 59)
 				        );
 				    }
 

@@ -999,7 +999,7 @@
 <!-- Page Header -->
     <div class="page-header" data-aos="fade-down">
         <div class="container text-center">
-            <h1><i class="fas fa-file-upload me-2"></i>Upload Interview Questions</h1>
+            <h1><i class="fas fa-file-upload me-2"></i> Upload Interview Questions</h1>
             <p>Upload Excel file containing interview questions for this job position</p>
         </div>
     </div>
@@ -1214,6 +1214,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     </script>
 
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
 

@@ -230,5 +230,6 @@
             </c:choose>
         </div>
     </div>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

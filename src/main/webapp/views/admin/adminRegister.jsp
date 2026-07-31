@@ -1091,5 +1091,6 @@ if (origRegisterForm) {
     }, true); // capture phase so it runs before existing submit handler
 }
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

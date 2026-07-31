@@ -598,5 +598,6 @@ function openCandidateModal(userId, name, email, pic, jobTitle, activityType, de
   }
 }
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

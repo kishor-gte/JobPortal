@@ -42,7 +42,7 @@
         <i class="fas fa-user-tie"></i> Recruiters
       </a>
       <a href="${ctx}/admin/technicians" class="sidebar-link ${activeNav == 'technicians' ? 'active' : ''}">
-        <i class="fas fa-tools"></i> Technicians
+        <i class="fas fa-tools"></i> Tech Persons
       </a>
       <a href="${ctx}/admin/activity-logs" class="sidebar-link ${activeNav == 'activities' ? 'active' : ''}">
         <i class="fas fa-history"></i> Activity Logs

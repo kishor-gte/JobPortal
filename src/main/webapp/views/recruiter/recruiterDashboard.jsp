@@ -108,6 +108,8 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
+            letter-spacing: 0.5px;
+            word-spacing: 2px;
         }
 
         .dashboard-header h2 i {
@@ -235,11 +237,14 @@
         }
 
         .dashboard-card h5 {
-            font-weight: 700;
             font-size: 1.1rem;
+            font-weight: 700;
             color: var(--text-primary);
             margin-top: 14px;
             margin-bottom: 8px;
+            transition: color 0.3s ease;
+            letter-spacing: 0.5px;
+            word-spacing: 1px;
         }
 
         .dashboard-card p {
@@ -692,5 +697,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

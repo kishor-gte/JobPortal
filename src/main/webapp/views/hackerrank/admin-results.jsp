@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1228,8 +1229,8 @@
                             </c:forEach>
                         </c:if>
                         <c:choose>
-                            <c:when test="${not empty studentAnswers and studentAnswers.size() > 0}">
-                                <fmt:formatNumber value="${(correctCount / studentAnswers.size()) * 100}" maxFractionDigits="0"/>%
+                            <c:when test="${not empty studentAnswers and fn:length(studentAnswers) > 0}">
+                                <fmt:formatNumber value="${(correctCount / fn:length(studentAnswers)) * 100}" maxFractionDigits="0"/>%
                             </c:when>
                             <c:otherwise>0%</c:otherwise>
                         </c:choose>
@@ -1757,5 +1758,6 @@
             });
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

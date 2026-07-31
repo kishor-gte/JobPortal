@@ -747,7 +747,7 @@
                                 <div class="form-group col-md-4">
                                     <label for="annualSalary"><i class="fas fa-money-bill-wave"></i> Annual
                                         Salary</label>
-                                    <input type="number" step="0.01" class="form-control" id="annualSalary"
+                                    <input type="number" min="0" step="0.01" class="form-control" id="annualSalary"
                                         name="annualSalary" value="${jobSeeker.annualSalary}"
                                         min="0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46">
                                 </div>
@@ -829,6 +829,15 @@
                                     <input type="file" class="form-control-file" id="identityDoc" name="identityDoc"
                                         accept=".pdf,.jpg,.jpeg,.png">
                                     <small class="form-text text-muted mt-2">Supported: PDF, JPG, PNG</small>
+                                    <c:if test="${not empty jobSeeker.identityDocument}">
+                                        <div class="mt-2" style="font-size: 0.85rem;">
+                                            <a href="${pageContext.request.contextPath}${jobSeeker.identityDocument}" target="_blank" class="text-info"><i class="fas fa-external-link-alt"></i> View Current Document</a>
+                                            <div class="form-check mt-1">
+                                                <input class="form-check-input" type="checkbox" name="removeIdentityDoc" value="true" id="rmIdDoc">
+                                                <label class="form-check-label text-danger" for="rmIdDoc"><i class="fas fa-trash-alt"></i> Remove document</label>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -837,12 +846,30 @@
                                     <input type="file" class="form-control-file" id="resume" name="resume"
                                         accept=".pdf,.doc,.docx">
                                     <small class="form-text text-muted mt-2">Supported: PDF, DOC, DOCX</small>
+                                    <c:if test="${not empty jobSeeker.resumeUploaded}">
+                                        <div class="mt-2" style="font-size: 0.85rem;">
+                                            <a href="${pageContext.request.contextPath}${jobSeeker.resumeUploaded}" target="_blank" class="text-info"><i class="fas fa-external-link-alt"></i> View Current Resume</a>
+                                            <div class="form-check mt-1">
+                                                <input class="form-check-input" type="checkbox" name="removeResume" value="true" id="rmResume">
+                                                <label class="form-check-label text-danger" for="rmResume"><i class="fas fa-trash-alt"></i> Remove resume</label>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="videoResume"><i class="fas fa-video"></i> Video Resume</label>
                                     <input type="file" class="form-control-file" id="videoResume" name="videoResume"
                                         accept="video/mp4,video/webm">
                                     <small class="form-text text-muted mt-2">Supported: MP4, WEBM</small>
+                                    <c:if test="${not empty jobSeeker.videoResumeUrl}">
+                                        <div class="mt-2" style="font-size: 0.85rem;">
+                                            <a href="${pageContext.request.contextPath}${jobSeeker.videoResumeUrl}" target="_blank" class="text-info"><i class="fas fa-external-link-alt"></i> View Current Video Resume</a>
+                                            <div class="form-check mt-1">
+                                                <input class="form-check-input" type="checkbox" name="removeVideoResume" value="true" id="rmVideoResume">
+                                                <label class="form-check-label text-danger" for="rmVideoResume"><i class="fas fa-trash-alt"></i> Remove video resume</label>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -1027,6 +1054,7 @@
                         document.head.appendChild(style);
                     }
                 </script>
-            </body>
+            <jsp:include page="/views/commons/chatbot.jsp" />
+</body>
 
             </html>

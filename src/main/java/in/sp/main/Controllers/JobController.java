@@ -201,10 +201,15 @@ public class JobController {
 
             List<Long> appliedJobIds = applicationService.getAppliedJobIdsBySeeker(seeker);
             List<Long> savedJobIds = savedJobService.getSavedJobIdsBySeeker(seeker);
+            List<Long> withdrawnJobIds = applicationService.getWithdrawnJobIdsBySeeker(seeker);
+
+            // Remove withdrawn IDs from appliedJobIds so it doesn't overlap if we don't want it to
+            // Wait, we can just let it overlap and use <c:when> order in JSP.
 
             model.addAttribute("jobs", jobs);
             model.addAttribute("appliedJobIds", appliedJobIds);
             model.addAttribute("savedJobIds", savedJobIds);
+            model.addAttribute("withdrawnJobIds", withdrawnJobIds);
         } catch (Exception e) {
             // Log error and show empty job list with error message
             System.err.println("Error filtering jobs: " + e.getMessage());
@@ -344,6 +349,7 @@ public class JobController {
             }
             int matchScore = 0;
             boolean hasApplied = false;
+            boolean hasWithdrawn = false;
             JobSeeker seeker = (JobSeeker) session.getAttribute("jobSeeker");
             if (seeker != null) {
                 try {
@@ -354,15 +360,20 @@ public class JobController {
                     matchScore = 0;
                 }
                 try {
-                    hasApplied = applicationService.hasApplied(job, seeker);
+                    hasWithdrawn = applicationService.hasWithdrawn(job, seeker);
+                    if (!hasWithdrawn) {
+                        hasApplied = applicationService.hasApplied(job, seeker);
+                    }
                 } catch (Exception e) {
                     hasApplied = false;
+                    hasWithdrawn = false;
                 }
 
             }
             model.addAttribute("job", job);
             model.addAttribute("matchScore", matchScore);
             model.addAttribute("hasApplied", hasApplied);
+            model.addAttribute("hasWithdrawn", hasWithdrawn);
             if (seeker != null) {
                 activityLogger.log(seeker.getId(), seeker.getName(), seeker.getEmail(), "JOBSEEKER", ActivityType.VIEWED_JOB, "Viewed job details: " + job.getTitle());
             }

@@ -489,8 +489,8 @@ body::before {
         // Update unread count
         updateUnreadCount();
         
-        // You can add an AJAX call here to mark as read on server
-        // fetch('/api/notifications/mark-read/' + notificationId, { method: 'POST' });
+        // Call server to mark as read
+        fetch('${pageContext.request.contextPath}/notifications/seen/' + notificationId, { method: 'GET' });
     }
     
     function markAllAsRead() {
@@ -558,5 +558,6 @@ body::before {
         });
     });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

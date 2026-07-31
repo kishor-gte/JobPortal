@@ -424,6 +424,12 @@ body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);padding:32px;}
     <div class="sidebar-actions">
 
         <c:choose>
+            <c:when test="${hasWithdrawn}">
+                <button type="button" class="sidebar-btn apply-btn" disabled style="background-color: #6b7280; cursor: not-allowed; opacity: 0.8; border-color: #6b7280;">
+                    <i class="fas fa-times-circle"></i>
+                    Withdrawn
+                </button>
+            </c:when>
             <c:when test="${hasApplied}">
                 <button type="button" class="sidebar-btn apply-btn" disabled style="background-color: #6c757d; cursor: not-allowed; opacity: 0.8;">
 
@@ -667,6 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
 

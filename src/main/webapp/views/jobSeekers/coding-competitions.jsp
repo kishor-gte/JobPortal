@@ -650,5 +650,6 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

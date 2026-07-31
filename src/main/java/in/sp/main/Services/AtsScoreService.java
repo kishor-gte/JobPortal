@@ -15,9 +15,21 @@ public class AtsScoreService {
     public ResumeAnalysisResponse analyzeResume(String resumeText) {
         ResumeAnalysisResponse response = new ResumeAnalysisResponse();
         
-        if (resumeText == null || resumeText.trim().isEmpty()) {
+        if (resumeText == null || resumeText.trim().length() < 50) {
             response.setSuccess(false);
-            response.setErrorMessage("Could not extract text from the resume. The file may be empty or an image-based PDF.");
+            response.setErrorMessage("The provided document is too short to be a valid resume. Please upload a detailed resume.");
+            return response;
+        }
+
+        String lowerText = resumeText.toLowerCase();
+        boolean hasCommonKeywords = lowerText.contains("education") || lowerText.contains("experience") || 
+                                    lowerText.contains("skills") || lowerText.contains("project") || 
+                                    lowerText.contains("work") || lowerText.contains("university") ||
+                                    lowerText.contains("college") || lowerText.contains("employment");
+        
+        if (!hasCommonKeywords) {
+            response.setSuccess(false);
+            response.setErrorMessage("This document does not appear to be a valid resume. Ensure it contains standard sections like Education, Experience, or Skills.");
             return response;
         }
 

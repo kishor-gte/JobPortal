@@ -345,7 +345,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
             <div>
-                <h2 class="mb-1"><i class="fas fa-calendar-check me-2"></i>My Booked Services</h2>
+                <h2 class="mb-1"><i class="fas fa-calendar-check me-2"></i> My Booked Services</h2>
                 <p class="mb-0">Manage and track your sports service bookings</p>
             </div>
             <a href="${pageContext.request.contextPath}/recruiter/dashboard" class="btn-outline-primary">
@@ -643,5 +643,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

@@ -486,5 +486,6 @@
         // Set minimum date to today
         document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

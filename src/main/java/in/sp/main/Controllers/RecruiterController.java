@@ -410,6 +410,7 @@ public class RecruiterController {
     public String updateApplicantStatus(@PathVariable Long id,
             @RequestParam("status") ApplicationStatus status,
             @RequestParam(value = "interviewDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime interviewDate,
+            @RequestParam(value = "hrLink", required = false) String hrLink,
             HttpSession session) {
 
         JobApplication application = applicationService.findById(id);
@@ -419,8 +420,12 @@ public class RecruiterController {
         // INTERVIEW SCHEDULING
         if (status == ApplicationStatus.INTERVIEW_SCHEDULED && interviewDate != null) {
             application.setInterviewDate(interviewDate);
+            if (hrLink != null && !hrLink.isEmpty()) {
+                application.setHrLink(hrLink);
+            }
         } else {
             application.setInterviewDate(null);
+            application.setHrLink(null);
         }
 
         // SCHEDULE ASSESSMENT → CREATE ASSESSMENT INVITE
@@ -463,6 +468,9 @@ public class RecruiterController {
                 String formatted = dt.format(DateTimeFormatter.ofPattern("dd MMM yyyy 'at' hh:mm a"));
                 message = "Your job application has moved forward for the company " + company +
                         " for the role of " + role + ".\nYour interview is scheduled on " + formatted + ".";
+                if (jobApplication.getHrLink() != null && !jobApplication.getHrLink().isEmpty()) {
+                    message += "\nMeeting Link: " + jobApplication.getHrLink();
+                }
                 break;
             case REJECTED:
                 message = "Unfortunately, your application for the role of " + role +

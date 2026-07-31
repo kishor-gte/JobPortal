@@ -890,7 +890,7 @@
 
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-                <div class="sidebar" id="sidebar">
+                    <div class="sidebar" id="mainSidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -1073,6 +1073,7 @@
             setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
 

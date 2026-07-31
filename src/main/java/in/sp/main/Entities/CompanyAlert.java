@@ -32,7 +32,7 @@ public class CompanyAlert {
     // Scam / Fake Hiring / Toxic / Money Asked / Ghosting / MLM / Other
 
     private String roleMentioned; // if any
-    private boolean interviewAttended; // true / false / not sure
+    private Boolean interviewAttended; // true / false / not sure
 
     // === Reporter Info (Optional) ===
     private String reporterName;
@@ -110,10 +110,10 @@ public class CompanyAlert {
 	public void setRoleMentioned(String roleMentioned) {
 		this.roleMentioned = roleMentioned;
 	}
-	public boolean isInterviewAttended() {
+	public Boolean isInterviewAttended() {
 		return interviewAttended;
 	}
-	public void setInterviewAttended(boolean interviewAttended) {
+	public void setInterviewAttended(Boolean interviewAttended) {
 		this.interviewAttended = interviewAttended;
 	}
 	public String getReporterName() {

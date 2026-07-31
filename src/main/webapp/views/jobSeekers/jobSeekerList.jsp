@@ -279,5 +279,6 @@ ${fn:substring(jobSeeker.name,0,1)}
 
 </div>
 
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

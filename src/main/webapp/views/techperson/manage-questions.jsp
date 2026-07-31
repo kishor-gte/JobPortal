@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -863,7 +863,7 @@
 
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-        <div class="sidebar" id="sidebar">
+            <div class="sidebar" id="mainSidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -1060,7 +1060,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
+            const sidebar = document.getElementById('mainSidebar');
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const overlay = document.getElementById('mobileOverlay');
 
@@ -1092,7 +1092,9 @@
             });
         });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
+
 
 

@@ -652,6 +652,7 @@
         });
     });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
 

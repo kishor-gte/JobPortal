@@ -751,7 +751,7 @@
             document.body.classList.add('light-mode');
         }
     </script>
-                    <div class="sidebar" id="sidebar">
+                        <div class="sidebar" id="mainSidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -800,9 +800,6 @@
         </div>
         <div class="nav-section">
             <h4>Account</h4>
-            <a href="${pageContext.request.contextPath}/tech/profile" class="nav-link">
-                <i class="fas fa-user"></i> Profile
-            </a>
             <a href="${pageContext.request.contextPath}/tech/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
@@ -1020,6 +1017,7 @@
             updateThemeIcon();
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 
 </html>

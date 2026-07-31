@@ -484,6 +484,8 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: inline-block;
+            white-space: nowrap;
         }
 
         .role-ADMIN {
@@ -1170,5 +1172,6 @@
             performSearch();
         });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

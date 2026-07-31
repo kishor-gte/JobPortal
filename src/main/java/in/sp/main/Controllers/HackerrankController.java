@@ -307,7 +307,7 @@ public class HackerrankController {
         model.addAttribute("user", user);
         model.addAttribute("jobSeeker", user);
         try {
-            model.addAttribute("interviews", interviewDAO.findByStudentId(user.getId()));
+            model.addAttribute("interviews", getAndExpireInterviews(interviewDAO.findByStudentId(user.getId())));
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("interviews", new java.util.ArrayList<>());
@@ -855,7 +855,7 @@ public class HackerrankController {
         
         java.util.List<in.sp.main.Entities.MockInterview> allInterviews = new java.util.ArrayList<>();
         try {
-            allInterviews = interviewDAO.findAll();
+            allInterviews = getAndExpireInterviews(interviewDAO.findAll());
             model.addAttribute("interviews", allInterviews);
         } catch (Exception e) {
             e.printStackTrace();
@@ -891,7 +891,7 @@ public class HackerrankController {
         model.addAttribute("company", company);
         model.addAttribute("students", jobSeekerRepository.findAll());
         try {
-            model.addAttribute("interviews", interviewDAO.findAll());
+            model.addAttribute("interviews", getAndExpireInterviews(interviewDAO.findAll()));
         } catch (Exception e) {
              e.printStackTrace();
              model.addAttribute("interviews", new java.util.ArrayList<>());
@@ -1075,6 +1075,10 @@ public class HackerrankController {
         if (user == null) return "redirect:/jobSeekers/login";
         
         List<JobApplication> apps = jobApplicationRepository.findByJobSeekerWithJobAndCompany(user);
+        apps = apps.stream()
+                .filter(app -> app.getStatus() != in.sp.main.Enums.ApplicationStatus.WITHDRAWN)
+                .collect(java.util.stream.Collectors.toList());
+                
         for (JobApplication app : apps) {
             if (app.getResumeScore() == null || app.getResumeScore() == 0) {
                 int matchScore = matchingService.calculateMatch(app.getJob(), user);
@@ -1457,5 +1461,51 @@ public class HackerrankController {
         response.put("performanceSummary", summary);
 
         return ResponseEntity.ok(response);
+    }
+    
+    @RequestMapping(value = "/withdraw-application", method = RequestMethod.POST)
+    public String withdrawApplication(@RequestParam Long applicationId, HttpSession session, RedirectAttributes redirectAttributes) {
+        JobSeeker user = (JobSeeker) session.getAttribute("jobSeeker");
+        if (user == null) return "redirect:/jobSeekers/login";
+        
+        java.util.Optional<in.sp.main.Entities.JobApplication> appOpt = jobApplicationRepository.findById(applicationId);
+        if (appOpt.isPresent()) {
+            in.sp.main.Entities.JobApplication app = appOpt.get();
+            if (app.getJobSeeker().getId().equals(user.getId())) {
+                app.setStatus(in.sp.main.Enums.ApplicationStatus.WITHDRAWN);
+                jobApplicationRepository.save(app);
+                redirectAttributes.addFlashAttribute("message", "Application withdrawn successfully.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Unauthorized to withdraw this application.");
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Application not found.");
+        }
+        
+        return "redirect:/hackerrank/my-applications";
+    }
+    private java.util.List<in.sp.main.Entities.MockInterview> getAndExpireInterviews(java.util.List<in.sp.main.Entities.MockInterview> interviews) {
+        if (interviews == null) return new java.util.ArrayList<>();
+        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        java.time.format.DateTimeFormatter formatter2 = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (in.sp.main.Entities.MockInterview mi : interviews) {
+            if ("SCHEDULED".equalsIgnoreCase(mi.getStatus()) && mi.getScheduledAt() != null) {
+                try {
+                    java.time.LocalDateTime scheduleDate;
+                    try {
+                        scheduleDate = java.time.LocalDateTime.parse(mi.getScheduledAt().trim(), formatter);
+                    } catch (Exception e) {
+                        scheduleDate = java.time.LocalDateTime.parse(mi.getScheduledAt().trim(), formatter2);
+                    }
+                    if (scheduleDate.isBefore(java.time.LocalDateTime.now())) {
+                        interviewDAO.updateStatus(mi.getId(), "EXPIRED");
+                        mi.setStatus("EXPIRED");
+                    }
+                } catch (Exception e) {
+                    // Ignore parse errors
+                }
+            }
+        }
+        return interviews;
     }
 }

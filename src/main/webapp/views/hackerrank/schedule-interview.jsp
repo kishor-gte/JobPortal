@@ -850,6 +850,11 @@
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <span class="status-badge status-${interview.status}">${interview.status}</span>
+                        <c:if test="${not empty interview.meetingLink}">
+                            <a href="${interview.meetingLink}" target="_blank" class="btn btn-primary btn-sm" style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                                <i class="fas fa-video"></i> Start Interview
+                            </a>
+                        </c:if>
                         <a href="${pageContext.request.contextPath}/hackerrank/interviewer/delete-interview/${interview.id}?redirect=/hackerrank/interviewer/schedule-interview" 
                            class="delete-btn" 
                            onclick="return confirm('Are you sure you want to delete this scheduled interview?')"
@@ -955,5 +960,6 @@
             }
         });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

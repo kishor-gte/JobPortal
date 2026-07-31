@@ -8,5 +8,6 @@ public enum ApplicationStatus {
     SCHEDULED_INTERVIEW,
     INTERVIEW_SCHEDULED,
     SELECTED,
-    REJECTED
+    REJECTED,
+    WITHDRAWN
 }

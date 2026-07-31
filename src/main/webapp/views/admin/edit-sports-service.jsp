@@ -617,5 +617,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <jsp:include page="/views/commons/admin_shell_end.jsp" />
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

@@ -752,7 +752,7 @@
             document.body.classList.add('light-mode');
         }
     </script>
-                    <div class="sidebar" id="sidebar">
+                        <div class="sidebar" id="mainSidebar">
         <div class="sidebar-logo">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h2>Tech Person</h2>
@@ -1583,6 +1583,7 @@
             updateThemeIcon();
         }
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 
 </html>

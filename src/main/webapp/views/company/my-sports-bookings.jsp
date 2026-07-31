@@ -507,5 +507,6 @@
     <script>
         AOS.init({ duration: 800, once: true, offset: 50 });
     </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>

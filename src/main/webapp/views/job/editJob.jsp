@@ -359,10 +359,10 @@
             </select>
 
             <label class="form-label" for="salaryMin"><i class="fas fa-rupee-sign"></i> Minimum Salary</label>
-            <input type="number" id="salaryMin" name="salaryMin" step="0.01" value="${job.salaryMin}" />
+            <input type="number" min="0" id="salaryMin" name="salaryMin" step="0.01" value="${job.salaryMin}" />
 
             <label class="form-label" for="salaryMax"><i class="fas fa-rupee-sign"></i> Maximum Salary</label>
-            <input type="number" id="salaryMax" name="salaryMax" step="0.01" value="${job.salaryMax}" />
+            <input type="number" min="0" id="salaryMax" name="salaryMax" step="0.01" value="${job.salaryMax}" />
 
             <label class="form-label" for="experienceRequired"><i class="fas fa-user-clock"></i> Experience Required (years)</label>
             <input type="number" id="experienceRequired" name="experienceRequired" value="${job.experienceRequired}" />
@@ -465,5 +465,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<jsp:include page="/views/commons/chatbot.jsp" />
 </body>
 </html>
