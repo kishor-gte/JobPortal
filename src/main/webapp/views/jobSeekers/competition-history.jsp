@@ -269,9 +269,7 @@
             </c:choose>
         </div>
     </div>
-<<<<<<< HEAD
-<jsp:include page="/views/commons/chatbot.jsp" />
-=======
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -283,6 +281,5 @@
             }
         });
     </script>
->>>>>>> d2a582581066ede991445ac5b90dfc6d09963da0
 </body>
 </html>
